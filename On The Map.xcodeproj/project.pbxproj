@@ -13,6 +13,7 @@
 		A39CF5A51CCAB1390060C890 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A39CF5A31CCAB1390060C890 /* Main.storyboard */; };
 		A39CF5A71CCAB1390060C890 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A39CF5A61CCAB1390060C890 /* Assets.xcassets */; };
 		A39CF5AA1CCAB1390060C890 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A39CF5A81CCAB1390060C890 /* LaunchScreen.storyboard */; };
+		A3E8C8C61CED078A0040770A /* Magic.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8C8C51CED078A0040770A /* Magic.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		A39CF5A61CCAB1390060C890 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A39CF5A91CCAB1390060C890 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A39CF5AB1CCAB1390060C890 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A3E8C8C51CED078A0040770A /* Magic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Magic.swift; path = Magic/Magic.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 		A39CF59C1CCAB1390060C890 /* On The Map */ = {
 			isa = PBXGroup;
 			children = (
+				A3E8C8C51CED078A0040770A /* Magic.swift */,
 				A39CF59D1CCAB1390060C890 /* AppDelegate.swift */,
 				A39CF59F1CCAB1390060C890 /* FirstViewController.swift */,
 				A39CF5A11CCAB1390060C890 /* SecondViewController.swift */,
@@ -159,6 +162,7 @@
 				A39CF5A21CCAB1390060C890 /* SecondViewController.swift in Sources */,
 				A39CF59E1CCAB1390060C890 /* AppDelegate.swift in Sources */,
 				A39CF5A01CCAB1390060C890 /* FirstViewController.swift in Sources */,
+				A3E8C8C61CED078A0040770A /* Magic.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

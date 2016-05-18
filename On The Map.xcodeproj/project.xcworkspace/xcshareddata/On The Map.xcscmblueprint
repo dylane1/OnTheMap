@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "69FDC1A552FFE5368225E70CC0DF622B6F8DDB2E",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "1DD020817609BAA3E8009336D558EA439C485EDA" : 0,
+    "69FDC1A552FFE5368225E70CC0DF622B6F8DDB2E" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "9C6B6B64-18C8-4933-92C2-2485F4689B54",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "1DD020817609BAA3E8009336D558EA439C485EDA" : "On%20The%20Map\/On%20The%20Map\/Magic\/",
+    "69FDC1A552FFE5368225E70CC0DF622B6F8DDB2E" : "On%20The%20Map\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "On The Map",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "On The Map.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:dylane1\/Magic.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "1DD020817609BAA3E8009336D558EA439C485EDA"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "bitbucket.org:dylane1\/on-the-map.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "69FDC1A552FFE5368225E70CC0DF622B6F8DDB2E"
+    }
+  ]
+}
