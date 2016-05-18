@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="737-cp-hZQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="737-cp-hZQ">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -44,7 +44,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KRo-jc-0dD">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ruid_locationListTableCell" id="KRo-jc-0dD">
                                 <rect key="frame" x="0.0" y="92" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KRo-jc-0dD" id="CYD-Yc-0GK">
@@ -60,15 +60,18 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="EJn-pf-rjE"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <segue destination="eiV-TO-wEi" kind="show" identifier="seg_locationDetail" id="Ogu-Kt-mi7"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DLU-UI-cxk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1242" y="360"/>
         </scene>
-        <!--View Controller-->
+        <!--Location Detail-->
         <scene sceneID="sGN-HZ-3fV">
             <objects>
-                <viewController id="eiV-TO-wEi" sceneMemberID="viewController">
+                <viewController title="Location Detail" id="eiV-TO-wEi" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="rXf-bT-OFq"/>
                         <viewControllerLayoutGuide type="bottom" id="Huy-uW-ae3"/>
@@ -99,7 +102,7 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
-                        <segue destination="49e-Tb-3d3" kind="show" id="8rf-5I-W0K"/>
+                        <segue destination="49e-Tb-3d3" kind="show" identifier="seg_loginComplete" id="8rf-5I-W0K"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5u0-Sp-B8b" userLabel="First Responder" sceneMemberID="firstResponder"/>
