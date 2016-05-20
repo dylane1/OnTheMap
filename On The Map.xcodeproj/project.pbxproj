@@ -13,6 +13,13 @@
 		A39CF5A51CCAB1390060C890 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A39CF5A31CCAB1390060C890 /* Main.storyboard */; };
 		A39CF5A71CCAB1390060C890 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A39CF5A61CCAB1390060C890 /* Assets.xcassets */; };
 		A39CF5AA1CCAB1390060C890 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A39CF5A81CCAB1390060C890 /* LaunchScreen.storyboard */; };
+		A3E8C8C61CED078A0040770A /* Magic.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8C8C51CED078A0040770A /* Magic.swift */; };
+		A3E8C8C81CED0CB30040770A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8C8C71CED0CB30040770A /* Constants.swift */; };
+		A3E8C8CA1CED0CC70040770A /* Typealiases.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8C8C91CED0CC70040770A /* Typealiases.swift */; };
+		A3E8C8CC1CED0CDB0040770A /* LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8C8CB1CED0CDB0040770A /* LocalizedStrings.swift */; };
+		A3E8C8CE1CED0EC00040770A /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8C8CD1CED0EC00040770A /* TabBarController.swift */; };
+		A3E8C8D01CED0EE40040770A /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8C8CF1CED0EE40040770A /* NavigationController.swift */; };
+		A3E8C8D21CED0FF70040770A /* Dynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8C8D11CED0FF70040770A /* Dynamic.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +31,13 @@
 		A39CF5A61CCAB1390060C890 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A39CF5A91CCAB1390060C890 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A39CF5AB1CCAB1390060C890 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A3E8C8C51CED078A0040770A /* Magic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Magic.swift; path = Magic/Magic.swift; sourceTree = "<group>"; };
+		A3E8C8C71CED0CB30040770A /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		A3E8C8C91CED0CC70040770A /* Typealiases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Typealiases.swift; sourceTree = "<group>"; };
+		A3E8C8CB1CED0CDB0040770A /* LocalizedStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalizedStrings.swift; sourceTree = "<group>"; };
+		A3E8C8CD1CED0EC00040770A /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		A3E8C8CF1CED0EE40040770A /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		A3E8C8D11CED0FF70040770A /* Dynamic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dynamic.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,7 +70,13 @@
 		A39CF59C1CCAB1390060C890 /* On The Map */ = {
 			isa = PBXGroup;
 			children = (
+				A3E8C8D31CED10040040770A /* Utilities */,
+				A3E8C8C71CED0CB30040770A /* Constants.swift */,
+				A3E8C8C91CED0CC70040770A /* Typealiases.swift */,
+				A3E8C8CB1CED0CDB0040770A /* LocalizedStrings.swift */,
 				A39CF59D1CCAB1390060C890 /* AppDelegate.swift */,
+				A3E8C8CD1CED0EC00040770A /* TabBarController.swift */,
+				A3E8C8CF1CED0EE40040770A /* NavigationController.swift */,
 				A39CF59F1CCAB1390060C890 /* FirstViewController.swift */,
 				A39CF5A11CCAB1390060C890 /* SecondViewController.swift */,
 				A39CF5A31CCAB1390060C890 /* Main.storyboard */,
@@ -65,6 +85,15 @@
 				A39CF5AB1CCAB1390060C890 /* Info.plist */,
 			);
 			path = "On The Map";
+			sourceTree = "<group>";
+		};
+		A3E8C8D31CED10040040770A /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				A3E8C8C51CED078A0040770A /* Magic.swift */,
+				A3E8C8D11CED0FF70040770A /* Dynamic.swift */,
+			);
+			name = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -77,6 +106,7 @@
 				A39CF5961CCAB1390060C890 /* Sources */,
 				A39CF5971CCAB1390060C890 /* Frameworks */,
 				A39CF5981CCAB1390060C890 /* Resources */,
+				A3E8C8C41CED01B30040770A /* Build Number */,
 			);
 			buildRules = (
 			);
@@ -133,14 +163,38 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		A3E8C8C41CED01B30040770A /* Build Number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Build Number";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# The following is from: http://blog.jaredsinclair.com/post/97193356620/the-best-of-all-possible-xcode-automated-build\n#\n# Set the build number to the current git commit count.\n# If we're using the Dev scheme, then we'll suffix the build\n# number with the current branch name, to make collisions\n# far less likely across feature branches.\n# Based on: http://w3facility.info/question/how-do-i-force-xcode-to-rebuild-the-info-plist-file-in-my-project-every-time-i-build-the-project/\n#\n# Updated with dSYM handling from http://yellowfeather.co.uk/blog/auto-incrementing-build-number-in-xcode-revisited/\n#\n\ngit=`sh /etc/profile; which git`\nappBuild=`\"$git\" rev-list HEAD --count`\nif [ $CONFIGURATION = \"Debug\" ]; then\nbranchName=`\"$git\" rev-parse --abbrev-ref HEAD`\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild-$branchName\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild-$branchName\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}.dSYM/Contents/Info.plist\"\nelse\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}.dSYM/Contents/Info.plist\"\nfi\necho \"Incremented the build number ${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		A39CF5961CCAB1390060C890 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3E8C8C81CED0CB30040770A /* Constants.swift in Sources */,
+				A3E8C8D21CED0FF70040770A /* Dynamic.swift in Sources */,
+				A3E8C8CE1CED0EC00040770A /* TabBarController.swift in Sources */,
 				A39CF5A21CCAB1390060C890 /* SecondViewController.swift in Sources */,
+				A3E8C8CA1CED0CC70040770A /* Typealiases.swift in Sources */,
+				A3E8C8D01CED0EE40040770A /* NavigationController.swift in Sources */,
 				A39CF59E1CCAB1390060C890 /* AppDelegate.swift in Sources */,
+				A3E8C8CC1CED0CDB0040770A /* LocalizedStrings.swift in Sources */,
 				A39CF5A01CCAB1390060C890 /* FirstViewController.swift in Sources */,
+				A3E8C8C61CED078A0040770A /* Magic.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,6 +344,7 @@
 				A39CF5B01CCAB1390060C890 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
