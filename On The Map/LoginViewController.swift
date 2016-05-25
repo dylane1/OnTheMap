@@ -15,10 +15,12 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
 
         loginView = view as! LoginView
+        
+        loginView.configure()
     }
 
-    
 
+    
     /*
     // MARK: - Navigation
 

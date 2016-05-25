@@ -21,7 +21,18 @@ struct LocalizedStrings {
     }
     
     struct ButtonTitles {
+        static let login                = NSLocalizedString("buttonTitles.login", value: "Login", comment: "")
+        static let signInWithFacebook   = NSLocalizedString("buttonTitles.signInWithFacebook", value: "Sign in with Facebook", comment: "")
 //        static let ok       = NSLocalizedString("buttonTitles.ok",      value: "OK",     comment: "")
 //        static let cancel   = NSLocalizedString("buttonTitles.cancel",  value: "Cancel", comment: "")
+    }
+    
+    struct TextFieldPlaceHolders {
+        static let email    = NSLocalizedString("textFieldPlaceHolders.email", value: "Email", comment: "")
+        static let password = NSLocalizedString("textFieldPlaceHolders.password", value: "Password", comment: "")
+    }
+    
+    struct Labels {
+        static let loginToUdacity = NSLocalizedString("labels.loginToUdacity", value: "Login To Udacity", comment: "")
     }
 }
