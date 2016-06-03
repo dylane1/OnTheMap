@@ -56,6 +56,18 @@ struct Constants {
 //        static let purple       = UIColor(red: 0.294, green: 0.180, blue: 0.631, alpha: 1.00) //4B2EA1
 //        static let yellow       = UIColor(red: 0.898, green: 0.792, blue: 0.090, alpha: 1.00) //E5CA17
     }
+    
+    
+    //MARK: - Network
+    
+    struct Network {
+        static let udacityFacebookID = 365362206864879
+    }
+    
+    struct Testing {
+        static let myValidUsername = "dylan.e3@gmail.com"
+        static let myValidPassword = "*8Kjp4uGouIZ:d{*yM07l"
+    }
 //
 //    static let FontColorStringArray = [
 //        "White",
@@ -151,7 +163,7 @@ struct Constants {
 //        Constants.FontFamilyName.markerFelt
 //    ]
     
-    
+    //MARK: - Storage
     /** Storage */
     
 //    static let userDefaults = NSUserDefaults.standardUserDefaults()
