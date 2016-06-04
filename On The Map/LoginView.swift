@@ -31,7 +31,7 @@ class LoginView: UIView {
             return
         }
         if !email.isEmail { magic("not a valid email") }
-        magic("Login attempt: email: \(email); pw: \(pw)")
+//        magic("Login attempt: email: \(email); pw: \(pw)")
         
 //        loginValidator.verifyLogin(withEmail: email, password: pw)
         loginValidator.verifyLogin(withEmail: Constants.Testing.myValidUsername, password: Constants.Testing.myValidPassword)

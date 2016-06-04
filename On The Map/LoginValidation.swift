@@ -39,6 +39,10 @@ final class LoginValidation {
         request.HTTPBody = "{\"udacity\": {\"username\": \"\(email)\", \"password\": \"\(password)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
         
         let task = session.dataTaskWithRequest(request) { data, response, error in
+            
+            /**
+             LoginValidation.verifyLogin(withEmail:password:)[43]: response status code: forbidden
+             */
             let httpResponse = response as! NSHTTPURLResponse
             magic("response status code: \(NSHTTPURLResponse.localizedStringForStatusCode(httpResponse.statusCode))")
             
@@ -71,7 +75,7 @@ final class LoginValidation {
     
     
     private func parseThatJSON(jsonDict: [String : AnyObject]) {
-        magic("json: \(jsonDict)")
+//        magic("json: \(jsonDict)")
         /**
          * Sample response:
          
@@ -89,7 +93,6 @@ final class LoginValidation {
         
         /**
          * Real Response:
-         
          [
             "session": {
                 expiration = "2016-08-02T00:11:08.171300Z";
@@ -100,9 +103,20 @@ final class LoginValidation {
                 registered = 1;
             }
          ]
+         
+         * Invalid login:
+         LoginValidation.parseThatJSON[74]: json: 
+         [
+            "status": 403, 
+            "error": Account not found or invalid credentials.
+         ]
          */
         
-        
+        if jsonDict["session"] != nil {
+            magic("FUCK YEAH!")
+        } else {
+            magic("Aww shit...")
+        }
         
 //        guard let accountArray  = json["account"] as! NSArray! else {
 //            magic("accountArray isn't an array")
