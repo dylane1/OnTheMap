@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A3816D1F1D08DA6A001B55A0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3816D1E1D08DA6A001B55A0 /* MapKit.framework */; };
 		A39CF59E1CCAB1390060C890 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39CF59D1CCAB1390060C890 /* AppDelegate.swift */; };
 		A39CF5A01CCAB1390060C890 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39CF59F1CCAB1390060C890 /* FirstViewController.swift */; };
 		A39CF5A21CCAB1390060C890 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39CF5A11CCAB1390060C890 /* SecondViewController.swift */; };
@@ -20,9 +21,14 @@
 		A3E8C8CE1CED0EC00040770A /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8C8CD1CED0EC00040770A /* TabBarController.swift */; };
 		A3E8C8D01CED0EE40040770A /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8C8CF1CED0EE40040770A /* NavigationController.swift */; };
 		A3E8C8D21CED0FF70040770A /* Dynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8C8D11CED0FF70040770A /* Dynamic.swift */; };
+		A3E8C8D51CEF82EC0040770A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8C8D41CEF82EC0040770A /* LoginViewController.swift */; };
+		A3E8C8D81CEF830D0040770A /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8C8D71CEF830D0040770A /* LoginView.swift */; };
+		A3E8C8DA1CF6342B0040770A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8C8D91CF6342B0040770A /* Extensions.swift */; };
+		A3E8C8DC1CF656160040770A /* LoginValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8C8DB1CF656160040770A /* LoginValidation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A3816D1E1D08DA6A001B55A0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		A39CF59A1CCAB1390060C890 /* On The Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "On The Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A39CF59D1CCAB1390060C890 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A39CF59F1CCAB1390060C890 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -38,6 +44,10 @@
 		A3E8C8CD1CED0EC00040770A /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		A3E8C8CF1CED0EE40040770A /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		A3E8C8D11CED0FF70040770A /* Dynamic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dynamic.swift; sourceTree = "<group>"; };
+		A3E8C8D41CEF82EC0040770A /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		A3E8C8D71CEF830D0040770A /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		A3E8C8D91CF6342B0040770A /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		A3E8C8DB1CF656160040770A /* LoginValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginValidation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3816D1F1D08DA6A001B55A0 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,6 +65,7 @@
 		A39CF5911CCAB1390060C890 = {
 			isa = PBXGroup;
 			children = (
+				A3816D1E1D08DA6A001B55A0 /* MapKit.framework */,
 				A39CF59C1CCAB1390060C890 /* On The Map */,
 				A39CF59B1CCAB1390060C890 /* Products */,
 			);
@@ -74,7 +86,9 @@
 				A3E8C8C71CED0CB30040770A /* Constants.swift */,
 				A3E8C8C91CED0CC70040770A /* Typealiases.swift */,
 				A3E8C8CB1CED0CDB0040770A /* LocalizedStrings.swift */,
+				A3E8C8D91CF6342B0040770A /* Extensions.swift */,
 				A39CF59D1CCAB1390060C890 /* AppDelegate.swift */,
+				A3E8C8D61CEF82F50040770A /* Login */,
 				A3E8C8CD1CED0EC00040770A /* TabBarController.swift */,
 				A3E8C8CF1CED0EE40040770A /* NavigationController.swift */,
 				A39CF59F1CCAB1390060C890 /* FirstViewController.swift */,
@@ -94,6 +108,16 @@
 				A3E8C8D11CED0FF70040770A /* Dynamic.swift */,
 			);
 			name = Utilities;
+			sourceTree = "<group>";
+		};
+		A3E8C8D61CEF82F50040770A /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				A3E8C8D41CEF82EC0040770A /* LoginViewController.swift */,
+				A3E8C8D71CEF830D0040770A /* LoginView.swift */,
+				A3E8C8DB1CF656160040770A /* LoginValidation.swift */,
+			);
+			name = Login;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -191,10 +215,14 @@
 				A39CF5A21CCAB1390060C890 /* SecondViewController.swift in Sources */,
 				A3E8C8CA1CED0CC70040770A /* Typealiases.swift in Sources */,
 				A3E8C8D01CED0EE40040770A /* NavigationController.swift in Sources */,
+				A3E8C8D81CEF830D0040770A /* LoginView.swift in Sources */,
 				A39CF59E1CCAB1390060C890 /* AppDelegate.swift in Sources */,
+				A3E8C8DA1CF6342B0040770A /* Extensions.swift in Sources */,
 				A3E8C8CC1CED0CDB0040770A /* LocalizedStrings.swift in Sources */,
+				A3E8C8DC1CF656160040770A /* LoginValidation.swift in Sources */,
 				A39CF5A01CCAB1390060C890 /* FirstViewController.swift in Sources */,
 				A3E8C8C61CED078A0040770A /* Magic.swift in Sources */,
+				A3E8C8D51CEF82EC0040770A /* LoginViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -90,15 +90,51 @@
         <!--Login-->
         <scene sceneID="rZb-QY-fyL">
             <objects>
-                <viewController id="737-cp-hZQ" userLabel="Login" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="sb_loginVC" id="737-cp-hZQ" userLabel="Login" customClass="LoginViewController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="L5q-3h-Qan"/>
                         <viewControllerLayoutGuide type="bottom" id="4l9-e6-brv"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="PGR-7w-anm">
+                    <view key="view" contentMode="scaleToFill" id="PGR-7w-anm" customClass="LoginView" customModule="On_The_Map" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5PL-yy-Xl6">
+                                <rect key="frame" x="112" y="161" width="97" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MJe-xM-Lwb">
+                                <rect key="frame" x="112" y="205" width="97" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RPG-6F-Dnx">
+                                <rect key="frame" x="141" y="253" width="38" height="30"/>
+                                <state key="normal" title="Login"/>
+                                <connections>
+                                    <action selector="loginAction:" destination="PGR-7w-anm" eventType="touchUpInside" id="EZr-pZ-Da6"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gr7-UH-WbH">
+                                <rect key="frame" x="86" y="436" width="149" height="30"/>
+                                <state key="normal" title="Login using Facebook"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Login to Udacity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="onF-3O-xez">
+                                <rect key="frame" x="98" y="125" width="125" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <connections>
+                            <outlet property="emailField" destination="5PL-yy-Xl6" id="jld-rx-dlk"/>
+                            <outlet property="loginButton" destination="RPG-6F-Dnx" id="lZZ-9C-lNP"/>
+                            <outlet property="loginToUdacityLabel" destination="onF-3O-xez" id="g7Y-KN-Pmj"/>
+                            <outlet property="passwordField" destination="MJe-xM-Lwb" id="0Jw-V1-uRC"/>
+                            <outlet property="signInWithFacebookButton" destination="Gr7-UH-WbH" id="wOT-4c-j4v"/>
+                        </connections>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
