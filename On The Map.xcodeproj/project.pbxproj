@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A3816D1F1D08DA6A001B55A0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3816D1E1D08DA6A001B55A0 /* MapKit.framework */; };
 		A39CF59E1CCAB1390060C890 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39CF59D1CCAB1390060C890 /* AppDelegate.swift */; };
 		A39CF5A01CCAB1390060C890 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39CF59F1CCAB1390060C890 /* FirstViewController.swift */; };
 		A39CF5A21CCAB1390060C890 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39CF5A11CCAB1390060C890 /* SecondViewController.swift */; };
@@ -27,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A3816D1E1D08DA6A001B55A0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		A39CF59A1CCAB1390060C890 /* On The Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "On The Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A39CF59D1CCAB1390060C890 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A39CF59F1CCAB1390060C890 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -53,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3816D1F1D08DA6A001B55A0 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,6 +65,7 @@
 		A39CF5911CCAB1390060C890 = {
 			isa = PBXGroup;
 			children = (
+				A3816D1E1D08DA6A001B55A0 /* MapKit.framework */,
 				A39CF59C1CCAB1390060C890 /* On The Map */,
 				A39CF59B1CCAB1390060C890 /* Products */,
 			);

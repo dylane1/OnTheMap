@@ -14,18 +14,20 @@ final class LoginValidation {
         case InvalidJSON
     }
     
-    internal var udacitySuccessfulLogin: LoginSuccess?
+    private var udacitySuccessfulLogin: LoginSuccess!
     
-    internal var dataToParse: NSData? {
+    private var dataToParse: NSData? {
         didSet {
             parse(fromData: dataToParse!)
-//            do {
-//                try parse(fromData: dataToParse!)
-//            } catch {
-//                magic("error: \(error)")
-//            }
         }
     }
+    
+    //MARK: - Configuration
+    internal func configure(withSuccessClosure closure: LoginSuccess) {
+        udacitySuccessfulLogin = closure
+    }
+    
+    //MARK: - Network connect
     
     internal func verifyLogin(withEmail email: String, password: String) {
         let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
@@ -62,13 +64,14 @@ final class LoginValidation {
         task.resume()
     }
     
-    private func parse(fromData data: NSData) /*throws*/ {
+    //MARK: - Parse JSON
+    
+    private func parse(fromData data: NSData) {
         
         
         guard let jsonDict = try? NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as! [String : AnyObject] else {
             magic("INVALID JSON!!!")
             return
-//            throw Error.InvalidJSON
         }
         parseThatJSON(jsonDict)
     }
@@ -76,80 +79,56 @@ final class LoginValidation {
     
     private func parseThatJSON(jsonDict: [String : AnyObject]) {
 //        magic("json: \(jsonDict)")
-        /**
-         * Sample response:
-         
-         {
-             "account":{
-                 "registered":true,
-                 "key":"3903878747"
-             },
-             "session":{
-                 "id":"1457628510Sc18f2ad4cd3fb317fb8e028488694088",
-                 "expiration":"2015-05-10T16:48:30.760460Z"
-             }
-         }
-         */
         
-        /**
-         * Real Response:
-         [
-            "session": {
-                expiration = "2016-08-02T00:11:08.171300Z";
-                id = 1496448668S91843fdbda6e2232a715d7e82fcf19df;
-            }, 
-            "account": {
-                key = u20327308;
-                registered = 1;
-            }
-         ]
-         
-         * Invalid login:
-         LoginValidation.parseThatJSON[74]: json: 
-         [
-            "status": 403, 
-            "error": Account not found or invalid credentials.
-         ]
-         */
         
         if jsonDict["session"] != nil {
-            magic("FUCK YEAH!")
+            dispatch_async(dispatch_get_main_queue()) {
+                self.udacitySuccessfulLogin()
+            }
+            
         } else {
             magic("Aww shit...")
         }
-        
-//        guard let accountArray  = json["account"] as! NSArray! else {
-//            magic("accountArray isn't an array")
-//            return
-//        }
-//        if let registered = accountArray[0] as! NSDictionary {
-//            
-//        }
-//        
-//        if registered["registered"] == true {
-//            magic("FUCK YEAH!")
-//        } else {
-//            magic("Aww shit...")
-//        }
-//        
-//        if inAppArray.count > 0 {
-//            let inAppReceipt = inAppArray[0] as! NSDictionary
-//            
-//            //TODO: Do a more robust check... Matching IDs might not be sufficient
-//            
-//            if let productIDStringFromJSON = inAppReceipt["product_id"] as? String, productIDString = getProductIDString() as String! {
-//                if productIDStringFromJSON == productIDString {
-//                    unlockProWithID(productIDString)
-//                    didVerifyReceipt?(self)
-//                } else {
-//                    lockPro()
-//                    didVerifyReceipt?(self)//This should reset buttons to default
-//                }
-//            }
-//        }
     }
-    
 }
+
+
+
+/**
+ * Sample response:
+ 
+ {
+ "account":{
+ "registered":true,
+ "key":"3903878747"
+ },
+ "session":{
+ "id":"1457628510Sc18f2ad4cd3fb317fb8e028488694088",
+ "expiration":"2015-05-10T16:48:30.760460Z"
+ }
+ }
+ */
+
+/**
+ * Real Response:
+ [
+ "session": {
+ expiration = "2016-08-02T00:11:08.171300Z";
+ id = 1496448668S91843fdbda6e2232a715d7e82fcf19df;
+ },
+ "account": {
+ key = u20327308;
+ registered = 1;
+ }
+ ]
+ 
+ * Invalid login:
+ LoginValidation.parseThatJSON[74]: json:
+ [
+ "status": 403,
+ "error": Account not found or invalid credentials.
+ ]
+ */ 
 
 
 

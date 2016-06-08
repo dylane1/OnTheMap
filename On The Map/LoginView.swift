@@ -9,7 +9,8 @@
 import UIKit
 
 class LoginView: UIView {
-
+    private var udacitySuccessfulLogin: LoginSuccess!
+    
     private lazy var loginValidator = LoginValidation()
     
     //MARK: - IBOutlets
@@ -32,15 +33,17 @@ class LoginView: UIView {
         }
         if !email.isEmail { magic("not a valid email") }
 //        magic("Login attempt: email: \(email); pw: \(pw)")
-        
-//        loginValidator.verifyLogin(withEmail: email, password: pw)
+
+        loginValidator.configure(withSuccessClosure: udacitySuccessfulLogin)
         loginValidator.verifyLogin(withEmail: Constants.Testing.myValidUsername, password: Constants.Testing.myValidPassword)
     }
     
     //MARK: - Configuration
     
-    internal func configure() {
+    internal func configure(withSuccessClosure closure: LoginSuccess) {
         backgroundColor = Constants.ColorScheme.orange
+        udacitySuccessfulLogin = closure
+        
         configureStrings()
     }
     
