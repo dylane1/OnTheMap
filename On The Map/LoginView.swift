@@ -27,11 +27,11 @@ class LoginView: UIView {
     //MARK: - Actions
     
     @IBAction func loginAction(sender: AnyObject) {
-        guard let email = emailField.text as String! where email != "", let pw = passwordField.text as String! where pw != "" else {
-            magic("empty field")
-            return
-        }
-        if !email.isEmail { magic("not a valid email") }
+//        guard let email = emailField.text as String! where email != "", let pw = passwordField.text as String! where pw != "" else {
+//            magic("empty field")
+//            return
+//        }
+//        if !email.isEmail { magic("not a valid email") }
 //        magic("Login attempt: email: \(email); pw: \(pw)")
 
         loginValidator.configure(withSuccessClosure: udacitySuccessfulLogin)

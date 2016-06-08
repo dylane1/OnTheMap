@@ -87,7 +87,8 @@ final class LoginValidation {
             }
             
         } else {
-            magic("Aww shit...")
+            magic("Invalid login")
+            //TODO: pop alert
         }
     }
 }
