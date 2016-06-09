@@ -1,5 +1,5 @@
 //
-//  FirstViewController.swift
+//  LocationMapViewController.swift
 //  On The Map
 //
 //  Created by Dylan Edwards on 4/22/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FirstViewController: UIViewController, MapAndTableNavigationProtocol, InformationPostingPresentable {
+final class LocationMapViewController: UIViewController, MapAndTableNavigationProtocol, InformationPostingPresentable {
 
     internal var informationPostingNavController: NavigationController?
     

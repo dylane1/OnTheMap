@@ -14,8 +14,8 @@
 		A3816D2B1D09DE14001B55A0 /* InformationPostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3816D2A1D09DE14001B55A0 /* InformationPostingView.swift */; };
 		A3816D2D1D09E46B001B55A0 /* MapAndTableNavigationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3816D2C1D09E46B001B55A0 /* MapAndTableNavigationProtocol.swift */; };
 		A39CF59E1CCAB1390060C890 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39CF59D1CCAB1390060C890 /* AppDelegate.swift */; };
-		A39CF5A01CCAB1390060C890 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39CF59F1CCAB1390060C890 /* FirstViewController.swift */; };
-		A39CF5A21CCAB1390060C890 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39CF5A11CCAB1390060C890 /* SecondViewController.swift */; };
+		A39CF5A01CCAB1390060C890 /* LocationMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39CF59F1CCAB1390060C890 /* LocationMapViewController.swift */; };
+		A39CF5A21CCAB1390060C890 /* LocationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39CF5A11CCAB1390060C890 /* LocationTableViewController.swift */; };
 		A39CF5A51CCAB1390060C890 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A39CF5A31CCAB1390060C890 /* Main.storyboard */; };
 		A39CF5A71CCAB1390060C890 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A39CF5A61CCAB1390060C890 /* Assets.xcassets */; };
 		A39CF5AA1CCAB1390060C890 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A39CF5A81CCAB1390060C890 /* LaunchScreen.storyboard */; };
@@ -41,8 +41,8 @@
 		A3816D2C1D09E46B001B55A0 /* MapAndTableNavigationProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapAndTableNavigationProtocol.swift; sourceTree = "<group>"; };
 		A39CF59A1CCAB1390060C890 /* On The Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "On The Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A39CF59D1CCAB1390060C890 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A39CF59F1CCAB1390060C890 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		A39CF5A11CCAB1390060C890 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		A39CF59F1CCAB1390060C890 /* LocationMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMapViewController.swift; sourceTree = "<group>"; };
+		A39CF5A11CCAB1390060C890 /* LocationTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTableViewController.swift; sourceTree = "<group>"; };
 		A39CF5A41CCAB1390060C890 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A39CF5A61CCAB1390060C890 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A39CF5A91CCAB1390060C890 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -85,7 +85,7 @@
 		A3816D211D08E81C001B55A0 /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				A39CF59F1CCAB1390060C890 /* FirstViewController.swift */,
+				A39CF59F1CCAB1390060C890 /* LocationMapViewController.swift */,
 			);
 			name = Map;
 			sourceTree = "<group>";
@@ -93,7 +93,7 @@
 		A3816D221D08E82B001B55A0 /* Table */ = {
 			isa = PBXGroup;
 			children = (
-				A39CF5A11CCAB1390060C890 /* SecondViewController.swift */,
+				A39CF5A11CCAB1390060C890 /* LocationTableViewController.swift */,
 			);
 			name = Table;
 			sourceTree = "<group>";
@@ -260,7 +260,7 @@
 				A3E8C8D21CED0FF70040770A /* Dynamic.swift in Sources */,
 				A3816D2B1D09DE14001B55A0 /* InformationPostingView.swift in Sources */,
 				A3E8C8CE1CED0EC00040770A /* TabBarController.swift in Sources */,
-				A39CF5A21CCAB1390060C890 /* SecondViewController.swift in Sources */,
+				A39CF5A21CCAB1390060C890 /* LocationTableViewController.swift in Sources */,
 				A3E8C8CA1CED0CC70040770A /* Typealiases.swift in Sources */,
 				A3816D261D09DA70001B55A0 /* InformationPostingPresentable.swift in Sources */,
 				A3E8C8D01CED0EE40040770A /* NavigationController.swift in Sources */,
@@ -272,7 +272,7 @@
 				A3E8C8CC1CED0CDB0040770A /* LocalizedStrings.swift in Sources */,
 				A3E8C8DC1CF656160040770A /* LoginValidation.swift in Sources */,
 				A3816D241D08E866001B55A0 /* MapAndTableNavigationController.swift in Sources */,
-				A39CF5A01CCAB1390060C890 /* FirstViewController.swift in Sources */,
+				A39CF5A01CCAB1390060C890 /* LocationMapViewController.swift in Sources */,
 				A3E8C8C61CED078A0040770A /* Magic.swift in Sources */,
 				A3E8C8D51CEF82EC0040770A /* LoginViewController.swift in Sources */,
 			);

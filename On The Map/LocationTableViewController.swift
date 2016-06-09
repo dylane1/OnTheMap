@@ -1,5 +1,5 @@
 //
-//  SecondViewController.swift
+//  LocationTableViewController.swift
 //  On The Map
 //
 //  Created by Dylan Edwards on 4/22/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SecondViewController: UIViewController {
+class LocationTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
