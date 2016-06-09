@@ -31,7 +31,7 @@ struct Constants {
     
     struct SegueID {
         static let loginComplete = "seg_loginComplete"
-        static let locationDetail = "seg_locationDetail"
+//        static let locationDetail = "seg_locationDetail"
     }
     
     

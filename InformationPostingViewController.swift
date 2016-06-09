@@ -8,12 +8,17 @@
 
 import UIKit
 
-class InformationPostingViewController: UIViewController {
+class InformationPostingViewController: UIViewController, InformationPostingNavigationProtocol {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        let navController = navigationController! as! NavigationController
+        navController.setNavigationBarAttributes(isAppTitle: false)
+        
+        title = LocalizedStrings.ViewControllerTitles.whereAreYou
+        
+        configureNavigationItems()
     }
 
     override func didReceiveMemoryWarning() {

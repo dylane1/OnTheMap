@@ -226,7 +226,7 @@
         <!--Info Posting Nav Controller-->
         <scene sceneID="xHx-uH-sTb">
             <objects>
-                <navigationController storyboardIdentifier="sb_infoPostingNavController" automaticallyAdjustsScrollViewInsets="NO" id="jlt-ph-fsc" userLabel="Info Posting Nav Controller" customClass="NavigationController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="sb_infoPostingNavController" automaticallyAdjustsScrollViewInsets="NO" id="jlt-ph-fsc" userLabel="Info Posting Nav Controller" customClass="InformationPostingNavigationController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="YhA-vA-p4J">
