@@ -33,7 +33,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1282" y="-320"/>
+            <point key="canvasLocation" x="1242" y="-320"/>
         </scene>
         <!--Table View Controller-->
         <scene sceneID="jVD-ec-Np9">
@@ -85,7 +85,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cdO-kO-Tr7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1760" y="360"/>
+            <point key="canvasLocation" x="1831" y="-19"/>
         </scene>
         <!--Login-->
         <scene sceneID="rZb-QY-fyL">
@@ -143,7 +143,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5u0-Sp-B8b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-236" y="0.0"/>
+            <point key="canvasLocation" x="-117" y="5"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -163,12 +163,32 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="228" y="0.0"/>
+            <point key="canvasLocation" x="316" y="5"/>
+        </scene>
+        <!--Information Posting View Controller-->
+        <scene sceneID="jU3-ki-IJ2">
+            <objects>
+                <viewController storyboardIdentifier="sb_infoPostingVC" id="Z8F-Q2-aHg" customClass="InformationPostingViewController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="rAX-1c-jnb"/>
+                        <viewControllerLayoutGuide type="bottom" id="cHZ-iY-plp"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="0Py-in-vSX">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="GZc-Az-hZX"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HO6-8W-ekw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1242" y="-889"/>
         </scene>
         <!--First-->
         <scene sceneID="tVp-aY-aQ9">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jM2-17-hZf" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jM2-17-hZf" customClass="MapAndTableNavigationController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="First" image="first" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="cMY-Mr-EfZ">
@@ -187,7 +207,7 @@
         <!--Second-->
         <scene sceneID="Tui-hK-4OH">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="w00-ic-B24" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="w00-ic-B24" customClass="MapAndTableNavigationController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Second" image="second" id="cPa-gy-q4n"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="oDL-8c-rZD">
@@ -202,6 +222,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b1W-Zl-xvp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="750" y="360"/>
+        </scene>
+        <!--Info Posting Nav Controller-->
+        <scene sceneID="xHx-uH-sTb">
+            <objects>
+                <navigationController storyboardIdentifier="sb_infoPostingNavController" automaticallyAdjustsScrollViewInsets="NO" id="jlt-ph-fsc" userLabel="Info Posting Nav Controller" customClass="NavigationController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YhA-vA-p4J">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Z8F-Q2-aHg" kind="relationship" relationship="rootViewController" id="TwF-TU-bIA"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mam-Sn-HIP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="745" y="-889"/>
         </scene>
     </scenes>
     <resources>

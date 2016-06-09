@@ -16,8 +16,8 @@ struct Constants {
 //        static let fontListTableVC          = "sb_fontListTableVC"
 //        static let fontColorSelectionVC     = "sb_fontColorSelectionVC"
 //        static let sentMemesVC              = "sb_sentMemesVC"
-//        static let memesEditorNavController = "sb_memesEditorNavController"
-//        static let memesEditorVC            = "sb_memesEditorVC"
+        static let infoPostingNavController = "sb_infoPostingNavController"
+        static let infoPostingVC            = "sb_infoPostingVC"
 //        static let emptyDataSetVC           = "sb_emptyDataSetVC"
     }
     

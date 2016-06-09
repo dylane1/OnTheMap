@@ -8,11 +8,20 @@
 
 import UIKit
 
-class FirstViewController: UIViewController {
+class FirstViewController: UIViewController, MapAndTableNavigationProtocol, InformationPostingPresentable {
 
+    internal var informationPostingNavController: NavigationController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        /** Set special font for the app title */
+        let navController = navigationController! as! NavigationController
+        navController.setNavigationBarAttributes(isAppTitle: true)
+        
+        title = LocalizedStrings.ViewControllerTitles.onTheMap
+        
+        configureNavigationItems()
     }
 
     override func didReceiveMemoryWarning() {

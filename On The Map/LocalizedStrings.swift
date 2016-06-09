@@ -10,7 +10,7 @@ import Foundation
 
 struct LocalizedStrings {
     struct ViewControllerTitles {
-        
+        static let onTheMap = NSLocalizedString("buttonTitles.onTheMap", value: "On The Map", comment: "")
     }
     
     struct NavigationControllerButtons {
