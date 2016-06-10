@@ -30,7 +30,7 @@ class LoginViewController: UIViewController {
         appModel = AppModel()
         
         //TODO: For testing nav, set to true
-        appModel.isLoggedInViaFacebook = true
+//        appModel.isLoggedInViaFacebook = true
     }
 
 
