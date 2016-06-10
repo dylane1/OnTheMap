@@ -10,10 +10,12 @@ import Foundation
 
 struct LocalizedStrings {
     struct ViewControllerTitles {
-        
+        static let onTheMap = NSLocalizedString("titles.onTheMap", value: "On The Map", comment: "")
+        static let whereAreYou  = NSLocalizedString("titles.whereAreYou", value: "Where Are You Today?", comment: "")
     }
     
     struct NavigationControllerButtons {
+        static let logout = NSLocalizedString("navBarButtons.logout", value: "Logout", comment: "")
 //        static let save     = NSLocalizedString("navBarButtons.save",   value: "Save",      comment: "")
 //        static let clear    = NSLocalizedString("navBarButtons.clear",  value: "Clear",     comment: "")
 //        static let cancel   = NSLocalizedString("navBarButtons.cancel", value: "Cancel",    comment: "")
