@@ -21,7 +21,8 @@ final class LocationTableViewController: UITableViewController, MapAndTableNavig
         
         title = LocalizedStrings.ViewControllerTitles.onTheMap
         
-        configureNavigationItems()
+        let tabBar = tabBarController as! TabBarController
+        configureNavigationItems(withFacebookLoginStatus: tabBar.appModel.isLoggedInViaFacebook)
     }
 }
 

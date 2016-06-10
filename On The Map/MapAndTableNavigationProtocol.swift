@@ -18,13 +18,24 @@ extension MapAndTableNavigationProtocol where Self: UIViewController, Self: Info
         return navigationController as! MapAndTableNavigationController
     }
     
-    internal func configureNavigationItems() {
+    internal func configureNavigationItems(withFacebookLoginStatus isFB: Bool) {
         
         let addButtonClosure = { [weak self] in
             self!.informationPostingNavController = self!.getInfoPostingNavigationController()
             self!.presentViewController(self!.informationPostingNavController!, animated: true, completion: nil)
         }
-        mapAndTableNavController.configure(withAddClosure: addButtonClosure)
+        
+        let refreshButtonClosure = { [weak self] in
+            magic("Refresh data")
+        }
+        
+        var logoutButtonClosure: BarButtonClosure?
+        if isFB {
+            logoutButtonClosure = { [weak self] in
+                magic("Logout of FB")
+            }
+        }
+        mapAndTableNavController.configure(withAddClosure: addButtonClosure, refreshClosure: refreshButtonClosure, logoutClosure: logoutButtonClosure)
     }
     
 //    internal func configureDetailViewController(forMeme meme: Meme, selectedIndex: Int, segue: UIStoryboardSegue, deletionClosure: ()->Void) {

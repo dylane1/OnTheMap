@@ -15,6 +15,7 @@
 		A3816D2D1D09E46B001B55A0 /* MapAndTableNavigationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3816D2C1D09E46B001B55A0 /* MapAndTableNavigationProtocol.swift */; };
 		A3816D2F1D0A0F36001B55A0 /* InformationPostingNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3816D2E1D0A0F36001B55A0 /* InformationPostingNavigationController.swift */; };
 		A3816D311D0A2474001B55A0 /* InformationPostingNavigationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3816D301D0A2474001B55A0 /* InformationPostingNavigationProtocol.swift */; };
+		A3816D331D0B2FA4001B55A0 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3816D321D0B2FA4001B55A0 /* AppModel.swift */; };
 		A39CF59E1CCAB1390060C890 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39CF59D1CCAB1390060C890 /* AppDelegate.swift */; };
 		A39CF5A01CCAB1390060C890 /* LocationMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39CF59F1CCAB1390060C890 /* LocationMapViewController.swift */; };
 		A39CF5A21CCAB1390060C890 /* LocationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39CF5A11CCAB1390060C890 /* LocationTableViewController.swift */; };
@@ -43,6 +44,7 @@
 		A3816D2C1D09E46B001B55A0 /* MapAndTableNavigationProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapAndTableNavigationProtocol.swift; sourceTree = "<group>"; };
 		A3816D2E1D0A0F36001B55A0 /* InformationPostingNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationPostingNavigationController.swift; sourceTree = "<group>"; };
 		A3816D301D0A2474001B55A0 /* InformationPostingNavigationProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationPostingNavigationProtocol.swift; sourceTree = "<group>"; };
+		A3816D321D0B2FA4001B55A0 /* AppModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
 		A39CF59A1CCAB1390060C890 /* On The Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "On The Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A39CF59D1CCAB1390060C890 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A39CF59F1CCAB1390060C890 /* LocationMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMapViewController.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				A3E8C8CB1CED0CDB0040770A /* LocalizedStrings.swift */,
 				A3E8C8D91CF6342B0040770A /* Extensions.swift */,
 				A39CF59D1CCAB1390060C890 /* AppDelegate.swift */,
+				A3816D321D0B2FA4001B55A0 /* AppModel.swift */,
 				A3E8C8D61CEF82F50040770A /* Login */,
 				A3E8C8CD1CED0EC00040770A /* TabBarController.swift */,
 				A3E8C8CF1CED0EE40040770A /* NavigationController.swift */,
@@ -281,6 +284,7 @@
 				A3E8C8DC1CF656160040770A /* LoginValidation.swift in Sources */,
 				A3816D241D08E866001B55A0 /* MapAndTableNavigationController.swift in Sources */,
 				A39CF5A01CCAB1390060C890 /* LocationMapViewController.swift in Sources */,
+				A3816D331D0B2FA4001B55A0 /* AppModel.swift in Sources */,
 				A3E8C8C61CED078A0040770A /* Magic.swift in Sources */,
 				A3E8C8D51CEF82EC0040770A /* LoginViewController.swift in Sources */,
 			);

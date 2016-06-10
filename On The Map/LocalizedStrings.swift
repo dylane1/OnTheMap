@@ -15,6 +15,7 @@ struct LocalizedStrings {
     }
     
     struct NavigationControllerButtons {
+        static let logout = NSLocalizedString("navBarButtons.logout", value: "Logout", comment: "")
 //        static let save     = NSLocalizedString("navBarButtons.save",   value: "Save",      comment: "")
 //        static let clear    = NSLocalizedString("navBarButtons.clear",  value: "Clear",     comment: "")
 //        static let cancel   = NSLocalizedString("navBarButtons.cancel", value: "Cancel",    comment: "")

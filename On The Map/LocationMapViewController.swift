@@ -9,7 +9,9 @@
 import UIKit
 
 final class LocationMapViewController: UIViewController, MapAndTableNavigationProtocol, InformationPostingPresentable {
-
+    
+//    private var isLoggedInViaFacebook: Bool!
+    
     internal var informationPostingNavController: NavigationController?
     
     override func viewDidLoad() {
@@ -21,7 +23,8 @@ final class LocationMapViewController: UIViewController, MapAndTableNavigationPr
         
         title = LocalizedStrings.ViewControllerTitles.onTheMap
         
-        configureNavigationItems()
+        let tabBar = tabBarController as! TabBarController
+        configureNavigationItems(withFacebookLoginStatus: tabBar.appModel.isLoggedInViaFacebook)
     }
 
     override func didReceiveMemoryWarning() {

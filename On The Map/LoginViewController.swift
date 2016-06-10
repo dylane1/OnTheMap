@@ -13,6 +13,8 @@ class LoginViewController: UIViewController {
     
     private var loginSuccess: LoginSuccess!
     
+    private var appModel: AppModel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,6 +26,11 @@ class LoginViewController: UIViewController {
         loginView = view as! LoginView
         
         loginView.configure(withSuccessClosure: loginSuccess)
+        
+        appModel = AppModel()
+        
+        //TODO: For testing nav, set to true
+        appModel.isLoggedInViaFacebook = true
     }
 
 
@@ -31,10 +38,13 @@ class LoginViewController: UIViewController {
 
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == Constants.SegueID.loginComplete {
+            
+            let tabBarController = segue.destinationViewController as! TabBarController
+            
+            tabBarController.configure(withAppModel: appModel)
+        }
     }
 
     
