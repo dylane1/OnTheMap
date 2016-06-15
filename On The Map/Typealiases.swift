@@ -11,3 +11,5 @@ import UIKit
 typealias BarButtonClosure = () -> Void
 typealias BarButtonClosureWithButtonItemSource = (UIBarButtonItem) -> Void
 typealias LoginSuccess = () -> Void
+typealias GetStudentInfoArrayCompletion = ([StudentInformation]) -> Void
+typealias GetDictionaryCompletion = (NSDictionary) -> Void

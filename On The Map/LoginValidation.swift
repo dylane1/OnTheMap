@@ -30,9 +30,9 @@ final class LoginValidation {
     //MARK: - Network connect
     
     internal func verifyLogin(withEmail email: String, password: String) {
-        let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
-        
         let session = NSURLSession.sharedSession()
+        
+        let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
         
         request.HTTPMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
@@ -42,9 +42,6 @@ final class LoginValidation {
         
         let task = session.dataTaskWithRequest(request) { data, response, error in
             
-            /**
-             LoginValidation.verifyLogin(withEmail:password:)[43]: response status code: forbidden
-             */
             let httpResponse = response as! NSHTTPURLResponse
             magic("response status code: \(NSHTTPURLResponse.localizedStringForStatusCode(httpResponse.statusCode))")
             

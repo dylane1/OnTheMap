@@ -28,4 +28,7 @@ class TabBarController: UITabBarController {
     internal func configure(withAppModel model: AppModel) {
         appModel = model
     }
+    
+    //MARK: - 
+
 }
