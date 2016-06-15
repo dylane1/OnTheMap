@@ -8,10 +8,18 @@
 
 import UIKit
 
-final class LocationMapViewController: UIViewController, MapAndTableNavigationProtocol, InformationPostingPresentable {
+final class LocationMapViewController: UIViewController, MapAndTableNavigationProtocol, StudentInformationGettable, InformationPostingPresentable {
     
-//    private var isLoggedInViaFacebook: Bool!
+    /// StudentInformationGettable
+    internal var studentInformationArray: [StudentInformation]? {
+        didSet {
+            magic("infos!!! \(studentInformationArray)")
+        }
+    }
     
+    private var tabBar: TabBarController!
+    
+    /// InformationPostingPresentable
     internal var informationPostingNavController: NavigationController?
     
     override func viewDidLoad() {
@@ -23,15 +31,27 @@ final class LocationMapViewController: UIViewController, MapAndTableNavigationPr
         
         title = LocalizedStrings.ViewControllerTitles.onTheMap
         
-        let tabBar = tabBarController as! TabBarController
+        tabBar = tabBarController as! TabBarController
+        
+        /// MapAndTableNavigationProtocol
         configureNavigationItems(withFacebookLoginStatus: tabBar.appModel.isLoggedInViaFacebook)
+        
+        getStudentInfoArray()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    //MARK: - 
+    
+    private func getStudentInfoArray() {
+        let completion = { (studentInfo: [StudentInformation]) in
+            self.studentInformationArray = studentInfo
+        }
+        
+        /// StudentInformationGettable
+        getStudentInformation(withCompletion: completion)
     }
-
 
 }
+
+
+
 
