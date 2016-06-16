@@ -10,12 +10,7 @@ import UIKit
 
 final class LocationMapViewController: UIViewController, MapAndTableNavigationProtocol, StudentInformationGettable, InformationPostingPresentable {
     
-    /// StudentInformationGettable
-    internal var studentInformationArray: [StudentInformation]? {
-        didSet {
-            magic("infos!!! \(studentInformationArray)")
-        }
-    }
+    private let infoProvider = StudentInformationProvider.sharedInstance
     
     private var tabBar: TabBarController!
     
@@ -43,7 +38,7 @@ final class LocationMapViewController: UIViewController, MapAndTableNavigationPr
     
     private func getStudentInfoArray() {
         let completion = { (studentInfo: [StudentInformation]) in
-            self.studentInformationArray = studentInfo
+            self.infoProvider.studentInformationArray = studentInfo
         }
         
         /// StudentInformationGettable

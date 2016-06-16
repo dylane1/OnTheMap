@@ -8,9 +8,7 @@
 
 import UIKit
 
-protocol StudentInformationGettable {
-    var studentInformationArray: [StudentInformation]? { get set }
-}
+protocol StudentInformationGettable { }
 
 extension StudentInformationGettable where Self: UIViewController {
     private var studentInformationProvider: StudentInformationProvider {

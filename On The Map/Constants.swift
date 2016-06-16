@@ -45,7 +45,7 @@ struct Constants {
 //        static let mediumGrey   = UIColor(red: 0.409, green: 0.409, blue: 0.409, alpha: 1.00)
 //        static let darkGrey     = UIColor(red: 0.149, green: 0.149, blue: 0.149, alpha: 1.00) //262626
 //        static let darkBlueGrey = UIColor(red: 0.200, green: 0.300, blue: 0.310, alpha: 1.00) //324D4E
-//        static let black        = UIColor(red: 0.010, green: 0.010, blue: 0.010, alpha: 1.00)
+        static let black        = UIColor(red: 0.010, green: 0.010, blue: 0.010, alpha: 1.00)
 //        static let lightBlue    = UIColor(red: 0.243, green: 0.733, blue: 0.655, alpha: 1.00) //3EBBA7
 //        static let mediumBlue   = UIColor(red: 0.000, green: 0.560, blue: 0.590, alpha: 1.00) //008F97
         static let darkBlue     = UIColor(red: 0.000, green: 0.455, blue: 0.478, alpha: 1.00) //00747A
