@@ -58,13 +58,7 @@ final class StudentInformationProvider {
             var studentInfoArray = [StudentInformation]()
             
             for student in jsonArray {
-                let studentInfo = StudentInformation(
-                    withFirstName: student["firstName"] as! String,
-                    lastName: student["lastName"] as! String,
-                    latitude: student["latitude"] as! Double,
-                    longitude: student["longitude"] as! Double,
-                    mapString: student["mapString"] as! String,
-                    mediaURL: student["mediaURL"] as! String)
+                let studentInfo = StudentInformation(withInfoDictionary: student)
                 
                 studentInfoArray.append(studentInfo)
             }

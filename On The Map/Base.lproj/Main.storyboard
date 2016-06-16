@@ -6,15 +6,15 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Location Map View Controller-->
+        <!--Student Location Map Container View Controller-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
-                <viewController id="9pv-A4-QxB" customClass="LocationMapViewController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="9pv-A4-QxB" customClass="StudentLocationMapContainerViewController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ia1-K6-d13"/>
                         <viewControllerLayoutGuide type="bottom" id="4ug-Mw-9AY"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="tsR-hK-woN">
+                    <view key="view" contentMode="scaleToFill" id="tsR-hK-woN" customClass="StudentLocationMapContainerView" customModule="On_The_Map" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -29,6 +29,9 @@
                             <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="p3J-G4-HX5" secondAttribute="bottom" id="dPp-Bl-BsI"/>
                             <constraint firstItem="p3J-G4-HX5" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" id="q1h-Ae-XTu"/>
                         </constraints>
+                        <connections>
+                            <outlet property="mapView" destination="p3J-G4-HX5" id="dHZ-Zg-Jaq"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="C12-IS-bZi"/>
                 </viewController>
@@ -70,7 +73,6 @@
                                         <constraint firstAttribute="bottomMargin" secondItem="SCi-bj-2YK" secondAttribute="bottom" id="G5L-oV-tP8"/>
                                         <constraint firstItem="dbe-UF-uFD" firstAttribute="top" secondItem="CYD-Yc-0GK" secondAttribute="top" id="GYs-tp-QrR"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="SCi-bj-2YK" secondAttribute="trailing" id="IWd-Ve-DpL"/>
-                                        <constraint firstAttribute="bottom" secondItem="dbe-UF-uFD" secondAttribute="bottom" id="T2M-bk-4h4"/>
                                         <constraint firstItem="SCi-bj-2YK" firstAttribute="leading" secondItem="dbe-UF-uFD" secondAttribute="trailing" constant="8" id="Tag-z9-uIW"/>
                                         <constraint firstItem="SCi-bj-2YK" firstAttribute="top" secondItem="CYD-Yc-0GK" secondAttribute="topMargin" id="hkb-Yq-sZw"/>
                                         <constraint firstItem="dbe-UF-uFD" firstAttribute="leading" secondItem="CYD-Yc-0GK" secondAttribute="leading" id="whA-5X-JET"/>

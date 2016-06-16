@@ -13,6 +13,8 @@
 		A31EA48C1D132AF5005CC5B9 /* StudentLocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31EA48B1D132AF5005CC5B9 /* StudentLocationTableViewCell.swift */; };
 		A31EA48E1D132C2B005CC5B9 /* StudentLocationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31EA48D1D132C2B005CC5B9 /* StudentLocationTableViewController.swift */; };
 		A31EA4901D132CD2005CC5B9 /* StudentLocationDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31EA48F1D132CD2005CC5B9 /* StudentLocationDataSource.swift */; };
+		A31EA4921D13477E005CC5B9 /* StudentLocationMapContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31EA4911D13477E005CC5B9 /* StudentLocationMapContainerView.swift */; };
+		A31EA4941D1365D7005CC5B9 /* StudentLocationAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31EA4931D1365D7005CC5B9 /* StudentLocationAnnotation.swift */; };
 		A3816D1F1D08DA6A001B55A0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3816D1E1D08DA6A001B55A0 /* MapKit.framework */; };
 		A3816D241D08E866001B55A0 /* MapAndTableNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3816D231D08E866001B55A0 /* MapAndTableNavigationController.swift */; };
 		A3816D261D09DA70001B55A0 /* InformationPostingPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3816D251D09DA70001B55A0 /* InformationPostingPresentable.swift */; };
@@ -24,7 +26,7 @@
 		A3816D331D0B2FA4001B55A0 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3816D321D0B2FA4001B55A0 /* AppModel.swift */; };
 		A3816D371D0B6048001B55A0 /* StudentInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3816D361D0B6048001B55A0 /* StudentInformation.swift */; };
 		A39CF59E1CCAB1390060C890 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39CF59D1CCAB1390060C890 /* AppDelegate.swift */; };
-		A39CF5A01CCAB1390060C890 /* LocationMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39CF59F1CCAB1390060C890 /* LocationMapViewController.swift */; };
+		A39CF5A01CCAB1390060C890 /* StudentLocationMapContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39CF59F1CCAB1390060C890 /* StudentLocationMapContainerViewController.swift */; };
 		A39CF5A51CCAB1390060C890 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A39CF5A31CCAB1390060C890 /* Main.storyboard */; };
 		A39CF5A71CCAB1390060C890 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A39CF5A61CCAB1390060C890 /* Assets.xcassets */; };
 		A39CF5AA1CCAB1390060C890 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A39CF5A81CCAB1390060C890 /* LaunchScreen.storyboard */; };
@@ -48,6 +50,8 @@
 		A31EA48B1D132AF5005CC5B9 /* StudentLocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLocationTableViewCell.swift; sourceTree = "<group>"; };
 		A31EA48D1D132C2B005CC5B9 /* StudentLocationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLocationTableViewController.swift; sourceTree = "<group>"; };
 		A31EA48F1D132CD2005CC5B9 /* StudentLocationDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLocationDataSource.swift; sourceTree = "<group>"; };
+		A31EA4911D13477E005CC5B9 /* StudentLocationMapContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLocationMapContainerView.swift; sourceTree = "<group>"; };
+		A31EA4931D1365D7005CC5B9 /* StudentLocationAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLocationAnnotation.swift; sourceTree = "<group>"; };
 		A3816D1E1D08DA6A001B55A0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		A3816D231D08E866001B55A0 /* MapAndTableNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapAndTableNavigationController.swift; sourceTree = "<group>"; };
 		A3816D251D09DA70001B55A0 /* InformationPostingPresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InformationPostingPresentable.swift; path = ../InformationPostingPresentable.swift; sourceTree = "<group>"; };
@@ -60,7 +64,7 @@
 		A3816D361D0B6048001B55A0 /* StudentInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentInformation.swift; sourceTree = "<group>"; };
 		A39CF59A1CCAB1390060C890 /* On The Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "On The Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A39CF59D1CCAB1390060C890 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A39CF59F1CCAB1390060C890 /* LocationMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMapViewController.swift; sourceTree = "<group>"; };
+		A39CF59F1CCAB1390060C890 /* StudentLocationMapContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentLocationMapContainerViewController.swift; sourceTree = "<group>"; };
 		A39CF5A41CCAB1390060C890 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A39CF5A61CCAB1390060C890 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A39CF5A91CCAB1390060C890 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -112,7 +116,9 @@
 		A3816D211D08E81C001B55A0 /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				A39CF59F1CCAB1390060C890 /* LocationMapViewController.swift */,
+				A39CF59F1CCAB1390060C890 /* StudentLocationMapContainerViewController.swift */,
+				A31EA4911D13477E005CC5B9 /* StudentLocationMapContainerView.swift */,
+				A31EA4931D1365D7005CC5B9 /* StudentLocationAnnotation.swift */,
 			);
 			name = Map;
 			sourceTree = "<group>";
@@ -292,6 +298,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A3816D371D0B6048001B55A0 /* StudentInformation.swift in Sources */,
+				A31EA4941D1365D7005CC5B9 /* StudentLocationAnnotation.swift in Sources */,
 				A3E8C8C81CED0CB30040770A /* Constants.swift in Sources */,
 				A3816D2F1D0A0F36001B55A0 /* InformationPostingNavigationController.swift in Sources */,
 				A3E8C8D21CED0FF70040770A /* Dynamic.swift in Sources */,
@@ -315,9 +322,10 @@
 				A3816D241D08E866001B55A0 /* MapAndTableNavigationController.swift in Sources */,
 				A31EA48C1D132AF5005CC5B9 /* StudentLocationTableViewCell.swift in Sources */,
 				A31EA4891D11D752005CC5B9 /* NetworkRequestEngine.swift in Sources */,
-				A39CF5A01CCAB1390060C890 /* LocationMapViewController.swift in Sources */,
+				A39CF5A01CCAB1390060C890 /* StudentLocationMapContainerViewController.swift in Sources */,
 				A3816D331D0B2FA4001B55A0 /* AppModel.swift in Sources */,
 				A3E8C8C61CED078A0040770A /* Magic.swift in Sources */,
+				A31EA4921D13477E005CC5B9 /* StudentLocationMapContainerView.swift in Sources */,
 				A3E8C8D51CEF82EC0040770A /* LoginViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

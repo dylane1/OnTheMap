@@ -1,5 +1,5 @@
 //
-//  LocationMapViewController.swift
+//  StudentLocationMapContainerViewController.swift
 //  On The Map
 //
 //  Created by Dylan Edwards on 4/22/16.
@@ -8,11 +8,12 @@
 
 import UIKit
 
-final class LocationMapViewController: UIViewController, MapAndTableNavigationProtocol, StudentInformationGettable, InformationPostingPresentable {
+final class StudentLocationMapContainerViewController: UIViewController, MapAndTableNavigationProtocol, StudentInformationGettable, InformationPostingPresentable {
     
     private let infoProvider = StudentInformationProvider.sharedInstance
     
     private var tabBar: TabBarController!
+    private var mapContainterView: StudentLocationMapContainerView!
     
     /// InformationPostingPresentable
     internal var informationPostingNavController: NavigationController?
@@ -27,7 +28,7 @@ final class LocationMapViewController: UIViewController, MapAndTableNavigationPr
         title = LocalizedStrings.ViewControllerTitles.onTheMap
         
         tabBar = tabBarController as! TabBarController
-        
+
         /// MapAndTableNavigationProtocol
         configureNavigationItems(withFacebookLoginStatus: tabBar.appModel.isLoggedInViaFacebook)
         
@@ -39,12 +40,18 @@ final class LocationMapViewController: UIViewController, MapAndTableNavigationPr
     private func getStudentInfoArray() {
         let completion = { (studentInfo: [StudentInformation]) in
             self.infoProvider.studentInformationArray = studentInfo
+            self.configureView()
         }
         
         /// StudentInformationGettable
         getStudentInformation(withCompletion: completion)
     }
 
+    private func configureView() {
+        mapContainterView = view as! StudentLocationMapContainerView
+        
+        mapContainterView.configure(withStudentInfoArray: infoProvider.studentInformationArray!)
+    }
 }
 
 

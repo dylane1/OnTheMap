@@ -23,6 +23,7 @@ struct Constants {
     
     struct ReuseID {
         static let locationListTableCell    = "ruid_locationListTableCell"
+        static let mapAnnotation            = "ruid_mapAnnotation"
 //        static let memeListTableCell        = "ruid_memeListTableCell"
 //        static let memeListCollectionCell   = "ruid_memeListCollectionCell"
     }
