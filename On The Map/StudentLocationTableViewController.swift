@@ -20,7 +20,7 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        /** Set special font for the app title */
+        /// Set special font for the app title
         let navController = navigationController! as! NavigationController
         navController.setNavigationBarAttributes(isAppTitle: true)
         
@@ -40,8 +40,8 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
     //MARK: -
     
     private func getStudentInfoArray() {
-        let completion = { (studentInfo: [StudentInformation]) in
-            self.infoProvider.studentInformationArray = studentInfo
+        let completion = {
+            self.tableView.reloadData()
         }
         
         /// StudentInformationGettable
@@ -86,7 +86,7 @@ extension StudentLocationTableViewController {
     }
     
     override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        /** Allows the bottom cell to be fully visible when scrolled to end of list */
+        /// Allows the bottom cell to be fully visible when scrolled to end of list
         return 2
     }
     

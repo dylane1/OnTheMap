@@ -7,10 +7,7 @@
 //
 
 import Foundation
-//TODO: Make this a struct -- no need to make it a singleton because it's not storing data
-/**
- Wait… This SHOULD store the data & be a singleton, otherwise map view & table view could have different student info arrays
- */
+
 final class StudentInformationProvider {
     /// Make this a singleton
     static let sharedInstance = StudentInformationProvider()
@@ -18,16 +15,16 @@ final class StudentInformationProvider {
     
     internal var studentInformationArray: [StudentInformation]? {
         didSet {
-            //magic("infos!!! \(studentInformationArray)")
+            getStudentInfoCompletion?()
         }
     }
     
     private var networkRequestEngine = NetworkRequestEngine()
     
-    private var getStudentInfoCompletion: GetStudentInfoArrayCompletion?
+    private var getStudentInfoCompletion: (() -> Void)?
     
     //MARK: - Configuration
-    internal func configure(withCompletion completion: GetStudentInfoArrayCompletion) {
+    internal func configure(withCompletion completion: () -> Void) {
 
         getStudentInfoCompletion = completion
         
@@ -63,7 +60,7 @@ final class StudentInformationProvider {
                 studentInfoArray.append(studentInfo)
             }
             
-           self.getStudentInfoCompletion?(studentInfoArray)
+            self.studentInformationArray = studentInfoArray
 
         } else {
             magic("Something's Wrong :(")

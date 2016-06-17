@@ -9,15 +9,15 @@
 import UIKit
 import SafariServices
 
-protocol SafariViewControllerPresentable {
-    
-}
+protocol SafariViewControllerPresentable { }
 
 extension SafariViewControllerPresentable where Self: UIViewController {
     func openLinkInSafari(withURLString link: String) {
-        if let url = NSURL(string: link) {
+        if let url = NSURL(string: link) where UIApplication.sharedApplication().canOpenURL(url) {
             let vc = SFSafariViewController(URL: url, entersReaderIfAvailable: true)
             presentViewController(vc, animated: true, completion: nil)
+        } else {
+            magic("INVALID URL")
         }
     }
 }

@@ -21,7 +21,7 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        /** Set special font for the app title */
+        /// Set special font for the app title
         let navController = navigationController! as! NavigationController
         navController.setNavigationBarAttributes(isAppTitle: true)
         
@@ -38,8 +38,7 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
     //MARK: - 
     
     private func getStudentInfoArray() {
-        let completion = { (studentInfo: [StudentInformation]) in
-            self.infoProvider.studentInformationArray = studentInfo
+        let completion = {
             self.configureView()
         }
         

@@ -15,7 +15,7 @@ extension StudentInformationGettable where Self: UIViewController {
         return StudentInformationProvider.sharedInstance
     }
     
-    internal func getStudentInformation(withCompletion completion: GetStudentInfoArrayCompletion) {
+    internal func getStudentInformation(withCompletion completion: () -> Void) {
         studentInformationProvider.configure(withCompletion: completion)
     }
 }
