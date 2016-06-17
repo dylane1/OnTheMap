@@ -18,15 +18,15 @@ extension MapAndTableNavigationProtocol where Self: UIViewController, Self: Info
         return navigationController as! MapAndTableNavigationController
     }
     
-    internal func configureNavigationItems(withFacebookLoginStatus isFB: Bool) {
+    internal func configureNavigationItems(withFacebookLoginStatus isFB: Bool, refreshClosure refresh: () -> Void) {
         
         let addButtonClosure = { [weak self] in
             self!.informationPostingNavController = self!.getInfoPostingNavigationController()
             self!.presentViewController(self!.informationPostingNavController!, animated: true, completion: nil)
         }
         
-        let refreshButtonClosure = { [weak self] in
-            magic("Refresh data")
+        let refreshButtonClosure = {
+            refresh()
         }
         
         var logoutButtonClosure: BarButtonClosure?

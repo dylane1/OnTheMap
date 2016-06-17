@@ -29,8 +29,13 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
         
         tabBar = tabBarController as! TabBarController
 
+        let refreshClosure = {
+            self.mapContainterView.clearAnnotations()
+            self.getStudentInfoArray()
+        }
+        
         /// MapAndTableNavigationProtocol
-        configureNavigationItems(withFacebookLoginStatus: tabBar.appModel.isLoggedInViaFacebook)
+        configureNavigationItems(withFacebookLoginStatus: tabBar.appModel.isLoggedInViaFacebook, refreshClosure: refreshClosure)
         
         getStudentInfoArray()
     }
@@ -54,6 +59,10 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
         }
         mapContainterView.configure(withStudentInfoArray: infoProvider.studentInformationArray!, openLinkClosure: openLinkClosure)
     }
+    
+//    private func refreshMap() {
+//        
+//    }
     
     private func openLink(withURLString link: String) {
         /// SafariViewControllerPresentable

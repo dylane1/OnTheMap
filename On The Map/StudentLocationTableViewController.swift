@@ -30,11 +30,14 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
         
         tableView.delegate = self
         
+        let refreshClosure = {
+            self.getStudentInfoArray()
+        }
+        
         /// MapAndTableNavigationProtocol
-        configureNavigationItems(withFacebookLoginStatus: tabBar.appModel.isLoggedInViaFacebook)
+        configureNavigationItems(withFacebookLoginStatus: tabBar.appModel.isLoggedInViaFacebook, refreshClosure: refreshClosure)
         
         getStudentInfoArray()
-        
     }
     
     //MARK: -

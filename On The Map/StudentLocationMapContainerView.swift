@@ -13,6 +13,8 @@ class StudentLocationMapContainerView: UIView {
 
     @IBOutlet weak var mapView: MKMapView!
     
+    private var annotations = [StudentLocationAnnotation]()
+    
     private var openLinkClosure: OpenLinkClosure?
     //MARK: - Configuration
     
@@ -29,8 +31,16 @@ class StudentLocationMapContainerView: UIView {
     private func placeAnnotations(withStudentInfoArray array: [StudentInformation]) {
         for item in array {
             let annotation = StudentLocationAnnotation(title: (item.firstName + " " + item.lastName), mediaURL: item.mediaURL,locationName: item.mapString, coordinate: CLLocationCoordinate2D(latitude: item.latitude, longitude: item.longitude))
-            
-            mapView.addAnnotation(annotation)
+            annotations.append(annotation)
+        }
+
+        mapView.addAnnotations(annotations)
+    }
+    
+    internal func clearAnnotations() {
+        if annotations.count > 0 {
+            mapView.removeAnnotations(annotations)
+            annotations.removeAll()
         }
     }
 }
