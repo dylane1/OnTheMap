@@ -9,7 +9,7 @@
 import UIKit
 
 struct Constants {
-    /** Storyboard */
+    /// Storyboard
     struct StoryBoardID {
         static let main     = "Main"
         static let loginVC  = "sb_loginVC"
@@ -28,7 +28,7 @@ struct Constants {
 //        static let memeListCollectionCell   = "ruid_memeListCollectionCell"
     }
     
-    /** Segue */
+    /// Segue
     
     struct SegueID {
         static let loginComplete = "seg_loginComplete"
@@ -36,7 +36,7 @@ struct Constants {
     }
     
     
-    /** UI */
+    /// UI
     struct ColorScheme {
         static let white        = UIColor(red: 0.969, green: 0.969, blue: 0.941, alpha: 1.00) //F7F7F0
 //        static let whiteAlpha50 = UIColor(red: 0.969, green: 0.969, blue: 0.941, alpha: 0.50)
@@ -167,7 +167,7 @@ struct Constants {
 //    ]
     
     //MARK: - Storage
-    /** Storage */
+    /// Storage
     
 //    static let userDefaults = NSUserDefaults.standardUserDefaults()
 //    

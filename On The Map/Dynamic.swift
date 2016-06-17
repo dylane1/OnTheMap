@@ -6,11 +6,10 @@
 //
 
 /** 
- * Adapted from these two blog posts:
- *
- * http://five.agency/solving-the-binding-problem-with-swift/
- * http://rasic.info/bindings-generics-swift-and-mvvm/
- *
+  Adapted from these two blog posts:
+ 
+  http://five.agency/solving-the-binding-problem-with-swift/
+  http://rasic.info/bindings-generics-swift-and-mvvm/
  */
 //TODO: Can this cause retain cycles?
 
