@@ -16,12 +16,12 @@ struct StudentInformation {
     let mapString: String!
     let mediaURL: String!
     
-    init(withFirstName fn: String, lastName ln: String, latitude lat: Double, longitude lon: Double, mapString ms: String, mediaURL url: String) {
-        firstName   = fn
-        lastName    = ln
-        latitude    = lat
-        longitude   = lon
-        mapString   = ms
-        mediaURL    = url
+    init(withInfoDictionary dict: NSDictionary) {
+        firstName   = dict["firstName"] as! String
+        lastName    = dict["lastName"] as! String
+        latitude    = dict["latitude"] as! Double
+        longitude   = dict["longitude"] as! Double
+        mapString   = dict["mapString"] as! String
+        mediaURL    = dict["mediaURL"] as! String
     }
 }

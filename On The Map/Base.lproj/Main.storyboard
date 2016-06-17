@@ -3,17 +3,18 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Location Map View Controller-->
+        <!--Student Location Map Container View Controller-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
-                <viewController id="9pv-A4-QxB" customClass="LocationMapViewController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="9pv-A4-QxB" customClass="StudentLocationMapContainerViewController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ia1-K6-d13"/>
                         <viewControllerLayoutGuide type="bottom" id="4ug-Mw-9AY"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="tsR-hK-woN">
+                    <view key="view" contentMode="scaleToFill" id="tsR-hK-woN" customClass="StudentLocationMapContainerView" customModule="On_The_Map" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -28,6 +29,9 @@
                             <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="p3J-G4-HX5" secondAttribute="bottom" id="dPp-Bl-BsI"/>
                             <constraint firstItem="p3J-G4-HX5" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" id="q1h-Ae-XTu"/>
                         </constraints>
+                        <connections>
+                            <outlet property="mapView" destination="p3J-G4-HX5" id="dHZ-Zg-Jaq"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="C12-IS-bZi"/>
                 </viewController>
@@ -35,22 +39,49 @@
             </objects>
             <point key="canvasLocation" x="1242" y="-320"/>
         </scene>
-        <!--Location Table View Controller-->
+        <!--Student Location Table View Controller-->
         <scene sceneID="jVD-ec-Np9">
             <objects>
-                <tableViewController id="j0l-9S-Uxf" customClass="LocationTableViewController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="j0l-9S-Uxf" customClass="StudentLocationTableViewController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="IJG-p7-ZMg">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ruid_locationListTableCell" id="KRo-jc-0dD">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ruid_locationListTableCell" id="KRo-jc-0dD" customClass="StudentLocationTableViewCell" customModule="On_The_Map" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KRo-jc-0dD" id="CYD-Yc-0GK">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dbe-UF-uFD">
+                                            <rect key="frame" x="0.0" y="0.0" width="40" height="43"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="43" id="bJW-IR-mKY"/>
+                                                <constraint firstAttribute="width" constant="40" id="iVb-wJ-Shw"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SCi-bj-2YK">
+                                            <rect key="frame" x="48" y="8" width="264" height="27"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottomMargin" secondItem="SCi-bj-2YK" secondAttribute="bottom" id="G5L-oV-tP8"/>
+                                        <constraint firstItem="dbe-UF-uFD" firstAttribute="top" secondItem="CYD-Yc-0GK" secondAttribute="top" id="GYs-tp-QrR"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="SCi-bj-2YK" secondAttribute="trailing" id="IWd-Ve-DpL"/>
+                                        <constraint firstItem="SCi-bj-2YK" firstAttribute="leading" secondItem="dbe-UF-uFD" secondAttribute="trailing" constant="8" id="Tag-z9-uIW"/>
+                                        <constraint firstItem="SCi-bj-2YK" firstAttribute="top" secondItem="CYD-Yc-0GK" secondAttribute="topMargin" id="hkb-Yq-sZw"/>
+                                        <constraint firstItem="dbe-UF-uFD" firstAttribute="leading" secondItem="CYD-Yc-0GK" secondAttribute="leading" id="whA-5X-JET"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="iconImageView" destination="dbe-UF-uFD" id="Pqd-3S-X2K"/>
+                                    <outlet property="nameLabel" destination="SCi-bj-2YK" id="jCa-cH-8GH"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -123,7 +154,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Login to Udacity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="onF-3O-xez">
                                 <rect key="frame" x="98" y="125" width="125" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>

@@ -13,12 +13,18 @@ final class StudentInformationProvider {
     static let sharedInstance = StudentInformationProvider()
     private init() {}
     
+    internal var studentInformationArray: [StudentInformation]? {
+        didSet {
+            getStudentInfoCompletion?()
+        }
+    }
+    
     private var networkRequestEngine = NetworkRequestEngine()
     
-    private var getStudentInfoCompletion: GetStudentInfoArrayCompletion?
+    private var getStudentInfoCompletion: (() -> Void)?
     
     //MARK: - Configuration
-    internal func configure(withCompletion completion: GetStudentInfoArrayCompletion) {
+    internal func configure(withCompletion completion: () -> Void) {
 
         getStudentInfoCompletion = completion
         
@@ -49,18 +55,12 @@ final class StudentInformationProvider {
             var studentInfoArray = [StudentInformation]()
             
             for student in jsonArray {
-                let studentInfo = StudentInformation(
-                    withFirstName: student["firstName"] as! String,
-                    lastName: student["lastName"] as! String,
-                    latitude: student["latitude"] as! Double,
-                    longitude: student["longitude"] as! Double,
-                    mapString: student["mapString"] as! String,
-                    mediaURL: student["mediaURL"] as! String)
+                let studentInfo = StudentInformation(withInfoDictionary: student)
                 
                 studentInfoArray.append(studentInfo)
             }
             
-           self.getStudentInfoCompletion?(studentInfoArray)
+            self.studentInformationArray = studentInfoArray
 
         } else {
             magic("Something's Wrong :(")

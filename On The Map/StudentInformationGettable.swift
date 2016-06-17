@@ -8,16 +8,14 @@
 
 import UIKit
 
-protocol StudentInformationGettable {
-    var studentInformationArray: [StudentInformation]? { get set }
-}
+protocol StudentInformationGettable { }
 
 extension StudentInformationGettable where Self: UIViewController {
     private var studentInformationProvider: StudentInformationProvider {
         return StudentInformationProvider.sharedInstance
     }
     
-    internal func getStudentInformation(withCompletion completion: GetStudentInfoArrayCompletion) {
+    internal func getStudentInformation(withCompletion completion: () -> Void) {
         studentInformationProvider.configure(withCompletion: completion)
     }
 }

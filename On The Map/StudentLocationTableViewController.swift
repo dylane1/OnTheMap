@@ -8,14 +8,9 @@
 
 import UIKit
 
-final class StudentLocationTableViewController: UITableViewController, MapAndTableNavigationProtocol, StudentInformationGettable,InformationPostingPresentable {
+final class StudentLocationTableViewController: UITableViewController, MapAndTableNavigationProtocol, StudentInformationGettable, InformationPostingPresentable, SafariViewControllerPresentable {
     
-    /// StudentInformationGettable
-    internal var studentInformationArray: [StudentInformation]? {
-        didSet {
-            self.tableView.reloadData()
-        }
-    }
+    private let infoProvider = StudentInformationProvider.sharedInstance
     
     private var tabBar: TabBarController!
     
@@ -25,7 +20,7 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        /** Set special font for the app title */
+        /// Set special font for the app title
         let navController = navigationController! as! NavigationController
         navController.setNavigationBarAttributes(isAppTitle: true)
         
@@ -35,18 +30,21 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
         
         tableView.delegate = self
         
+        let refreshClosure = {
+            self.getStudentInfoArray()
+        }
+        
         /// MapAndTableNavigationProtocol
-        configureNavigationItems(withFacebookLoginStatus: tabBar.appModel.isLoggedInViaFacebook)
+        configureNavigationItems(withFacebookLoginStatus: tabBar.appModel.isLoggedInViaFacebook, refreshClosure: refreshClosure)
         
         getStudentInfoArray()
-        
     }
     
     //MARK: -
     
     private func getStudentInfoArray() {
-        let completion = { (studentInfo: [StudentInformation]) in
-            self.studentInformationArray = studentInfo
+        let completion = {
+            self.tableView.reloadData()
         }
         
         /// StudentInformationGettable
@@ -61,14 +59,14 @@ extension StudentLocationTableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (studentInformationArray == nil) ? 0 : studentInformationArray!.count
+        return (infoProvider.studentInformationArray == nil) ? 0 : infoProvider.studentInformationArray!.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> LocationTableViewCell {
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> StudentLocationTableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier(Constants.ReuseID.locationListTableCell, forIndexPath: indexPath) as! StudentLocationTableViewCell
-        
-        let model = SavedMemeCellModel(meme: storedMemesProvider.memeArray[indexPath.row])
+        let testImg = UIImage()
+        let model = StudentLocationCellModel(image: testImg, studentInformation: infoProvider.studentInformationArray![indexPath.row])
         
         cell.configure(withDataSource: model)
         
@@ -76,17 +74,7 @@ extension StudentLocationTableViewController {
     }
     
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            storedMemesProvider.removeMemeFromStorage(atIndex: indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-            
-            /** Reset the empty data set background, if needed */
-            configureTableView()
-        }
+        return false
     }
 }
 
@@ -95,12 +83,13 @@ extension StudentLocationTableViewController {
 extension StudentLocationTableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        selectedIndexPath = indexPath
-        performSegueWithIdentifier(Constants.SegueID.memeDetail, sender: self)
+        
+        /// SafariViewControllerPresentable
+        openLinkInSafari(withURLString: infoProvider.studentInformationArray![indexPath.row].mediaURL)
     }
     
     override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        /** Allows the bottom cell to be fully visible when scrolled to end of list */
+        /// Allows the bottom cell to be fully visible when scrolled to end of list
         return 2
     }
     
