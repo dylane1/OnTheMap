@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class StudentLocationMapContainerViewController: UIViewController, MapAndTableNavigationProtocol, StudentInformationGettable, InformationPostingPresentable {
+final class StudentLocationMapContainerViewController: UIViewController, MapAndTableNavigationProtocol, StudentInformationGettable, InformationPostingPresentable, SafariViewControllerPresentable {
     
     private let infoProvider = StudentInformationProvider.sharedInstance
     
@@ -50,7 +50,15 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
     private func configureView() {
         mapContainterView = view as! StudentLocationMapContainerView
         
-        mapContainterView.configure(withStudentInfoArray: infoProvider.studentInformationArray!)
+        let openLinkClosure = { (urlString: String) in
+            self.openLink(withURLString: urlString)
+        }
+        mapContainterView.configure(withStudentInfoArray: infoProvider.studentInformationArray!, openLinkClosure: openLinkClosure)
+    }
+    
+    private func openLink(withURLString link: String) {
+        /// SafariViewControllerPresentable
+        openLinkInSafari(withURLString: link)
     }
 }
 

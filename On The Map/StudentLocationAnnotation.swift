@@ -11,18 +11,20 @@ import Foundation
 
 final class StudentLocationAnnotation: NSObject, MKAnnotation {
     let title: String?
+    let mediaURL: String
     let locationName: String
     let coordinate: CLLocationCoordinate2D
     
-    init(title: String, locationName: String, coordinate: CLLocationCoordinate2D) {
-        self.title = title
-        self.locationName = locationName
-        self.coordinate = coordinate
+    init(title: String, mediaURL: String, locationName: String, coordinate: CLLocationCoordinate2D) {
+        self.title          = title
+        self.mediaURL       = mediaURL
+        self.locationName   = locationName
+        self.coordinate     = coordinate
         
         super.init()
     }
     
     var subtitle: String? {
-        return locationName
+        return mediaURL
     }
 }

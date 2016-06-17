@@ -7,23 +7,19 @@
 //
 
 import MapKit
-import SafariServices
 import UIKit
 
 class StudentLocationMapContainerView: UIView {
 
     @IBOutlet weak var mapView: MKMapView!
-
-//    private var studentArray: [StudentInformation]? {
-//        didSet {
-//            
-//        }
-//    }
     
+    private var openLinkClosure: OpenLinkClosure?
     //MARK: - Configuration
     
-    internal func configure(withStudentInfoArray array: [StudentInformation]) {
-        mapView.delegate = self
+    internal func configure(withStudentInfoArray array: [StudentInformation], openLinkClosure closure: OpenLinkClosure) {
+        mapView.delegate    = self
+        openLinkClosure     = closure
+        
         placeAnnotations(withStudentInfoArray: array)
     }
 
@@ -32,7 +28,7 @@ class StudentLocationMapContainerView: UIView {
     
     private func placeAnnotations(withStudentInfoArray array: [StudentInformation]) {
         for item in array {
-            let annotation = StudentLocationAnnotation(title: (item.firstName + " " + item.lastName), locationName: item.mapString, coordinate: CLLocationCoordinate2D(latitude: item.latitude, longitude: item.longitude))
+            let annotation = StudentLocationAnnotation(title: (item.firstName + " " + item.lastName), mediaURL: item.mediaURL,locationName: item.mapString, coordinate: CLLocationCoordinate2D(latitude: item.latitude, longitude: item.longitude))
             
             mapView.addAnnotation(annotation)
         }
@@ -60,8 +56,7 @@ extension StudentLocationMapContainerView: MKMapViewDelegate {
     }
     
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-//        let location = view.annotation as! Artwork
-//        let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving]
-//        location.mapItem().openInMapsWithLaunchOptions(launchOptions)
+        let annotation = view.annotation as! StudentLocationAnnotation
+        openLinkClosure?(annotation.mediaURL)
     }
 }
