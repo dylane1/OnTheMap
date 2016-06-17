@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class StudentLocationTableViewController: UITableViewController, MapAndTableNavigationProtocol, StudentInformationGettable, InformationPostingPresentable {
+final class StudentLocationTableViewController: UITableViewController, MapAndTableNavigationProtocol, StudentInformationGettable, InformationPostingPresentable, SafariViewControllerPresentable {
     
     private let infoProvider = StudentInformationProvider.sharedInstance
     
@@ -73,16 +73,6 @@ extension StudentLocationTableViewController {
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return false
     }
-    
-//    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-//        if editingStyle == .Delete {
-//            storedMemesProvider.removeMemeFromStorage(atIndex: indexPath.row)
-//            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-//            
-//            /** Reset the empty data set background, if needed */
-//            configureTableView()
-//        }
-//    }
 }
 
 
@@ -90,8 +80,9 @@ extension StudentLocationTableViewController {
 extension StudentLocationTableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//        selectedIndexPath = indexPath
-//        performSegueWithIdentifier(Constants.SegueID.memeDetail, sender: self)
+        
+        /// SafariViewControllerPresentable
+        openLinkInSafari(withURLString: infoProvider.studentInformationArray![indexPath.row].mediaURL)
     }
     
     override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
