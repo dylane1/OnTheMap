@@ -17,6 +17,7 @@ class InformationPostingView: UIView, ParseAPIRequestable {
     @IBOutlet weak var urlTextField: UITextField!
     @IBOutlet weak var bottomButton: UIButton!
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
     
     @IBOutlet weak var urlTextFieldTopConstraint: NSLayoutConstraint!
@@ -66,6 +67,7 @@ class InformationPostingView: UIView, ParseAPIRequestable {
         configurePrompt()
         configureTextFields()
         configureBottomButton()
+        configureActivityIndicator()
         
         introAnimation()
     }
@@ -107,6 +109,11 @@ class InformationPostingView: UIView, ParseAPIRequestable {
         bottomButton.setTitle(LocalizedStrings.ButtonTitles.submit, forState: .Normal)
     }
     
+    private func configureActivityIndicator() {
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.activityIndicatorViewStyle = .WhiteLarge
+    }
+    
     //MARK: - Actions
     
     @IBAction func bottomButtonAction(sender: AnyObject) {
@@ -124,6 +131,7 @@ class InformationPostingView: UIView, ParseAPIRequestable {
     }
     
     private func findLocation() {
+        activityIndicator.startAnimating()
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(locationString, completionHandler: { (placemarks: [CLPlacemark]?, error: NSError?) -> Void in
             if error != nil {
@@ -133,7 +141,7 @@ class InformationPostingView: UIView, ParseAPIRequestable {
             } else {
                 self.placemarks = placemarks
             }
-            
+            self.activityIndicator.stopAnimating()
         })
     }
     
