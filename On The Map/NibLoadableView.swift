@@ -15,3 +15,10 @@
 //        return String(self)
 //    }
 //}
+
+//extension UITableView {
+//    func register<T: UITableViewCell where T: ReusableView, T: NibLoadableView>(_: T.Type) {
+//        let nib = UINib(nibName: T.nibName, bundle: nil)
+//        registerNib(nib, forCellReuseIdentifier: T.reuseIdentifier)
+//    }
+//}

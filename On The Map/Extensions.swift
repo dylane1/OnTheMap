@@ -34,13 +34,6 @@ extension String {
 extension UITableViewCell: ReusableView { }
 extension MKAnnotationView: ReusableView { }
 
-//extension UITableView {
-//    func register<T: UITableViewCell where T: ReusableView, T: NibLoadableView>(_: T.Type) {
-//        let nib = UINib(nibName: T.nibName, bundle: nil)
-//        registerNib(nib, forCellReuseIdentifier: T.reuseIdentifier)
-//    }
-//}
-
 extension UITableView {
     func dequeueReusableCell<T: UITableViewCell where T: ReusableView>(forIndexPath indexPath: NSIndexPath) -> T {
         guard let cell = dequeueReusableCellWithIdentifier(T.reuseIdentifier, forIndexPath: indexPath) as? T else {

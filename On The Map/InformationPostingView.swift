@@ -10,12 +10,6 @@ import MapKit
 import UIKit
 
 class InformationPostingView: UIView, ParseAPIRequestable {
-    enum ProgressStatus {
-        case InvalidLocInvalidURL,
-             InvalidLocValidURL,
-             ValidLocInvalidURL,
-             ValidLocValidURL
-    }
     
     @IBOutlet weak var promptView: UIView!
     @IBOutlet weak var promptLabel: UILabel!
@@ -38,45 +32,33 @@ class InformationPostingView: UIView, ParseAPIRequestable {
         didSet {
             magic("placemarks: \(placemarks?.count)")
             if placemarks != nil {
-                switch currentStatus {
-                case .InvalidLocInvalidURL:
-                    currentStatus = .ValidLocInvalidURL
-                case .InvalidLocValidURL:
-                    currentStatus = .ValidLocValidURL
-                case .ValidLocInvalidURL:
-                    break
-                default:
-                    break
+                /// Animate the url field in
+                if urlTextField.alpha != 1.0 {
+                    animateURLTextFieldIntoView()
                 }
+                showLocationOnMap()
             }
-            /// Animate the url field in
-            if urlTextField.alpha != 1.0 {
-                animateURLTextFieldIntoView()
-            }
+            
         }
     }
     
     private var studentURL: String = "" {
         didSet {
             if studentURL.openableURL != nil {
-                switch currentStatus {
-                case .InvalidLocInvalidURL:
-                    currentStatus = .InvalidLocValidURL
-                case .InvalidLocValidURL:
-                    break
-                case .ValidLocInvalidURL:
-                    currentStatus = .ValidLocValidURL
-                default:
-                    break
+                bottomButton.enabled = true
+                if bottomButton.alpha == 0.0 {
+                    animateBottomButtonIntoView()
                 }
+            } else {
+                bottomButton.enabled = false
             }
         }
     }
-    private var currentStatus: ProgressStatus = .InvalidLocInvalidURL {
-        didSet {
-            configureBottomButton()
-        }
-    }
+//    private var currentStatus: ProgressStatus = .InvalidLocInvalidURL {
+//        didSet {
+////            configureBottomButton()
+//        }
+//    }
     
     private lazy var networkConnector = NetworkRequestEngine()
     //MARK: - Configuration
@@ -89,7 +71,7 @@ class InformationPostingView: UIView, ParseAPIRequestable {
         configureTextFields()
         configureBottomButton()
         
-//        mapView.alpha = 0
+//        mapView.delegate = self
         
         introAnimation()
     }
@@ -116,35 +98,21 @@ class InformationPostingView: UIView, ParseAPIRequestable {
         urlTextField.delegate       = self
         urlTextField.returnKeyType  = .Done
     }
-    /**
-     June 21, 2016 STOPPING POINT
-     
-     //TODO: Remove Show on map button & just show it when you get a [CLPlacemark]
-     */
-    
-    
-    
-    
+
     private func configureBottomButton() {
-        magic("currentStatus: \(currentStatus)")
-        bottomButton.titleLabel?.textAlignment = .Center
-        switch currentStatus {
-        case .ValidLocValidURL:
-            bottomButton.titleLabel?.text = LocalizedStrings.ButtonTitles.submit
-        default:
-            bottomButton.titleLabel?.text = LocalizedStrings.ButtonTitles.findOnMap
-            bottomButton.enabled = (locationString == "") ? false : true
-        }
+        bottomButton.alpha                      = 0
+        bottomButton.enabled                    = false
+        bottomButton.transform                  = CGAffineTransformMakeScale(0.5, 0.5)
+        bottomButton.backgroundColor            = Constants.ColorScheme.white
+        bottomButton.titleLabel?.textAlignment  = .Center
+        
+        bottomButton.setTitle(LocalizedStrings.ButtonTitles.submit, forState: .Normal)
     }
     
     //MARK: - Actions
     
     @IBAction func bottomButtonAction(sender: AnyObject) {
-//        if currentStatus == .NotFound {
-//            findLocation()
-//        } else {
-//            postStudentLocation()
-//        }
+
     }
     
     //MARK: - 
@@ -153,6 +121,7 @@ class InformationPostingView: UIView, ParseAPIRequestable {
         UIView.animateWithDuration(1.7, delay: 0.5, usingSpringWithDamping: 0.3, initialSpringVelocity: 0.5, options: .CurveEaseOut, animations: {
             self.promptView.transform = CGAffineTransformMakeScale(1.0, 1.0)
             self.promptView.alpha = 1.0
+            self.layoutIfNeeded()
         }, completion: nil)
     }
     
@@ -162,25 +131,42 @@ class InformationPostingView: UIView, ParseAPIRequestable {
             if error != nil {
                 magic("error: \(error?.localizedDescription)")
                 //TODO: Pop alert
-                return
+                
+            } else {
+                self.placemarks = placemarks
             }
-            self.placemarks = placemarks            
+            
         })
     }
     
     private func showLocationOnMap() {
-        if placemarks != nil {
-            
-        }
+        //TODO: Deal with multiple locations
+        let location = placemarks?[0].location
+        let regionRadius: CLLocationDistance = 54000
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location!.coordinate, regionRadius * 2.0, regionRadius * 2.0)
+        mapView.setRegion(coordinateRegion, animated: true)
+        
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = CLLocationCoordinate2D(latitude: location!.coordinate.latitude, longitude: location!.coordinate.longitude)
+        mapView.addAnnotation(annotation)
     }
     
     private func animateURLTextFieldIntoView() {
-        UIView.animateWithDuration(0.5) /*, delay: 0.5, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .CurveEaseOut, animations: */{
+        UIView.animateWithDuration(0.5, animations: {
             self.urlTextFieldTopConstraint.constant += (self.urlTextField.frame.height + 4)
             self.urlTextField.alpha = 1.0
             self.layoutIfNeeded()
-            
-        }/*, completion: nil)*/
+            }, completion: { (complete: Bool) in
+//                self.showLocationOnMap()
+            })
+    }
+    
+    private func animateBottomButtonIntoView() {
+        UIView.animateWithDuration(1.7, delay: 0.5, usingSpringWithDamping: 0.3, initialSpringVelocity: 0.5, options: .CurveEaseOut, animations: {
+            self.bottomButton.transform = CGAffineTransformMakeScale(1.0, 1.0)
+            self.bottomButton.alpha = 1.0
+            self.layoutIfNeeded()
+            }, completion: nil)
     }
     
     private func postStudentLocation() {
