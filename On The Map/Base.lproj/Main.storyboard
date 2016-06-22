@@ -48,7 +48,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ruid_locationListTableCell" id="KRo-jc-0dD" customClass="StudentLocationTableViewCell" customModule="On_The_Map" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="StudentLocationTableViewCell" id="KRo-jc-0dD" customClass="StudentLocationTableViewCell" customModule="On_The_Map" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KRo-jc-0dD" id="CYD-Yc-0GK">
@@ -204,10 +204,85 @@
                         <viewControllerLayoutGuide type="top" id="rAX-1c-jnb"/>
                         <viewControllerLayoutGuide type="bottom" id="cHZ-iY-plp"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="0Py-in-vSX">
+                    <view key="view" contentMode="scaleToFill" id="0Py-in-vSX" customClass="InformationPostingView" customModule="On_The_Map" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="5Mo-Gk-hLb">
+                                <rect key="frame" x="0.0" y="236" width="320" height="244"/>
+                            </mapView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Kh-Oo-5yH">
+                                <rect key="frame" x="0.0" y="64" width="320" height="100"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Vi-Fa-cNK">
+                                        <rect key="frame" x="8" y="8" width="304" height="84"/>
+                                        <color key="backgroundColor" red="0.85731559989999995" green="0.75666392729999998" blue="0.70629740519999995" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottomMargin" secondItem="9Vi-Fa-cNK" secondAttribute="bottom" id="J0x-Lf-5o1"/>
+                                    <constraint firstAttribute="height" constant="100" id="R8j-ew-vc3"/>
+                                    <constraint firstItem="9Vi-Fa-cNK" firstAttribute="leading" secondItem="3Kh-Oo-5yH" secondAttribute="leadingMargin" id="bYV-dF-c4Z"/>
+                                    <constraint firstItem="9Vi-Fa-cNK" firstAttribute="top" secondItem="3Kh-Oo-5yH" secondAttribute="topMargin" id="sQX-eH-JC5"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="9Vi-Fa-cNK" secondAttribute="trailing" id="vhd-xt-4Md"/>
+                                </constraints>
+                            </view>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wxo-jQ-qne">
+                                <rect key="frame" x="8" y="164" width="304" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="bottomButtonAction:" destination="0Py-in-vSX" eventType="editingDidEnd" id="RlD-k5-ELc"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vnY-Ap-dKZ">
+                                <rect key="frame" x="118" y="410" width="85" height="30"/>
+                                <color key="backgroundColor" red="0.4941176471" green="0.82745098039999998" blue="0.12941176469999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="eFU-hm-i3u"/>
+                                </constraints>
+                                <state key="normal" title="Find on map"/>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CVi-2m-YkT">
+                                <rect key="frame" x="8" y="198" width="304" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="bottomButtonAction:" destination="0Py-in-vSX" eventType="editingDidEnd" id="Dzv-Pv-GWh"/>
+                                </connections>
+                            </textField>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="5Mo-Gk-hLb" firstAttribute="top" secondItem="CVi-2m-YkT" secondAttribute="bottom" constant="8" id="2nL-Zs-Id2"/>
+                            <constraint firstItem="CVi-2m-YkT" firstAttribute="top" secondItem="Wxo-jQ-qne" secondAttribute="bottom" constant="4" id="2o8-i4-lgn"/>
+                            <constraint firstAttribute="trailing" secondItem="CVi-2m-YkT" secondAttribute="trailing" constant="8" id="2p4-bo-X6c"/>
+                            <constraint firstAttribute="trailing" secondItem="5Mo-Gk-hLb" secondAttribute="trailing" id="Ev5-sS-WtA"/>
+                            <constraint firstItem="Wxo-jQ-qne" firstAttribute="leading" secondItem="0Py-in-vSX" secondAttribute="leading" constant="8" id="FIw-t5-BCi"/>
+                            <constraint firstItem="Wxo-jQ-qne" firstAttribute="top" secondItem="3Kh-Oo-5yH" secondAttribute="bottom" id="HaL-0B-jht"/>
+                            <constraint firstItem="3Kh-Oo-5yH" firstAttribute="top" secondItem="rAX-1c-jnb" secondAttribute="bottom" id="Lg8-1P-J5N"/>
+                            <constraint firstItem="CVi-2m-YkT" firstAttribute="leading" secondItem="0Py-in-vSX" secondAttribute="leading" constant="8" id="M4u-YC-anh"/>
+                            <constraint firstAttribute="trailing" secondItem="Wxo-jQ-qne" secondAttribute="trailing" constant="8" id="aqM-AN-sNz"/>
+                            <constraint firstItem="vnY-Ap-dKZ" firstAttribute="centerX" secondItem="0Py-in-vSX" secondAttribute="centerX" id="bBs-o8-LX0"/>
+                            <constraint firstItem="5Mo-Gk-hLb" firstAttribute="leading" secondItem="0Py-in-vSX" secondAttribute="leading" id="c6L-Th-Ivp"/>
+                            <constraint firstItem="cHZ-iY-plp" firstAttribute="top" secondItem="5Mo-Gk-hLb" secondAttribute="bottom" id="mAE-An-jtT"/>
+                            <constraint firstItem="3Kh-Oo-5yH" firstAttribute="leading" secondItem="0Py-in-vSX" secondAttribute="leading" id="qUI-bN-8cL"/>
+                            <constraint firstItem="cHZ-iY-plp" firstAttribute="top" secondItem="vnY-Ap-dKZ" secondAttribute="bottom" constant="40" id="rLG-Ue-ByD"/>
+                            <constraint firstAttribute="trailing" secondItem="3Kh-Oo-5yH" secondAttribute="trailing" id="s1l-az-dZ1"/>
+                        </constraints>
+                        <connections>
+                            <outlet property="bottomButton" destination="vnY-Ap-dKZ" id="TuK-Wz-G2c"/>
+                            <outlet property="locationTextField" destination="Wxo-jQ-qne" id="fJz-6y-Gn6"/>
+                            <outlet property="mapView" destination="5Mo-Gk-hLb" id="UYT-Ab-zOu"/>
+                            <outlet property="promptLabel" destination="9Vi-Fa-cNK" id="zrf-U7-ODZ"/>
+                            <outlet property="promptView" destination="3Kh-Oo-5yH" id="lDN-hJ-g59"/>
+                            <outlet property="urlTextField" destination="CVi-2m-YkT" id="8wU-ay-tjE"/>
+                            <outlet property="urlTextFieldTopConstraint" destination="2o8-i4-lgn" id="OLv-Kz-S9z"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="GZc-Az-hZX"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>

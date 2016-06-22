@@ -9,32 +9,36 @@
 import UIKit
 
 class InformationPostingViewController: UIViewController, InformationPostingNavigationProtocol {
-
+    private var postingView: InformationPostingView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         let navController = navigationController! as! NavigationController
         navController.setNavigationBarAttributes(isAppTitle: false)
         
-        title = LocalizedStrings.ViewControllerTitles.whereAreYou
+//        title = LocalizedStrings.ViewControllerTitles.whereAreYou
         
+        configureView()
         configureNavigationItems()
     }
+    
+//    override func viewDidAppear(animated: Bool) {
+//        postingView.configurePrompt()
+//    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    //MARK: - Configuration
+    
+    private func configureView() {
+        postingView = view as! InformationPostingView
+        
+        postingView.configure()
     }
-    */
-
+    
+    
 }

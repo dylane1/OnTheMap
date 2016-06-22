@@ -1,5 +1,5 @@
 //
-//  StudentLocationDataSource.swift
+//  StudentLocationCellDataSource.swift
 //  On The Map
 //
 //  Created by Dylan Edwards on 6/16/16.
@@ -8,13 +8,13 @@
 
 import UIKit
 
-protocol StudentLocationDataSource {
+protocol StudentLocationCellDataSource {
     var image: UIImage { get }
     var studentInformation: StudentInformation { get }
     var textAttributes: [String : AnyObject] { get }
 }
 
-extension StudentLocationDataSource {
+extension StudentLocationCellDataSource {
     var textAttributes: [String : AnyObject] {
         return [
             NSForegroundColorAttributeName: Constants.ColorScheme.black,
@@ -24,7 +24,7 @@ extension StudentLocationDataSource {
     }
 }
 
-struct StudentLocationCellModel: StudentLocationDataSource {
+struct StudentLocationCellModel: StudentLocationCellDataSource {
     var image: UIImage
     var studentInformation: StudentInformation
 }

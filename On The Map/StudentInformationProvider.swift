@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class StudentInformationProvider {
+final class StudentInformationProvider: StudentInformationGettable, ParseAPIRequestable {
     /// Make this a singleton
     static let sharedInstance = StudentInformationProvider()
     private init() {}
@@ -28,10 +28,7 @@ final class StudentInformationProvider {
 
         getStudentInfoCompletion = completion
         
-        let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation")!)
-        
-        request.addValue(Constants.Network.parseAppID, forHTTPHeaderField: "X-Parse-Application-Id")
-        request.addValue(Constants.Network.restAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
+        let request = getParseAPIRequest()
         
         let requestCompletion = { (jsonDict: NSDictionary) in
             self.parseStudentInformation(jsonDict)
