@@ -10,7 +10,7 @@ import UIKit
 
 class TabBarController: UITabBarController {
     
-    internal var appModel: AppModel!
+//    internal var appModel: AppModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,9 +25,9 @@ class TabBarController: UITabBarController {
     
     //MARK: - Configuration
     
-    internal func configure(withAppModel model: AppModel) {
-        appModel = model
-    }
+//    internal func configure(withAppModel model: AppModel) {
+//        appModel = model
+//    }
     
     //MARK: - 
 
