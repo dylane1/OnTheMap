@@ -11,6 +11,7 @@ import Foundation
 struct StudentInformation {
     let firstName: String!
     let lastName: String!
+    let uniqueKey: String!
     let latitude: Double!
     let longitude: Double!
     let mapString: String!
@@ -19,6 +20,7 @@ struct StudentInformation {
     init(withInfoDictionary dict: NSDictionary) {
         firstName   = dict["firstName"] as! String
         lastName    = dict["lastName"] as! String
+        uniqueKey   = dict["uniqueKey"] as! String
         latitude    = dict["latitude"] as! Double
         longitude   = dict["longitude"] as! Double
         mapString   = dict["mapString"] as! String

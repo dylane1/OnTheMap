@@ -15,12 +15,12 @@ final class NetworkRequestEngine {
     typealias PostCompletion = () -> Void
     private var postCompletion: PostCompletion?
     
-    internal func configure(withGetDictionaryCompletion get: GetDictionaryCompletion?, withPostCompletion post: PostCompletion?) {
+    internal func configure(withGetDictionaryCompletion get: GetDictionaryCompletion?, withPostCompletion post: PostCompletion? = nil) {
         getCompletion   = get
         postCompletion  = post
     }
     
-    internal func getJSONDictionary(withRequest request: NSMutableURLRequest) {
+    internal func getJSONDictionary(withRequest request: NSMutableURLRequest, isUdacityLogin uLogin: Bool = false) {
         let session = NSURLSession.sharedSession()
         
         let task = session.dataTaskWithRequest(request) { data, response, error in
@@ -31,8 +31,11 @@ final class NetworkRequestEngine {
                 magic("\(error!.localizedDescription)")
                 return
             }
-            guard let data = data else { return }
+            guard var data = data else { return }
             
+            if uLogin {
+                data = data.subdataWithRange(NSMakeRange(5, data.length - 5))
+            }
             guard let jsonDict = try? NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as! NSDictionary else {
                 magic("INVALID JSON!!!")
                 return

@@ -105,6 +105,7 @@
 		A31EA48A1D11DF59005CC5B9 /* Not used */ = {
 			isa = PBXGroup;
 			children = (
+				A3816D321D0B2FA4001B55A0 /* AppModel.swift */,
 				A38AB6DF1D18C49300820AA9 /* NibLoadableView.swift */,
 			);
 			name = "Not used";
@@ -167,7 +168,6 @@
 		A38AB6E41D1AEC1000820AA9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				A3816D321D0B2FA4001B55A0 /* AppModel.swift */,
 				A3816D361D0B6048001B55A0 /* StudentInformation.swift */,
 			);
 			name = Models;

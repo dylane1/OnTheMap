@@ -23,10 +23,10 @@ final class MapAndTableNavigationController: NavigationController {
     
     //MARK: - Configuration
     
-    internal func configure(withAddClosure add: BarButtonClosure, refreshClosure refresh: BarButtonClosure, logoutClosure logout: BarButtonClosure?) {
+    internal func configure(withAddClosure add: BarButtonClosure, refreshClosure refresh: BarButtonClosure, logoutClosure logout: BarButtonClosure) {
         addClosure      = add
         refreshClosure  = refresh
-        logoutClosure   = (logout == nil) ? nil : logout
+        logoutClosure   = logout
         
         configureNavigationItems()
     }
@@ -48,15 +48,13 @@ final class MapAndTableNavigationController: NavigationController {
         
         navigationBar.topItem?.rightBarButtonItems = rightItemArray
         
-        if logoutClosure != nil {
-            logoutButton = UIBarButtonItem(
-            title: LocalizedStrings.NavigationControllerButtons.logout,
-            style: .Plain,
-            target: self,
-            action: #selector(logoutButtonTapped))
-            
-            navigationBar.topItem?.leftBarButtonItem = logoutButton!
-        }
+        logoutButton = UIBarButtonItem(
+        title: LocalizedStrings.NavigationControllerButtons.logout,
+        style: .Plain,
+        target: self,
+        action: #selector(logoutButtonTapped))
+        
+        navigationBar.topItem?.leftBarButtonItem = logoutButton!
     }
     
     //MARK: - Actions

@@ -13,6 +13,8 @@ final class StudentInformationProvider: StudentInformationGettable, ParseAPIRequ
     static let sharedInstance = StudentInformationProvider()
     private init() {}
     
+    internal var currentStudent: StudentInformation!
+    
     internal var studentInformationArray: [StudentInformation]? {
         didSet {
             getStudentInfoCompletion?()
@@ -24,6 +26,13 @@ final class StudentInformationProvider: StudentInformationGettable, ParseAPIRequ
     private var getStudentInfoCompletion: (() -> Void)?
     
     //MARK: - Configuration
+    
+    /// Set after successful login
+    internal func configure(withCurrentStudent student: StudentInformation) {
+        currentStudent = student
+    }
+    
+    /// Set when getting student data from server
     internal func configure(withCompletion completion: () -> Void) {
 
         getStudentInfoCompletion = completion
@@ -34,7 +43,7 @@ final class StudentInformationProvider: StudentInformationGettable, ParseAPIRequ
             self.parseStudentInformation(jsonDict)
         }
         
-        networkRequestEngine.configure(withGetDictionaryCompletion: requestCompletion, withPostCompletion: nil)
+        networkRequestEngine.configure(withGetDictionaryCompletion: requestCompletion)
         
         networkRequestEngine.getJSONDictionary(withRequest: request)
     }

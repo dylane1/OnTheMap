@@ -35,7 +35,7 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
         }
         
         /// MapAndTableNavigationProtocol
-        configureNavigationItems(withFacebookLoginStatus: tabBar.appModel.isLoggedInViaFacebook, refreshClosure: refreshClosure)
+        configureNavigationItems(withRefreshClosure: refreshClosure)
         
         getStudentInfoArray()
     }
