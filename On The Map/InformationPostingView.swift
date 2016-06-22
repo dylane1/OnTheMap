@@ -44,7 +44,7 @@ class InformationPostingView: UIView, ParseAPIRequestable {
     
     private var studentURL: String = "" {
         didSet {
-            if studentURL.openableURL != nil {
+            if studentURL != "" {
                 bottomButton.enabled = true
                 if bottomButton.alpha == 0.0 {
                     animateBottomButtonIntoView()
@@ -54,13 +54,9 @@ class InformationPostingView: UIView, ParseAPIRequestable {
             }
         }
     }
-//    private var currentStatus: ProgressStatus = .InvalidLocInvalidURL {
-//        didSet {
-////            configureBottomButton()
-//        }
-//    }
     
     private lazy var networkConnector = NetworkRequestEngine()
+    
     //MARK: - Configuration
     
     internal func configure() {
@@ -70,8 +66,6 @@ class InformationPostingView: UIView, ParseAPIRequestable {
         configurePrompt()
         configureTextFields()
         configureBottomButton()
-        
-//        mapView.delegate = self
         
         introAnimation()
     }
@@ -103,8 +97,12 @@ class InformationPostingView: UIView, ParseAPIRequestable {
         bottomButton.alpha                      = 0
         bottomButton.enabled                    = false
         bottomButton.transform                  = CGAffineTransformMakeScale(0.5, 0.5)
-        bottomButton.backgroundColor            = Constants.ColorScheme.white
+        bottomButton.backgroundColor            = Constants.ColorScheme.whiteAlpha90
+        bottomButton.layer.borderColor          = Constants.ColorScheme.darkBlue.CGColor
+        bottomButton.layer.cornerRadius         = CGFloat(6.0)
+        bottomButton.layer.borderWidth          = CGFloat(1.0)
         bottomButton.titleLabel?.textAlignment  = .Center
+        bottomButton.contentEdgeInsets          = UIEdgeInsetsMake(5, 10, 5, 10)
         
         bottomButton.setTitle(LocalizedStrings.ButtonTitles.submit, forState: .Normal)
     }
