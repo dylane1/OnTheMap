@@ -9,10 +9,11 @@
 import UIKit
 
 final class AppModel: NSObject {
-    internal var isLoggedInViaFacebook: Bool
-    
-    override init() {
-        isLoggedInViaFacebook = false
-        super.init()
-    }
+//    internal var isLoggedInViaFacebook: Bool
+//    internal var sessionID: String
+//    
+//    override init() {
+//        isLoggedInViaFacebook = false
+//        super.init()
+//    }
 }

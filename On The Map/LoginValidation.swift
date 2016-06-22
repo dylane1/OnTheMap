@@ -16,11 +16,9 @@ final class LoginValidation {
     
     private var udacitySuccessfulLogin: LoginSuccess!
     
-    private var dataToParse: NSData? {
-        didSet {
-            parse(fromData: dataToParse!)
-        }
-    }
+    private var networkRequestEngine = NetworkRequestEngine()
+    
+    private lazy var studentInfoProvider = StudentInformationProvider.sharedInstance
     
     //MARK: - Configuration
     internal func configure(withSuccessClosure closure: LoginSuccess) {
@@ -30,7 +28,7 @@ final class LoginValidation {
     //MARK: - Network connect
     
     internal func verifyLogin(withEmail email: String, password: String) {
-        let session = NSURLSession.sharedSession()
+//        let session = NSURLSession.sharedSession()
         
         let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
         
@@ -40,45 +38,21 @@ final class LoginValidation {
         
         request.HTTPBody = "{\"udacity\": {\"username\": \"\(email)\", \"password\": \"\(password)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
         
-        let task = session.dataTaskWithRequest(request) { data, response, error in
-            
-            let httpResponse = response as! NSHTTPURLResponse
-            magic("response status code: \(NSHTTPURLResponse.localizedStringForStatusCode(httpResponse.statusCode))")
-            
-            if error != nil {
-                magic("\(error!.localizedDescription)")
-                let jsonStr = NSString(data: data!, encoding: NSUTF8StringEncoding)
-                magic("Could not parse JSON: \(jsonStr)")
-                return
-            }
-            
-            guard let data = data else { return }
-            let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5))
-            
-            self.dataToParse = newData
+        let requestCompletion = { (jsonDict: NSDictionary) in
+            self.parseThatJSON(jsonDict)
         }
         
-        task.resume()
+        networkRequestEngine.configure(withGetDictionaryCompletion: requestCompletion)
+        networkRequestEngine.getJSONDictionary(withRequest: request, isUdacityLogin: true)
     }
     
     //MARK: - Parse JSON
     
-    private func parse(fromData data: NSData) {
-        
-        
-        guard let jsonDict = try? NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as! [String : AnyObject] else {
-            magic("INVALID JSON!!!")
-            return
-        }
-        parseThatJSON(jsonDict)
-    }
-    
-    
-    private func parseThatJSON(jsonDict: [String : AnyObject]) {
-//        magic("json: \(jsonDict)")
-        
+    private func parseThatJSON(jsonDict: NSDictionary) {
         
         if jsonDict["session"] != nil {
+            
+            
             dispatch_async(dispatch_get_main_queue()) {
                 self.udacitySuccessfulLogin()
             }
