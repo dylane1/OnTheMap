@@ -168,6 +168,21 @@ struct Constants {
     //MARK: - Dictionary Keys
     
     struct Keys {
+        ///
+        static let session      = "session"
+        static let account      = "account"
+        
+        ///
+        static let key          = "key"
+        static let user         = "user"
+        
+        ///
+        static let first_name   = "first_name"
+        static let last_name    = "last_name"
+        
+        ///
+        static let results      = "results"
+        static let objectId     = "objectId"
         static let firstName    = "firstName"
         static let lastName     = "lastName"
         static let uniqueKey    = "uniqueKey"

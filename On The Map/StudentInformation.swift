@@ -12,10 +12,10 @@ struct StudentInformation {
     let firstName: String!
     let lastName: String!
     let uniqueKey: String!
-    let latitude: Double!
-    let longitude: Double!
-    let mapString: String!
-    let mediaURL: String!
+    var latitude: Double!
+    var longitude: Double!
+    var mapString: String!
+    var mediaURL: String!
     
     init(withInfoDictionary dict: NSDictionary) {
         firstName   = dict[Constants.Keys.firstName] as? String ?? ""

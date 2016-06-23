@@ -10,17 +10,13 @@ import Foundation
 
 final class NetworkRequestService {
     
-    private var getCompletion: GetDictionaryCompletion?
+    private var requestCompletion: GetDictionaryCompletion?
     
-    typealias PostCompletion = () -> Void
-    private var postCompletion: PostCompletion?
-    
-    internal func configure(withGetDictionaryCompletion get: GetDictionaryCompletion?, withPostCompletion post: PostCompletion? = nil) {
-        getCompletion   = get
-        postCompletion  = post
+    internal func configure(withRequestCompletion completion: GetDictionaryCompletion) {
+        requestCompletion = completion
     }
     
-    internal func getJSONDictionary(withRequest request: NSMutableURLRequest, isUdacityLogin uLogin: Bool = false) {
+    internal func requestJSONDictionary(withURLRequest request: NSMutableURLRequest, isUdacityLogin uLogin: Bool = false) {
         let session = NSURLSession.sharedSession()
         
         let task = session.dataTaskWithRequest(request) { data, response, error in
@@ -43,7 +39,7 @@ final class NetworkRequestService {
             
             /// Get back on the main queue before returning the info
             dispatch_async(dispatch_get_main_queue()) {
-                self.getCompletion?(jsonDict)
+                self.requestCompletion?(jsonDict)
             }
         }
         task.resume()

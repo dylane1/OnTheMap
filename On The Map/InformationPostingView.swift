@@ -23,7 +23,7 @@ class InformationPostingView: UIView, ParseAPIRequestable {
     @IBOutlet weak var urlTextFieldTopConstraint: NSLayoutConstraint!
     
     
-    private var locationString: String = "" {
+    private var mapString: String = "" {
         didSet {
             findLocation()
         }
@@ -43,9 +43,9 @@ class InformationPostingView: UIView, ParseAPIRequestable {
         }
     }
     
-    private var studentURL: String = "" {
+    private var mediaURL: String = "" {
         didSet {
-            if studentURL != "" {
+            if mediaURL != "" {
                 bottomButton.enabled = true
                 if bottomButton.alpha == 0.0 {
                     animateBottomButtonIntoView()
@@ -60,6 +60,7 @@ class InformationPostingView: UIView, ParseAPIRequestable {
     
     private lazy var studentInfoProvider = StudentInformationProvider.sharedInstance
     
+    private var objectId: String?
     
     //MARK: - Configuration
     
@@ -130,65 +131,101 @@ class InformationPostingView: UIView, ParseAPIRequestable {
     //MARK: - Actions
     
     @IBAction func bottomButtonAction(sender: AnyObject) {
-
+        if objectId != nil {
+            updateStudentLocation()
+        } else {
+            postStudentLocation()
+        }
     }
     
     //MARK: - 
-    
-    
-    
 
     private func queryStudentLocation() {
         let request = getParseAPIRequest(withUniqueKey: studentInfoProvider.currentStudent.uniqueKey)
         
-        let requestCompletion = {(jsonDict: NSDictionary) in
-            self.parseStudentLocationQuerey(jsonDict)
+        let requestCompletion = { (jsonDict: NSDictionary) in
+            self.parseStudentLocationQuery(jsonDict)
         }
         
-        networkRequestService.configure(withGetDictionaryCompletion: requestCompletion)
-        networkRequestService.getJSONDictionary(withRequest: request)
+        networkRequestService.configure(withRequestCompletion: requestCompletion)
+        networkRequestService.requestJSONDictionary(withURLRequest: request)
     }
     
-    private func parseStudentLocationQuerey(jsonDict: NSDictionary) {
-        let resultArray = jsonDict["results"] as! NSArray
-        magic("resultArray.count: \(resultArray.count)")
+    private func parseStudentLocationQuery(jsonDict: NSDictionary) {
+        let resultArray = jsonDict[Constants.Keys.results] as! NSArray
+//        magic("resultArray: \(resultArray)")
         
         if resultArray.count == 0 { return }
         
-        //FIXME:
-        /**
-          Going to run into problems with didSet {} in the vars...
-         */
-        /// if success: make a CLPlacemark
-        //        let placeMark = CLPlacemark()
-        //        placeMark.location = CLLocation(latitude: <#T##CLLocationDegrees#>, longitude: <#T##CLLocationDegrees#>)
+        let infoDict = resultArray[0] as! NSDictionary
         
-        /// populate text fields
+        studentInfoProvider.currentStudent.latitude     = infoDict[Constants.Keys.latitude] as! Double
+        studentInfoProvider.currentStudent.longitude    = infoDict[Constants.Keys.longitude] as! Double
+        studentInfoProvider.currentStudent.mapString    = infoDict[Constants.Keys.mapString] as! String
+        studentInfoProvider.currentStudent.mediaURL     = infoDict[Constants.Keys.mediaURL] as! String
+        
+        magic("updated currentStudent: \(studentInfoProvider.currentStudent)")
+        
+        mapString   = studentInfoProvider.currentStudent.mapString
+        mediaURL    = studentInfoProvider.currentStudent.mediaURL
+        objectId    = infoDict[Constants.Keys.objectId] as? String
+        
+        locationTextField.text  = mapString
+        urlTextField.text       = mediaURL
+        
+        /*
+         createdAt = "2016-06-23T18:59:54.358Z";
+         firstName = Dylan;
+         lastName = Edwards;
+         latitude = "44.052153";
+         longitude = "-123.091195";
+         mapString = "Eugene Oregon";
+         mediaURL = "http://www.dylan.photos";
+         objectId = B7YT82FF8T;
+         uniqueKey = u20327308;
+         updatedAt = "2016-06-23T18:59:54.358Z";
+         */
     }
     
     private func postStudentLocation() {
+        
+        let requestCompletion = { (jsonDict: NSDictionary) in
+            self.parsePostResponse(jsonDict)
+        }
+        
         let request = getParseAPIRequest(isPostMethod: true)
         var httpBody = "{"
-        httpBody += "\"uniqueKey\": \"\(studentInfoProvider.currentStudent.uniqueKey)\", "
-        httpBody += "\"firstName\": \"\(studentInfoProvider.currentStudent.firstName)\", "
-        httpBody += "\"lastName\": \"\(studentInfoProvider.currentStudent.lastName)\", "
-        httpBody += "\"mapString\": \"\(locationString)\", "
-        httpBody += "\"mediaURL\": \"\(studentURL)\", "
-        httpBody += "\"latitude\": \(placemarks![0].location?.coordinate.latitude), "
-        httpBody += "\"longitude\": \(placemarks![0].location?.coordinate.longitude)}"
-        
+        httpBody += "\"\(Constants.Keys.uniqueKey)\": \"\(studentInfoProvider.currentStudent.uniqueKey)\", "
+        httpBody += "\"\(Constants.Keys.firstName)\": \"\(studentInfoProvider.currentStudent.firstName)\", "
+        httpBody += "\"\(Constants.Keys.lastName)\": \"\(studentInfoProvider.currentStudent.lastName)\", "
+        httpBody += "\"\(Constants.Keys.mapString)\": \"\(mapString)\", "
+        httpBody += "\"\(Constants.Keys.mediaURL)\": \"\(mediaURL)\", "
+        //TODO: use these to test invalid json error handling
+        httpBody += "\"\(Constants.Keys.latitude)\": \((placemarks![0].location?.coordinate.latitude)!), "
+        httpBody += "\"\(Constants.Keys.longitude)\": \((placemarks![0].location?.coordinate.longitude)!)}"
+        magic(httpBody)
         request.HTTPBody = httpBody.dataUsingEncoding(NSUTF8StringEncoding)
+        
+        networkRequestService.configure(withRequestCompletion: requestCompletion)
+        networkRequestService.requestJSONDictionary(withURLRequest: request)
+    }
+    
+    private func parsePostResponse(jsonDict: NSDictionary) {
+        magic("postDict: \(jsonDict)")
     }
     
     private func updateStudentLocation() {
-        
+        magic("")
     }
     
+    private func parseUpdateResponse(jsonDict: NSDictionary) {
+        magic("updateDict: \(jsonDict)")
+    }
     
     private func findLocation() {
         activityIndicator.startAnimating()
         let geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(locationString, completionHandler: { (placemarks: [CLPlacemark]?, error: NSError?) -> Void in
+        geocoder.geocodeAddressString(mapString, completionHandler: { (placemarks: [CLPlacemark]?, error: NSError?) -> Void in
             if error != nil {
                 magic("error: \(error?.localizedDescription)")
                 //TODO: Pop alert
@@ -243,11 +280,12 @@ class InformationPostingView: UIView, ParseAPIRequestable {
 
 extension InformationPostingView: UITextFieldDelegate {
     internal func textFieldDidEndEditing(textField: UITextField) {
-        locationString = locationTextField.text as String! ?? ""
-        studentURL     = urlTextField.text as String! ?? ""
+        mapString   = locationTextField.text as String! ?? ""
+        mediaURL    = urlTextField.text as String! ?? ""
     }
     
     internal func textFieldShouldReturn(textField: UITextField) -> Bool {
+        magic("")
         textField.resignFirstResponder()
         return true
     }

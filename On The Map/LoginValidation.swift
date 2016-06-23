@@ -42,18 +42,17 @@ final class LoginValidation {
             self.parseLoginJSON(jsonDict)
         }
         
-        networkRequestService.configure(withGetDictionaryCompletion: requestCompletion)
-        networkRequestService.getJSONDictionary(withRequest: request, isUdacityLogin: true)
+        networkRequestService.configure(withRequestCompletion: requestCompletion)
+        networkRequestService.requestJSONDictionary(withURLRequest: request, isUdacityLogin: true)
     }
     
     //MARK: - Parse JSON
     
     private func parseLoginJSON(jsonDict: NSDictionary) {
         
-        if jsonDict["session"] != nil && jsonDict["account"] != nil {
-
-            getPublicUserData(withAccountDict: jsonDict["account"] as! NSDictionary)
-
+        if jsonDict[Constants.Keys.session] != nil && jsonDict[Constants.Keys.account] != nil {
+            
+            getPublicUserData(withAccountDict: jsonDict[Constants.Keys.account] as! NSDictionary)
         } else {
             magic("Invalid login")
             //TODO: pop alert
@@ -62,30 +61,30 @@ final class LoginValidation {
     
     private func getPublicUserData(withAccountDict acctDict: NSDictionary) {
         
-        magic("key: \(acctDict["key"] as! String)")
+        magic("key: \(acctDict[Constants.Keys.key] as! String)")
         
-        let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/users/\(acctDict["key"] as! String)")!)
+        let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/users/\(acctDict[Constants.Keys.key] as! String)")!)
         
         let requestCompletion = { (jsonDict: NSDictionary) in
-            self.parsePublicUserDataJSON(jsonDict, userKey: acctDict["key"] as! String)
+            self.parsePublicUserDataJSON(jsonDict, userKey: acctDict[Constants.Keys.key] as! String)
         }
         
-        networkRequestService.configure(withGetDictionaryCompletion: requestCompletion)
-        networkRequestService.getJSONDictionary(withRequest: request, isUdacityLogin: true)
+        networkRequestService.configure(withRequestCompletion: requestCompletion)
+        networkRequestService.requestJSONDictionary(withURLRequest: request, isUdacityLogin: true)
     }
     
     private func parsePublicUserDataJSON(jsonDict: NSDictionary, userKey key: String) {
         
-        if jsonDict["user"] != nil {
-            guard let userDict = jsonDict["user"] as? NSDictionary else {
+        if jsonDict[Constants.Keys.user] != nil {
+            guard let userDict = jsonDict[Constants.Keys.user] as? NSDictionary else {
                 magic("noooooo....")
                 return
             }
             
             let infoDictionary = NSMutableDictionary()
             
-            infoDictionary.setObject(userDict["first_name"] as! String, forKey: Constants.Keys.firstName)
-            infoDictionary.setObject(userDict["last_name"] as! String, forKey: Constants.Keys.lastName)
+            infoDictionary.setObject(userDict[Constants.Keys.first_name] as! String, forKey: Constants.Keys.firstName)
+            infoDictionary.setObject(userDict[Constants.Keys.last_name] as! String, forKey: Constants.Keys.lastName)
             infoDictionary.setObject(key as String, forKey: Constants.Keys.uniqueKey)
             
             let currentUser = StudentInformation(withInfoDictionary: infoDictionary)

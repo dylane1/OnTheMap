@@ -43,17 +43,16 @@ final class StudentInformationProvider: StudentInformationGettable, ParseAPIRequ
             self.parseStudentInformation(jsonDict)
         }
         
-        networkRequestService.configure(withGetDictionaryCompletion: requestCompletion)
-        
-        networkRequestService.getJSONDictionary(withRequest: request)
+        networkRequestService.configure(withRequestCompletion: requestCompletion)
+        networkRequestService.requestJSONDictionary(withURLRequest: request)
     }
     
     //MARK: - 
     
     private func parseStudentInformation(jsonDict: NSDictionary) {
-        if jsonDict["results"] != nil {
+        if jsonDict[Constants.Keys.results] != nil {
             
-            guard let jsonArray = jsonDict["results"] as? [NSDictionary] else {
+            guard let jsonArray = jsonDict[Constants.Keys.results] as? [NSDictionary] else {
                 magic("no :(")
                 return
             }

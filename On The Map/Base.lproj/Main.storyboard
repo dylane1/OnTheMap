@@ -216,7 +216,6 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Vi-Fa-cNK">
                                         <rect key="frame" x="8" y="8" width="304" height="84"/>
-                                        <color key="backgroundColor" red="0.85731559989999995" green="0.75666392729999998" blue="0.70629740519999995" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
@@ -235,9 +234,6 @@
                                 <rect key="frame" x="8" y="164" width="304" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="bottomButtonAction:" destination="0Py-in-vSX" eventType="editingDidEnd" id="RlD-k5-ELc"/>
-                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vnY-Ap-dKZ">
                                 <rect key="frame" x="145" y="410" width="30" height="30"/>
@@ -245,14 +241,14 @@
                                     <constraint firstAttribute="height" constant="30" id="eFU-hm-i3u"/>
                                 </constraints>
                                 <state key="normal" title="..."/>
+                                <connections>
+                                    <action selector="bottomButtonAction:" destination="0Py-in-vSX" eventType="touchUpInside" id="Jex-hr-sch"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CVi-2m-YkT">
                                 <rect key="frame" x="8" y="198" width="304" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="bottomButtonAction:" destination="0Py-in-vSX" eventType="editingDidEnd" id="Dzv-Pv-GWh"/>
-                                </connections>
                             </textField>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="W3G-Re-8ZP">
                                 <rect key="frame" x="142" y="339" width="37" height="37"/>
