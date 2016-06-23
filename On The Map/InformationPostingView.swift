@@ -56,7 +56,7 @@ class InformationPostingView: UIView, ParseAPIRequestable {
         }
     }
     
-    private var networkRequestEngine = NetworkRequestEngine()
+    private var networkRequestService = NetworkRequestService()
     
     private lazy var studentInfoProvider = StudentInformationProvider.sharedInstance
     
@@ -76,7 +76,8 @@ class InformationPostingView: UIView, ParseAPIRequestable {
         configureActivityIndicator()
         
         queryStudentLocation()
-        introAnimation()
+        
+        promptViewAnimation()
     }
     
     private func configurePrompt() {
@@ -134,13 +135,7 @@ class InformationPostingView: UIView, ParseAPIRequestable {
     
     //MARK: - 
     
-    private func introAnimation() {
-        UIView.animateWithDuration(1.7, delay: 0.5, usingSpringWithDamping: 0.3, initialSpringVelocity: 0.5, options: .CurveEaseOut, animations: {
-            self.promptView.transform = CGAffineTransformMakeScale(1.0, 1.0)
-            self.promptView.alpha = 1.0
-            self.layoutIfNeeded()
-        }, completion: nil)
-    }
+    
     
 
     private func queryStudentLocation() {
@@ -150,8 +145,8 @@ class InformationPostingView: UIView, ParseAPIRequestable {
             self.parseStudentLocationQuerey(jsonDict)
         }
         
-        networkRequestEngine.configure(withGetDictionaryCompletion: requestCompletion)
-        networkRequestEngine.getJSONDictionary(withRequest: request)
+        networkRequestService.configure(withGetDictionaryCompletion: requestCompletion)
+        networkRequestService.getJSONDictionary(withRequest: request)
     }
     
     private func parseStudentLocationQuerey(jsonDict: NSDictionary) {
@@ -169,6 +164,24 @@ class InformationPostingView: UIView, ParseAPIRequestable {
         //        placeMark.location = CLLocation(latitude: <#T##CLLocationDegrees#>, longitude: <#T##CLLocationDegrees#>)
         
         /// populate text fields
+    }
+    
+    private func postStudentLocation() {
+        let request = getParseAPIRequest(isPostMethod: true)
+        var httpBody = "{"
+        httpBody += "\"uniqueKey\": \"\(studentInfoProvider.currentStudent.uniqueKey)\", "
+        httpBody += "\"firstName\": \"\(studentInfoProvider.currentStudent.firstName)\", "
+        httpBody += "\"lastName\": \"\(studentInfoProvider.currentStudent.lastName)\", "
+        httpBody += "\"mapString\": \"\(locationString)\", "
+        httpBody += "\"mediaURL\": \"\(studentURL)\", "
+        httpBody += "\"latitude\": \(placemarks![0].location?.coordinate.latitude), "
+        httpBody += "\"longitude\": \(placemarks![0].location?.coordinate.longitude)}"
+        
+        request.HTTPBody = httpBody.dataUsingEncoding(NSUTF8StringEncoding)
+    }
+    
+    private func updateStudentLocation() {
+        
     }
     
     
@@ -199,6 +212,16 @@ class InformationPostingView: UIView, ParseAPIRequestable {
         mapView.addAnnotation(annotation)
     }
     
+    //MARK: - Animations
+    
+    private func promptViewAnimation() {
+        UIView.animateWithDuration(1.7, delay: 0.5, usingSpringWithDamping: 0.3, initialSpringVelocity: 0.5, options: .CurveEaseOut, animations: {
+            self.promptView.transform = CGAffineTransformMakeScale(1.0, 1.0)
+            self.promptView.alpha = 1.0
+            self.layoutIfNeeded()
+            }, completion: nil)
+    }
+    
     private func animateURLTextFieldIntoView() {
         UIView.animateWithDuration(0.5, animations: {
             self.urlTextFieldTopConstraint.constant += (self.urlTextField.frame.height + 4)
@@ -215,31 +238,6 @@ class InformationPostingView: UIView, ParseAPIRequestable {
             self.bottomButton.alpha = 1.0
             self.layoutIfNeeded()
             }, completion: nil)
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    private func postStudentLocation() {
-        let request = getParseAPIRequest(isPostMethod: true)
-        var httpBody = "{"
-        httpBody += "\"uniqueKey\": \"\(studentInfoProvider.currentStudent.uniqueKey)\", "
-        httpBody += "\"firstName\": \"\(studentInfoProvider.currentStudent.firstName)\", "
-        httpBody += "\"lastName\": \"\(studentInfoProvider.currentStudent.lastName)\", "
-        httpBody += "\"mapString\": \"\(locationString)\", "
-        httpBody += "\"mediaURL\": \"\(studentURL)\", "
-        httpBody += "\"latitude\": \(placemarks![0].location?.coordinate.latitude), "
-        httpBody += "\"longitude\": \(placemarks![0].location?.coordinate.longitude)}"
-        
-        request.HTTPBody = httpBody.dataUsingEncoding(NSUTF8StringEncoding)
-    }
-    
-    private func updateStudentLocation() {
-        
     }
 }
 

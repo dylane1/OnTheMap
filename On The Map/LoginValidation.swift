@@ -16,7 +16,7 @@ final class LoginValidation {
     
     private var udacitySuccessfulLogin: LoginSuccess!
     
-    private var networkRequestEngine = NetworkRequestEngine()
+    private var networkRequestService = NetworkRequestService()
     
     private lazy var studentInfoProvider = StudentInformationProvider.sharedInstance
     
@@ -42,8 +42,8 @@ final class LoginValidation {
             self.parseLoginJSON(jsonDict)
         }
         
-        networkRequestEngine.configure(withGetDictionaryCompletion: requestCompletion)
-        networkRequestEngine.getJSONDictionary(withRequest: request, isUdacityLogin: true)
+        networkRequestService.configure(withGetDictionaryCompletion: requestCompletion)
+        networkRequestService.getJSONDictionary(withRequest: request, isUdacityLogin: true)
     }
     
     //MARK: - Parse JSON
@@ -70,8 +70,8 @@ final class LoginValidation {
             self.parsePublicUserDataJSON(jsonDict, userKey: acctDict["key"] as! String)
         }
         
-        networkRequestEngine.configure(withGetDictionaryCompletion: requestCompletion)
-        networkRequestEngine.getJSONDictionary(withRequest: request, isUdacityLogin: true)
+        networkRequestService.configure(withGetDictionaryCompletion: requestCompletion)
+        networkRequestService.getJSONDictionary(withRequest: request, isUdacityLogin: true)
     }
     
     private func parsePublicUserDataJSON(jsonDict: NSDictionary, userKey key: String) {

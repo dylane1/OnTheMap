@@ -21,7 +21,7 @@ final class StudentInformationProvider: StudentInformationGettable, ParseAPIRequ
         }
     }
     
-    private var networkRequestEngine = NetworkRequestEngine()
+    private var networkRequestService = NetworkRequestService()
     
     private var getStudentInfoCompletion: (() -> Void)?
     
@@ -43,9 +43,9 @@ final class StudentInformationProvider: StudentInformationGettable, ParseAPIRequ
             self.parseStudentInformation(jsonDict)
         }
         
-        networkRequestEngine.configure(withGetDictionaryCompletion: requestCompletion)
+        networkRequestService.configure(withGetDictionaryCompletion: requestCompletion)
         
-        networkRequestEngine.getJSONDictionary(withRequest: request)
+        networkRequestService.getJSONDictionary(withRequest: request)
     }
     
     //MARK: - 

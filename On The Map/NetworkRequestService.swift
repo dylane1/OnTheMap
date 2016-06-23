@@ -1,5 +1,5 @@
 //
-//  NetworkRequestEngine.swift
+//  NetworkRequestService.swift
 //  On The Map
 //
 //  Created by Dylan Edwards on 6/15/16.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class NetworkRequestEngine {
+final class NetworkRequestService {
     
     private var getCompletion: GetDictionaryCompletion?
     
