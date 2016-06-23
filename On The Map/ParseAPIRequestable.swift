@@ -14,11 +14,15 @@ protocol ParseAPIRequestable {
 
 extension ParseAPIRequestable {
     
-    internal func getParseAPIRequest(isPostMethod isPost: Bool = false, withUniqueKey key: String? = nil) -> NSMutableURLRequest {
+    internal func getParseAPIRequest(isPostMethod isPost: Bool = false, isPutMethod isPut: Bool = false, withUniqueKey key: String? = nil, withObjectId id: String? = nil) -> NSMutableURLRequest {
         var urlString = "https://api.parse.com/1/classes/StudentLocation"
 
         if key != nil {
             urlString += "?where=%7B%22uniqueKey%22%3A%22\(key!)%22%7D"
+        }
+        
+        if id != nil {
+            urlString += "/\(id!)"
         }
         let request = NSMutableURLRequest(URL: NSURL(string: urlString)!)
         
@@ -27,6 +31,11 @@ extension ParseAPIRequestable {
         
         if isPost {
             request.HTTPMethod = "POST"
+        }
+        if isPut {
+            request.HTTPMethod = "PUT"
+        }
+        if isPost || isPut {
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         }
         return request

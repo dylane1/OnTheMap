@@ -194,6 +194,36 @@ class InformationPostingView: UIView, ParseAPIRequestable {
         }
         
         let request = getParseAPIRequest(isPostMethod: true)
+        
+        performRequest(request, withCompletion: requestCompletion)
+        
+    }
+    
+    
+    
+    private func updateStudentLocation() {
+        let requestCompletion = { (jsonDict: NSDictionary) in
+            self.parseUpdateResponse(jsonDict)
+        }
+        
+        let request = getParseAPIRequest(isPutMethod: true, withObjectId: objectId!)
+        
+        performRequest(request, withCompletion: requestCompletion)
+        /*
+         let urlString = "https://api.parse.com/1/classes/StudentLocation/8ZExGR5uX8"
+         let url = NSURL(string: urlString)
+         let request = NSMutableURLRequest(URL: url!)
+         request.HTTPMethod = "PUT"
+         request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
+         request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
+         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+         request.HTTPBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"John\", \"lastName\": \"Doe\",\"mapString\": \"Cupertino, CA\", \"mediaURL\": \"https://udacity.com\",\"latitude\": 37.322998, \"longitude\": -122.032182}".dataUsingEncoding(NSUTF8StringEncoding)
+         */
+        
+    }
+    
+    private func performRequest(request: NSMutableURLRequest, withCompletion completion: GetDictionaryCompletion) {
+        
         var httpBody = "{"
         httpBody += "\"\(Constants.Keys.uniqueKey)\": \"\(studentInfoProvider.currentStudent.uniqueKey)\", "
         httpBody += "\"\(Constants.Keys.firstName)\": \"\(studentInfoProvider.currentStudent.firstName)\", "
@@ -203,24 +233,25 @@ class InformationPostingView: UIView, ParseAPIRequestable {
         //TODO: use these to test invalid json error handling
         httpBody += "\"\(Constants.Keys.latitude)\": \((placemarks![0].location?.coordinate.latitude)!), "
         httpBody += "\"\(Constants.Keys.longitude)\": \((placemarks![0].location?.coordinate.longitude)!)}"
+        
         magic(httpBody)
         request.HTTPBody = httpBody.dataUsingEncoding(NSUTF8StringEncoding)
         
-        networkRequestService.configure(withRequestCompletion: requestCompletion)
+        networkRequestService.configure(withRequestCompletion: completion)
         networkRequestService.requestJSONDictionary(withURLRequest: request)
     }
+    
+    
     
     private func parsePostResponse(jsonDict: NSDictionary) {
         magic("postDict: \(jsonDict)")
     }
     
-    private func updateStudentLocation() {
-        magic("")
-    }
-    
     private func parseUpdateResponse(jsonDict: NSDictionary) {
         magic("updateDict: \(jsonDict)")
     }
+    
+    
     
     private func findLocation() {
         activityIndicator.startAnimating()
