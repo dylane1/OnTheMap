@@ -39,7 +39,7 @@ final class LoginValidation {
         request.HTTPBody = "{\"udacity\": {\"username\": \"\(email)\", \"password\": \"\(password)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
         
         let requestCompletion = { (jsonDict: NSDictionary) in
-            self.parseThatJSON(jsonDict)
+            self.parseLoginJSON(jsonDict)
         }
         
         networkRequestEngine.configure(withGetDictionaryCompletion: requestCompletion)
@@ -48,38 +48,63 @@ final class LoginValidation {
     
     //MARK: - Parse JSON
     
-    private func parseThatJSON(jsonDict: NSDictionary) {
+    private func parseLoginJSON(jsonDict: NSDictionary) {
         
-        if jsonDict["session"] != nil {
-            
-            
-            dispatch_async(dispatch_get_main_queue()) {
-                self.udacitySuccessfulLogin()
-            }
-            
+        if jsonDict["session"] != nil && jsonDict["account"] != nil {
+
+            getPublicUserData(withAccountDict: jsonDict["account"] as! NSDictionary)
+
         } else {
             magic("Invalid login")
             //TODO: pop alert
         }
     }
+    
+    private func getPublicUserData(withAccountDict acctDict: NSDictionary) {
+        
+        magic("key: \(acctDict["key"] as! String)")
+        
+        let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/users/\(acctDict["key"] as! String)")!)
+        
+        let requestCompletion = { (jsonDict: NSDictionary) in
+            self.parsePublicUserDataJSON(jsonDict, userKey: acctDict["key"] as! String)
+        }
+        
+        networkRequestEngine.configure(withGetDictionaryCompletion: requestCompletion)
+        networkRequestEngine.getJSONDictionary(withRequest: request, isUdacityLogin: true)
+    }
+    
+    private func parsePublicUserDataJSON(jsonDict: NSDictionary, userKey key: String) {
+        
+        if jsonDict["user"] != nil {
+            guard let userDict = jsonDict["user"] as? NSDictionary else {
+                magic("noooooo....")
+                return
+            }
+            
+            let infoDictionary = NSMutableDictionary()
+            
+            infoDictionary.setObject(userDict["first_name"] as! String, forKey: Constants.Keys.firstName)
+            infoDictionary.setObject(userDict["last_name"] as! String, forKey: Constants.Keys.lastName)
+            infoDictionary.setObject(key as String, forKey: Constants.Keys.uniqueKey)
+            
+            let currentUser = StudentInformation(withInfoDictionary: infoDictionary)
+            
+            studentInfoProvider.configure(withCurrentStudent: currentUser)
+
+            /// Need to go back to main thread before calling performSegue
+            dispatch_async(dispatch_get_main_queue()) {
+                self.udacitySuccessfulLogin()
+            }
+        } else {
+            magic("no user data :(")
+        }
+        
+    }
 }
 
 
 
-/**
- * Sample response:
- 
- {
- "account":{
- "registered":true,
- "key":"3903878747"
- },
- "session":{
- "id":"1457628510Sc18f2ad4cd3fb317fb8e028488694088",
- "expiration":"2015-05-10T16:48:30.760460Z"
- }
- }
- */
 
 /**
  * Real Response:

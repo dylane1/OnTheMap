@@ -34,9 +34,9 @@ class InformationPostingView: UIView, ParseAPIRequestable {
             magic("placemarks: \(placemarks?.count)")
             if placemarks != nil {
                 /// Animate the url field in
-                if urlTextField.alpha != 1.0 {
-                    animateURLTextFieldIntoView()
-                }
+//                if urlTextField.alpha != 1.0 {
+//                    animateURLTextFieldIntoView()
+//                }
                 showLocationOnMap()
             }
             
@@ -56,19 +56,26 @@ class InformationPostingView: UIView, ParseAPIRequestable {
         }
     }
     
-    private lazy var networkConnector = NetworkRequestEngine()
+    private var networkRequestEngine = NetworkRequestEngine()
+    
+    private lazy var studentInfoProvider = StudentInformationProvider.sharedInstance
+    
     
     //MARK: - Configuration
     
     internal func configure() {
+        magic("current student: \(studentInfoProvider.currentStudent)")
         promptView.alpha = 0
         promptView.transform = CGAffineTransformMakeScale(0.5, 0.5)
+        
+        mapView.delegate = self
         
         configurePrompt()
         configureTextFields()
         configureBottomButton()
         configureActivityIndicator()
         
+        queryStudentLocation()
         introAnimation()
     }
     
@@ -78,8 +85,13 @@ class InformationPostingView: UIView, ParseAPIRequestable {
             NSForegroundColorAttributeName : Constants.ColorScheme.black,
             NSFontAttributeName: UIFont.systemFontOfSize(50, weight: UIFontWeightLight)
         ]
+        var promptString = LocalizedStrings.Labels.whereAreYou
+        if studentInfoProvider.currentStudent.firstName != "" {
+            promptString += ", \(studentInfoProvider.currentStudent.firstName)"
+        }
+        promptString += "?"
         
-        promptLabel.attributedText = NSAttributedString(string: LocalizedStrings.Labels.whereAreYou, attributes: labelAttributes)
+        promptLabel.attributedText = NSAttributedString(string: promptString, attributes: labelAttributes)
     }
     
     private func configureTextFields() {
@@ -130,6 +142,36 @@ class InformationPostingView: UIView, ParseAPIRequestable {
         }, completion: nil)
     }
     
+
+    private func queryStudentLocation() {
+        let request = getParseAPIRequest(withUniqueKey: studentInfoProvider.currentStudent.uniqueKey)
+        
+        let requestCompletion = {(jsonDict: NSDictionary) in
+            self.parseStudentLocationQuerey(jsonDict)
+        }
+        
+        networkRequestEngine.configure(withGetDictionaryCompletion: requestCompletion)
+        networkRequestEngine.getJSONDictionary(withRequest: request)
+    }
+    
+    private func parseStudentLocationQuerey(jsonDict: NSDictionary) {
+        let resultArray = jsonDict["results"] as! NSArray
+        magic("resultArray.count: \(resultArray.count)")
+        
+        if resultArray.count == 0 { return }
+        
+        //FIXME:
+        /**
+          Going to run into problems with didSet {} in the vars...
+         */
+        /// if success: make a CLPlacemark
+        //        let placeMark = CLPlacemark()
+        //        placeMark.location = CLLocation(latitude: <#T##CLLocationDegrees#>, longitude: <#T##CLLocationDegrees#>)
+        
+        /// populate text fields
+    }
+    
+    
     private func findLocation() {
         activityIndicator.startAnimating()
         let geocoder = CLGeocoder()
@@ -175,9 +217,29 @@ class InformationPostingView: UIView, ParseAPIRequestable {
             }, completion: nil)
     }
     
+    
+    
+    
+    
+    
+    
+    
     private func postStudentLocation() {
         let request = getParseAPIRequest(isPostMethod: true)
-        request.HTTPBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"John\", \"lastName\": \"Doe\",\"mapString\": \"\(locationString)\", \"mediaURL\": \"https://udacity.com\",\"latitude\": 37.386052, \"longitude\": -122.083851}".dataUsingEncoding(NSUTF8StringEncoding)
+        var httpBody = "{"
+        httpBody += "\"uniqueKey\": \"\(studentInfoProvider.currentStudent.uniqueKey)\", "
+        httpBody += "\"firstName\": \"\(studentInfoProvider.currentStudent.firstName)\", "
+        httpBody += "\"lastName\": \"\(studentInfoProvider.currentStudent.lastName)\", "
+        httpBody += "\"mapString\": \"\(locationString)\", "
+        httpBody += "\"mediaURL\": \"\(studentURL)\", "
+        httpBody += "\"latitude\": \(placemarks![0].location?.coordinate.latitude), "
+        httpBody += "\"longitude\": \(placemarks![0].location?.coordinate.longitude)}"
+        
+        request.HTTPBody = httpBody.dataUsingEncoding(NSUTF8StringEncoding)
+    }
+    
+    private func updateStudentLocation() {
+        
     }
 }
 
@@ -192,6 +254,35 @@ extension InformationPostingView: UITextFieldDelegate {
         return true
     }
 }
+
+extension InformationPostingView: MKMapViewDelegate {
+    
+    /// Wait for map to render before animating the url field into view
+    func mapViewDidFinishRenderingMap(mapView: MKMapView, fullyRendered: Bool) {
+        if urlTextField.alpha == 0 && placemarks != nil {
+            animateURLTextFieldIntoView()
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

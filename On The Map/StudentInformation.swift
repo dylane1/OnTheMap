@@ -18,12 +18,12 @@ struct StudentInformation {
     let mediaURL: String!
     
     init(withInfoDictionary dict: NSDictionary) {
-        firstName   = dict["firstName"] as! String
-        lastName    = dict["lastName"] as! String
-        uniqueKey   = dict["uniqueKey"] as! String
-        latitude    = dict["latitude"] as! Double
-        longitude   = dict["longitude"] as! Double
-        mapString   = dict["mapString"] as! String
-        mediaURL    = dict["mediaURL"] as! String
+        firstName   = dict[Constants.Keys.firstName] as? String ?? ""
+        lastName    = dict[Constants.Keys.lastName] as? String ?? ""
+        uniqueKey   = dict[Constants.Keys.uniqueKey] as? String ?? ""
+        latitude    = dict[Constants.Keys.latitude] as? Double ?? 0.00
+        longitude   = dict[Constants.Keys.longitude] as? Double ?? 0.00
+        mapString   = dict[Constants.Keys.mapString] as? String ?? ""
+        mediaURL    = dict[Constants.Keys.mediaURL] as? String ?? ""
     }
 }

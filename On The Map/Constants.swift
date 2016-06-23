@@ -165,6 +165,17 @@ struct Constants {
 //        Constants.FontFamilyName.impact,
 //        Constants.FontFamilyName.markerFelt
 //    ]
+    //MARK: - Dictionary Keys
+    
+    struct Keys {
+        static let firstName    = "firstName"
+        static let lastName     = "lastName"
+        static let uniqueKey    = "uniqueKey"
+        static let latitude     = "latitude"
+        static let longitude    = "longitude"
+        static let mapString    = "mapString"
+        static let mediaURL     = "mediaURL"
+    }
     
     //MARK: - Storage
     /// Storage

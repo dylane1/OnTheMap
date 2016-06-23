@@ -40,6 +40,6 @@ struct LocalizedStrings {
     
     struct Labels {
         static let loginToUdacity = NSLocalizedString("labels.loginToUdacity", value: "Login To Udacity", comment: "")
-        static let whereAreYou  = NSLocalizedString("labels.whereAreYou", value: "Where Are You\nStudying Today?", comment: "")
+        static let whereAreYou  = NSLocalizedString("labels.whereAreYou", value: "Where Are You\nStudying Today", comment: "")
     }
 }
