@@ -28,6 +28,7 @@ class InformationPostingView: UIView, ParseAPIRequestable {
             findLocation()
         }
     }
+    private var isValidLocation = false
     
     private var placemarks: [CLPlacemark]? {
         didSet {
@@ -131,6 +132,15 @@ class InformationPostingView: UIView, ParseAPIRequestable {
     //MARK: - Actions
     
     @IBAction func bottomButtonAction(sender: AnyObject) {
+        /**
+         Stopping point June 23, 2016
+        
+         If invalid location, need to pop alert
+        */
+        
+        
+        
+        
         if objectId != nil {
             updateStudentLocation()
         } else {
@@ -192,11 +202,9 @@ class InformationPostingView: UIView, ParseAPIRequestable {
         let requestCompletion = { (jsonDict: NSDictionary) in
             self.parsePostResponse(jsonDict)
         }
-        
         let request = getParseAPIRequest(isPostMethod: true)
         
         performRequest(request, withCompletion: requestCompletion)
-        
     }
     
     
@@ -205,21 +213,9 @@ class InformationPostingView: UIView, ParseAPIRequestable {
         let requestCompletion = { (jsonDict: NSDictionary) in
             self.parseUpdateResponse(jsonDict)
         }
-        
         let request = getParseAPIRequest(isPutMethod: true, withObjectId: objectId!)
         
         performRequest(request, withCompletion: requestCompletion)
-        /*
-         let urlString = "https://api.parse.com/1/classes/StudentLocation/8ZExGR5uX8"
-         let url = NSURL(string: urlString)
-         let request = NSMutableURLRequest(URL: url!)
-         request.HTTPMethod = "PUT"
-         request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
-         request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
-         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-         request.HTTPBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"John\", \"lastName\": \"Doe\",\"mapString\": \"Cupertino, CA\", \"mediaURL\": \"https://udacity.com\",\"latitude\": 37.322998, \"longitude\": -122.032182}".dataUsingEncoding(NSUTF8StringEncoding)
-         */
-        
     }
     
     private func performRequest(request: NSMutableURLRequest, withCompletion completion: GetDictionaryCompletion) {
@@ -269,7 +265,7 @@ class InformationPostingView: UIView, ParseAPIRequestable {
     }
     
     private func showLocationOnMap() {
-        //TODO: Deal with multiple locations
+        /// If this was a real app, you'd want to deal with multiple locations...
         let location = placemarks?[0].location
         let regionRadius: CLLocationDistance = 54000
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location!.coordinate, regionRadius * 2.0, regionRadius * 2.0)
