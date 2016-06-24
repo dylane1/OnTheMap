@@ -35,7 +35,7 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
         }
         
         /// MapAndTableNavigationProtocol
-        configureNavigationItems(withFacebookLoginStatus: tabBar.appModel.isLoggedInViaFacebook, refreshClosure: refreshClosure)
+        configureNavigationItems(withRefreshClosure: refreshClosure)
         
         getStudentInfoArray()
     }
@@ -63,8 +63,9 @@ extension StudentLocationTableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> StudentLocationTableViewCell {
-        
-        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.ReuseID.locationListTableCell, forIndexPath: indexPath) as! StudentLocationTableViewCell
+
+        let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as StudentLocationTableViewCell
+
         let testImg = UIImage()
         let model = StudentLocationCellModel(image: testImg, studentInformation: infoProvider.studentInformationArray![indexPath.row])
         

@@ -8,10 +8,12 @@
 
 import Foundation
 
-final class StudentInformationProvider {
+final class StudentInformationProvider: StudentInformationGettable, ParseAPIRequestable {
     /// Make this a singleton
     static let sharedInstance = StudentInformationProvider()
     private init() {}
+    
+    internal var currentStudent: StudentInformation!
     
     internal var studentInformationArray: [StudentInformation]? {
         didSet {
@@ -19,35 +21,38 @@ final class StudentInformationProvider {
         }
     }
     
-    private var networkRequestEngine = NetworkRequestEngine()
+    private var networkRequestService = NetworkRequestService()
     
     private var getStudentInfoCompletion: (() -> Void)?
     
     //MARK: - Configuration
+    
+    /// Set after successful login
+    internal func configure(withCurrentStudent student: StudentInformation) {
+        currentStudent = student
+    }
+    
+    /// Set when getting student data from server
     internal func configure(withCompletion completion: () -> Void) {
 
         getStudentInfoCompletion = completion
         
-        let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation")!)
-        
-        request.addValue(Constants.Network.parseAppID, forHTTPHeaderField: "X-Parse-Application-Id")
-        request.addValue(Constants.Network.restAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
+        let request = getParseAPIRequest()
         
         let requestCompletion = { (jsonDict: NSDictionary) in
             self.parseStudentInformation(jsonDict)
         }
         
-        networkRequestEngine.configure(withGetDictionaryCompletion: requestCompletion, withPostCompletion: nil)
-        
-        networkRequestEngine.getJSONDictionary(withRequest: request)
+        networkRequestService.configure(withRequestCompletion: requestCompletion)
+        networkRequestService.requestJSONDictionary(withURLRequest: request)
     }
     
     //MARK: - 
     
     private func parseStudentInformation(jsonDict: NSDictionary) {
-        if jsonDict["results"] != nil {
+        if jsonDict[Constants.Keys.results] != nil {
             
-            guard let jsonArray = jsonDict["results"] as? [NSDictionary] else {
+            guard let jsonArray = jsonDict[Constants.Keys.results] as? [NSDictionary] else {
                 magic("no :(")
                 return
             }

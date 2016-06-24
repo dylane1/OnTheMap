@@ -21,12 +21,12 @@ struct Constants {
 //        static let emptyDataSetVC           = "sb_emptyDataSetVC"
     }
     
-    struct ReuseID {
-        static let locationListTableCell    = "ruid_locationListTableCell"
-        static let mapAnnotation            = "ruid_mapAnnotation"
-//        static let memeListTableCell        = "ruid_memeListTableCell"
-//        static let memeListCollectionCell   = "ruid_memeListCollectionCell"
-    }
+//    struct ReuseID {
+//        static let locationListTableCell    = "ruid_locationListTableCell"
+//        static let mapAnnotation            = "ruid_mapAnnotation"
+////        static let memeListTableCell        = "ruid_memeListTableCell"
+////        static let memeListCollectionCell   = "ruid_memeListCollectionCell"
+//    }
     
     /// Segue
     
@@ -39,9 +39,9 @@ struct Constants {
     /// UI
     struct ColorScheme {
         static let white        = UIColor(red: 0.969, green: 0.969, blue: 0.941, alpha: 1.00) //F7F7F0
-//        static let whiteAlpha50 = UIColor(red: 0.969, green: 0.969, blue: 0.941, alpha: 0.50)
+        static let whiteAlpha50 = UIColor(red: 0.969, green: 0.969, blue: 0.941, alpha: 0.50)
 //        static let whiteAlpha70 = UIColor(red: 0.969, green: 0.969, blue: 0.941, alpha: 0.70)
-//        static let whiteAlpha90 = UIColor(red: 0.969, green: 0.969, blue: 0.941, alpha: 0.90)
+        static let whiteAlpha90 = UIColor(red: 0.969, green: 0.969, blue: 0.941, alpha: 0.90)
 //        static let lightGrey    = UIColor(red: 0.796, green: 0.796, blue: 0.796, alpha: 1.00) //CBCBCB
 //        static let mediumGrey   = UIColor(red: 0.409, green: 0.409, blue: 0.409, alpha: 1.00)
 //        static let darkGrey     = UIColor(red: 0.149, green: 0.149, blue: 0.149, alpha: 1.00) //262626
@@ -165,6 +165,32 @@ struct Constants {
 //        Constants.FontFamilyName.impact,
 //        Constants.FontFamilyName.markerFelt
 //    ]
+    //MARK: - Dictionary Keys
+    
+    struct Keys {
+        ///
+        static let session      = "session"
+        static let account      = "account"
+        
+        ///
+        static let key          = "key"
+        static let user         = "user"
+        
+        ///
+        static let first_name   = "first_name"
+        static let last_name    = "last_name"
+        
+        ///
+        static let results      = "results"
+        static let objectId     = "objectId"
+        static let firstName    = "firstName"
+        static let lastName     = "lastName"
+        static let uniqueKey    = "uniqueKey"
+        static let latitude     = "latitude"
+        static let longitude    = "longitude"
+        static let mapString    = "mapString"
+        static let mediaURL     = "mediaURL"
+    }
     
     //MARK: - Storage
     /// Storage

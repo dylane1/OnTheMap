@@ -1,5 +1,5 @@
 //
-//  NetworkRequestEngine.swift
+//  NetworkRequestService.swift
 //  On The Map
 //
 //  Created by Dylan Edwards on 6/15/16.
@@ -8,19 +8,15 @@
 
 import Foundation
 
-final class NetworkRequestEngine {
+final class NetworkRequestService {
     
-    private var getCompletion: GetDictionaryCompletion?
+    private var requestCompletion: GetDictionaryCompletion?
     
-    typealias PostCompletion = () -> Void
-    private var postCompletion: PostCompletion?
-    
-    internal func configure(withGetDictionaryCompletion get: GetDictionaryCompletion?, withPostCompletion post: PostCompletion?) {
-        getCompletion   = get
-        postCompletion  = post
+    internal func configure(withRequestCompletion completion: GetDictionaryCompletion) {
+        requestCompletion = completion
     }
     
-    internal func getJSONDictionary(withRequest request: NSMutableURLRequest) {
+    internal func requestJSONDictionary(withURLRequest request: NSMutableURLRequest, isUdacityLogin uLogin: Bool = false) {
         let session = NSURLSession.sharedSession()
         
         let task = session.dataTaskWithRequest(request) { data, response, error in
@@ -31,8 +27,11 @@ final class NetworkRequestEngine {
                 magic("\(error!.localizedDescription)")
                 return
             }
-            guard let data = data else { return }
+            guard var data = data else { return }
             
+            if uLogin {
+                data = data.subdataWithRange(NSMakeRange(5, data.length - 5))
+            }
             guard let jsonDict = try? NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as! NSDictionary else {
                 magic("INVALID JSON!!!")
                 return
@@ -40,7 +39,7 @@ final class NetworkRequestEngine {
             
             /// Get back on the main queue before returning the info
             dispatch_async(dispatch_get_main_queue()) {
-                self.getCompletion?(jsonDict)
+                self.requestCompletion?(jsonDict)
             }
         }
         task.resume()

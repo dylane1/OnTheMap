@@ -8,11 +8,11 @@
 
 import UIKit
 
-class StudentLocationTableViewCell: UITableViewCell {
+class StudentLocationTableViewCell: UITableViewCell /*, NibLoadableView*/ {
     @IBOutlet private weak var nameLabel: UILabel!
     @IBOutlet private weak var iconImageView: UIImageView!
     
-    private var dataSource: StudentLocationDataSource!
+    private var dataSource: StudentLocationCellDataSource!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -20,7 +20,7 @@ class StudentLocationTableViewCell: UITableViewCell {
 
     //MARK: - Configuration
     
-    internal func configure(withDataSource dataSource: StudentLocationDataSource) {
+    internal func configure(withDataSource dataSource: StudentLocationCellDataSource) {
         self.dataSource = dataSource
         configureImageView()
         configureLabel()
