@@ -49,7 +49,7 @@ final class MapAndTableNavigationController: NavigationController {
         navigationBar.topItem?.rightBarButtonItems = rightItemArray
         
         logoutButton = UIBarButtonItem(
-        title: LocalizedStrings.NavigationControllerButtons.logout,
+        title: LocalizedStrings.BarButtonTitles.logout,
         style: .Plain,
         target: self,
         action: #selector(logoutButtonTapped))
