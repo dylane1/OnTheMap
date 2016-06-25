@@ -8,12 +8,10 @@
 
 import UIKit
 
-protocol InformationPostingNavigationProtocol {
-    var informationPostingNavController: InformationPostingNavigationController { get }
-}
+protocol InformationPostingNavigationProtocol { }
 
 extension InformationPostingNavigationProtocol where Self: UIViewController {
-    var informationPostingNavController: InformationPostingNavigationController {
+    internal var informationPostingNavigationController: InformationPostingNavigationController {
         return navigationController as! InformationPostingNavigationController
     }
     
@@ -21,6 +19,6 @@ extension InformationPostingNavigationProtocol where Self: UIViewController {
         let cancelButtonClosure = { [weak self] in
             self!.dismissViewControllerAnimated(true, completion: nil)
         }
-        informationPostingNavController.configure(withCancelClosure: cancelButtonClosure)
+        informationPostingNavigationController.configure(withCancelClosure: cancelButtonClosure)
     }
 }

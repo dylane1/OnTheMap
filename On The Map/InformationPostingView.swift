@@ -10,6 +10,8 @@ import MapKit
 import UIKit
 
 class InformationPostingView: UIView, ParseAPIRequestable {
+    private var submitSuccessfulClosure: (() -> Void)?
+    private var alertPresentationClosure: AlertPresentationClosure?
     
     @IBOutlet weak var promptView: UIView!
     @IBOutlet weak var promptLabel: UILabel!
@@ -65,10 +67,14 @@ class InformationPostingView: UIView, ParseAPIRequestable {
     
     //MARK: - Configuration
     
-    internal func configure() {
+    internal func configure(withSuccessClosure success:() -> Void, alertPresentationClosure alertClosure: AlertPresentationClosure) {
         magic("current student: \(studentInfoProvider.currentStudent)")
-        promptView.alpha = 0
-        promptView.transform = CGAffineTransformMakeScale(0.5, 0.5)
+        
+        submitSuccessfulClosure     = success
+        alertPresentationClosure    = alertClosure
+        
+        promptView.alpha        = 0
+        promptView.transform    = CGAffineTransformMakeScale(0.5, 0.5)
         
         mapView.delegate = self
         
@@ -137,7 +143,10 @@ class InformationPostingView: UIView, ParseAPIRequestable {
         
          If invalid location, need to pop alert
         */
-        
+        if !isValidLocation {
+            alertPresentationClosure?(LocalizedStrings.AlertTitles.locationSearchError, LocalizedStrings.AlertMessages.pleaseTrySearchAgain)
+            return
+        }
         
         
         
@@ -148,7 +157,7 @@ class InformationPostingView: UIView, ParseAPIRequestable {
         }
     }
     
-    //MARK: - 
+    //MARK: - Perform network requests
 
     private func queryStudentLocation() {
         let request = getParseAPIRequest(withUniqueKey: studentInfoProvider.currentStudent.uniqueKey)
@@ -161,9 +170,48 @@ class InformationPostingView: UIView, ParseAPIRequestable {
         networkRequestService.requestJSONDictionary(withURLRequest: request)
     }
     
+    private func postStudentLocation() {
+        
+        let requestCompletion = { (jsonDict: NSDictionary) in
+            self.parsePostResponse(jsonDict)
+        }
+        let request = getParseAPIRequest(isPostMethod: true)
+        
+        performRequest(request, withCompletion: requestCompletion)
+    }
+
+    private func updateStudentLocation() {
+        let requestCompletion = { (jsonDict: NSDictionary) in
+            self.parseUpdateResponse(jsonDict)
+        }
+        let request = getParseAPIRequest(isPutMethod: true, withObjectId: objectId!)
+        
+        performRequest(request, withCompletion: requestCompletion)
+    }
+    
+    private func performRequest(request: NSMutableURLRequest, withCompletion completion: GetDictionaryCompletion) {
+        var httpBody = "{"
+        httpBody += "\"\(Constants.Keys.uniqueKey)\": \"\(studentInfoProvider.currentStudent.uniqueKey)\", "
+        httpBody += "\"\(Constants.Keys.firstName)\": \"\(studentInfoProvider.currentStudent.firstName)\", "
+        httpBody += "\"\(Constants.Keys.lastName)\": \"\(studentInfoProvider.currentStudent.lastName)\", "
+        httpBody += "\"\(Constants.Keys.mapString)\": \"\(mapString)\", "
+        httpBody += "\"\(Constants.Keys.mediaURL)\": \"\(mediaURL)\", "
+        //TODO: use these to test invalid json error handling
+        httpBody += "\"\(Constants.Keys.latitude)\": \((placemarks![0].location?.coordinate.latitude)!), "
+        httpBody += "\"\(Constants.Keys.longitude)\": \((placemarks![0].location?.coordinate.longitude)!)}"
+        
+        magic(httpBody)
+        request.HTTPBody = httpBody.dataUsingEncoding(NSUTF8StringEncoding)
+        
+        networkRequestService.configure(withRequestCompletion: completion)
+        networkRequestService.requestJSONDictionary(withURLRequest: request)
+    }
+    
+    //MARK: - Parse results
+    
     private func parseStudentLocationQuery(jsonDict: NSDictionary) {
         let resultArray = jsonDict[Constants.Keys.results] as! NSArray
-//        magic("resultArray: \(resultArray)")
+        //        magic("resultArray: \(resultArray)")
         
         if resultArray.count == 0 { return }
         
@@ -197,57 +245,31 @@ class InformationPostingView: UIView, ParseAPIRequestable {
          */
     }
     
-    private func postStudentLocation() {
-        
-        let requestCompletion = { (jsonDict: NSDictionary) in
-            self.parsePostResponse(jsonDict)
-        }
-        let request = getParseAPIRequest(isPostMethod: true)
-        
-        performRequest(request, withCompletion: requestCompletion)
-    }
-    
-    
-    
-    private func updateStudentLocation() {
-        let requestCompletion = { (jsonDict: NSDictionary) in
-            self.parseUpdateResponse(jsonDict)
-        }
-        let request = getParseAPIRequest(isPutMethod: true, withObjectId: objectId!)
-        
-        performRequest(request, withCompletion: requestCompletion)
-    }
-    
-    private func performRequest(request: NSMutableURLRequest, withCompletion completion: GetDictionaryCompletion) {
-        
-        var httpBody = "{"
-        httpBody += "\"\(Constants.Keys.uniqueKey)\": \"\(studentInfoProvider.currentStudent.uniqueKey)\", "
-        httpBody += "\"\(Constants.Keys.firstName)\": \"\(studentInfoProvider.currentStudent.firstName)\", "
-        httpBody += "\"\(Constants.Keys.lastName)\": \"\(studentInfoProvider.currentStudent.lastName)\", "
-        httpBody += "\"\(Constants.Keys.mapString)\": \"\(mapString)\", "
-        httpBody += "\"\(Constants.Keys.mediaURL)\": \"\(mediaURL)\", "
-        //TODO: use these to test invalid json error handling
-        httpBody += "\"\(Constants.Keys.latitude)\": \((placemarks![0].location?.coordinate.latitude)!), "
-        httpBody += "\"\(Constants.Keys.longitude)\": \((placemarks![0].location?.coordinate.longitude)!)}"
-        
-        magic(httpBody)
-        request.HTTPBody = httpBody.dataUsingEncoding(NSUTF8StringEncoding)
-        
-        networkRequestService.configure(withRequestCompletion: completion)
-        networkRequestService.requestJSONDictionary(withURLRequest: request)
-    }
-    
-    
-    
     private func parsePostResponse(jsonDict: NSDictionary) {
         magic("postDict: \(jsonDict)")
+        
     }
     
     private func parseUpdateResponse(jsonDict: NSDictionary) {
         magic("updateDict: \(jsonDict)")
+        
+        guard let dateString = jsonDict[Constants.Keys.updatedAt] as? String else {
+            alertPresentationClosure?(LocalizedStrings.AlertTitles.locationUpdateError, LocalizedStrings.AlertMessages.pleaseTryUpdateAgain)
+            return
+        }
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        magic("date: \(dateFormatter.dateFromString(dateString))")
+        submitSuccessfulClosure?()
+        /*
+         {
+         updatedAt = "2016-06-24T19:37:58.606Z";
+         "yyyy-MM-dd'T'hh:mm:ss.SSSZ"
+         }
+         */
     }
     
-    
+    //MARK: - Map
     
     private func findLocation() {
         activityIndicator.startAnimating()
@@ -255,10 +277,12 @@ class InformationPostingView: UIView, ParseAPIRequestable {
         geocoder.geocodeAddressString(mapString, completionHandler: { (placemarks: [CLPlacemark]?, error: NSError?) -> Void in
             if error != nil {
                 magic("error: \(error?.localizedDescription)")
-                //TODO: Pop alert
-                
+                self.isValidLocation = false
+                self.alertPresentationClosure?(LocalizedStrings.AlertTitles.locationSearchError, LocalizedStrings.AlertMessages.pleaseTrySearchAgain)
+                return
             } else {
-                self.placemarks = placemarks
+                self.isValidLocation    = true
+                self.placemarks         = placemarks
             }
             self.activityIndicator.stopAnimating()
         })

@@ -10,16 +10,11 @@ import UIKit
 
 class LoginViewController: UIViewController {
     private var loginView: LoginView!
-    
-    private var loginSuccess: LoginSuccess!
-    
-//    private lazy var studentInfoProvider = StudentInformationProvider.sharedInstance
-    //private var appModel: AppModel!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loginSuccess = { [weak self] in
+        let loginSuccess = { [weak self] in
             magic("Success!")
             
             
@@ -35,22 +30,4 @@ class LoginViewController: UIViewController {
         //TODO: For testing nav, set to true
 //        appModel.isLoggedInViaFacebook = true
     }
-
-
-    
-
-    // MARK: - Navigation
-
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        if segue.identifier == Constants.SegueID.loginComplete {
-//            
-//            let tabBarController = segue.destinationViewController as! TabBarController
-//            
-////            tabBarController.configure(withAppModel: appModel)
-//        }
-//    }
-
-    
-    //MARK: - 
-    
 }

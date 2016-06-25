@@ -37,7 +37,13 @@ struct LocalizedStrings {
     }
     
     struct AlertTitles {
-        
+        static let locationSearchError = NSLocalizedString("AlertTitles.locationSearchError", value: "Location Search Error", comment: "")
+        static let locationUpdateError = NSLocalizedString("AlertTitles.locationUpdateError", value: "Location Update Error", comment: "")
+    }
+    
+    struct AlertMessages {
+        static let pleaseTrySearchAgain = NSLocalizedString("AlertMessages.pleaseTrySearchAgain", value: "Unable to find your location, please enter your location again.", comment: "")
+        static let pleaseTryUpdateAgain = NSLocalizedString("AlertMessages.pleaseTryUpdateAgain", value: "Unable to update your location, please try again.", comment: "")
     }
     
     struct AlertButtonTitles {

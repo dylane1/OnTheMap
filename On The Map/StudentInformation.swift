@@ -16,6 +16,8 @@ struct StudentInformation {
     var longitude: Double!
     var mapString: String!
     var mediaURL: String!
+    var updatedAt: NSDate?
+    
     
     init(withInfoDictionary dict: NSDictionary) {
         firstName   = dict[Constants.Keys.firstName] as? String ?? ""
@@ -25,5 +27,6 @@ struct StudentInformation {
         longitude   = dict[Constants.Keys.longitude] as? Double ?? 0.00
         mapString   = dict[Constants.Keys.mapString] as? String ?? ""
         mediaURL    = dict[Constants.Keys.mediaURL] as? String ?? ""
+        updatedAt   = dict[Constants.Keys.updatedAt] as? NSDate
     }
 }

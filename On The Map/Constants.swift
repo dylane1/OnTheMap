@@ -190,6 +190,7 @@ struct Constants {
         static let longitude    = "longitude"
         static let mapString    = "mapString"
         static let mediaURL     = "mediaURL"
+        static let updatedAt    = "updatedAt"
     }
     
     //MARK: - Storage

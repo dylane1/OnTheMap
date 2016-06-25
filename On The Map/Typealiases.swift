@@ -14,3 +14,4 @@ typealias LoginSuccess = () -> Void
 //typealias GetStudentInfoArrayCompletion = ([StudentInformation]) -> Void
 typealias GetDictionaryCompletion = (NSDictionary) -> Void
 typealias OpenLinkClosure = (String) -> Void
+typealias AlertPresentationClosure = (String, String) -> Void
