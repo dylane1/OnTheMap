@@ -14,14 +14,14 @@ final class LoginValidation {
         case InvalidJSON
     }
     
-    private var udacitySuccessfulLogin: LoginSuccess!
+    private var udacitySuccessfulLogin: (() -> Void)!
     
     private var networkRequestService = NetworkRequestService()
     
     private lazy var studentInfoProvider = StudentInformationProvider.sharedInstance
     
     //MARK: - Configuration
-    internal func configure(withSuccessClosure closure: LoginSuccess) {
+    internal func configure(withSuccessClosure closure: () -> Void) {
         udacitySuccessfulLogin = closure
     }
     

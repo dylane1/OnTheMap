@@ -14,20 +14,12 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let loginSuccess = { [weak self] in
-            magic("Success!")
-            
-            
-            self!.performSegueWithIdentifier(Constants.SegueID.loginComplete, sender: self)
+        let loginSuccess = {
+            self.performSegueWithIdentifier(Constants.SegueID.loginComplete, sender: self)
         }
         
         loginView = view as! LoginView
         
         loginView.configure(withSuccessClosure: loginSuccess)
-        
-        //appModel = AppModel()
-        
-        //TODO: For testing nav, set to true
-//        appModel.isLoggedInViaFacebook = true
     }
 }

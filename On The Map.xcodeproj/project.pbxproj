@@ -16,6 +16,7 @@
 		A31EA4921D13477E005CC5B9 /* StudentLocationMapContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31EA4911D13477E005CC5B9 /* StudentLocationMapContainerView.swift */; };
 		A31EA4941D1365D7005CC5B9 /* StudentLocationAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31EA4931D1365D7005CC5B9 /* StudentLocationAnnotation.swift */; };
 		A31EA4961D136F70005CC5B9 /* SafariViewControllerPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31EA4951D136F70005CC5B9 /* SafariViewControllerPresentable.swift */; };
+		A3499F0F1D1E0CBD00C961D3 /* AlertPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3499F0E1D1E0CBD00C961D3 /* AlertPresentable.swift */; };
 		A3816D1F1D08DA6A001B55A0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3816D1E1D08DA6A001B55A0 /* MapKit.framework */; };
 		A3816D241D08E866001B55A0 /* MapAndTableNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3816D231D08E866001B55A0 /* MapAndTableNavigationController.swift */; };
 		A3816D261D09DA70001B55A0 /* InformationPostingPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3816D251D09DA70001B55A0 /* InformationPostingPresentable.swift */; };
@@ -57,6 +58,7 @@
 		A31EA4911D13477E005CC5B9 /* StudentLocationMapContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLocationMapContainerView.swift; sourceTree = "<group>"; };
 		A31EA4931D1365D7005CC5B9 /* StudentLocationAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLocationAnnotation.swift; sourceTree = "<group>"; };
 		A31EA4951D136F70005CC5B9 /* SafariViewControllerPresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafariViewControllerPresentable.swift; sourceTree = "<group>"; };
+		A3499F0E1D1E0CBD00C961D3 /* AlertPresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertPresentable.swift; sourceTree = "<group>"; };
 		A3816D1E1D08DA6A001B55A0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		A3816D231D08E866001B55A0 /* MapAndTableNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapAndTableNavigationController.swift; sourceTree = "<group>"; };
 		A3816D251D09DA70001B55A0 /* InformationPostingPresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InformationPostingPresentable.swift; path = ../InformationPostingPresentable.swift; sourceTree = "<group>"; };
@@ -114,7 +116,6 @@
 		A3816D201D08E7EB001B55A0 /* Map And Table VCs */ = {
 			isa = PBXGroup;
 			children = (
-				A3816D2C1D09E46B001B55A0 /* MapAndTableNavigationProtocol.swift */,
 				A3816D231D08E866001B55A0 /* MapAndTableNavigationController.swift */,
 				A3816D211D08E81C001B55A0 /* Map */,
 				A3816D221D08E82B001B55A0 /* Table */,
@@ -145,7 +146,6 @@
 		A3816D291D09DC02001B55A0 /* Information Posting */ = {
 			isa = PBXGroup;
 			children = (
-				A3816D301D0A2474001B55A0 /* InformationPostingNavigationProtocol.swift */,
 				A3816D2E1D0A0F36001B55A0 /* InformationPostingNavigationController.swift */,
 				A3816D271D09DB9B001B55A0 /* InformationPostingViewController.swift */,
 				A3816D2A1D09DE14001B55A0 /* InformationPostingView.swift */,
@@ -157,8 +157,11 @@
 			isa = PBXGroup;
 			children = (
 				A38AB6E11D19F56500820AA9 /* ParseAPIRequestable.swift */,
+				A3499F0E1D1E0CBD00C961D3 /* AlertPresentable.swift */,
 				A31EA4951D136F70005CC5B9 /* SafariViewControllerPresentable.swift */,
 				A31EA4841D11CEBF005CC5B9 /* StudentInformationGettable.swift */,
+				A3816D2C1D09E46B001B55A0 /* MapAndTableNavigationProtocol.swift */,
+				A3816D301D0A2474001B55A0 /* InformationPostingNavigationProtocol.swift */,
 				A3816D251D09DA70001B55A0 /* InformationPostingPresentable.swift */,
 				A38AB6DD1D187A4E00820AA9 /* ReusableView.swift */,
 			);
@@ -332,6 +335,7 @@
 				A3E8C8D21CED0FF70040770A /* Dynamic.swift in Sources */,
 				A31EA4871D11D501005CC5B9 /* StudentInformationProvider.swift in Sources */,
 				A3816D2B1D09DE14001B55A0 /* InformationPostingView.swift in Sources */,
+				A3499F0F1D1E0CBD00C961D3 /* AlertPresentable.swift in Sources */,
 				A31EA4851D11CEBF005CC5B9 /* StudentInformationGettable.swift in Sources */,
 				A3E8C8CE1CED0EC00040770A /* TabBarController.swift in Sources */,
 				A3E8C8CA1CED0CC70040770A /* Typealiases.swift in Sources */,

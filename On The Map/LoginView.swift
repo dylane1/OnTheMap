@@ -9,7 +9,7 @@
 import UIKit
 
 class LoginView: UIView {
-    private var udacitySuccessfulLogin: LoginSuccess!
+    private var udacitySuccessfulLogin: (() -> Void)!
     
     private lazy var loginValidator = LoginValidation()
     
@@ -40,7 +40,7 @@ class LoginView: UIView {
     
     //MARK: - Configuration
     
-    internal func configure(withSuccessClosure closure: LoginSuccess) {
+    internal func configure(withSuccessClosure closure: () -> Void) {
         backgroundColor = Constants.ColorScheme.orange
         udacitySuccessfulLogin = closure
         

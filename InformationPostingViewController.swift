@@ -8,9 +8,9 @@
 
 import UIKit
 
-class InformationPostingViewController: UIViewController, InformationPostingNavigationProtocol {
+class InformationPostingViewController: UIViewController, InformationPostingNavigationProtocol, AlertPresentable {
     private var postingView: InformationPostingView!
-    private var alertPresentationClosure: AlertPresentationClosure!
+//    private var alertPresentationClosure: AlertPresentationClosure!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,7 +18,6 @@ class InformationPostingViewController: UIViewController, InformationPostingNavi
         let navController = navigationController! as! NavigationController
         navController.setNavigationBarAttributes(isAppTitle: false)
         
-        configureAlertClosure()
         configureView()
         configureNavigationItems()
     }
@@ -42,29 +41,6 @@ class InformationPostingViewController: UIViewController, InformationPostingNavi
         }
         
         
-        postingView.configure(withSuccessClosure: submitSuccessfulClosure, alertPresentationClosure: alertPresentationClosure)
-    }
-    
-    private func configureAlertClosure() {
-        alertPresentationClosure = { [unowned self] (alertTitle: String, alertMessage: String) in
-            
-            let alert = UIAlertController(
-                title: alertTitle,
-                message: alertMessage,
-                preferredStyle: .Alert)
-
-            alert.addAction(UIAlertAction(title: LocalizedStrings.AlertButtonTitles.ok, style: .Default) { (alert: UIAlertAction!) in
-//                /** Remove meme from storage & Table or Collection view */
-//                self.deleteClosure?()
-//                
-//                /** Remove image from view */
-//                self.savedMemeView.imageView.image = nil
-//                
-//                /** Close This View Controller */
-//                self.navigationController?.popToRootViewControllerAnimated(true)
-                })
-            
-            self.presentViewController(alert, animated: true, completion: nil)
-        }
+        postingView.configure(withSuccessClosure: submitSuccessfulClosure, alertPresentationClosure: getAlertPresentationClosure())
     }
 }
