@@ -11,7 +11,17 @@ import UIKit
 class LoginView: UIView {
     private var udacitySuccessfulLogin: (() -> Void)!
     
+    private var emailString     = ""
+    private var passwordString  = ""
+    
+    private var emailTextFieldFontColor = Constants.ColorScheme.red
+    private var textFieldAttributes = [
+        NSFontAttributeName: UIFont.systemFontOfSize(17, weight: UIFontWeightLight),
+        NSForegroundColorAttributeName: Constants.ColorScheme.red
+    ]
+    
     private lazy var loginValidator = LoginValidation()
+    
     
     //MARK: - IBOutlets
     
@@ -27,13 +37,6 @@ class LoginView: UIView {
     //MARK: - Actions
     
     @IBAction func loginAction(sender: AnyObject) {
-//        guard let email = emailField.text as String! where email != "", let pw = passwordField.text as String! where pw != "" else {
-//            magic("empty field")
-//            return
-//        }
-//        if !email.isEmail { magic("not a valid email") }
-//        magic("Login attempt: email: \(email); pw: \(pw)")
-
         loginValidator.configure(withSuccessClosure: udacitySuccessfulLogin)
         loginValidator.verifyLogin(withEmail: Constants.Testing.myValidUsername, password: Constants.Testing.myValidPassword)
     }
@@ -42,41 +45,105 @@ class LoginView: UIView {
     
     internal func configure(withSuccessClosure closure: () -> Void) {
         backgroundColor = Constants.ColorScheme.orange
+        
         udacitySuccessfulLogin = closure
         
-        configureStrings()
+        configureLabels()
+        configureTextFields()
+        configureButtons()
     }
     
-    private func configureStrings() {
+    private func configureLabels() {
         loginToUdacityLabel.text = LocalizedStrings.Labels.loginToUdacity
-        emailField.placeholder = LocalizedStrings.TextFieldPlaceHolders.email
-        passwordField.placeholder = LocalizedStrings.TextFieldPlaceHolders.password
-        loginButton.titleLabel?.text = LocalizedStrings.ButtonTitles.login
-        signInWithFacebookButton.titleLabel?.text = LocalizedStrings.ButtonTitles.signInWithFacebook
+    }
+    
+    private func configureTextFields() {
+        emailField.delegate     = self
+        emailField.placeholder  = LocalizedStrings.TextFieldPlaceHolders.email
+        emailField.addTarget(self, action: #selector(validateTextFields), forControlEvents: .EditingChanged)
+        
+        passwordField.delegate          = self
+        passwordField.secureTextEntry   = true
+        passwordField.placeholder       = LocalizedStrings.TextFieldPlaceHolders.password
+        passwordField.addTarget(self, action: #selector(validateTextFields), forControlEvents: .EditingChanged)
+        
+        configureTextFieldAttributes()
     }
     
     private func configureTextFieldAttributes() {
-        //TODO:
+        textFieldAttributes[NSForegroundColorAttributeName] = emailTextFieldFontColor
+        
+        emailField.defaultTextAttributes = textFieldAttributes
     }
     
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
+    private func configureButtons() {
+        loginButton.titleLabel?.text    = LocalizedStrings.ButtonTitles.login
+        loginButton.enabled             = false
+        
+        signInWithFacebookButton.titleLabel?.text   = LocalizedStrings.ButtonTitles.signInWithFacebook
+        signInWithFacebookButton.enabled            = false
     }
-    */
-
+    
+    
+    /**
+     * 1. Check for valid email & set color of text accordingly
+     * 2. Check for both valid email & a non-empty password string & set login button enabled/disabled
+     */
+    internal func validateTextFields() {
+        emailString     = emailField.text as String! ?? ""
+        passwordString  = passwordField.text as String! ?? ""
+        
+        emailTextFieldFontColor = emailString.isEmail ? Constants.ColorScheme.black : Constants.ColorScheme.red
+        
+        loginButton.enabled = emailString.isEmail && passwordString != "" ? true : false
+        
+        configureTextFieldAttributes()
+    }
 }
 
 //MARK: - UITextFieldDelegate
 extension LoginView: UITextFieldDelegate {
-    //TODO:
-    /** 
-     * 1. Check for valid email & set color of text accordingly 
-     * 2. Check for both valid email & a non-empty password string & set login button enabled/disabled
-     */
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    
+    internal func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
         return true
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
