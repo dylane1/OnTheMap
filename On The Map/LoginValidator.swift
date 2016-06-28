@@ -1,5 +1,5 @@
 //
-//  LoginValidation.swift
+//  LoginValidator.swift
 //  On The Map
 //
 //  Created by Dylan Edwards on 5/25/16.
@@ -8,21 +8,21 @@
 
 import Foundation
 
-final class LoginValidation {
+final class LoginValidator {
     
     enum Error: ErrorType {
         case InvalidJSON
     }
     
-    private var udacitySuccessfulLogin: (() -> Void)!
+    private var loginSuccessClosure: (() -> Void)!
     
     private var networkRequestService = NetworkRequestService()
     
     private lazy var studentInfoProvider = StudentInformationProvider.sharedInstance
     
     //MARK: - Configuration
-    internal func configure(withSuccessClosure closure: () -> Void) {
-        udacitySuccessfulLogin = closure
+    internal func configure(withLoginSuccessClosure closure: () -> Void) {
+        loginSuccessClosure = closure
     }
     
     //MARK: - Network connect
@@ -93,7 +93,7 @@ final class LoginValidation {
 
             /// Need to go back to main thread before calling performSegue
             dispatch_async(dispatch_get_main_queue()) {
-                self.udacitySuccessfulLogin()
+                self.loginSuccessClosure()
             }
         } else {
             magic("no user data :(")

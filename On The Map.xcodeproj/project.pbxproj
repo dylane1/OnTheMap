@@ -45,7 +45,7 @@
 		A3E8C8D51CEF82EC0040770A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8C8D41CEF82EC0040770A /* LoginViewController.swift */; };
 		A3E8C8D81CEF830D0040770A /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8C8D71CEF830D0040770A /* LoginView.swift */; };
 		A3E8C8DA1CF6342B0040770A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8C8D91CF6342B0040770A /* Extensions.swift */; };
-		A3E8C8DC1CF656160040770A /* LoginValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8C8DB1CF656160040770A /* LoginValidation.swift */; };
+		A3E8C8DC1CF656160040770A /* LoginValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8C8DB1CF656160040770A /* LoginValidator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -89,7 +89,7 @@
 		A3E8C8D41CEF82EC0040770A /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		A3E8C8D71CEF830D0040770A /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		A3E8C8D91CF6342B0040770A /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		A3E8C8DB1CF656160040770A /* LoginValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = LoginValidation.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		A3E8C8DB1CF656160040770A /* LoginValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = LoginValidator.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,7 +234,7 @@
 			children = (
 				A3E8C8D41CEF82EC0040770A /* LoginViewController.swift */,
 				A3E8C8D71CEF830D0040770A /* LoginView.swift */,
-				A3E8C8DB1CF656160040770A /* LoginValidation.swift */,
+				A3E8C8DB1CF656160040770A /* LoginValidator.swift */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -352,7 +352,7 @@
 				A3E8C8DA1CF6342B0040770A /* Extensions.swift in Sources */,
 				A31EA4961D136F70005CC5B9 /* SafariViewControllerPresentable.swift in Sources */,
 				A3E8C8CC1CED0CDB0040770A /* LocalizedStrings.swift in Sources */,
-				A3E8C8DC1CF656160040770A /* LoginValidation.swift in Sources */,
+				A3E8C8DC1CF656160040770A /* LoginValidator.swift in Sources */,
 				A3816D241D08E866001B55A0 /* MapAndTableNavigationController.swift in Sources */,
 				A31EA48C1D132AF5005CC5B9 /* StudentLocationTableViewCell.swift in Sources */,
 				A31EA4891D11D752005CC5B9 /* NetworkRequestService.swift in Sources */,

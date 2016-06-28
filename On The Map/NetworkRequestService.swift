@@ -20,14 +20,20 @@ final class NetworkRequestService {
         let session = NSURLSession.sharedSession()
         
         let task = session.dataTaskWithRequest(request) { data, response, error in
+            
+            guard var data = data, let response = response where error == nil else {
+                
+                return
+            }
+            
             let httpResponse = response as! NSHTTPURLResponse
             magic("response status code: \(NSHTTPURLResponse.localizedStringForStatusCode(httpResponse.statusCode))")
             
-            if error != nil {
-                magic("\(error!.localizedDescription)")
-                return
-            }
-            guard var data = data else { return }
+//            
+//            if error != nil {
+//                magic("\(error!.localizedDescription)")
+//                return
+//            }
             
             if uLogin {
                 data = data.subdataWithRange(NSMakeRange(5, data.length - 5))

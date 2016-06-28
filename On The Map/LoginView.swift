@@ -9,7 +9,8 @@
 import UIKit
 
 class LoginView: UIView {
-    private var udacitySuccessfulLogin: (() -> Void)!
+    private var loginSuccessClosure: (() -> Void)!
+    private var alertPresentationClosure: AlertPresentationClosure!
     
     private var emailString     = ""
     private var passwordString  = ""
@@ -20,7 +21,7 @@ class LoginView: UIView {
         NSForegroundColorAttributeName: Constants.ColorScheme.red
     ]
     
-    private lazy var loginValidator = LoginValidation()
+    private lazy var loginValidator = LoginValidator()
     
     
     //MARK: - IBOutlets
@@ -37,16 +38,17 @@ class LoginView: UIView {
     //MARK: - Actions
     
     @IBAction func loginAction(sender: AnyObject) {
-        loginValidator.configure(withSuccessClosure: udacitySuccessfulLogin)
+        loginValidator.configure(withLoginSuccessClosure: loginSuccessClosure)
         loginValidator.verifyLogin(withEmail: Constants.Testing.myValidUsername, password: Constants.Testing.myValidPassword)
     }
     
     //MARK: - Configuration
     
-    internal func configure(withSuccessClosure closure: () -> Void) {
+    internal func configure(withLoginSuccessClosure loginClosure: () -> Void, alertPresentationClosure alertClosure: AlertPresentationClosure) {
         backgroundColor = Constants.ColorScheme.orange
         
-        udacitySuccessfulLogin = closure
+        loginSuccessClosure         = loginClosure
+        alertPresentationClosure    = alertClosure
         
         configureLabels()
         configureTextFields()

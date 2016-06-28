@@ -8,18 +8,18 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, AlertPresentable {
     private var loginView: LoginView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let loginSuccess = {
+        let loginSuccessClosure = {
             self.performSegueWithIdentifier(Constants.SegueID.loginComplete, sender: self)
         }
         
         loginView = view as! LoginView
         
-        loginView.configure(withSuccessClosure: loginSuccess)
+        loginView.configure(withLoginSuccessClosure: loginSuccessClosure, alertPresentationClosure: getAlertPresentationClosure())
     }
 }
