@@ -8,9 +8,7 @@
 
 import Foundation
 
-protocol ParseAPIRequestable {
-
-}
+protocol ParseAPIRequestable { }
 
 extension ParseAPIRequestable {
     

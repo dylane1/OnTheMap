@@ -191,7 +191,18 @@ struct Constants {
         static let mapString    = "mapString"
         static let mediaURL     = "mediaURL"
         static let updatedAt    = "updatedAt"
+        
+        ///
+        static let status       = "status"
+        static let error        = "error"
+        static let parameter    = "parameter"
     }
+    
+    struct LoginErrorResponses {
+        static let missingUsername = "udacity.username"
+        static let missingPassword = "udacity.password"
+    }
+    
     
     //MARK: - Storage
     /// Storage

@@ -9,26 +9,29 @@
 import Foundation
 
 final class LoginValidator {
-    
-    enum Error: ErrorType {
-        case InvalidJSON
+
+    enum Error: Int {
+        case InvaldCredentials  = 403 /// status = 403
+        case MissingParameter   = 400 /// staus  = 400; parameter = "udacity.username" || "udacity.password"
     }
     
+    
     private var loginSuccessClosure: (() -> Void)!
+    private var alertPresentationClosure: AlertPresentationClosure!
     
     private var networkRequestService = NetworkRequestService()
     
     private lazy var studentInfoProvider = StudentInformationProvider.sharedInstance
     
     //MARK: - Configuration
-    internal func configure(withLoginSuccessClosure closure: () -> Void) {
-        loginSuccessClosure = closure
+    internal func configure(withLoginSuccessClosure successClosure: () -> Void, alertPresentationClosure alertClosure: AlertPresentationClosure) {
+        loginSuccessClosure         = successClosure
+        alertPresentationClosure    = alertClosure
     }
     
-    //MARK: - Network connect
+    //MARK: - Perform network requests
     
     internal func verifyLogin(withEmail email: String, password: String) {
-//        let session = NSURLSession.sharedSession()
         
         let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
         
@@ -38,45 +41,71 @@ final class LoginValidator {
         
         request.HTTPBody = "{\"udacity\": {\"username\": \"\(email)\", \"password\": \"\(password)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
         
-        let requestCompletion = { (jsonDict: NSDictionary) in
-            self.parseLoginJSON(jsonDict)
+        let requestCompletion = { [unowned self] (jsonDictionary: NSDictionary) in
+            self.parseLoginJSON(jsonDictionary)
         }
         
-        networkRequestService.configure(withRequestCompletion: requestCompletion)
+        networkRequestService.configure(withRequestCompletion: requestCompletion, alertPresentationClosure: alertPresentationClosure)
         networkRequestService.requestJSONDictionary(withURLRequest: request, isUdacityLogin: true)
-    }
-    
-    //MARK: - Parse JSON
-    
-    private func parseLoginJSON(jsonDict: NSDictionary) {
-        
-        if jsonDict[Constants.Keys.session] != nil && jsonDict[Constants.Keys.account] != nil {
-            
-            getPublicUserData(withAccountDict: jsonDict[Constants.Keys.account] as! NSDictionary)
-        } else {
-            magic("Invalid login")
-            //TODO: pop alert
-        }
     }
     
     private func getPublicUserData(withAccountDict acctDict: NSDictionary) {
         
-        magic("key: \(acctDict[Constants.Keys.key] as! String)")
+//        magic("key: \(acctDict[Constants.Keys.key] as! String)")
         
         let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/users/\(acctDict[Constants.Keys.key] as! String)")!)
         
-        let requestCompletion = { (jsonDict: NSDictionary) in
-            self.parsePublicUserDataJSON(jsonDict, userKey: acctDict[Constants.Keys.key] as! String)
+        let requestCompletion = { [unowned self] (jsonDictionary: NSDictionary) in
+            self.parsePublicUserDataJSON(jsonDictionary, userKey: acctDict[Constants.Keys.key] as! String)
         }
         
-        networkRequestService.configure(withRequestCompletion: requestCompletion)
+        networkRequestService.configure(withRequestCompletion: requestCompletion, alertPresentationClosure: alertPresentationClosure)
         networkRequestService.requestJSONDictionary(withURLRequest: request, isUdacityLogin: true)
     }
     
-    private func parsePublicUserDataJSON(jsonDict: NSDictionary, userKey key: String) {
+    //MARK: - Parse results
+    
+    private func parseLoginJSON(jsonDictionary: NSDictionary) {
+        magic("loginDict: \(jsonDictionary)")
         
-        if jsonDict[Constants.Keys.user] != nil {
-            guard let userDict = jsonDict[Constants.Keys.user] as? NSDictionary else {
+        guard let _ = jsonDictionary[Constants.Keys.session] as? String,
+              let accountDictionary = jsonDictionary[Constants.Keys.account] as? NSDictionary else {
+                /// Invalid login
+                
+                guard let statusCode = jsonDictionary[Constants.Keys.status] as? Int,
+                    let _ = jsonDictionary[Constants.Keys.error] as? String else {
+                        alertPresentationClosure?(LocalizedStrings.AlertTitles.loginError, LocalizedStrings.AlertMessages.unknownLoginError)
+                        return
+                }
+                
+                var messageString = ""
+                
+                switch statusCode {
+                case Error.InvaldCredentials.rawValue:
+                    messageString += LocalizedStrings.AlertMessages.invalidCredentials
+                default:
+                    /// Missing Parameter
+                    if let missingParameter = jsonDictionary[Constants.Keys.parameter] as? String {
+                        switch missingParameter {
+                        case Constants.LoginErrorResponses.missingUsername:
+                            messageString += LocalizedStrings.AlertMessages.pleaseEnterUsername
+                        default:
+                            messageString += LocalizedStrings.AlertMessages.pleaseEnterPassword
+                        }
+                    }
+                }
+                
+                alertPresentationClosure?(LocalizedStrings.AlertTitles.loginError, messageString)
+                return
+        }
+        /// Made it through with a valid account
+        getPublicUserData(withAccountDict: accountDictionary)
+    }
+    
+    private func parsePublicUserDataJSON(jsonDictionary: NSDictionary, userKey key: String) {
+        
+        if jsonDictionary[Constants.Keys.user] != nil {
+            guard let userDict = jsonDictionary[Constants.Keys.user] as? NSDictionary else {
                 magic("noooooo....")
                 return
             }
@@ -100,6 +129,8 @@ final class LoginValidator {
         }
         
     }
+    
+    
 }
 
 
@@ -119,12 +150,28 @@ final class LoginValidator {
  ]
  
  * Invalid login:
- LoginValidation.parseThatJSON[74]: json:
- [
- "status": 403,
- "error": Account not found or invalid credentials.
- ]
- */ 
+ {
+ error = "Account not found or invalid credentials.";
+ status = 403;
+ }
+ 
+ *No username error
+ {
+ error = "trails.Error 400: Missing parameter 'username'";
+ parameter = "udacity.username";
+ status = 400;
+ }
+ * No pw:
+ {
+ error = "trails.Error 400: Missing parameter 'password'";
+ parameter = "udacity.password";
+ status = 400;
+ }
+ 
+ 
+ 
+ 
+ */
 
 
 

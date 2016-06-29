@@ -10,8 +10,8 @@ import MapKit
 import UIKit
 
 class InformationPostingView: UIView, ParseAPIRequestable {
-    private var submitSuccessfulClosure: (() -> Void)?
-    private var alertPresentationClosure: AlertPresentationClosure?
+    private var submitSuccessfulClosure: (() -> Void)!
+    private var alertPresentationClosure: AlertPresentationClosure!
     
     @IBOutlet weak var promptView: UIView!
     @IBOutlet weak var promptLabel: UILabel!
@@ -162,18 +162,18 @@ class InformationPostingView: UIView, ParseAPIRequestable {
     private func queryStudentLocation() {
         let request = getParseAPIRequest(withUniqueKey: studentInfoProvider.currentStudent.uniqueKey)
         
-        let requestCompletion = { (jsonDict: NSDictionary) in
-            self.parseStudentLocationQuery(jsonDict)
+        let requestCompletion = { (jsonDictionary: NSDictionary) in
+            self.parseStudentLocationQuery(jsonDictionary)
         }
         
-        networkRequestService.configure(withRequestCompletion: requestCompletion)
+        networkRequestService.configure(withRequestCompletion: requestCompletion, alertPresentationClosure: alertPresentationClosure)
         networkRequestService.requestJSONDictionary(withURLRequest: request)
     }
     
     private func postStudentLocation() {
         
-        let requestCompletion = { (jsonDict: NSDictionary) in
-            self.parsePostResponse(jsonDict)
+        let requestCompletion = { (jsonDictionary: NSDictionary) in
+            self.parsePostResponse(jsonDictionary)
         }
         let request = getParseAPIRequest(isPostMethod: true)
         
@@ -181,8 +181,8 @@ class InformationPostingView: UIView, ParseAPIRequestable {
     }
 
     private func updateStudentLocation() {
-        let requestCompletion = { (jsonDict: NSDictionary) in
-            self.parseUpdateResponse(jsonDict)
+        let requestCompletion = { (jsonDictionary: NSDictionary) in
+            self.parseUpdateResponse(jsonDictionary)
         }
         let request = getParseAPIRequest(isPutMethod: true, withObjectId: objectId!)
         
@@ -203,14 +203,14 @@ class InformationPostingView: UIView, ParseAPIRequestable {
         magic(httpBody)
         request.HTTPBody = httpBody.dataUsingEncoding(NSUTF8StringEncoding)
         
-        networkRequestService.configure(withRequestCompletion: completion)
+        networkRequestService.configure(withRequestCompletion: completion, alertPresentationClosure: alertPresentationClosure)
         networkRequestService.requestJSONDictionary(withURLRequest: request)
     }
     
     //MARK: - Parse results
     
-    private func parseStudentLocationQuery(jsonDict: NSDictionary) {
-        let resultArray = jsonDict[Constants.Keys.results] as! NSArray
+    private func parseStudentLocationQuery(jsonDictionary: NSDictionary) {
+        let resultArray = jsonDictionary[Constants.Keys.results] as! NSArray
         //        magic("resultArray: \(resultArray)")
         
         if resultArray.count == 0 { return }
@@ -245,15 +245,15 @@ class InformationPostingView: UIView, ParseAPIRequestable {
          */
     }
     
-    private func parsePostResponse(jsonDict: NSDictionary) {
-        magic("postDict: \(jsonDict)")
+    private func parsePostResponse(jsonDictionary: NSDictionary) {
+        magic("postDict: \(jsonDictionary)")
         
     }
     
-    private func parseUpdateResponse(jsonDict: NSDictionary) {
-        magic("updateDict: \(jsonDict)")
+    private func parseUpdateResponse(jsonDictionary: NSDictionary) {
+        magic("updateDict: \(jsonDictionary)")
         
-        guard let dateString = jsonDict[Constants.Keys.updatedAt] as? String else {
+        guard let dateString = jsonDictionary[Constants.Keys.updatedAt] as? String else {
             alertPresentationClosure?(LocalizedStrings.AlertTitles.locationUpdateError, LocalizedStrings.AlertMessages.pleaseTryUpdateAgain)
             return
         }

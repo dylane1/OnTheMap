@@ -10,10 +10,12 @@ import Foundation
 
 final class NetworkRequestService {
     
-    private var requestCompletion: GetDictionaryCompletion?
+    private var requestCompletion: GetDictionaryCompletion!
+    private var alertPresentationClosure: AlertPresentationClosure!
     
-    internal func configure(withRequestCompletion completion: GetDictionaryCompletion) {
-        requestCompletion = completion
+    internal func configure(withRequestCompletion reqCompletion: GetDictionaryCompletion, alertPresentationClosure alertClosure: AlertPresentationClosure) {
+        requestCompletion           = reqCompletion
+        alertPresentationClosure    = alertClosure
     }
     
     internal func requestJSONDictionary(withURLRequest request: NSMutableURLRequest, isUdacityLogin uLogin: Bool = false) {
@@ -22,30 +24,32 @@ final class NetworkRequestService {
         let task = session.dataTaskWithRequest(request) { data, response, error in
             
             guard var data = data, let response = response where error == nil else {
-                
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.alertPresentationClosure(LocalizedStrings.AlertTitles.error, error!.localizedDescription)
+                }
                 return
             }
             
             let httpResponse = response as! NSHTTPURLResponse
-            magic("response status code: \(NSHTTPURLResponse.localizedStringForStatusCode(httpResponse.statusCode))")
             
-//            
-//            if error != nil {
-//                magic("\(error!.localizedDescription)")
-//                return
-//            }
+            if httpResponse.statusCode != 200 {
+                magic("Response status code: \(NSHTTPURLResponse.localizedStringForStatusCode(httpResponse.statusCode))")
+            }
             
             if uLogin {
                 data = data.subdataWithRange(NSMakeRange(5, data.length - 5))
             }
-            guard let jsonDict = try? NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as! NSDictionary else {
-                magic("INVALID JSON!!!")
-                return
-            }
             
-            /// Get back on the main queue before returning the info
-            dispatch_async(dispatch_get_main_queue()) {
-                self.requestCompletion?(jsonDict)
+            do {
+                
+                let jsonDictionary = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as! NSDictionary
+                
+                /// Get back on the main queue before returning the info
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.requestCompletion?(jsonDictionary)
+                }
+            }catch {
+                fatalError("Not a JSON Dictionary :[")
             }
         }
         task.resume()

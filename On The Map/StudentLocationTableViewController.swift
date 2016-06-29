@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class StudentLocationTableViewController: UITableViewController, MapAndTableNavigationProtocol, StudentInformationGettable, InformationPostingPresentable, SafariViewControllerPresentable {
+final class StudentLocationTableViewController: UITableViewController, MapAndTableNavigationProtocol, StudentInformationGettable, InformationPostingPresentable, SafariViewControllerPresentable, AlertPresentable {
     
     private let infoProvider = StudentInformationProvider.sharedInstance
     

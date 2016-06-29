@@ -38,8 +38,10 @@ class LoginView: UIView {
     //MARK: - Actions
     
     @IBAction func loginAction(sender: AnyObject) {
-        loginValidator.configure(withLoginSuccessClosure: loginSuccessClosure)
-        loginValidator.verifyLogin(withEmail: Constants.Testing.myValidUsername, password: Constants.Testing.myValidPassword)
+        loginValidator.configure(withLoginSuccessClosure: loginSuccessClosure, alertPresentationClosure: alertPresentationClosure)
+//        loginValidator.verifyLogin(withEmail: Constants.Testing.myValidUsername, password: Constants.Testing.myValidPassword)
+        loginValidator.verifyLogin(withEmail: Constants.Testing.myValidUsername, password: "")
+//        loginValidator.verifyLogin(withEmail: emailString, password: passwordString)
     }
     
     //MARK: - Configuration
@@ -80,7 +82,7 @@ class LoginView: UIView {
     
     private func configureButtons() {
         loginButton.titleLabel?.text    = LocalizedStrings.ButtonTitles.login
-        loginButton.enabled             = false
+        loginButton.enabled             = true //false
         
         signInWithFacebookButton.titleLabel?.text   = LocalizedStrings.ButtonTitles.signInWithFacebook
         signInWithFacebookButton.enabled            = false
@@ -97,7 +99,7 @@ class LoginView: UIView {
         
         emailTextFieldFontColor = emailString.isEmail ? Constants.ColorScheme.black : Constants.ColorScheme.red
         
-        loginButton.enabled = emailString.isEmail && passwordString != "" ? true : false
+//        loginButton.enabled = emailString.isEmail && passwordString != "" ? true : false
         
         configureTextFieldAttributes()
     }
