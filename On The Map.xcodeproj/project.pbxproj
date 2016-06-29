@@ -35,6 +35,7 @@
 		A39CF5A51CCAB1390060C890 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A39CF5A31CCAB1390060C890 /* Main.storyboard */; };
 		A39CF5A71CCAB1390060C890 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A39CF5A61CCAB1390060C890 /* Assets.xcassets */; };
 		A39CF5AA1CCAB1390060C890 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A39CF5A81CCAB1390060C890 /* LaunchScreen.storyboard */; };
+		A3D909EC1D245467006315E5 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D909EB1D245467006315E5 /* Reachability.swift */; };
 		A3E8C8C61CED078A0040770A /* Magic.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8C8C51CED078A0040770A /* Magic.swift */; };
 		A3E8C8C81CED0CB30040770A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8C8C71CED0CB30040770A /* Constants.swift */; };
 		A3E8C8CA1CED0CC70040770A /* Typealiases.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8C8C91CED0CC70040770A /* Typealiases.swift */; };
@@ -79,6 +80,7 @@
 		A39CF5A61CCAB1390060C890 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A39CF5A91CCAB1390060C890 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A39CF5AB1CCAB1390060C890 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A3D909EB1D245467006315E5 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		A3E8C8C51CED078A0040770A /* Magic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Magic.swift; path = Magic/Magic.swift; sourceTree = "<group>"; };
 		A3E8C8C71CED0CB30040770A /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A3E8C8C91CED0CC70040770A /* Typealiases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Typealiases.swift; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 			children = (
 				A3E8C8C51CED078A0040770A /* Magic.swift */,
 				A3E8C8D11CED0FF70040770A /* Dynamic.swift */,
+				A3D909EB1D245467006315E5 /* Reachability.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -342,6 +345,7 @@
 				A31EA4901D132CD2005CC5B9 /* StudentLocationCellDataSource.swift in Sources */,
 				A31EA48E1D132C2B005CC5B9 /* StudentLocationTableViewController.swift in Sources */,
 				A38AB6E21D19F56500820AA9 /* ParseAPIRequestable.swift in Sources */,
+				A3D909EC1D245467006315E5 /* Reachability.swift in Sources */,
 				A3816D261D09DA70001B55A0 /* InformationPostingPresentable.swift in Sources */,
 				A3E8C8D01CED0EE40040770A /* NavigationController.swift in Sources */,
 				A3816D2D1D09E46B001B55A0 /* MapAndTableNavigationProtocol.swift in Sources */,

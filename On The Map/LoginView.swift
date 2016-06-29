@@ -10,7 +10,7 @@ import UIKit
 
 class LoginView: UIView {
     private var loginSuccessClosure: (() -> Void)!
-    private var alertPresentationClosure: AlertPresentationClosure!
+    private var alertPresentationClosureWithParameters: AlertPresentationClosureWithParameters!
     
     private var emailString     = ""
     private var passwordString  = ""
@@ -38,19 +38,23 @@ class LoginView: UIView {
     //MARK: - Actions
     
     @IBAction func loginAction(sender: AnyObject) {
-        loginValidator.configure(withLoginSuccessClosure: loginSuccessClosure, alertPresentationClosure: alertPresentationClosure)
-        loginValidator.verifyLogin(withEmail: Constants.Testing.myValidUsername, password: Constants.Testing.myValidPassword)
-//        loginValidator.verifyLogin(withEmail: Constants.Testing.myValidUsername, password: "")
+        loginValidator.configure(withLoginSuccessClosure: loginSuccessClosure, alertPresentationClosure: alertPresentationClosureWithParameters)
+        /// Login
 //        loginValidator.verifyLogin(withEmail: emailString, password: passwordString)
+        
+        ///TESTING:
+        loginValidator.verifyLogin(withEmail: Constants.Testing.myValidUsername, password: Constants.Testing.myValidPassword)
+//        loginValidator.verifyLogin(withEmail: "", password: "")
+//        loginValidator.verifyLogin(withEmail: Constants.Testing.myValidUsername, password: "")
     }
     
     //MARK: - Configuration
     
-    internal func configure(withLoginSuccessClosure loginClosure: () -> Void, alertPresentationClosure alertClosure: AlertPresentationClosure) {
+    internal func configure(withLoginSuccessClosure loginClosure: () -> Void, alertPresentationClosure alertClosure: AlertPresentationClosureWithParameters) {
         backgroundColor = Constants.ColorScheme.orange
         
-        loginSuccessClosure         = loginClosure
-        alertPresentationClosure    = alertClosure
+        loginSuccessClosure                     = loginClosure
+        alertPresentationClosureWithParameters  = alertClosure
         
         configureLabels()
         configureTextFields()

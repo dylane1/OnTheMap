@@ -11,21 +11,27 @@ import Foundation
 final class NetworkRequestService {
     
     private var requestCompletion: GetDictionaryCompletion!
-    private var alertPresentationClosure: AlertPresentationClosure!
+    private var alertPresentationClosureWithParameters: AlertPresentationClosureWithParameters!
     
-    internal func configure(withRequestCompletion reqCompletion: GetDictionaryCompletion, alertPresentationClosure alertClosure: AlertPresentationClosure) {
-        requestCompletion           = reqCompletion
-        alertPresentationClosure    = alertClosure
+    internal func configure(withRequestCompletion reqCompletion: GetDictionaryCompletion, alertPresentationClosure alertClosure: AlertPresentationClosureWithParameters) {
+        requestCompletion                       = reqCompletion
+        alertPresentationClosureWithParameters  = alertClosure
     }
     
     internal func requestJSONDictionary(withURLRequest request: NSMutableURLRequest, isUdacityLogin uLogin: Bool = false) {
+        /// Check to see if connected to the internet first...
+        if !Reachability.isConnectedToNetwork() {
+            alertPresentationClosureWithParameters((title: LocalizedStrings.AlertTitles.noInternetConnection, message: LocalizedStrings.AlertMessages.connectToInternet))
+        }
+        
+        
         let session = NSURLSession.sharedSession()
         
         let task = session.dataTaskWithRequest(request) { data, response, error in
             
             guard var data = data, let response = response where error == nil else {
                 dispatch_async(dispatch_get_main_queue()) {
-                    self.alertPresentationClosure(LocalizedStrings.AlertTitles.error, error!.localizedDescription)
+                    self.alertPresentationClosureWithParameters((title: LocalizedStrings.AlertTitles.error, message: error!.localizedDescription))
                 }
                 return
             }

@@ -24,7 +24,7 @@ final class StudentInformationProvider: StudentInformationGettable, ParseAPIRequ
     private var networkRequestService = NetworkRequestService()
     
     private var informationReceivedCompletion: (() -> Void)?
-    private var alertPresentationClosure: AlertPresentationClosure?
+    private var alertPresentationClosureWithParameters: AlertPresentationClosureWithParameters?
     
     //MARK: - Configuration
     
@@ -34,10 +34,10 @@ final class StudentInformationProvider: StudentInformationGettable, ParseAPIRequ
     }
     
     /// Set when getting student data from server
-    internal func configure(withInformationReceivedCompletion receivedCompletion: () -> Void, alertPresentationClosure alertClosure: AlertPresentationClosure) {
+    internal func configure(withInformationReceivedCompletion receivedCompletion: () -> Void, alertPresentationClosure alertClosure: AlertPresentationClosureWithParameters) {
 
-        informationReceivedCompletion   = receivedCompletion
-        alertPresentationClosure        = alertClosure
+        informationReceivedCompletion           = receivedCompletion
+        alertPresentationClosureWithParameters  = alertClosure
         
         let request = getParseAPIRequest()
         
@@ -45,7 +45,7 @@ final class StudentInformationProvider: StudentInformationGettable, ParseAPIRequ
             self.parseStudentInformation(jsonDictionary)
         }
         
-        networkRequestService.configure(withRequestCompletion: requestCompletion, alertPresentationClosure: alertPresentationClosure!)
+        networkRequestService.configure(withRequestCompletion: requestCompletion, alertPresentationClosure: alertPresentationClosureWithParameters!)
         networkRequestService.requestJSONDictionary(withURLRequest: request)
     }
     

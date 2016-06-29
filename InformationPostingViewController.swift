@@ -10,7 +10,7 @@ import UIKit
 
 class InformationPostingViewController: UIViewController, InformationPostingNavigationProtocol, AlertPresentable {
     private var postingView: InformationPostingView!
-//    private var alertPresentationClosure: AlertPresentationClosure!
+//    private var alertPresentationClosureWithParameters: AlertPresentationClosureWithParameters!
     
     override func viewDidLoad() {
         super.viewDidLoad()

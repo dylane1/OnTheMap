@@ -16,16 +16,16 @@ final class LoginValidator {
     }
     
     private var loginSuccessClosure: (() -> Void)!
-    private var alertPresentationClosure: AlertPresentationClosure!
+    private var alertPresentationClosureWithParameters: AlertPresentationClosureWithParameters!
     
     private var networkRequestService = NetworkRequestService()
     
     private lazy var studentInfoProvider = StudentInformationProvider.sharedInstance
     
     //MARK: - Configuration
-    internal func configure(withLoginSuccessClosure successClosure: () -> Void, alertPresentationClosure alertClosure: AlertPresentationClosure) {
-        loginSuccessClosure         = successClosure
-        alertPresentationClosure    = alertClosure
+    internal func configure(withLoginSuccessClosure successClosure: () -> Void, alertPresentationClosure alertClosure: AlertPresentationClosureWithParameters) {
+        loginSuccessClosure                     = successClosure
+        alertPresentationClosureWithParameters  = alertClosure
     }
     
     //MARK: - Perform network requests
@@ -44,7 +44,7 @@ final class LoginValidator {
             self.parseLoginJSON(jsonDictionary)
         }
         
-        networkRequestService.configure(withRequestCompletion: requestCompletion, alertPresentationClosure: alertPresentationClosure)
+        networkRequestService.configure(withRequestCompletion: requestCompletion, alertPresentationClosure: alertPresentationClosureWithParameters)
         networkRequestService.requestJSONDictionary(withURLRequest: request, isUdacityLogin: true)
     }
     
@@ -56,7 +56,7 @@ final class LoginValidator {
             self.parsePublicUserDataJSON(jsonDictionary, userKey: acctDict[Constants.Keys.key] as! String)
         }
         
-        networkRequestService.configure(withRequestCompletion: requestCompletion, alertPresentationClosure: alertPresentationClosure)
+        networkRequestService.configure(withRequestCompletion: requestCompletion, alertPresentationClosure: alertPresentationClosureWithParameters)
         networkRequestService.requestJSONDictionary(withURLRequest: request, isUdacityLogin: true)
     }
     
@@ -71,7 +71,7 @@ final class LoginValidator {
                 
                 guard let statusCode = jsonDictionary[Constants.Keys.status] as? Int,
                     let _ = jsonDictionary[Constants.Keys.error] as? String else {
-                        alertPresentationClosure?(LocalizedStrings.AlertTitles.loginError, LocalizedStrings.AlertMessages.unknownLoginError)
+                        alertPresentationClosureWithParameters?((title: LocalizedStrings.AlertTitles.loginError, message: LocalizedStrings.AlertMessages.unknownLoginError))
                         return
                 }
                 
@@ -96,7 +96,7 @@ final class LoginValidator {
                     messageString = LocalizedStrings.AlertMessages.unknownLoginError + ": \(statusCode)"
                 }
                 
-                alertPresentationClosure?(LocalizedStrings.AlertTitles.loginError, messageString)
+                alertPresentationClosureWithParameters?((title: LocalizedStrings.AlertTitles.loginError, message: messageString))
                 return
         }
         /// Made it through with a valid account
@@ -106,7 +106,7 @@ final class LoginValidator {
     private func parsePublicUserDataJSON(jsonDictionary: NSDictionary, userKey key: String) {
 //        magic("userDictionary: \(jsonDictionary)")
         guard let userDictionary = jsonDictionary[Constants.Keys.user] as? NSDictionary else {
-            alertPresentationClosure?(LocalizedStrings.AlertTitles.userInfoError, LocalizedStrings.AlertMessages.userInfoError)
+            alertPresentationClosureWithParameters?((title: LocalizedStrings.AlertTitles.userInfoError, message: LocalizedStrings.AlertMessages.userInfoError))
             return
         }
         

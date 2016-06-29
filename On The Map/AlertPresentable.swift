@@ -11,18 +11,18 @@ import UIKit
 protocol AlertPresentable {}
 
 extension AlertPresentable where Self: UIViewController {
-    internal func getAlertPresentationClosure() -> AlertPresentationClosure {
-        let alertPresentationClosure = { [unowned self] (alertTitle: String, alertMessage: String) in
+    internal func getAlertPresentationClosure() -> AlertPresentationClosureWithParameters {
+        let alertPresentationClosureWithParameters = { [unowned self] (alertParameters: AlertParameters) in
             
             let alert = UIAlertController(
-                title: alertTitle,
-                message: alertMessage,
+                title: alertParameters.title,
+                message: alertParameters.message,
                 preferredStyle: .Alert)
             
             alert.addAction(UIAlertAction(title: LocalizedStrings.AlertButtonTitles.ok, style: .Default, handler: nil))
             
             self.presentViewController(alert, animated: true, completion: nil)
         }
-        return alertPresentationClosure
+        return alertPresentationClosureWithParameters
     }
 }

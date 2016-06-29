@@ -42,6 +42,7 @@ struct LocalizedStrings {
         static let locationUpdateError  = NSLocalizedString("AlertTitles.locationUpdateError", value: "Location Update Error", comment: "")
         static let loginError           = NSLocalizedString("AlertTitles.loginError", value: "Login Error", comment: "")
         static let userInfoError        = NSLocalizedString("AlertTitles.userInfoError", value: "User Fetch Error", comment: "")
+        static let noInternetConnection = NSLocalizedString("AlertTitles.noInternetConnection", value: "No Internet Connection", comment: "")
     }
     
     struct AlertMessages {
@@ -53,6 +54,7 @@ struct LocalizedStrings {
         static let pleaseEnterUsername  = NSLocalizedString("AlertMessages.pleaseEnterUsername", value: "Please enter a valid username.", comment: "")
         static let pleaseEnterPassword  = NSLocalizedString("AlertMessages.pleaseEnterPassword", value: "Please enter a password.", comment: "")
         static let userInfoError        = NSLocalizedString("AlertMessages.userInfoError", value: "There was a problem while fetching your user data. Please try again later.", comment: "")
+        static let connectToInternet    = NSLocalizedString("AlertMessages.userInfoError", value: "Make sure your device is connected to the internet.", comment: "")
     }
     
     struct AlertButtonTitles {

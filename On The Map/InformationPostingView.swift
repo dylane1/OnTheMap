@@ -11,7 +11,7 @@ import UIKit
 
 class InformationPostingView: UIView, ParseAPIRequestable {
     private var submitSuccessfulClosure: (() -> Void)!
-    private var alertPresentationClosure: AlertPresentationClosure!
+    private var alertPresentationClosureWithParameters: AlertPresentationClosureWithParameters!
     
     @IBOutlet weak var promptView: UIView!
     @IBOutlet weak var promptLabel: UILabel!
@@ -67,11 +67,11 @@ class InformationPostingView: UIView, ParseAPIRequestable {
     
     //MARK: - Configuration
     
-    internal func configure(withSuccessClosure success:() -> Void, alertPresentationClosure alertClosure: AlertPresentationClosure) {
+    internal func configure(withSuccessClosure success:() -> Void, alertPresentationClosure alertClosure: AlertPresentationClosureWithParameters) {
         magic("current student: \(studentInfoProvider.currentStudent)")
         
-        submitSuccessfulClosure     = success
-        alertPresentationClosure    = alertClosure
+        submitSuccessfulClosure                 = success
+        alertPresentationClosureWithParameters  = alertClosure
         
         promptView.alpha        = 0
         promptView.transform    = CGAffineTransformMakeScale(0.5, 0.5)
@@ -138,13 +138,8 @@ class InformationPostingView: UIView, ParseAPIRequestable {
     //MARK: - Actions
     
     @IBAction func bottomButtonAction(sender: AnyObject) {
-        /**
-         Stopping point June 23, 2016
-        
-         If invalid location, need to pop alert
-        */
         if !isValidLocation {
-            alertPresentationClosure?(LocalizedStrings.AlertTitles.locationSearchError, LocalizedStrings.AlertMessages.pleaseTrySearchAgain)
+            alertPresentationClosureWithParameters?((title: LocalizedStrings.AlertTitles.locationSearchError, message: LocalizedStrings.AlertMessages.pleaseTrySearchAgain))
             return
         }
         
@@ -166,7 +161,7 @@ class InformationPostingView: UIView, ParseAPIRequestable {
             self.parseStudentLocationQuery(jsonDictionary)
         }
         
-        networkRequestService.configure(withRequestCompletion: requestCompletion, alertPresentationClosure: alertPresentationClosure)
+        networkRequestService.configure(withRequestCompletion: requestCompletion, alertPresentationClosure: alertPresentationClosureWithParameters)
         networkRequestService.requestJSONDictionary(withURLRequest: request)
     }
     
@@ -203,7 +198,7 @@ class InformationPostingView: UIView, ParseAPIRequestable {
         magic(httpBody)
         request.HTTPBody = httpBody.dataUsingEncoding(NSUTF8StringEncoding)
         
-        networkRequestService.configure(withRequestCompletion: completion, alertPresentationClosure: alertPresentationClosure)
+        networkRequestService.configure(withRequestCompletion: completion, alertPresentationClosure: alertPresentationClosureWithParameters)
         networkRequestService.requestJSONDictionary(withURLRequest: request)
     }
     
@@ -254,7 +249,7 @@ class InformationPostingView: UIView, ParseAPIRequestable {
         magic("updateDict: \(jsonDictionary)")
         
         guard let dateString = jsonDictionary[Constants.Keys.updatedAt] as? String else {
-            alertPresentationClosure?(LocalizedStrings.AlertTitles.locationUpdateError, LocalizedStrings.AlertMessages.pleaseTryUpdateAgain)
+            alertPresentationClosureWithParameters?((title: LocalizedStrings.AlertTitles.locationUpdateError, message: LocalizedStrings.AlertMessages.pleaseTryUpdateAgain))
             return
         }
         let dateFormatter = NSDateFormatter()
@@ -278,7 +273,7 @@ class InformationPostingView: UIView, ParseAPIRequestable {
             if error != nil {
                 magic("error: \(error?.localizedDescription)")
                 self.isValidLocation = false
-                self.alertPresentationClosure?(LocalizedStrings.AlertTitles.locationSearchError, LocalizedStrings.AlertMessages.pleaseTrySearchAgain)
+                self.alertPresentationClosureWithParameters?((title: LocalizedStrings.AlertTitles.locationSearchError, message: LocalizedStrings.AlertMessages.pleaseTrySearchAgain))
                 return
             } else {
                 self.isValidLocation    = true
