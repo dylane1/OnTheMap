@@ -41,7 +41,6 @@ final class NetworkRequestService {
             }
             
             do {
-                
                 let jsonDictionary = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as! NSDictionary
                 
                 /// Get back on the main queue before returning the info

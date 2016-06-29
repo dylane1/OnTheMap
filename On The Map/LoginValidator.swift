@@ -15,7 +15,6 @@ final class LoginValidator {
         case MissingParameter   = 400 /// staus  = 400; parameter = "udacity.username" || "udacity.password"
     }
     
-    
     private var loginSuccessClosure: (() -> Void)!
     private var alertPresentationClosure: AlertPresentationClosure!
     
@@ -51,8 +50,6 @@ final class LoginValidator {
     
     private func getPublicUserData(withAccountDict acctDict: NSDictionary) {
         
-//        magic("key: \(acctDict[Constants.Keys.key] as! String)")
-        
         let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/users/\(acctDict[Constants.Keys.key] as! String)")!)
         
         let requestCompletion = { [unowned self] (jsonDictionary: NSDictionary) in
@@ -66,9 +63,9 @@ final class LoginValidator {
     //MARK: - Parse results
     
     private func parseLoginJSON(jsonDictionary: NSDictionary) {
-        magic("loginDict: \(jsonDictionary)")
+//        magic("loginDict: \(jsonDictionary)")
         
-        guard let _ = jsonDictionary[Constants.Keys.session] as? String,
+        guard let _ = jsonDictionary[Constants.Keys.session] as? NSDictionary,
               let accountDictionary = jsonDictionary[Constants.Keys.account] as? NSDictionary else {
                 /// Invalid login
                 
@@ -78,21 +75,25 @@ final class LoginValidator {
                         return
                 }
                 
-                var messageString = ""
+                let messageString: String!
                 
                 switch statusCode {
                 case Error.InvaldCredentials.rawValue:
-                    messageString += LocalizedStrings.AlertMessages.invalidCredentials
-                default:
-                    /// Missing Parameter
+                    messageString = LocalizedStrings.AlertMessages.invalidCredentials
+                case Error.MissingParameter.rawValue:
                     if let missingParameter = jsonDictionary[Constants.Keys.parameter] as? String {
                         switch missingParameter {
                         case Constants.LoginErrorResponses.missingUsername:
-                            messageString += LocalizedStrings.AlertMessages.pleaseEnterUsername
+                            messageString = LocalizedStrings.AlertMessages.pleaseEnterUsername
                         default:
-                            messageString += LocalizedStrings.AlertMessages.pleaseEnterPassword
+                            messageString = LocalizedStrings.AlertMessages.pleaseEnterPassword
                         }
+                    } else {
+                        messageString = LocalizedStrings.AlertMessages.unknownLoginError
                     }
+                default:
+                    /// Unknown?
+                    messageString = LocalizedStrings.AlertMessages.unknownLoginError + ": \(statusCode)"
                 }
                 
                 alertPresentationClosure?(LocalizedStrings.AlertTitles.loginError, messageString)
@@ -103,75 +104,30 @@ final class LoginValidator {
     }
     
     private func parsePublicUserDataJSON(jsonDictionary: NSDictionary, userKey key: String) {
-        
-        if jsonDictionary[Constants.Keys.user] != nil {
-            guard let userDict = jsonDictionary[Constants.Keys.user] as? NSDictionary else {
-                magic("noooooo....")
-                return
-            }
-            
-            let infoDictionary = NSMutableDictionary()
-            
-            infoDictionary.setObject(userDict[Constants.Keys.first_name] as! String, forKey: Constants.Keys.firstName)
-            infoDictionary.setObject(userDict[Constants.Keys.last_name] as! String, forKey: Constants.Keys.lastName)
-            infoDictionary.setObject(key as String, forKey: Constants.Keys.uniqueKey)
-            
-            let currentUser = StudentInformation(withInfoDictionary: infoDictionary)
-            
-            studentInfoProvider.configure(withCurrentStudent: currentUser)
-
-            /// Need to go back to main thread before calling performSegue
-            dispatch_async(dispatch_get_main_queue()) {
-                self.loginSuccessClosure()
-            }
-        } else {
-            magic("no user data :(")
+//        magic("userDictionary: \(jsonDictionary)")
+        guard let userDictionary = jsonDictionary[Constants.Keys.user] as? NSDictionary else {
+            alertPresentationClosure?(LocalizedStrings.AlertTitles.userInfoError, LocalizedStrings.AlertMessages.userInfoError)
+            return
         }
         
+        let infoDictionary = NSMutableDictionary()
+        
+        guard let firstName = userDictionary[Constants.Keys.first_name] as? String,
+            lastName = userDictionary[Constants.Keys.first_name] as? String else {
+                fatalError("No first or last name? :[")
+        }
+        infoDictionary.setObject(firstName, forKey: Constants.Keys.firstName)
+        infoDictionary.setObject(lastName, forKey: Constants.Keys.lastName)
+        infoDictionary.setObject(key as String, forKey: Constants.Keys.uniqueKey)
+        
+        let currentUser = StudentInformation(withInfoDictionary: infoDictionary)
+        
+        studentInfoProvider.configure(withCurrentStudent: currentUser)
+        
+        self.loginSuccessClosure()
     }
-    
-    
 }
 
-
-
-
-/**
- * Real Response:
- [
- "session": {
- expiration = "2016-08-02T00:11:08.171300Z";
- id = 1496448668S91843fdbda6e2232a715d7e82fcf19df;
- },
- "account": {
- key = u20327308;
- registered = 1;
- }
- ]
- 
- * Invalid login:
- {
- error = "Account not found or invalid credentials.";
- status = 403;
- }
- 
- *No username error
- {
- error = "trails.Error 400: Missing parameter 'username'";
- parameter = "udacity.username";
- status = 400;
- }
- * No pw:
- {
- error = "trails.Error 400: Missing parameter 'password'";
- parameter = "udacity.password";
- status = 400;
- }
- 
- 
- 
- 
- */
 
 
 

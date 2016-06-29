@@ -39,8 +39,8 @@ class LoginView: UIView {
     
     @IBAction func loginAction(sender: AnyObject) {
         loginValidator.configure(withLoginSuccessClosure: loginSuccessClosure, alertPresentationClosure: alertPresentationClosure)
-//        loginValidator.verifyLogin(withEmail: Constants.Testing.myValidUsername, password: Constants.Testing.myValidPassword)
-        loginValidator.verifyLogin(withEmail: Constants.Testing.myValidUsername, password: "")
+        loginValidator.verifyLogin(withEmail: Constants.Testing.myValidUsername, password: Constants.Testing.myValidPassword)
+//        loginValidator.verifyLogin(withEmail: Constants.Testing.myValidUsername, password: "")
 //        loginValidator.verifyLogin(withEmail: emailString, password: passwordString)
     }
     

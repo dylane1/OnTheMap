@@ -41,16 +41,18 @@ struct LocalizedStrings {
         static let locationSearchError  = NSLocalizedString("AlertTitles.locationSearchError", value: "Location Search Error", comment: "")
         static let locationUpdateError  = NSLocalizedString("AlertTitles.locationUpdateError", value: "Location Update Error", comment: "")
         static let loginError           = NSLocalizedString("AlertTitles.loginError", value: "Login Error", comment: "")
+        static let userInfoError        = NSLocalizedString("AlertTitles.userInfoError", value: "User Fetch Error", comment: "")
     }
     
     struct AlertMessages {
         static let pleaseTrySearchAgain = NSLocalizedString("AlertMessages.pleaseTrySearchAgain", value: "Unable to find your location, please enter your location again.", comment: "")
         static let pleaseTryUpdateAgain = NSLocalizedString("AlertMessages.pleaseTryUpdateAgain", value: "Unable to update your location, please try again.", comment: "")
 //        static let loginErrorReason = NSLocalizedString("AlertMessages.loginErrorReason", value: "Unable to login for the following reason:", comment: "")
-        static let unknownLoginError = NSLocalizedString("AlertMessages.unknownLoginError", value: "Unknown login error, please try again.", comment: "")
-        static let invalidCredentials = NSLocalizedString("AlertMessages.invalidCredentials", value: "Account not found or invalid credentials.", comment: "")
-        static let pleaseEnterUsername = NSLocalizedString("AlertMessages.pleaseEnterUsername", value: "Please enter a valid username.", comment: "")
-        static let pleaseEnterPassword = NSLocalizedString("AlertMessages.pleaseEnterPassword", value: "Please enter a password.", comment: "")
+        static let unknownLoginError    = NSLocalizedString("AlertMessages.unknownLoginError", value: "Unknown login error, please try again.", comment: "")
+        static let invalidCredentials   = NSLocalizedString("AlertMessages.invalidCredentials", value: "Account not found or invalid credentials.", comment: "")
+        static let pleaseEnterUsername  = NSLocalizedString("AlertMessages.pleaseEnterUsername", value: "Please enter a valid username.", comment: "")
+        static let pleaseEnterPassword  = NSLocalizedString("AlertMessages.pleaseEnterPassword", value: "Please enter a password.", comment: "")
+        static let userInfoError        = NSLocalizedString("AlertMessages.userInfoError", value: "There was a problem while fetching your user data. Please try again later.", comment: "")
     }
     
     struct AlertButtonTitles {
