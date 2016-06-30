@@ -10,7 +10,7 @@ import UIKit
 
 final class StudentLocationMapContainerViewController: UIViewController, MapAndTableNavigationProtocol, StudentInformationGettable, InformationPostingPresentable, SafariViewControllerPresentable, AlertPresentable {
     
-    private let infoProvider = StudentInformationProvider.sharedInstance
+    private let studentInformationProvider = StudentInformationProvider.sharedInstance
     
     private var tabBar: TabBarController!
     private var mapContainterView: StudentLocationMapContainerView!
@@ -21,7 +21,6 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        /// Set special font for the app title
         let navController = navigationController! as! NavigationController
         navController.setNavigationBarAttributes(isAppTitle: true)
         
@@ -40,6 +39,16 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
         getStudentInfoArray()
     }
 
+    //MARK: - Configuration
+    private func configureView() {
+        mapContainterView = view as! StudentLocationMapContainerView
+        
+        let openLinkClosure = { (urlString: String) in
+            self.openLink(withURLString: urlString)
+        }
+        mapContainterView.configure(withStudentInformationArray: studentInformationProvider.studentInformationArray!, openLinkClosure: openLinkClosure)
+    }
+    
     //MARK: - 
     
     private func getStudentInfoArray() {
@@ -50,19 +59,6 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
         /// StudentInformationGettable
         getStudentInformation(withCompletion: completion)
     }
-
-    private func configureView() {
-        mapContainterView = view as! StudentLocationMapContainerView
-        
-        let openLinkClosure = { (urlString: String) in
-            self.openLink(withURLString: urlString)
-        }
-        mapContainterView.configure(withStudentInfoArray: infoProvider.studentInformationArray!, openLinkClosure: openLinkClosure)
-    }
-    
-//    private func refreshMap() {
-//        
-//    }
     
     private func openLink(withURLString link: String) {
         /// SafariViewControllerPresentable

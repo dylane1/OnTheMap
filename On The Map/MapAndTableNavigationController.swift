@@ -19,8 +19,6 @@ final class MapAndTableNavigationController: NavigationController {
     private var logoutClosure: BarButtonClosure?
     private var logoutButton: UIBarButtonItem?
     
-//    private var emptyDataSetVC: EmptyDataSetViewController?
-    
     //MARK: - Configuration
     
     internal func configure(withAddClosure add: BarButtonClosure, refreshClosure refresh: BarButtonClosure, logoutClosure logout: BarButtonClosure) {
@@ -49,10 +47,10 @@ final class MapAndTableNavigationController: NavigationController {
         navigationBar.topItem?.rightBarButtonItems = rightItemArray
         
         logoutButton = UIBarButtonItem(
-        title: LocalizedStrings.BarButtonTitles.logout,
-        style: .Plain,
-        target: self,
-        action: #selector(logoutButtonTapped))
+            title: LocalizedStrings.BarButtonTitles.logout,
+            style: .Plain,
+            target: self,
+            action: #selector(logoutButtonTapped))
         
         navigationBar.topItem?.leftBarButtonItem = logoutButton!
     }

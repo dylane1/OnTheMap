@@ -9,10 +9,13 @@
 import UIKit
 
 class StudentLocationTableViewCell: UITableViewCell /*, NibLoadableView*/ {
-    @IBOutlet private weak var nameLabel: UILabel!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var subtitleLabel: UILabel!
     @IBOutlet private weak var iconImageView: UIImageView!
     
     private var dataSource: StudentLocationCellDataSource!
+    
+    private var isInvalidURL = false
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,7 +26,7 @@ class StudentLocationTableViewCell: UITableViewCell /*, NibLoadableView*/ {
     internal func configure(withDataSource dataSource: StudentLocationCellDataSource) {
         self.dataSource = dataSource
         configureImageView()
-        configureLabel()
+        configureLabels()
         configureCell()
     }
     
@@ -32,24 +35,43 @@ class StudentLocationTableViewCell: UITableViewCell /*, NibLoadableView*/ {
         iconImageView.image = dataSource.image
     }
     
-    private func configureLabel() {
-        nameLabel.adjustsFontSizeToFitWidth  = true
+    private func configureLabels() {
+        /// Title label
+        titleLabel.adjustsFontSizeToFitWidth  = true
         
-        let attributes = dataSource.textAttributes
-//        attributes[NSFontAttributeName] = dataSource.meme.font
+        let titleAttributes = dataSource.titleTextAttributes
         
         let fn = dataSource.studentInformation.firstName
         let ln = dataSource.studentInformation.lastName
         
         let fullName = fn + " " + ln
         
-        let attributedString = NSMutableAttributedString(string: fullName, attributes: attributes)
+        let titleAttributedString = NSMutableAttributedString(string: fullName, attributes: titleAttributes)
         
-        nameLabel.attributedText = attributedString
+        titleLabel.attributedText = titleAttributedString
+        
+        /// Subtitle label
+        subtitleLabel.adjustsFontSizeToFitWidth  = true
+        
+        var subtitleAttributes = dataSource.subtitleTextAttributes
+        
+        let subTitle = dataSource.studentInformation.mediaURL
+        
+        /// Show URLs that won't open in Safari in a red color
+        if subTitle.safariOpenableURL == nil {
+            subtitleAttributes[NSForegroundColorAttributeName] = Constants.ColorScheme.red
+            isInvalidURL = true
+        } else {
+            isInvalidURL = false
+        }
+        
+        let subtitleAttributedString = NSMutableAttributedString(string: subTitle, attributes: subtitleAttributes)
+        
+        subtitleLabel.attributedText = subtitleAttributedString
     }
     
     private func configureCell() {
-//        backgroundColor = Constants.ColorScheme.whiteAlpha50
+//        backgroundColor = (isInvalidURL) ? Constants.ColorScheme.lightGrey : UIColor.clearColor()
     }
 
 }

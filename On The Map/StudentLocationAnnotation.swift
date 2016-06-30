@@ -10,10 +10,14 @@ import MapKit
 import Foundation
 
 final class StudentLocationAnnotation: NSObject, MKAnnotation, ReusableView {
-    let title: String?
-    let mediaURL: String
-    let locationName: String
-    let coordinate: CLLocationCoordinate2D
+    internal let title: String?
+    internal let mediaURL: String
+    internal let locationName: String
+    internal let coordinate: CLLocationCoordinate2D
+    
+    internal var subtitle: String? {
+        return mediaURL
+    }
     
     init(title: String, mediaURL: String, locationName: String, coordinate: CLLocationCoordinate2D) {
         self.title          = title
@@ -22,9 +26,5 @@ final class StudentLocationAnnotation: NSObject, MKAnnotation, ReusableView {
         self.coordinate     = coordinate
         
         super.init()
-    }
-    
-    var subtitle: String? {
-        return mediaURL
     }
 }

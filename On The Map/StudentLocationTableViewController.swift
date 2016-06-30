@@ -10,7 +10,7 @@ import UIKit
 
 final class StudentLocationTableViewController: UITableViewController, MapAndTableNavigationProtocol, StudentInformationGettable, InformationPostingPresentable, SafariViewControllerPresentable, AlertPresentable {
     
-    private let infoProvider = StudentInformationProvider.sharedInstance
+    private let studentInformationProvider = StudentInformationProvider.sharedInstance
     
     private var tabBar: TabBarController!
     
@@ -59,7 +59,7 @@ extension StudentLocationTableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (infoProvider.studentInformationArray == nil) ? 0 : infoProvider.studentInformationArray!.count
+        return (studentInformationProvider.studentInformationArray == nil) ? 0 : studentInformationProvider.studentInformationArray!.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> StudentLocationTableViewCell {
@@ -67,7 +67,7 @@ extension StudentLocationTableViewController {
         let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as StudentLocationTableViewCell
 
         let testImg = UIImage()
-        let model = StudentLocationCellModel(image: testImg, studentInformation: infoProvider.studentInformationArray![indexPath.row])
+        let model = StudentLocationCellModel(image: testImg, studentInformation: studentInformationProvider.studentInformationArray![indexPath.row])
         
         cell.configure(withDataSource: model)
         
@@ -86,12 +86,15 @@ extension StudentLocationTableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         /// SafariViewControllerPresentable
-        openLinkInSafari(withURLString: infoProvider.studentInformationArray![indexPath.row].mediaURL)
+        openLinkInSafari(withURLString: studentInformationProvider.studentInformationArray![indexPath.row].mediaURL)
     }
     
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 59.0
+    }
     override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         /// Allows the bottom cell to be fully visible when scrolled to end of list
-        return 2
+        return 2.0
     }
     
     override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
