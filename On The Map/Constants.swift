@@ -67,6 +67,22 @@ struct Constants {
         static let restAPIKey = "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"
     }
     
+    struct HTTPHeaderFieldValues {
+        static let applicationJSON = "application/json"
+    }
+    
+    struct HTTPHeaderFields {
+        static let accept           = "Accept"
+        static let contentType      = "Content-Type"
+        static let xParseAppId      = "X-Parse-Application-Id"
+        static let xParseRestAPIKey = "X-Parse-REST-API-Key"
+    }
+    
+    struct HTTPMethods {
+        static let get  = "GET"
+        static let post = "POST"
+        static let put  = "PUT"
+    }
     struct Testing {
         static let myValidUsername = "dylan.e3@gmail.com"
         static let myValidPassword = "*8Kjp4uGouIZ:d{*yM07l"

@@ -24,12 +24,12 @@ extension ParseAPIRequestable {
         }
         let request = NSMutableURLRequest(URL: NSURL(string: urlString)!)
         
-        request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
-        request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
+        request.addValue(Constants.Network.parseAppID, forHTTPHeaderField: Constants.HTTPHeaderFields.xParseAppId)
+        request.addValue(Constants.Network.restAPIKey, forHTTPHeaderField: Constants.HTTPHeaderFields.xParseRestAPIKey)
         
         if isPost || isPut {
-            request.HTTPMethod = (isPost) ? "POST" : "PUT"
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.HTTPMethod = (isPost) ? Constants.HTTPMethods.post : Constants.HTTPMethods.put
+            request.addValue(Constants.HTTPHeaderFieldValues.applicationJSON, forHTTPHeaderField: Constants.HTTPHeaderFields.contentType)
         }
         return request
     }
