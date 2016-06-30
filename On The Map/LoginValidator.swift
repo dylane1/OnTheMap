@@ -114,7 +114,7 @@ final class LoginValidator {
         
         guard let firstName = userDictionary[Constants.Keys.first_name] as? String,
             lastName = userDictionary[Constants.Keys.first_name] as? String else {
-                fatalError("No first or last name? :[")
+                fatalError("No first or last name? All hope is lost... :[")
         }
         infoDictionary.setObject(firstName, forKey: Constants.Keys.firstName)
         infoDictionary.setObject(lastName, forKey: Constants.Keys.lastName)

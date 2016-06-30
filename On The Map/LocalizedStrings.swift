@@ -10,8 +10,8 @@ import Foundation
 
 struct LocalizedStrings {
     struct ViewControllerTitles {
-        static let onTheMap = NSLocalizedString("ViewControllerTitles.onTheMap", value: "On The Map", comment: "")
-        
+        static let onTheMap             = NSLocalizedString("ViewControllerTitles.onTheMap", value: "On The Map", comment: "")
+        static let enterYourLocation    = NSLocalizedString("ViewControllerTitles.enterYourLocation", value: "Enter Your Location", comment: "")
     }
     
     struct BarButtonTitles {
@@ -19,42 +19,70 @@ struct LocalizedStrings {
     }
     
     struct ButtonTitles {
+        /// Login
         static let login    = NSLocalizedString("ButtonTitles.login", value: "Login", comment: "")
-        static let submit   = NSLocalizedString("ButtonTitles.submit", value: "Submit", comment: "")
         static let signInWithFacebook = NSLocalizedString("ButtonTitles.signInWithFacebook", value: "Sign in with Facebook", comment: "")
+        
+        /// Information Posting
+        static let submit   = NSLocalizedString("ButtonTitles.submit", value: "Submit", comment: "")
     }
     
     struct TextFieldPlaceHolders {
+        /// Login
         static let email            = NSLocalizedString("TextFieldPlaceHolders.email", value: "Email", comment: "")
         static let password         = NSLocalizedString("TextFieldPlaceHolders.password", value: "Password", comment: "")
+        
+        /// Information Posting
         static let enterLocation    = NSLocalizedString("TextFieldPlaceHolders.enterLocation", value: "Enter Location", comment: "")
         static let enterURL         = NSLocalizedString("TextFieldPlaceHolders.enterURL", value: "Enter URL", comment: "")
     }
     
     struct Labels {
+        /// Login
         static let loginToUdacity   = NSLocalizedString("Labels.loginToUdacity", value: "Login To Udacity", comment: "")
+        
+        /// Information Posting
         static let whereAreYou      = NSLocalizedString("Labels.whereAreYou", value: "Where Are You\nStudying Today", comment: "")
     }
     
     struct AlertTitles {
+        /// General error
         static let error                = NSLocalizedString("AlertTitles.error", value: "Error", comment: "")
-        static let locationSearchError  = NSLocalizedString("AlertTitles.locationSearchError", value: "Location Search Error", comment: "")
-        static let locationUpdateError  = NSLocalizedString("AlertTitles.locationUpdateError", value: "Location Update Error", comment: "")
-        static let loginError           = NSLocalizedString("AlertTitles.loginError", value: "Login Error", comment: "")
-        static let userInfoError        = NSLocalizedString("AlertTitles.userInfoError", value: "User Fetch Error", comment: "")
+        
+        /// Reachablility error
         static let noInternetConnection = NSLocalizedString("AlertTitles.noInternetConnection", value: "No Internet Connection", comment: "")
+        
+        /// Login
+        static let loginError           = NSLocalizedString("AlertTitles.loginError", value: "Login Error", comment: "")
+        
+        /// Retrieving user info error
+        static let userInfoError        = NSLocalizedString("AlertTitles.userInfoError", value: "User Fetch Error", comment: "")
+        
+        /// Geocoding error
+        static let locationSearchError  = NSLocalizedString("AlertTitles.locationSearchError", value: "Location Search Error", comment: "")
+        
+        /// User location update error
+        static let locationUpdateError  = NSLocalizedString("AlertTitles.locationUpdateError", value: "Location Update Error", comment: "")
     }
     
     struct AlertMessages {
-        static let pleaseTrySearchAgain = NSLocalizedString("AlertMessages.pleaseTrySearchAgain", value: "Unable to find your location, please enter your location again.", comment: "")
-        static let pleaseTryUpdateAgain = NSLocalizedString("AlertMessages.pleaseTryUpdateAgain", value: "Unable to update your location, please try again.", comment: "")
-//        static let loginErrorReason = NSLocalizedString("AlertMessages.loginErrorReason", value: "Unable to login for the following reason:", comment: "")
-        static let unknownLoginError    = NSLocalizedString("AlertMessages.unknownLoginError", value: "Unknown login error, please try again.", comment: "")
+        /// Reachablility error
+        static let connectToInternet    = NSLocalizedString("AlertMessages.userInfoError", value: "Make sure your device is connected to the internet.", comment: "")
+        
+        /// Login errors
         static let invalidCredentials   = NSLocalizedString("AlertMessages.invalidCredentials", value: "Account not found or invalid credentials.", comment: "")
         static let pleaseEnterUsername  = NSLocalizedString("AlertMessages.pleaseEnterUsername", value: "Please enter a valid username.", comment: "")
         static let pleaseEnterPassword  = NSLocalizedString("AlertMessages.pleaseEnterPassword", value: "Please enter a password.", comment: "")
+        static let unknownLoginError    = NSLocalizedString("AlertMessages.unknownLoginError", value: "Unknown login error, please try again.", comment: "")
+        
+        /// Retrieving user info error
         static let userInfoError        = NSLocalizedString("AlertMessages.userInfoError", value: "There was a problem while fetching your user data. Please try again later.", comment: "")
-        static let connectToInternet    = NSLocalizedString("AlertMessages.userInfoError", value: "Make sure your device is connected to the internet.", comment: "")
+        
+        /// Geocoding error
+        static let pleaseTrySearchAgain = NSLocalizedString("AlertMessages.pleaseTrySearchAgain", value: "Unable to find your location, please enter your location again.", comment: "")
+        
+        /// User location update error
+        static let pleaseTryUpdateAgain = NSLocalizedString("AlertMessages.pleaseTryUpdateAgain", value: "Unable to update your location, please try again.", comment: "")
     }
     
     struct AlertButtonTitles {

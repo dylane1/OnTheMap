@@ -22,12 +22,10 @@ extension String {
             return nil
         }
     }
-    
-
 }
 
 /**
- Adapted from Natasha "The Robot"'s WWDC POP talk:
+ Adapted from Natasha "The Robot"'s WWDC 2016 POP talk:
  
  https://realm.io/news/appbuilders-natasha-muraschev-practical-protocol-oriented-programming
  */

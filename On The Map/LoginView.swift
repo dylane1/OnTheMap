@@ -23,7 +23,6 @@ class LoginView: UIView {
     
     private lazy var loginValidator = LoginValidator()
     
-    
     //MARK: - IBOutlets
     
     @IBOutlet weak var loginToUdacityLabel: UILabel!
@@ -39,7 +38,7 @@ class LoginView: UIView {
     
     @IBAction func loginAction(sender: AnyObject) {
         loginValidator.configure(withLoginSuccessClosure: loginSuccessClosure, alertPresentationClosure: alertPresentationClosureWithParameters)
-        /// Login
+        /// Login (real data)
 //        loginValidator.verifyLogin(withEmail: emailString, password: passwordString)
         
         ///TESTING:

@@ -14,7 +14,7 @@ class LoginViewController: UIViewController, AlertPresentable {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let loginSuccessClosure = {
+        let loginSuccessClosure = { [unowned self] in
             self.performSegueWithIdentifier(Constants.SegueID.loginComplete, sender: self)
         }
         

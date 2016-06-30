@@ -14,7 +14,9 @@ class InformationPostingViewController: UIViewController, InformationPostingNavi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        title = LocalizedStrings.ViewControllerTitles.enterYourLocation
+        
         let navController = navigationController! as! NavigationController
         navController.setNavigationBarAttributes(isAppTitle: false)
         
