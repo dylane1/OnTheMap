@@ -8,10 +8,13 @@
 
 import Foundation
 
-final class StudentInformationProvider: StudentInformationGettable, ParseAPIRequestable {
+final class StudentInformationProvider: StudentLocationRequestable {
     /// Make this a singleton
     static let sharedInstance = StudentInformationProvider()
     private init() {}
+    
+    private var informationReceivedCompletion: (() -> Void)?
+    private var alertPresentationClosureWithParameters: AlertPresentationClosureWithParameters?
     
     internal var currentStudent: StudentInformation!
     
@@ -22,9 +25,6 @@ final class StudentInformationProvider: StudentInformationGettable, ParseAPIRequ
     }
     
     private var networkRequestService = NetworkRequestService()
-    
-    private var informationReceivedCompletion: (() -> Void)?
-    private var alertPresentationClosureWithParameters: AlertPresentationClosureWithParameters?
     
     //MARK: - Configuration
     
@@ -39,39 +39,87 @@ final class StudentInformationProvider: StudentInformationGettable, ParseAPIRequ
         informationReceivedCompletion           = receivedCompletion
         alertPresentationClosureWithParameters  = alertClosure
         
-        let request = getParseAPIRequest()
+        requestStudentInformation()
+    }
+    
+    //MARK: - Perform network requests
+    
+    private func requestStudentInformation() {
+        let request = createStudentLocationRequest()
         
-        let requestCompletion = { (jsonDictionary: NSDictionary) in
-            self.parseStudentInformation(jsonDictionary)
+        let requestCompletion = { [weak self] (jsonDictionary: NSDictionary) in
+            self!.parseStudentInformation(jsonDictionary)
         }
         
         networkRequestService.configure(withRequestCompletion: requestCompletion, alertPresentationClosure: alertPresentationClosureWithParameters!)
         networkRequestService.requestJSONDictionary(withURLRequest: request)
     }
     
-    //MARK: - 
+    //MARK: - Parse results
     
     private func parseStudentInformation(jsonDictionary: NSDictionary) {
-        if jsonDictionary[Constants.Keys.results] != nil {
+        magic("jsonDictionary: \(jsonDictionary)")
+        guard let studentInformationJSON = jsonDictionary[Constants.Keys.results] as? [NSDictionary] else {
+            alertPresentationClosureWithParameters?((title: "hmmm", message: "What's the deal??"))
             
-            guard let jsonArray = jsonDictionary[Constants.Keys.results] as? [NSDictionary] else {
-                magic("no :(")
-                return
-            }
-            
-            var studentInfoArray = [StudentInformation]()
-            
-            for student in jsonArray {
-                let studentInfo = StudentInformation(withInfoDictionary: student)
-                
-                studentInfoArray.append(studentInfo)
-            }
-            
-            self.studentInformationArray = studentInfoArray
-
-        } else {
-            magic("Something's Wrong :(")
-            //TODO: pop alert
+            return
         }
+        /**
+         June 30, 2016 Stopping point
+         */
+        
+        
+        if studentInformationJSON.count == 0 {
+            alertPresentationClosureWithParameters?((title: "hmmm", message: "What's the deal??"))
+        }
+        
+        var studentInfoArray = [StudentInformation]()
+        
+        for student in studentInformationJSON {
+            let studentInfo = StudentInformation(withInfoDictionary: student)
+            
+            studentInfoArray.append(studentInfo)
+        }
+        
+        self.studentInformationArray = studentInfoArray
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

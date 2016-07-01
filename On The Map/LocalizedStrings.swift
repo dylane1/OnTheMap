@@ -58,6 +58,10 @@ struct LocalizedStrings {
         /// Retrieving user info error
         static let userInfoError        = NSLocalizedString("AlertTitles.userInfoError", value: "User Fetch Error", comment: "")
         
+        /// Retrieving student locations error
+        
+        
+        
         /// Geocoding error
         static let locationSearchError  = NSLocalizedString("AlertTitles.locationSearchError", value: "Location Search Error", comment: "")
         

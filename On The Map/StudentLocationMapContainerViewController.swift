@@ -28,9 +28,9 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
         
         tabBar = tabBarController as! TabBarController
 
-        let refreshClosure = {
-            self.mapContainterView.clearAnnotations()
-            self.getStudentInfoArray()
+        let refreshClosure = { [weak self] in
+            self!.mapContainterView.clearAnnotations()
+            self!.getStudentInfoArray()
         }
         
         /// MapAndTableNavigationProtocol
@@ -43,8 +43,8 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
     private func configureView() {
         mapContainterView = view as! StudentLocationMapContainerView
         
-        let openLinkClosure = { (urlString: String) in
-            self.openLink(withURLString: urlString)
+        let openLinkClosure = { [weak self] (urlString: String) in
+            self!.openLink(withURLString: urlString)
         }
         mapContainterView.configure(withStudentInformationArray: studentInformationProvider.studentInformationArray!, openLinkClosure: openLinkClosure)
     }
@@ -52,8 +52,8 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
     //MARK: - 
     
     private func getStudentInfoArray() {
-        let completion = {
-            self.configureView()
+        let completion = { [weak self] in
+            self!.configureView()
         }
         
         /// StudentInformationGettable

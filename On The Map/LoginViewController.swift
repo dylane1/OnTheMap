@@ -11,6 +11,8 @@ import UIKit
 class LoginViewController: UIViewController, AlertPresentable {
     private var loginView: LoginView!
 
+    private var mainTabBarController: TabBarController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -21,5 +23,13 @@ class LoginViewController: UIViewController, AlertPresentable {
         loginView = view as! LoginView
         
         loginView.configure(withLoginSuccessClosure: loginSuccessClosure, alertPresentationClosure: getAlertPresentationClosure())
+    }
+    
+    //MARK: - Segues
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == Constants.SegueID.loginComplete {
+            mainTabBarController = segue.destinationViewController as? TabBarController
+        }
     }
 }

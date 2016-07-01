@@ -9,7 +9,7 @@
 import MapKit
 import UIKit
 
-class InformationPostingView: UIView, ParseAPIRequestable {
+class InformationPostingView: UIView, StudentLocationRequestable {
     private var submitSuccessfulClosure: (() -> Void)!
     private var alertPresentationClosureWithParameters: AlertPresentationClosureWithParameters!
     
@@ -155,7 +155,7 @@ class InformationPostingView: UIView, ParseAPIRequestable {
     //MARK: - Perform network requests
 
     private func queryStudentLocation() {
-        let request = getParseAPIRequest(withUniqueKey: studentInfoProvider.currentStudent.uniqueKey)
+        let request = createStudentLocationRequest(uniqueKey: studentInfoProvider.currentStudent.uniqueKey)
         
         let requestCompletion = { (jsonDictionary: NSDictionary) in
             self.parseStudentLocationQuery(jsonDictionary)
@@ -170,7 +170,7 @@ class InformationPostingView: UIView, ParseAPIRequestable {
         let requestCompletion = { (jsonDictionary: NSDictionary) in
             self.parsePostResponse(jsonDictionary)
         }
-        let request = getParseAPIRequest(isPostMethod: true)
+        let request = createStudentLocationRequest(withHTTPMethod: Constants.HTTPMethods.post)
         
         performRequest(request, withCompletion: requestCompletion)
     }
@@ -179,7 +179,7 @@ class InformationPostingView: UIView, ParseAPIRequestable {
         let requestCompletion = { (jsonDictionary: NSDictionary) in
             self.parseUpdateResponse(jsonDictionary)
         }
-        let request = getParseAPIRequest(isPutMethod: true, withObjectId: objectId!)
+        let request = createStudentLocationRequest(withHTTPMethod: Constants.HTTPMethods.put, objectId: objectId!)
         
         performRequest(request, withCompletion: requestCompletion)
     }
