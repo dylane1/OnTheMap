@@ -59,7 +59,7 @@ struct LocalizedStrings {
         static let userInfoError        = NSLocalizedString("AlertTitles.userInfoError", value: "User Fetch Error", comment: "")
         
         /// Retrieving student locations error
-        
+        static let studentLocationsError = NSLocalizedString("AlertTitles.studenLocationsError", value: "Error Finding Student Locations", comment: "")
         
         
         /// Geocoding error
@@ -81,6 +81,9 @@ struct LocalizedStrings {
         
         /// Retrieving user info error
         static let userInfoError        = NSLocalizedString("AlertMessages.userInfoError", value: "There was a problem while fetching your user data. Please try again later.", comment: "")
+        
+        /// Retrieving student locations error
+        static let noStudentData        = NSLocalizedString("AlertMessages.noStudentData", value: "Sorry, no student location data was found on the server.", comment: "")
         
         /// Geocoding error
         static let pleaseTrySearchAgain = NSLocalizedString("AlertMessages.pleaseTrySearchAgain", value: "Unable to find your location, please enter your location again.", comment: "")

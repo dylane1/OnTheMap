@@ -58,19 +58,15 @@ final class StudentInformationProvider: StudentLocationRequestable {
     //MARK: - Parse results
     
     private func parseStudentInformation(jsonDictionary: NSDictionary) {
-        magic("jsonDictionary: \(jsonDictionary)")
+//        magic("jsonDictionary: \(jsonDictionary)")
         guard let studentInformationJSON = jsonDictionary[Constants.Keys.results] as? [NSDictionary] else {
-            alertPresentationClosureWithParameters?((title: "Oops, the server says...", message: jsonDictionary[Constants.Keys.error] as! String))
+            alertPresentationClosureWithParameters?((title: LocalizedStrings.AlertTitles.studentLocationsError, message: jsonDictionary[Constants.Keys.error] as! String))
             
             return
         }
-        /**
-         June 30, 2016 Stopping point
-         */
-        
         
         if studentInformationJSON.count == 0 {
-            alertPresentationClosureWithParameters?((title: "hmmm", message: "What's the deal??"))
+            alertPresentationClosureWithParameters?((title: LocalizedStrings.AlertTitles.studentLocationsError, message: LocalizedStrings.AlertMessages.noStudentData))
         }
         
         var studentInfoArray = [StudentInformation]()
