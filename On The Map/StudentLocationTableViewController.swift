@@ -30,21 +30,23 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
         
         tableView.delegate = self
         
-        let refreshClosure = {
-            self.getStudentInfoArray()
+        let refreshClosure = { [weak self] in
+            self!.getStudentInfoArray()
         }
         
         /// MapAndTableNavigationProtocol
         configureNavigationItems(withRefreshClosure: refreshClosure)
-        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
         getStudentInfoArray()
     }
     
     //MARK: -
     
     private func getStudentInfoArray() {
-        let completion = {
-            self.tableView.reloadData()
+        let completion = { [weak self] in
+            self!.tableView.reloadData()
         }
         
         /// StudentInformationGettable

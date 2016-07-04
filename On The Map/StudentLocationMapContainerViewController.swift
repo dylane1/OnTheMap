@@ -18,6 +18,8 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
     /// InformationPostingPresentable
     internal var informationPostingNavController: NavigationController?
     
+    //MARK: - View Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,17 +31,19 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
         tabBar = tabBarController as! TabBarController
 
         let refreshClosure = { [weak self] in
-            self!.mapContainterView.clearAnnotations()
             self!.getStudentInfoArray()
         }
         
         /// MapAndTableNavigationProtocol
         configureNavigationItems(withRefreshClosure: refreshClosure)
-        
-        getStudentInfoArray()
     }
 
+    override func viewWillAppear(animated: Bool) {
+        getStudentInfoArray()
+    }
+    
     //MARK: - Configuration
+    
     private func configureView() {
         mapContainterView = view as! StudentLocationMapContainerView
         

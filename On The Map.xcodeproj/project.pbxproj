@@ -173,6 +173,7 @@
 		A38AB6E41D1AEC1000820AA9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				A31EA4861D11D501005CC5B9 /* StudentInformationProvider.swift */,
 				A3816D361D0B6048001B55A0 /* StudentInformation.swift */,
 			);
 			name = Models;
@@ -206,7 +207,6 @@
 				A3E8C8D91CF6342B0040770A /* Extensions.swift */,
 				A39CF59D1CCAB1390060C890 /* AppDelegate.swift */,
 				A31EA4881D11D752005CC5B9 /* NetworkRequestService.swift */,
-				A31EA4861D11D501005CC5B9 /* StudentInformationProvider.swift */,
 				A3E8C8CD1CED0EC00040770A /* TabBarController.swift */,
 				A3E8C8CF1CED0EE40040770A /* NavigationController.swift */,
 				A38AB6E31D1AEBFD00820AA9 /* Protocols */,

@@ -20,6 +20,7 @@ final class StudentInformationProvider: StudentLocationRequestable {
     
     internal var studentInformationArray: [StudentInformation]? {
         didSet {
+            if studentInformationArray == nil { return }
             informationReceivedCompletion?()
         }
     }
@@ -67,7 +68,11 @@ final class StudentInformationProvider: StudentLocationRequestable {
         
         if studentInformationJSON.count == 0 {
             alertPresentationClosureWithParameters?((title: LocalizedStrings.AlertTitles.studentLocationsError, message: LocalizedStrings.AlertMessages.noStudentData))
+            return
         }
+        
+        /// Reset for refresh
+        studentInformationArray = nil
         
         var studentInfoArray = [StudentInformation]()
         
@@ -77,7 +82,7 @@ final class StudentInformationProvider: StudentLocationRequestable {
             studentInfoArray.append(studentInfo)
         }
         
-        self.studentInformationArray = studentInfoArray
+        studentInformationArray = studentInfoArray
     }
 }
 

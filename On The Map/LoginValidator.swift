@@ -104,7 +104,7 @@ final class LoginValidator {
     }
     
     private func parsePublicUserDataJSON(jsonDictionary: NSDictionary, userKey key: String) {
-        magic("userDictionary: \(jsonDictionary)")
+//        magic("userDictionary: \(jsonDictionary)")
         guard let userDictionary = jsonDictionary[Constants.Keys.user] as? NSDictionary else {
             alertPresentationClosureWithParameters?((title: LocalizedStrings.AlertTitles.userInfoError, message: LocalizedStrings.AlertMessages.userInfoError))
             return

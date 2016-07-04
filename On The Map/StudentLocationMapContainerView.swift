@@ -23,6 +23,9 @@ class StudentLocationMapContainerView: UIView {
         mapView.delegate    = self
         openLinkClosure     = closure
         
+        /// clear for refresh
+        clearAnnotations()
+        
         placeAnnotations(withStudentInformationArray: array)
     }
     
@@ -37,7 +40,7 @@ class StudentLocationMapContainerView: UIView {
         mapView.addAnnotations(annotations)
     }
     
-    internal func clearAnnotations() {
+    private func clearAnnotations() {
         if annotations.count > 0 {
             mapView.removeAnnotations(annotations)
             annotations.removeAll()
