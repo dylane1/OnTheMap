@@ -11,15 +11,21 @@ import UIKit
 protocol StudentLocationCellDataSource {
     var image: UIImage { get }
     var studentInformation: StudentInformation { get }
-    var textAttributes: [String : AnyObject] { get }
+    var titleTextAttributes: [String : AnyObject] { get }
+    var subtitleTextAttributes: [String : AnyObject] { get }
 }
 
 extension StudentLocationCellDataSource {
-    var textAttributes: [String : AnyObject] {
+    internal var titleTextAttributes: [String : AnyObject] {
         return [
             NSForegroundColorAttributeName: Constants.ColorScheme.black,
-//            NSStrokeColorAttributeName:     Constants.ColorScheme.black,
-//            NSStrokeWidthAttributeName:     -3.0
+            NSFontAttributeName: UIFont.systemFontOfSize(17, weight: UIFontWeightLight)
+        ]
+    }
+    internal var subtitleTextAttributes: [String : AnyObject] {
+        return [
+            NSForegroundColorAttributeName: Constants.ColorScheme.black,
+            NSFontAttributeName: UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
         ]
     }
 }

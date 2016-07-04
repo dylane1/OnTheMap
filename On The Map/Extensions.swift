@@ -8,6 +8,8 @@
 import MapKit
 import UIKit
 
+//MARK: - String
+
 extension String {
     var isEmail: Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,20}"
@@ -15,24 +17,32 @@ extension String {
         return emailTest.evaluateWithObject(self)
     }
     
-    var openableURL: NSURL? {
-        if let url = NSURL(string: self) where UIApplication.sharedApplication().canOpenURL(url) {
-            return url
-        } else {
+    var safariOpenableURL: NSURL? {
+        guard var url = NSURL(string: self) else {
+            magic("INVALID URL")
             return nil
         }
+        
+        /// Test for valid scheme
+        if !(["http", "https"].contains(url.scheme.lowercaseString)) {
+            let appendedLink = "http://".stringByAppendingString(self)
+            url = NSURL(string: appendedLink)!
+        }
+        
+        return url
     }
-    
-
 }
 
+//MARK: - Reusable Views
 /**
- Adapted from Natasha "The Robot"'s WWDC POP talk:
+ Adapted from Natasha "The Robot"'s WWDC 2016 POP talk:
  
  https://realm.io/news/appbuilders-natasha-muraschev-practical-protocol-oriented-programming
  */
 extension UITableViewCell: ReusableView { }
 extension MKAnnotationView: ReusableView { }
+
+//MARK: -  UITableView
 
 extension UITableView {
     func dequeueReusableCell<T: UITableViewCell where T: ReusableView>(forIndexPath indexPath: NSIndexPath) -> T {

@@ -8,49 +8,28 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, AlertPresentable {
     private var loginView: LoginView!
-    
-    private var loginSuccess: LoginSuccess!
-    
-//    private lazy var studentInfoProvider = StudentInformationProvider.sharedInstance
-    //private var appModel: AppModel!
+
+    private var mainTabBarController: TabBarController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loginSuccess = { [weak self] in
-            magic("Success!")
-            
-            
-            self!.performSegueWithIdentifier(Constants.SegueID.loginComplete, sender: self)
+        let loginSuccessClosure = { [unowned self] in
+            self.performSegueWithIdentifier(Constants.SegueID.loginComplete, sender: self)
         }
         
         loginView = view as! LoginView
         
-        loginView.configure(withSuccessClosure: loginSuccess)
-        
-        //appModel = AppModel()
-        
-        //TODO: For testing nav, set to true
-//        appModel.isLoggedInViaFacebook = true
+        loginView.configure(withLoginSuccessClosure: loginSuccessClosure, alertPresentationClosure: getAlertPresentationClosure())
     }
-
-
     
-
-    // MARK: - Navigation
-
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        if segue.identifier == Constants.SegueID.loginComplete {
-//            
-//            let tabBarController = segue.destinationViewController as! TabBarController
-//            
-////            tabBarController.configure(withAppModel: appModel)
-//        }
-//    }
-
+    //MARK: - Segues
     
-    //MARK: - 
-    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == Constants.SegueID.loginComplete {
+            mainTabBarController = segue.destinationViewController as? TabBarController
+        }
+    }
 }

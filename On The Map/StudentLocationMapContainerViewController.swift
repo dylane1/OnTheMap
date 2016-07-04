@@ -8,9 +8,9 @@
 
 import UIKit
 
-final class StudentLocationMapContainerViewController: UIViewController, MapAndTableNavigationProtocol, StudentInformationGettable, InformationPostingPresentable, SafariViewControllerPresentable {
+final class StudentLocationMapContainerViewController: UIViewController, MapAndTableNavigationProtocol, StudentInformationGettable, InformationPostingPresentable, SafariViewControllerPresentable, AlertPresentable {
     
-    private let infoProvider = StudentInformationProvider.sharedInstance
+    private let studentInformationProvider = StudentInformationProvider.sharedInstance
     
     private var tabBar: TabBarController!
     private var mapContainterView: StudentLocationMapContainerView!
@@ -18,10 +18,11 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
     /// InformationPostingPresentable
     internal var informationPostingNavController: NavigationController?
     
+    //MARK: - View Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        /// Set special font for the app title
         let navController = navigationController! as! NavigationController
         navController.setNavigationBarAttributes(isAppTitle: true)
         
@@ -29,40 +30,39 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
         
         tabBar = tabBarController as! TabBarController
 
-        let refreshClosure = {
-            self.mapContainterView.clearAnnotations()
-            self.getStudentInfoArray()
+        let refreshClosure = { [weak self] in
+            self!.getStudentInfoArray()
         }
         
         /// MapAndTableNavigationProtocol
         configureNavigationItems(withRefreshClosure: refreshClosure)
-        
-        getStudentInfoArray()
     }
 
+    override func viewWillAppear(animated: Bool) {
+        getStudentInfoArray()
+    }
+    
+    //MARK: - Configuration
+    
+    private func configureView() {
+        mapContainterView = view as! StudentLocationMapContainerView
+        
+        let openLinkClosure = { [weak self] (urlString: String) in
+            self!.openLink(withURLString: urlString)
+        }
+        mapContainterView.configure(withStudentInformationArray: studentInformationProvider.studentInformationArray!, openLinkClosure: openLinkClosure)
+    }
+    
     //MARK: - 
     
     private func getStudentInfoArray() {
-        let completion = {
-            self.configureView()
+        let completion = { [weak self] in
+            self!.configureView()
         }
         
         /// StudentInformationGettable
         getStudentInformation(withCompletion: completion)
     }
-
-    private func configureView() {
-        mapContainterView = view as! StudentLocationMapContainerView
-        
-        let openLinkClosure = { (urlString: String) in
-            self.openLink(withURLString: urlString)
-        }
-        mapContainterView.configure(withStudentInfoArray: infoProvider.studentInformationArray!, openLinkClosure: openLinkClosure)
-    }
-    
-//    private func refreshMap() {
-//        
-//    }
     
     private func openLink(withURLString link: String) {
         /// SafariViewControllerPresentable

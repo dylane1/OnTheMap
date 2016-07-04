@@ -16,19 +16,22 @@ class StudentLocationMapContainerView: UIView {
     private var annotations = [StudentLocationAnnotation]()
     
     private var openLinkClosure: OpenLinkClosure?
+    
     //MARK: - Configuration
     
-    internal func configure(withStudentInfoArray array: [StudentInformation], openLinkClosure closure: OpenLinkClosure) {
+    internal func configure(withStudentInformationArray array: [StudentInformation], openLinkClosure closure: OpenLinkClosure) {
         mapView.delegate    = self
         openLinkClosure     = closure
         
-        placeAnnotations(withStudentInfoArray: array)
+        /// clear for refresh
+        clearAnnotations()
+        
+        placeAnnotations(withStudentInformationArray: array)
     }
-
     
-    //MARK: - 
+    //MARK: - Map View
     
-    private func placeAnnotations(withStudentInfoArray array: [StudentInformation]) {
+    private func placeAnnotations(withStudentInformationArray array: [StudentInformation]) {
         for item in array {
             let annotation = StudentLocationAnnotation(title: (item.firstName + " " + item.lastName), mediaURL: item.mediaURL,locationName: item.mapString, coordinate: CLLocationCoordinate2D(latitude: item.latitude, longitude: item.longitude))
             annotations.append(annotation)
@@ -37,7 +40,7 @@ class StudentLocationMapContainerView: UIView {
         mapView.addAnnotations(annotations)
     }
     
-    internal func clearAnnotations() {
+    private func clearAnnotations() {
         if annotations.count > 0 {
             mapView.removeAnnotations(annotations)
             annotations.removeAll()

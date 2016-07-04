@@ -13,11 +13,12 @@ protocol SafariViewControllerPresentable { }
 
 extension SafariViewControllerPresentable where Self: UIViewController {
     func openLinkInSafari(withURLString link: String) {
-        if let url = link.openableURL {
-            let vc = SFSafariViewController(URL: url, entersReaderIfAvailable: true)
-            presentViewController(vc, animated: true, completion: nil)
-        } else {
-            magic("INVALID URL")
+        
+        guard let url = link.safariOpenableURL else {
+            return
         }
+        
+        let safariViewController = SFSafariViewController(URL: url)
+        presentViewController(safariViewController, animated: true, completion: nil)
     }
 }

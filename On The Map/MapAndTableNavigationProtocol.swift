@@ -35,14 +35,4 @@ extension MapAndTableNavigationProtocol where Self: UIViewController, Self: Info
         
         mapAndTableNavController.configure(withAddClosure: addButtonClosure, refreshClosure: refreshButtonClosure, logoutClosure: logoutButtonClosure)
     }
-    
-//    internal func configureDetailViewController(forMeme meme: Meme, selectedIndex: Int, segue: UIStoryboardSegue, deletionClosure: ()->Void) {
-//        
-//        if segue.identifier == Constants.SegueID.memeDetail {
-//            
-//            let savedMemeVC = segue.destinationViewController as! SavedMemeDetailViewController
-//            
-//            savedMemeVC.configure(withSelectedIndex: selectedIndex, deletionClosure: deletionClosure)
-//        }
-//    }
 }

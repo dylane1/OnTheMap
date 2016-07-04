@@ -10,7 +10,9 @@ import UIKit
 
 typealias BarButtonClosure = () -> Void
 typealias BarButtonClosureWithButtonItemSource = (UIBarButtonItem) -> Void
-typealias LoginSuccess = () -> Void
-//typealias GetStudentInfoArrayCompletion = ([StudentInformation]) -> Void
 typealias GetDictionaryCompletion = (NSDictionary) -> Void
 typealias OpenLinkClosure = (String) -> Void
+
+/// AlertPresentable protocol
+typealias AlertParameters = (title: String, message: String)
+typealias AlertPresentationClosureWithParameters = (AlertParameters) -> Void

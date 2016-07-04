@@ -8,22 +8,24 @@
 
 import Foundation
 
-final class StudentInformationProvider: StudentInformationGettable, ParseAPIRequestable {
+final class StudentInformationProvider: StudentLocationRequestable {
     /// Make this a singleton
     static let sharedInstance = StudentInformationProvider()
     private init() {}
+    
+    private var informationReceivedCompletion: (() -> Void)?
+    private var alertPresentationClosureWithParameters: AlertPresentationClosureWithParameters?
     
     internal var currentStudent: StudentInformation!
     
     internal var studentInformationArray: [StudentInformation]? {
         didSet {
-            getStudentInfoCompletion?()
+            if studentInformationArray == nil { return }
+            informationReceivedCompletion?()
         }
     }
     
     private var networkRequestService = NetworkRequestService()
-    
-    private var getStudentInfoCompletion: (() -> Void)?
     
     //MARK: - Configuration
     
@@ -33,43 +35,92 @@ final class StudentInformationProvider: StudentInformationGettable, ParseAPIRequ
     }
     
     /// Set when getting student data from server
-    internal func configure(withCompletion completion: () -> Void) {
+    internal func configure(withInformationReceivedCompletion receivedCompletion: () -> Void, alertPresentationClosure alertClosure: AlertPresentationClosureWithParameters) {
 
-        getStudentInfoCompletion = completion
+        informationReceivedCompletion           = receivedCompletion
+        alertPresentationClosureWithParameters  = alertClosure
         
-        let request = getParseAPIRequest()
+        requestStudentInformation()
+    }
+    
+    //MARK: - Perform network requests
+    
+    private func requestStudentInformation() {
+        let request = createStudentLocationRequest()
         
-        let requestCompletion = { (jsonDict: NSDictionary) in
-            self.parseStudentInformation(jsonDict)
+        let requestCompletion = { [weak self] (jsonDictionary: NSDictionary) in
+            self!.parseStudentInformation(jsonDictionary)
         }
         
-        networkRequestService.configure(withRequestCompletion: requestCompletion)
+        networkRequestService.configure(withRequestCompletion: requestCompletion, alertPresentationClosure: alertPresentationClosureWithParameters!)
         networkRequestService.requestJSONDictionary(withURLRequest: request)
     }
     
-    //MARK: - 
+    //MARK: - Parse results
     
-    private func parseStudentInformation(jsonDict: NSDictionary) {
-        if jsonDict[Constants.Keys.results] != nil {
+    private func parseStudentInformation(jsonDictionary: NSDictionary) {
+//        magic("jsonDictionary: \(jsonDictionary)")
+        guard let studentInformationJSON = jsonDictionary[Constants.Keys.results] as? [NSDictionary] else {
+            alertPresentationClosureWithParameters?((title: LocalizedStrings.AlertTitles.studentLocationsError, message: jsonDictionary[Constants.Keys.error] as! String))
             
-            guard let jsonArray = jsonDict[Constants.Keys.results] as? [NSDictionary] else {
-                magic("no :(")
-                return
-            }
-            
-            var studentInfoArray = [StudentInformation]()
-            
-            for student in jsonArray {
-                let studentInfo = StudentInformation(withInfoDictionary: student)
-                
-                studentInfoArray.append(studentInfo)
-            }
-            
-            self.studentInformationArray = studentInfoArray
-
-        } else {
-            magic("Something's Wrong :(")
-            //TODO: pop alert
+            return
         }
+        
+        if studentInformationJSON.count == 0 {
+            alertPresentationClosureWithParameters?((title: LocalizedStrings.AlertTitles.studentLocationsError, message: LocalizedStrings.AlertMessages.noStudentData))
+            return
+        }
+        
+        /// Reset for refresh
+        studentInformationArray = nil
+        
+        var studentInfoArray = [StudentInformation]()
+        
+        for student in studentInformationJSON {
+            let studentInfo = StudentInformation(withInfoDictionary: student)
+            
+            studentInfoArray.append(studentInfo)
+        }
+        
+        studentInformationArray = studentInfoArray
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

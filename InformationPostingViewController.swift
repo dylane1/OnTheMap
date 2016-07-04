@@ -8,28 +8,19 @@
 
 import UIKit
 
-class InformationPostingViewController: UIViewController, InformationPostingNavigationProtocol {
+class InformationPostingViewController: UIViewController, InformationPostingNavigationProtocol, AlertPresentable {
     private var postingView: InformationPostingView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        title = LocalizedStrings.ViewControllerTitles.enterYourLocation
+        
         let navController = navigationController! as! NavigationController
         navController.setNavigationBarAttributes(isAppTitle: false)
         
-//        title = LocalizedStrings.ViewControllerTitles.whereAreYou
-        
         configureView()
         configureNavigationItems()
-    }
-    
-//    override func viewDidAppear(animated: Bool) {
-//        postingView.configurePrompt()
-//    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     //MARK: - Configuration
@@ -37,8 +28,10 @@ class InformationPostingViewController: UIViewController, InformationPostingNavi
     private func configureView() {
         postingView = view as! InformationPostingView
         
-        postingView.configure()
+        let submitSuccessfulClosure = { [weak self] in
+            self!.dismissViewControllerAnimated(true, completion: nil)
+        }
+        
+        postingView.configure(withSuccessClosure: submitSuccessfulClosure, alertPresentationClosure: getAlertPresentationClosure())
     }
-    
-    
 }

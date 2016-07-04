@@ -42,7 +42,7 @@ struct Constants {
         static let whiteAlpha50 = UIColor(red: 0.969, green: 0.969, blue: 0.941, alpha: 0.50)
 //        static let whiteAlpha70 = UIColor(red: 0.969, green: 0.969, blue: 0.941, alpha: 0.70)
         static let whiteAlpha90 = UIColor(red: 0.969, green: 0.969, blue: 0.941, alpha: 0.90)
-//        static let lightGrey    = UIColor(red: 0.796, green: 0.796, blue: 0.796, alpha: 1.00) //CBCBCB
+        static let lightGrey    = UIColor(red: 0.796, green: 0.796, blue: 0.796, alpha: 1.00) //CBCBCB
 //        static let mediumGrey   = UIColor(red: 0.409, green: 0.409, blue: 0.409, alpha: 1.00)
 //        static let darkGrey     = UIColor(red: 0.149, green: 0.149, blue: 0.149, alpha: 1.00) //262626
 //        static let darkBlueGrey = UIColor(red: 0.200, green: 0.300, blue: 0.310, alpha: 1.00) //324D4E
@@ -52,7 +52,7 @@ struct Constants {
         static let darkBlue     = UIColor(red: 0.000, green: 0.455, blue: 0.478, alpha: 1.00) //00747A
         static let veryDarkBlue = UIColor(red: 0.000, green: 0.150, blue: 0.160, alpha: 1.00) //002729
         static let orange       = UIColor(red: 1.000, green: 0.616, blue: 0.200, alpha: 1.00) //FF9D33
-//        static let red          = UIColor(red: 0.800, green: 0.200, blue: 0.200, alpha: 1.00) //CC3333
+        static let red          = UIColor(red: 0.800, green: 0.200, blue: 0.200, alpha: 1.00) //CC3333
 //        static let green        = UIColor(red: 0.494, green: 0.827, blue: 0.129, alpha: 1.00) //7ED321
 //        static let purple       = UIColor(red: 0.294, green: 0.180, blue: 0.631, alpha: 1.00) //4B2EA1
 //        static let yellow       = UIColor(red: 0.898, green: 0.792, blue: 0.090, alpha: 1.00) //E5CA17
@@ -67,6 +67,22 @@ struct Constants {
         static let restAPIKey = "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"
     }
     
+    struct HTTPHeaderFieldValues {
+        static let applicationJSON = "application/json"
+    }
+    
+    struct HTTPHeaderFields {
+        static let accept           = "Accept"
+        static let contentType      = "Content-Type"
+        static let xParseAppId      = "X-Parse-Application-Id"
+        static let xParseRestAPIKey = "X-Parse-REST-API-Key"
+    }
+    
+    struct HTTPMethods {
+        static let get  = "GET"
+        static let post = "POST"
+        static let put  = "PUT"
+    }
     struct Testing {
         static let myValidUsername = "dylan.e3@gmail.com"
         static let myValidPassword = "*8Kjp4uGouIZ:d{*yM07l"
@@ -190,7 +206,20 @@ struct Constants {
         static let longitude    = "longitude"
         static let mapString    = "mapString"
         static let mediaURL     = "mediaURL"
+        static let updatedAt    = "updatedAt"
+        static let createdAt    = "createdAt"
+        
+        ///
+        static let status       = "status"
+        static let error        = "error"
+        static let parameter    = "parameter"
     }
+    
+    struct LoginErrorResponses {
+        static let missingUsername = "udacity.username"
+        static let missingPassword = "udacity.password"
+    }
+    
     
     //MARK: - Storage
     /// Storage

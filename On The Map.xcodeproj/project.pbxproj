@@ -16,6 +16,7 @@
 		A31EA4921D13477E005CC5B9 /* StudentLocationMapContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31EA4911D13477E005CC5B9 /* StudentLocationMapContainerView.swift */; };
 		A31EA4941D1365D7005CC5B9 /* StudentLocationAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31EA4931D1365D7005CC5B9 /* StudentLocationAnnotation.swift */; };
 		A31EA4961D136F70005CC5B9 /* SafariViewControllerPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31EA4951D136F70005CC5B9 /* SafariViewControllerPresentable.swift */; };
+		A3499F0F1D1E0CBD00C961D3 /* AlertPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3499F0E1D1E0CBD00C961D3 /* AlertPresentable.swift */; };
 		A3816D1F1D08DA6A001B55A0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3816D1E1D08DA6A001B55A0 /* MapKit.framework */; };
 		A3816D241D08E866001B55A0 /* MapAndTableNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3816D231D08E866001B55A0 /* MapAndTableNavigationController.swift */; };
 		A3816D261D09DA70001B55A0 /* InformationPostingPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3816D251D09DA70001B55A0 /* InformationPostingPresentable.swift */; };
@@ -28,12 +29,13 @@
 		A3816D371D0B6048001B55A0 /* StudentInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3816D361D0B6048001B55A0 /* StudentInformation.swift */; };
 		A38AB6DE1D187A4E00820AA9 /* ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38AB6DD1D187A4E00820AA9 /* ReusableView.swift */; };
 		A38AB6E01D18C49300820AA9 /* NibLoadableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38AB6DF1D18C49300820AA9 /* NibLoadableView.swift */; };
-		A38AB6E21D19F56500820AA9 /* ParseAPIRequestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38AB6E11D19F56500820AA9 /* ParseAPIRequestable.swift */; };
+		A38AB6E21D19F56500820AA9 /* StudentLocationRequestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38AB6E11D19F56500820AA9 /* StudentLocationRequestable.swift */; };
 		A39CF59E1CCAB1390060C890 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39CF59D1CCAB1390060C890 /* AppDelegate.swift */; };
 		A39CF5A01CCAB1390060C890 /* StudentLocationMapContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39CF59F1CCAB1390060C890 /* StudentLocationMapContainerViewController.swift */; };
 		A39CF5A51CCAB1390060C890 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A39CF5A31CCAB1390060C890 /* Main.storyboard */; };
 		A39CF5A71CCAB1390060C890 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A39CF5A61CCAB1390060C890 /* Assets.xcassets */; };
 		A39CF5AA1CCAB1390060C890 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A39CF5A81CCAB1390060C890 /* LaunchScreen.storyboard */; };
+		A3D909EC1D245467006315E5 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D909EB1D245467006315E5 /* Reachability.swift */; };
 		A3E8C8C61CED078A0040770A /* Magic.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8C8C51CED078A0040770A /* Magic.swift */; };
 		A3E8C8C81CED0CB30040770A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8C8C71CED0CB30040770A /* Constants.swift */; };
 		A3E8C8CA1CED0CC70040770A /* Typealiases.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8C8C91CED0CC70040770A /* Typealiases.swift */; };
@@ -44,7 +46,7 @@
 		A3E8C8D51CEF82EC0040770A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8C8D41CEF82EC0040770A /* LoginViewController.swift */; };
 		A3E8C8D81CEF830D0040770A /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8C8D71CEF830D0040770A /* LoginView.swift */; };
 		A3E8C8DA1CF6342B0040770A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8C8D91CF6342B0040770A /* Extensions.swift */; };
-		A3E8C8DC1CF656160040770A /* LoginValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8C8DB1CF656160040770A /* LoginValidation.swift */; };
+		A3E8C8DC1CF656160040770A /* LoginValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8C8DB1CF656160040770A /* LoginValidator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +59,7 @@
 		A31EA4911D13477E005CC5B9 /* StudentLocationMapContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLocationMapContainerView.swift; sourceTree = "<group>"; };
 		A31EA4931D1365D7005CC5B9 /* StudentLocationAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLocationAnnotation.swift; sourceTree = "<group>"; };
 		A31EA4951D136F70005CC5B9 /* SafariViewControllerPresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafariViewControllerPresentable.swift; sourceTree = "<group>"; };
+		A3499F0E1D1E0CBD00C961D3 /* AlertPresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertPresentable.swift; sourceTree = "<group>"; };
 		A3816D1E1D08DA6A001B55A0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		A3816D231D08E866001B55A0 /* MapAndTableNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapAndTableNavigationController.swift; sourceTree = "<group>"; };
 		A3816D251D09DA70001B55A0 /* InformationPostingPresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InformationPostingPresentable.swift; path = ../InformationPostingPresentable.swift; sourceTree = "<group>"; };
@@ -69,7 +72,7 @@
 		A3816D361D0B6048001B55A0 /* StudentInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentInformation.swift; sourceTree = "<group>"; };
 		A38AB6DD1D187A4E00820AA9 /* ReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReusableView.swift; sourceTree = "<group>"; };
 		A38AB6DF1D18C49300820AA9 /* NibLoadableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NibLoadableView.swift; sourceTree = "<group>"; };
-		A38AB6E11D19F56500820AA9 /* ParseAPIRequestable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseAPIRequestable.swift; sourceTree = "<group>"; };
+		A38AB6E11D19F56500820AA9 /* StudentLocationRequestable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLocationRequestable.swift; sourceTree = "<group>"; };
 		A39CF59A1CCAB1390060C890 /* On The Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "On The Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A39CF59D1CCAB1390060C890 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A39CF59F1CCAB1390060C890 /* StudentLocationMapContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentLocationMapContainerViewController.swift; sourceTree = "<group>"; };
@@ -77,6 +80,7 @@
 		A39CF5A61CCAB1390060C890 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A39CF5A91CCAB1390060C890 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A39CF5AB1CCAB1390060C890 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A3D909EB1D245467006315E5 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		A3E8C8C51CED078A0040770A /* Magic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Magic.swift; path = Magic/Magic.swift; sourceTree = "<group>"; };
 		A3E8C8C71CED0CB30040770A /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A3E8C8C91CED0CC70040770A /* Typealiases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Typealiases.swift; sourceTree = "<group>"; };
@@ -87,7 +91,7 @@
 		A3E8C8D41CEF82EC0040770A /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		A3E8C8D71CEF830D0040770A /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		A3E8C8D91CF6342B0040770A /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		A3E8C8DB1CF656160040770A /* LoginValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = LoginValidation.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		A3E8C8DB1CF656160040770A /* LoginValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = LoginValidator.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,7 +118,6 @@
 		A3816D201D08E7EB001B55A0 /* Map And Table VCs */ = {
 			isa = PBXGroup;
 			children = (
-				A3816D2C1D09E46B001B55A0 /* MapAndTableNavigationProtocol.swift */,
 				A3816D231D08E866001B55A0 /* MapAndTableNavigationController.swift */,
 				A3816D211D08E81C001B55A0 /* Map */,
 				A3816D221D08E82B001B55A0 /* Table */,
@@ -145,7 +148,6 @@
 		A3816D291D09DC02001B55A0 /* Information Posting */ = {
 			isa = PBXGroup;
 			children = (
-				A3816D301D0A2474001B55A0 /* InformationPostingNavigationProtocol.swift */,
 				A3816D2E1D0A0F36001B55A0 /* InformationPostingNavigationController.swift */,
 				A3816D271D09DB9B001B55A0 /* InformationPostingViewController.swift */,
 				A3816D2A1D09DE14001B55A0 /* InformationPostingView.swift */,
@@ -156,9 +158,12 @@
 		A38AB6E31D1AEBFD00820AA9 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				A38AB6E11D19F56500820AA9 /* ParseAPIRequestable.swift */,
+				A38AB6E11D19F56500820AA9 /* StudentLocationRequestable.swift */,
+				A3499F0E1D1E0CBD00C961D3 /* AlertPresentable.swift */,
 				A31EA4951D136F70005CC5B9 /* SafariViewControllerPresentable.swift */,
 				A31EA4841D11CEBF005CC5B9 /* StudentInformationGettable.swift */,
+				A3816D2C1D09E46B001B55A0 /* MapAndTableNavigationProtocol.swift */,
+				A3816D301D0A2474001B55A0 /* InformationPostingNavigationProtocol.swift */,
 				A3816D251D09DA70001B55A0 /* InformationPostingPresentable.swift */,
 				A38AB6DD1D187A4E00820AA9 /* ReusableView.swift */,
 			);
@@ -168,6 +173,7 @@
 		A38AB6E41D1AEC1000820AA9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				A31EA4861D11D501005CC5B9 /* StudentInformationProvider.swift */,
 				A3816D361D0B6048001B55A0 /* StudentInformation.swift */,
 			);
 			name = Models;
@@ -201,12 +207,11 @@
 				A3E8C8D91CF6342B0040770A /* Extensions.swift */,
 				A39CF59D1CCAB1390060C890 /* AppDelegate.swift */,
 				A31EA4881D11D752005CC5B9 /* NetworkRequestService.swift */,
-				A31EA4861D11D501005CC5B9 /* StudentInformationProvider.swift */,
-				A3E8C8D61CEF82F50040770A /* Login */,
 				A3E8C8CD1CED0EC00040770A /* TabBarController.swift */,
 				A3E8C8CF1CED0EE40040770A /* NavigationController.swift */,
 				A38AB6E31D1AEBFD00820AA9 /* Protocols */,
 				A38AB6E41D1AEC1000820AA9 /* Models */,
+				A3E8C8D61CEF82F50040770A /* Login */,
 				A3816D201D08E7EB001B55A0 /* Map And Table VCs */,
 				A3816D291D09DC02001B55A0 /* Information Posting */,
 				A39CF5A31CCAB1390060C890 /* Main.storyboard */,
@@ -222,6 +227,7 @@
 			children = (
 				A3E8C8C51CED078A0040770A /* Magic.swift */,
 				A3E8C8D11CED0FF70040770A /* Dynamic.swift */,
+				A3D909EB1D245467006315E5 /* Reachability.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -231,7 +237,7 @@
 			children = (
 				A3E8C8D41CEF82EC0040770A /* LoginViewController.swift */,
 				A3E8C8D71CEF830D0040770A /* LoginView.swift */,
-				A3E8C8DB1CF656160040770A /* LoginValidation.swift */,
+				A3E8C8DB1CF656160040770A /* LoginValidator.swift */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -332,12 +338,14 @@
 				A3E8C8D21CED0FF70040770A /* Dynamic.swift in Sources */,
 				A31EA4871D11D501005CC5B9 /* StudentInformationProvider.swift in Sources */,
 				A3816D2B1D09DE14001B55A0 /* InformationPostingView.swift in Sources */,
+				A3499F0F1D1E0CBD00C961D3 /* AlertPresentable.swift in Sources */,
 				A31EA4851D11CEBF005CC5B9 /* StudentInformationGettable.swift in Sources */,
 				A3E8C8CE1CED0EC00040770A /* TabBarController.swift in Sources */,
 				A3E8C8CA1CED0CC70040770A /* Typealiases.swift in Sources */,
 				A31EA4901D132CD2005CC5B9 /* StudentLocationCellDataSource.swift in Sources */,
 				A31EA48E1D132C2B005CC5B9 /* StudentLocationTableViewController.swift in Sources */,
-				A38AB6E21D19F56500820AA9 /* ParseAPIRequestable.swift in Sources */,
+				A38AB6E21D19F56500820AA9 /* StudentLocationRequestable.swift in Sources */,
+				A3D909EC1D245467006315E5 /* Reachability.swift in Sources */,
 				A3816D261D09DA70001B55A0 /* InformationPostingPresentable.swift in Sources */,
 				A3E8C8D01CED0EE40040770A /* NavigationController.swift in Sources */,
 				A3816D2D1D09E46B001B55A0 /* MapAndTableNavigationProtocol.swift in Sources */,
@@ -348,7 +356,7 @@
 				A3E8C8DA1CF6342B0040770A /* Extensions.swift in Sources */,
 				A31EA4961D136F70005CC5B9 /* SafariViewControllerPresentable.swift in Sources */,
 				A3E8C8CC1CED0CDB0040770A /* LocalizedStrings.swift in Sources */,
-				A3E8C8DC1CF656160040770A /* LoginValidation.swift in Sources */,
+				A3E8C8DC1CF656160040770A /* LoginValidator.swift in Sources */,
 				A3816D241D08E866001B55A0 /* MapAndTableNavigationController.swift in Sources */,
 				A31EA48C1D132AF5005CC5B9 /* StudentLocationTableViewCell.swift in Sources */,
 				A31EA4891D11D752005CC5B9 /* NetworkRequestService.swift in Sources */,

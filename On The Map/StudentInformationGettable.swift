@@ -10,12 +10,12 @@ import UIKit
 
 protocol StudentInformationGettable { }
 
-extension StudentInformationGettable where Self: UIViewController {
+extension StudentInformationGettable where Self: UIViewController, Self: AlertPresentable {
     private var studentInformationProvider: StudentInformationProvider {
         return StudentInformationProvider.sharedInstance
     }
     
     internal func getStudentInformation(withCompletion completion: () -> Void) {
-        studentInformationProvider.configure(withCompletion: completion)
+        studentInformationProvider.configure(withInformationReceivedCompletion: completion, alertPresentationClosure: self.getAlertPresentationClosure())
     }
 }

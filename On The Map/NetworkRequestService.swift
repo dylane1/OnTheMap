@@ -10,36 +10,53 @@ import Foundation
 
 final class NetworkRequestService {
     
-    private var requestCompletion: GetDictionaryCompletion?
+    private var requestCompletion: GetDictionaryCompletion!
+    private var alertPresentationClosureWithParameters: AlertPresentationClosureWithParameters!
     
-    internal func configure(withRequestCompletion completion: GetDictionaryCompletion) {
-        requestCompletion = completion
+    internal func configure(withRequestCompletion reqCompletion: GetDictionaryCompletion, alertPresentationClosure alertClosure: AlertPresentationClosureWithParameters) {
+        requestCompletion                       = reqCompletion
+        alertPresentationClosureWithParameters  = alertClosure
     }
     
     internal func requestJSONDictionary(withURLRequest request: NSMutableURLRequest, isUdacityLogin uLogin: Bool = false) {
+        /// Check to see if connected to the internet first...
+        if !Reachability.isConnectedToNetwork() {
+            alertPresentationClosureWithParameters((title: LocalizedStrings.AlertTitles.noInternetConnection, message: LocalizedStrings.AlertMessages.connectToInternet))
+        }
+        
+        
         let session = NSURLSession.sharedSession()
         
         let task = session.dataTaskWithRequest(request) { data, response, error in
-            let httpResponse = response as! NSHTTPURLResponse
-            magic("response status code: \(NSHTTPURLResponse.localizedStringForStatusCode(httpResponse.statusCode))")
             
-            if error != nil {
-                magic("\(error!.localizedDescription)")
+            guard var data = data, let response = response where error == nil else {
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.alertPresentationClosureWithParameters((title: LocalizedStrings.AlertTitles.error, message: error!.localizedDescription))
+                }
                 return
             }
-            guard var data = data else { return }
+            
+            let httpResponse = response as! NSHTTPURLResponse
+            
+            if httpResponse.statusCode < 200 || httpResponse.statusCode > 299 {
+                magic("Error! status: \(NSHTTPURLResponse.localizedStringForStatusCode(httpResponse.statusCode))")
+            } /*else {
+                magic("Success: status: \(NSHTTPURLResponse.localizedStringForStatusCode(httpResponse.statusCode))")
+            }*/
             
             if uLogin {
                 data = data.subdataWithRange(NSMakeRange(5, data.length - 5))
             }
-            guard let jsonDict = try? NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as! NSDictionary else {
-                magic("INVALID JSON!!!")
-                return
-            }
             
-            /// Get back on the main queue before returning the info
-            dispatch_async(dispatch_get_main_queue()) {
-                self.requestCompletion?(jsonDict)
+            do {
+                let jsonDictionary = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as! NSDictionary
+                
+                /// Get back on the main queue before returning the info
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.requestCompletion?(jsonDictionary)
+                }
+            }catch {
+                fatalError("Not a JSON Dictionary :[")
             }
         }
         task.resume()
