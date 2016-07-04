@@ -38,9 +38,11 @@ final class NetworkRequestService {
             
             let httpResponse = response as! NSHTTPURLResponse
             
-            if httpResponse.statusCode != 200 {
-                magic("Response status code: \(NSHTTPURLResponse.localizedStringForStatusCode(httpResponse.statusCode))")
-            }
+            if httpResponse.statusCode < 200 || httpResponse.statusCode > 299 {
+                magic("Error! status: \(NSHTTPURLResponse.localizedStringForStatusCode(httpResponse.statusCode))")
+            } /*else {
+                magic("Success: status: \(NSHTTPURLResponse.localizedStringForStatusCode(httpResponse.statusCode))")
+            }*/
             
             if uLogin {
                 data = data.subdataWithRange(NSMakeRange(5, data.length - 5))

@@ -60,7 +60,7 @@ final class StudentInformationProvider: StudentLocationRequestable {
     private func parseStudentInformation(jsonDictionary: NSDictionary) {
         magic("jsonDictionary: \(jsonDictionary)")
         guard let studentInformationJSON = jsonDictionary[Constants.Keys.results] as? [NSDictionary] else {
-            alertPresentationClosureWithParameters?((title: "hmmm", message: "What's the deal??"))
+            alertPresentationClosureWithParameters?((title: "Oops, the server says...", message: jsonDictionary[Constants.Keys.error] as! String))
             
             return
         }
