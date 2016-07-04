@@ -207,6 +207,7 @@ struct Constants {
         static let mapString    = "mapString"
         static let mediaURL     = "mediaURL"
         static let updatedAt    = "updatedAt"
+        static let createdAt    = "createdAt"
         
         ///
         static let status       = "status"

@@ -10,7 +10,6 @@ import UIKit
 
 class InformationPostingViewController: UIViewController, InformationPostingNavigationProtocol, AlertPresentable {
     private var postingView: InformationPostingView!
-//    private var alertPresentationClosureWithParameters: AlertPresentationClosureWithParameters!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,15 +23,6 @@ class InformationPostingViewController: UIViewController, InformationPostingNavi
         configureNavigationItems()
     }
     
-//    override func viewDidAppear(animated: Bool) {
-//        postingView.configurePrompt()
-//    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     //MARK: - Configuration
     
     private func configureView() {
@@ -41,7 +31,6 @@ class InformationPostingViewController: UIViewController, InformationPostingNavi
         let submitSuccessfulClosure = { [weak self] in
             self!.dismissViewControllerAnimated(true, completion: nil)
         }
-        
         
         postingView.configure(withSuccessClosure: submitSuccessfulClosure, alertPresentationClosure: getAlertPresentationClosure())
     }

@@ -104,7 +104,7 @@ final class LoginValidator {
     }
     
     private func parsePublicUserDataJSON(jsonDictionary: NSDictionary, userKey key: String) {
-//        magic("userDictionary: \(jsonDictionary)")
+        magic("userDictionary: \(jsonDictionary)")
         guard let userDictionary = jsonDictionary[Constants.Keys.user] as? NSDictionary else {
             alertPresentationClosureWithParameters?((title: LocalizedStrings.AlertTitles.userInfoError, message: LocalizedStrings.AlertMessages.userInfoError))
             return
@@ -113,7 +113,7 @@ final class LoginValidator {
         let infoDictionary = NSMutableDictionary()
         
         guard let firstName = userDictionary[Constants.Keys.first_name] as? String,
-            lastName = userDictionary[Constants.Keys.first_name] as? String else {
+            lastName = userDictionary[Constants.Keys.last_name] as? String else {
                 fatalError("No first or last name? All hope is lost... :[")
         }
         infoDictionary.setObject(firstName, forKey: Constants.Keys.firstName)

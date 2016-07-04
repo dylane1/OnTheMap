@@ -61,9 +61,11 @@ struct LocalizedStrings {
         /// Retrieving student locations error
         static let studentLocationsError = NSLocalizedString("AlertTitles.studenLocationsError", value: "Error Finding Student Locations", comment: "")
         
-        
         /// Geocoding error
         static let locationSearchError  = NSLocalizedString("AlertTitles.locationSearchError", value: "Location Search Error", comment: "")
+        
+        /// User location creation error
+        static let locationCreationError  = NSLocalizedString("AlertTitles.locationCreationError", value: "Location Input Error", comment: "")
         
         /// User location update error
         static let locationUpdateError  = NSLocalizedString("AlertTitles.locationUpdateError", value: "Location Update Error", comment: "")
@@ -87,6 +89,9 @@ struct LocalizedStrings {
         
         /// Geocoding error
         static let pleaseTrySearchAgain = NSLocalizedString("AlertMessages.pleaseTrySearchAgain", value: "Unable to find your location, please enter your location again.", comment: "")
+        
+        /// User location creation error
+        static let pleaseTryAddingLocationAgain = NSLocalizedString("AlertMessages.pleaseTryAddingLocationAgain", value: "Unable to add your location, please try again.", comment: "")
         
         /// User location update error
         static let pleaseTryUpdateAgain = NSLocalizedString("AlertMessages.pleaseTryUpdateAgain", value: "Unable to update your location, please try again.", comment: "")
