@@ -12,10 +12,14 @@ protocol MapAndTableNavigationProtocol {
     var mapAndTableNavController: MapAndTableNavigationController { get }
 }
 
-extension MapAndTableNavigationProtocol where Self: UIViewController, Self: InformationPostingPresentable {
+extension MapAndTableNavigationProtocol where Self: UIViewController, Self: InformationPostingPresentable, Self: AlertPresentable {
     
     var mapAndTableNavController: MapAndTableNavigationController {
         return navigationController as! MapAndTableNavigationController
+    }
+    
+    var sessionLogoutController: UserSessionLogoutController {
+        return UserSessionLogoutController()
     }
     
     internal func configureNavigationItems(withRefreshClosure refresh: BarButtonClosure) {
@@ -30,7 +34,10 @@ extension MapAndTableNavigationProtocol where Self: UIViewController, Self: Info
         }
         
         let logoutButtonClosure = { [weak self] in
-            self!.dismissViewControllerAnimated(true, completion: nil)
+            let completion = { [weak self] in
+                self!.dismissViewControllerAnimated(true, completion: nil)
+            }
+            self!.sessionLogoutController.logout(withCompletion: completion, alertPresentationClosure: self!.getAlertPresentationClosure())
         }
         
         mapAndTableNavController.configure(withAddClosure: addButtonClosure, refreshClosure: refreshButtonClosure, logoutClosure: logoutButtonClosure)

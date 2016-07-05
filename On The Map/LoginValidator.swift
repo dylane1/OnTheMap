@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import FBSDKLoginKit
 
 final class LoginValidator {
 
@@ -30,22 +31,29 @@ final class LoginValidator {
     
     //MARK: - Perform network requests
     
-    internal func verifyLogin(withEmail email: String, password: String) {
+    internal func login(withEmailAndPassword loginTuple:(email: String, password: String)? = nil, withFacebookToken token: FBSDKAccessToken? = nil) {
         
-        let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
+        let request = NSMutableURLRequest(URL: NSURL(string: Constants.Network.udacitySessionURL)!)
         
         request.HTTPMethod = Constants.HTTPMethods.post
         request.addValue(Constants.HTTPHeaderFieldValues.applicationJSON, forHTTPHeaderField: Constants.HTTPHeaderFields.accept)
         request.addValue(Constants.HTTPHeaderFieldValues.applicationJSON, forHTTPHeaderField: Constants.HTTPHeaderFields.contentType)
         
-        request.HTTPBody = "{\"udacity\": {\"username\": \"\(email)\", \"password\": \"\(password)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
+        if loginTuple != nil {
+            request.HTTPBody = "{\"udacity\": {\"username\": \"\(loginTuple!.email)\", \"password\": \"\(loginTuple!.password)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
+        } else if token != nil {
+            request.HTTPBody = "{\"facebook_mobile\": {\"access_token\": \"\(token!);\"}}".dataUsingEncoding(NSUTF8StringEncoding)
+        } else {
+            fatalError("Come on now, you gotta give me something to work with here...")
+        }
+        
         
         let requestCompletion = { [unowned self] (jsonDictionary: NSDictionary) in
             self.parseLoginJSON(jsonDictionary)
         }
         
         networkRequestService.configure(withRequestCompletion: requestCompletion, alertPresentationClosure: alertPresentationClosureWithParameters)
-        networkRequestService.requestJSONDictionary(withURLRequest: request, isUdacityLogin: true)
+        networkRequestService.requestJSONDictionary(withURLRequest: request, isUdacityLoginLogout: true)
     }
     
     private func getPublicUserData(withAccountDict acctDict: NSDictionary) {
@@ -57,7 +65,7 @@ final class LoginValidator {
         }
         
         networkRequestService.configure(withRequestCompletion: requestCompletion, alertPresentationClosure: alertPresentationClosureWithParameters)
-        networkRequestService.requestJSONDictionary(withURLRequest: request, isUdacityLogin: true)
+        networkRequestService.requestJSONDictionary(withURLRequest: request, isUdacityLoginLogout: true)
     }
     
     //MARK: - Parse results
@@ -92,8 +100,8 @@ final class LoginValidator {
                         messageString = LocalizedStrings.AlertMessages.unknownLoginError
                     }
                 default:
-                    /// Unknown?
-                    messageString = LocalizedStrings.AlertMessages.unknownLoginError + ": \(statusCode)"
+                    /// Something else
+                    messageString = LocalizedStrings.AlertMessages.serverResponded + "\n\(statusCode): \(NSHTTPURLResponse.localizedStringForStatusCode(statusCode))"
                 }
                 
                 alertPresentationClosureWithParameters?((title: LocalizedStrings.AlertTitles.loginError, message: messageString))

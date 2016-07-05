@@ -21,7 +21,7 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
         super.viewDidLoad()
         
         /// Set special font for the app title
-        let navController = navigationController! as! NavigationController
+        let navController = navigationController! as! MapAndTableNavigationController
         navController.setNavigationBarAttributes(isAppTitle: true)
         
         title = LocalizedStrings.ViewControllerTitles.onTheMap

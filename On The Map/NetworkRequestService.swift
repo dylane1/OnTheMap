@@ -18,7 +18,7 @@ final class NetworkRequestService {
         alertPresentationClosureWithParameters  = alertClosure
     }
     
-    internal func requestJSONDictionary(withURLRequest request: NSMutableURLRequest, isUdacityLogin uLogin: Bool = false) {
+    internal func requestJSONDictionary(withURLRequest request: NSMutableURLRequest, isUdacityLoginLogout uLoginLogout: Bool = false) {
         /// Check to see if connected to the internet first...
         if !Reachability.isConnectedToNetwork() {
             alertPresentationClosureWithParameters((title: LocalizedStrings.AlertTitles.noInternetConnection, message: LocalizedStrings.AlertMessages.connectToInternet))
@@ -44,7 +44,7 @@ final class NetworkRequestService {
                 magic("Success: status: \(NSHTTPURLResponse.localizedStringForStatusCode(httpResponse.statusCode))")
             }*/
             
-            if uLogin {
+            if uLoginLogout {
                 data = data.subdataWithRange(NSMakeRange(5, data.length - 5))
             }
             

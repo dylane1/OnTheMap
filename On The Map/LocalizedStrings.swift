@@ -52,8 +52,9 @@ struct LocalizedStrings {
         /// Reachablility error
         static let noInternetConnection = NSLocalizedString("AlertTitles.noInternetConnection", value: "No Internet Connection", comment: "")
         
-        /// Login
+        /// Login/Logout
         static let loginError           = NSLocalizedString("AlertTitles.loginError", value: "Login Error", comment: "")
+        static let logoutError          = NSLocalizedString("AlertTitles.logoutError", value: "Logout Error", comment: "")
         
         /// Retrieving user info error
         static let userInfoError        = NSLocalizedString("AlertTitles.userInfoError", value: "User Fetch Error", comment: "")
@@ -75,11 +76,13 @@ struct LocalizedStrings {
         /// Reachablility error
         static let connectToInternet    = NSLocalizedString("AlertMessages.userInfoError", value: "Make sure your device is connected to the internet.", comment: "")
         
-        /// Login errors
+        /// Login/Logout errors
         static let invalidCredentials   = NSLocalizedString("AlertMessages.invalidCredentials", value: "Account not found or invalid credentials.", comment: "")
         static let pleaseEnterUsername  = NSLocalizedString("AlertMessages.pleaseEnterUsername", value: "Please enter a valid username.", comment: "")
         static let pleaseEnterPassword  = NSLocalizedString("AlertMessages.pleaseEnterPassword", value: "Please enter a password.", comment: "")
         static let unknownLoginError    = NSLocalizedString("AlertMessages.unknownLoginError", value: "Unknown login error, please try again.", comment: "")
+        static let unknownLogoutError    = NSLocalizedString("AlertMessages.unknownLogoutError", value: "Unknown logout error. Sorry :[", comment: "")
+        static let serverResponded      = NSLocalizedString("AlertMessages.serverResponded", value: "The server responded with the following message:", comment: "")
         
         /// Retrieving user info error
         static let userInfoError        = NSLocalizedString("AlertMessages.userInfoError", value: "There was a problem while fetching your user data. Please try again later.", comment: "")
