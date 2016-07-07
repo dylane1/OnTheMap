@@ -14,9 +14,7 @@ extension AlertPresentable where Self: UIViewController {
     internal func getAlertPresentationClosure() -> AlertPresentationClosureWithParameters {
         let alertPresentationClosureWithParameters = { [unowned self] (alertParameters: AlertParameters) in
             
-            /// Close any presented view controllers (Activity Indicator)
-            /// NOTE: This may hose Tab bar & Info input vc
-            self.dismissViewControllerAnimated(false, completion: {
+//            self.dismissViewControllerAnimated(false, completion: {
                 let alert = UIAlertController(
                     title: alertParameters.title,
                     message: alertParameters.message,
@@ -25,7 +23,7 @@ extension AlertPresentable where Self: UIViewController {
                 alert.addAction(UIAlertAction(title: LocalizedStrings.AlertButtonTitles.ok, style: .Default, handler: nil))
                 
                 self.presentViewController(alert, animated: true, completion: nil)
-            })
+//            })
             
         }
         return alertPresentationClosureWithParameters

@@ -206,7 +206,7 @@
         <!--Activity Indicator Popover-->
         <scene sceneID="vjd-8a-tHV">
             <objects>
-                <viewController modalPresentationStyle="overCurrentContext" id="0Mx-xN-Hkh" userLabel="Activity Indicator Popover" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="overCurrentContext" id="0Mx-xN-Hkh" userLabel="Activity Indicator Popover" customClass="SecondaryActivityIndicatorViewController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="tiV-IU-k3h"/>
                         <viewControllerLayoutGuide type="bottom" id="ckI-9t-WCc"/>
@@ -238,8 +238,13 @@
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="popupView" destination="yFy-Tr-n6X" id="CAd-kX-yR8"/>
+                        <segue destination="pip-OK-VVk" kind="unwind" identifier="UnwindSegue" unwindAction="unwindSegue:" id="ij7-FX-1he"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LQt-yM-lU9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="pip-OK-VVk" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="316" y="-567"/>
         </scene>

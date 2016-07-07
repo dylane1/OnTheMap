@@ -26,10 +26,10 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = LocalizedStrings.ViewControllerTitles.onTheMap
+        
         let navController = navigationController! as! MapAndTableNavigationController
         navController.setNavigationBarAttributes(isAppTitle: true)
-        
-        title = LocalizedStrings.ViewControllerTitles.onTheMap
         
         tabBar = tabBarController as! TabBarController
 

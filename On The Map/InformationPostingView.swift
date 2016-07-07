@@ -11,6 +11,8 @@ import UIKit
 
 class InformationPostingView: UIView, StudentLocationRequestable {
     private var submitSuccessfulClosure: (() -> Void)!
+    private var presentActivityIndicator: (() -> Void)!
+    private var dismissActivityIndicator: (() -> Void)!
     private var alertPresentationClosureWithParameters: AlertPresentationClosureWithParameters!
     
     @IBOutlet weak var promptView: UIView!
@@ -61,10 +63,17 @@ class InformationPostingView: UIView, StudentLocationRequestable {
     
     //MARK: - Configuration
     
-    internal func configure(withSuccessClosure success:() -> Void, alertPresentationClosure alertClosure: AlertPresentationClosureWithParameters) {
+    internal func configure(
+        withSuccessClosure success:() -> Void,
+        activityIndicatorPresentationClosure openAI: () -> Void,
+        dissmissActivityIndicatorClosure closeAI: () -> Void,
+        alertPresentationClosure alertClosure: AlertPresentationClosureWithParameters) {
+        
         magic("current student: \(studentInfoProvider.currentStudent)")
         
         submitSuccessfulClosure                 = success
+        presentActivityIndicator                = openAI
+        dismissActivityIndicator                = closeAI
         alertPresentationClosureWithParameters  = alertClosure
         
         promptView.alpha        = 0
@@ -75,7 +84,6 @@ class InformationPostingView: UIView, StudentLocationRequestable {
         configurePrompt()
         configureTextFields()
         configureBottomButton()
-        configureActivityIndicator()
         
         queryStudentLocation()
         
@@ -124,14 +132,17 @@ class InformationPostingView: UIView, StudentLocationRequestable {
         bottomButton.setTitle(LocalizedStrings.ButtonTitles.submit, forState: .Normal)
     }
     
-    private func configureActivityIndicator() {
-        activityIndicator.hidesWhenStopped = true
-        activityIndicator.activityIndicatorViewStyle = .WhiteLarge
-    }
+//    private func configureActivityIndicator() {
+//        activityIndicator.hidesWhenStopped = true
+//        activityIndicator.activityIndicatorViewStyle = .WhiteLarge
+//    }
     
     //MARK: - Actions
     
     @IBAction func bottomButtonAction(sender: AnyObject) {
+        /**
+         THIS IS A PROBLEM
+         */
         if !isValidLocation {
             alertPresentationClosureWithParameters?((title: LocalizedStrings.AlertTitles.locationSearchError, message: LocalizedStrings.AlertMessages.pleaseTrySearchAgain))
             return
@@ -147,6 +158,8 @@ class InformationPostingView: UIView, StudentLocationRequestable {
     //MARK: - Perform network requests
 
     private func queryStudentLocation() {
+        magic("about to present")
+        presentActivityIndicator()
         let request = createStudentLocationRequest(uniqueKey: studentInfoProvider.currentStudent.uniqueKey)
         
         let requestCompletion = { [weak self] (jsonDictionary: NSDictionary) in
@@ -178,6 +191,9 @@ class InformationPostingView: UIView, StudentLocationRequestable {
     }
     
     private func performRequest(request: NSMutableURLRequest, withCompletion completion: GetDictionaryCompletion) {
+        magic("about to present")
+        presentActivityIndicator()
+        
         var httpBody = "{"
         httpBody += "\"\(Constants.Keys.uniqueKey)\": \"\(studentInfoProvider.currentStudent.uniqueKey)\", "
         httpBody += "\"\(Constants.Keys.firstName)\": \"\(studentInfoProvider.currentStudent.firstName)\", "
@@ -204,6 +220,8 @@ class InformationPostingView: UIView, StudentLocationRequestable {
                 alertPresentationClosureWithParameters?((title: LocalizedStrings.AlertTitles.locationSearchError, message: LocalizedStrings.AlertMessages.pleaseTrySearchAgain))
             return
         }
+        magic("about to dismiss")
+        dismissActivityIndicator()
         
         studentInfoProvider.currentStudent.latitude     = infoDict[Constants.Keys.latitude] as! Double
         studentInfoProvider.currentStudent.longitude    = infoDict[Constants.Keys.longitude] as! Double
@@ -226,6 +244,7 @@ class InformationPostingView: UIView, StudentLocationRequestable {
             alertPresentationClosureWithParameters?((title: LocalizedStrings.AlertTitles.locationCreationError, message: LocalizedStrings.AlertMessages.pleaseTryAddingLocationAgain))
             return
         }
+        /// No need to call dismissActivityIndicator() because submitSuccessfulClosure takes care of it
         submitSuccessfulClosure?()
     }
     
@@ -242,7 +261,9 @@ class InformationPostingView: UIView, StudentLocationRequestable {
     //MARK: - Map
     
     private func findLocation() {
-        activityIndicator.startAnimating()
+        magic("about to present")
+        presentActivityIndicator()
+        
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(mapString, completionHandler: { (placemarks: [CLPlacemark]?, error: NSError?) -> Void in
             if error != nil {
@@ -253,8 +274,9 @@ class InformationPostingView: UIView, StudentLocationRequestable {
             } else {
                 self.isValidLocation    = true
                 self.placemarks         = placemarks
+                magic("about to dismiss")
+                self.dismissActivityIndicator()
             }
-            self.activityIndicator.stopAnimating()
         })
     }
     

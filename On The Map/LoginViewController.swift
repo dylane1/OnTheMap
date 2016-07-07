@@ -24,16 +24,18 @@ class LoginViewController: UIViewController, AlertPresentable, ActivityIndicator
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+//
         let loginInitiatedClosure = { [unowned self] in
-            let dismissalCompletion = { [unowned self] in
-                self.performSegueWithIdentifier(.LoginComplete, sender: self)
-            }
-            self.activityIndicatorVC = self.getActivityIndicatorViewController(withDismissalCompletion: dismissalCompletion)
-            self.presentViewController(self.activityIndicatorVC!, animated: false, completion: nil)
+            self.activityIndicatorVC = self.getActivityIndicatorViewController()
+            self.presentActivityIndicator(self.activityIndicatorVC!, completion: nil)
         }
         
         let loginSuccessClosure = { [unowned self] in
-            self.activityIndicatorVC!.vcShouldBeDismissed!()
+            let dismissalCompletion = { [unowned self] in
+                self.performSegueWithIdentifier(.LoginComplete, sender: self)
+            }
+            self.dismissActivityIndicator(self.activityIndicatorVC!, completion: dismissalCompletion)
         }
         
         successfulLogoutCompletion = { [unowned self] in

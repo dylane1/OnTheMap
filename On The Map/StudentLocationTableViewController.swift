@@ -25,11 +25,10 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        /// Set special font for the app title
+        title = LocalizedStrings.ViewControllerTitles.onTheMap
+        
         let navController = navigationController! as! MapAndTableNavigationController
         navController.setNavigationBarAttributes(isAppTitle: true)
-        
-        title = LocalizedStrings.ViewControllerTitles.onTheMap
         
         tabBar = tabBarController as! TabBarController
         

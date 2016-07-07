@@ -17,7 +17,7 @@ protocol Dimmable { }
 
 extension Dimmable where Self: UIViewController {
     
-    internal func dim(direction: Direction, color: UIColor = UIColor.blackColor(), alpha: CGFloat = 0.0, speed: Double = 0.0) {
+    internal func dim(direction: Direction, color: UIColor = UIColor.blackColor(), alpha: CGFloat = 0.0, speed: Double = 0.0, completion: (() -> Void)? = nil) {
         
         switch direction {
         case .In:
@@ -36,6 +36,7 @@ extension Dimmable where Self: UIViewController {
             /// Animate alpha (the actual "dimming" effect)
             UIView.animateWithDuration(speed) { () -> Void in
                 dimView.alpha = alpha
+                completion?()
             }
             
         case .Out:
@@ -43,6 +44,7 @@ extension Dimmable where Self: UIViewController {
                 self.view.subviews.last?.alpha = alpha ?? 0
                 }, completion: { (complete) -> Void in
                     self.view.subviews.last?.removeFromSuperview()
+                    completion?()
             })
         }
     }

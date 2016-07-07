@@ -11,22 +11,25 @@ import UIKit
 protocol ActivityIndicatorPresentable { }
 
 extension ActivityIndicatorPresentable where Self: UIViewController {
-    internal func getActivityIndicatorViewController(withDismissalCompletion dismissalCompletion: (() -> Void)? = nil) -> PrimaryActivityIndicatorViewController {
+    internal func getActivityIndicatorViewController() -> PrimaryActivityIndicatorViewController {
+        
         let activityIndicatorViewController = UIStoryboard(name: Constants.StoryBoardID.main, bundle: nil).instantiateViewControllerWithIdentifier(Constants.StoryBoardID.primaryActivityIndicatorVC) as! PrimaryActivityIndicatorViewController
         
-        activityIndicatorViewController.vcShouldBeDismissed = { [weak self] in
-            self!.dismissViewControllerAnimated(false) {
-                /**
-                 Sets Tab bar to nil in LoginViewController
-                
-                 - May not need this after I track down the reason why it's not
-                    getting the dealloc call upon dismissal. There's a retain
-                    cycle somewhere. (more likely a bunch)
-                 */
-                dismissalCompletion?()
-            }
-        }
         return activityIndicatorViewController
+    }
+    
+    internal func presentActivityIndicator(activityIndicator: PrimaryActivityIndicatorViewController, completion: (() -> Void)?) {
+        magic("")
+        self.presentViewController(activityIndicator, animated: false, completion: {
+            activityIndicator.presentSecondary(withCompletion: completion)
+        })
+    }
+    
+    internal func dismissActivityIndicator(activityIndicator: PrimaryActivityIndicatorViewController, completion: (() -> Void)? = nil) {
+        let dismissalCompletion = { [weak self] in
+            self!.dismissViewControllerAnimated(false, completion: completion)
+        }
+        activityIndicator.dismissSecondary(withCompletion: dismissalCompletion)
     }
 }
 

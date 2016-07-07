@@ -13,20 +13,35 @@ class PrimaryActivityIndicatorViewController: UIViewController, Dimmable, SegueH
         case ShowLoginActivityIndicatorPopover
     }
     
-    internal var vcShouldBeDismissed: (() -> Void)?
+    private var activityIndicatorOpenedCompletion: (() -> Void)?
+    private var activityIndicatorClosedCompletion: (() -> Void)?
+    
+    private var secondaryViewController: SecondaryActivityIndicatorViewController!
     
     let dimLevel: CGFloat = 0.5
     let dimSpeed: Double = 0.5
     
     override func viewDidLoad() { super.viewDidLoad() }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
+    // MARK: - Segues
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        secondaryViewController = segue.destinationViewController as! SecondaryActivityIndicatorViewController
+        dim(.In, alpha: dimLevel, speed: dimSpeed, completion: activityIndicatorOpenedCompletion)
+    }
+    
+    
+    @IBAction func unwindSegue(segue: UIStoryboardSegue) {
+        dim(.Out, speed: dimSpeed, completion: activityIndicatorClosedCompletion)
+    }
+    
+    //MARK: -
+    internal func presentSecondary(withCompletion completion: (() -> Void)? = nil) {
+        activityIndicatorOpenedCompletion = completion
         performSegueWithIdentifier(.ShowLoginActivityIndicatorPopover, sender: self)
     }
     
-    // MARK: - Segues
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        dim(.In, alpha: dimLevel, speed: dimSpeed)
+    internal func dismissSecondary(withCompletion completion: (() -> Void)? = nil) {
+        activityIndicatorClosedCompletion = completion
+        secondaryViewController.unwindSegue()
     }
 }
