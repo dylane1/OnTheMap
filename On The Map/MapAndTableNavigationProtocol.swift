@@ -40,6 +40,11 @@ extension MapAndTableNavigationProtocol where Self: UIViewController, Self: Info
                     /// Dismiss Tab Bar
                     self!.dismissViewControllerAnimated(true, completion: {
                         /// Set Tab Bar to nil
+                        
+                        /**
+                         Note: May not need this if I'm able to track down the
+                         retain cycles preventing the tab bar from being deallocated
+                         */
                         logoutCompletion()
                     })
                 })

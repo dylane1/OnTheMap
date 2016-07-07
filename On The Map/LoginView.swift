@@ -47,12 +47,11 @@ class LoginView: UIView {
         
         ///TESTING:
         let emailLogin = (email: Constants.Testing.myValidUsername, password: Constants.Testing.myValidPassword)
+//        let emailLogin = (email: "", password: "1234")
+//        let emailLogin = (email: Constants.Testing.myValidUsername, password: "1234")
+//        let emailLogin = (email: Constants.Testing.myValidUsername, password: "")
         
         initiateLogin(withEmailAndPassword: emailLogin)
-        
-//        loginValidator.verifyLogin(withEmail: "", password: "")
-//        loginValidator.login()
-//        loginValidator.verifyLogin(withEmail: Constants.Testing.myValidUsername, password: "")
     }
     
     //MARK: - Configuration

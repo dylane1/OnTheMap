@@ -11,7 +11,6 @@ import UIKit
 class LoginViewController: UIViewController, AlertPresentable, ActivityIndicatorPresentable, SegueHandlerType {
     
     enum SegueIdentifier: String {
-//        case ShowLoginActivityIndicator
         case LoginComplete
     }
     
@@ -35,11 +34,15 @@ class LoginViewController: UIViewController, AlertPresentable, ActivityIndicator
         
         let loginSuccessClosure = { [unowned self] in
             self.activityIndicatorVC!.vcShouldBeDismissed!()
-//            self.performSegueWithIdentifier(.LoginComplete, sender: self)
         }
         
         successfulLogoutCompletion = { [unowned self] in
-            magic("setting tab-bar to nil")
+            /**
+             Ok, I probably don't need this, but I want to make sure everything
+             is getting dealloc'd. Unfortunately this is not the case currently.
+             Guessing I've got some retain cycles somewhere that I need to track
+             down.
+             */
             self.mainTabBarController = nil
         }
         
@@ -51,12 +54,7 @@ class LoginViewController: UIViewController, AlertPresentable, ActivityIndicator
     //MARK: - Segues
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        switch segueIdentifierForSegue(segue) {
-//        case .ShowLoginActivityIndicator:
-//            magic("activity indicator")
-        case .LoginComplete:
-            mainTabBarController = segue.destinationViewController as? TabBarController
-            mainTabBarController!.successfulLogoutCompletion = successfulLogoutCompletion
-        }
+        mainTabBarController = segue.destinationViewController as? TabBarController
+        mainTabBarController!.successfulLogoutCompletion = successfulLogoutCompletion
     }
 }

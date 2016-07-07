@@ -18,14 +18,6 @@ struct Constants {
         static let infoPostingVC            = "infoPostingVC"
     }
     
-    
-//    
-//    struct SegueID {
-//        static let loginComplete = "seg_loginComplete"
-//        static let showLoginActivityIndicator = "seg_activityIndicator"
-//    }
-//    
-    
     /// UI
     struct ColorScheme {
         static let white        = UIColor(red: 0.969, green: 0.969, blue: 0.941, alpha: 1.00) //F7F7F0

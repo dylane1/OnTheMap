@@ -59,7 +59,7 @@ final class StudentInformationProvider: StudentLocationRequestable {
     //MARK: - Parse results
     
     private func parseStudentInformation(jsonDictionary: NSDictionary) {
-//        magic("jsonDictionary: \(jsonDictionary)")
+        
         guard let studentInformationJSON = jsonDictionary[Constants.Keys.results] as? [NSDictionary] else {
             alertPresentationClosureWithParameters?((title: LocalizedStrings.AlertTitles.studentLocationsError, message: jsonDictionary[Constants.Keys.error] as! String))
             
@@ -81,7 +81,6 @@ final class StudentInformationProvider: StudentLocationRequestable {
             
             studentInfoArray.append(studentInfo)
         }
-        
         studentInformationArray = studentInfoArray
     }
 }
