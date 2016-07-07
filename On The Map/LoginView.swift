@@ -13,6 +13,7 @@ import FBSDKLoginKit
 
 class LoginView: UIView {
     
+    private var loginInitiatedClosure: (() -> Void)!
     private var loginSuccessClosure: (() -> Void)!
     private var alertPresentationClosureWithParameters: AlertPresentationClosureWithParameters!
     
@@ -46,7 +47,9 @@ class LoginView: UIView {
         
         ///TESTING:
         let emailLogin = (email: Constants.Testing.myValidUsername, password: Constants.Testing.myValidPassword)
-        loginValidator.login(withEmailAndPassword: emailLogin)
+        
+        initiateLogin(withEmailAndPassword: emailLogin)
+        
 //        loginValidator.verifyLogin(withEmail: "", password: "")
 //        loginValidator.login()
 //        loginValidator.verifyLogin(withEmail: Constants.Testing.myValidUsername, password: "")
@@ -54,18 +57,19 @@ class LoginView: UIView {
     
     //MARK: - Configuration
     
-    internal func configure(withLoginSuccessClosure loginClosure: () -> Void, alertPresentationClosure alertClosure: AlertPresentationClosureWithParameters) {
+    internal func configure(withLoginInitiatedClosure loginInit: () -> Void, loginSuccessClosure loginSuccess: () -> Void, alertPresentationClosure alertPresent: AlertPresentationClosureWithParameters) {
         backgroundColor = Constants.ColorScheme.orange
         
-        loginSuccessClosure                     = loginClosure
-        alertPresentationClosureWithParameters  = alertClosure
+        loginInitiatedClosure                   = loginInit
+        loginSuccessClosure                     = loginSuccess
+        alertPresentationClosureWithParameters  = alertPresent
         
-        loginValidator.configure(withLoginSuccessClosure: loginClosure, alertPresentationClosure: alertClosure)
+        loginValidator.configure(withLoginSuccessClosure: loginSuccess, alertPresentationClosure: alertPresent)
         
         configureLabels()
         configureTextFields()
         configureButtons()
-
+        
         checkForLoggedIntoFacebook()
     }
     
@@ -95,21 +99,36 @@ class LoginView: UIView {
     private func configureButtons() {
         loginButton.titleLabel?.text    = LocalizedStrings.ButtonTitles.login
         loginButton.enabled             = true//false
+        
+        let loginView = FBSDKLoginButton()
+        self.addSubview(loginView)
+        loginView.center.x = self.center.x
+        loginView.center.y = self.frame.height - 50
+        loginView.readPermissions = ["email"]
+        loginView.delegate = self
     }
     
     //MARK: - Facebook check
     private func checkForLoggedIntoFacebook() {
         guard let token = FBSDKAccessToken.currentAccessToken() as FBSDKAccessToken! else {
-            magic("awwww, not logged in...")
-            let loginView = FBSDKLoginButton()
-            self.addSubview(loginView)
-            loginView.center.x = self.center.x
-            loginView.center.y = self.frame.height - 50
-            loginView.readPermissions = ["public_profile", "email", "user_friends"]
-            loginView.delegate = self
             return
         }
-        loginValidator.login(withFacebookToken: token)
+        initiateLogin(withFacebookToken: token)
+    }
+    
+    
+    private func initiateLogin(withEmailAndPassword loginTuple:(email: String, password: String)? = nil, withFacebookToken token: FBSDKAccessToken? = nil) {
+        
+        /// Show activity indicator
+        loginInitiatedClosure()
+        
+        if loginTuple != nil {
+            loginValidator.login(withEmailAndPassword: loginTuple)
+        } else if token != nil {
+            loginValidator.login(withFacebookToken: token)
+        } else {
+            fatalError("That's not going to work...")
+        }
     }
     
     //MARK: -
@@ -142,36 +161,17 @@ extension LoginView: UITextFieldDelegate {
 extension LoginView: FBSDKLoginButtonDelegate {
     
     internal func loginButton(loginButton: FBSDKLoginButton, didCompleteWithResult result: FBSDKLoginManagerLoginResult, error: NSError?) {
-        
-        magic("login button: \(loginButton); result: \(result); error: \(error)")
-        
+
         if error != nil {
             alertPresentationClosureWithParameters((title: LocalizedStrings.AlertTitles.loginError, message: error!.localizedDescription))
             return
         }
-        loginSuccessClosure()
+        initiateLogin(withFacebookToken: result.token)
     }
     
     internal func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
         magic("User Logged Out")
     }
-    
-//    internal func returnUserData() {
-//        let graphRequest : FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me", parameters: nil)
-//        graphRequest.startWithCompletionHandler({ (connection, result, error) -> Void in
-//            
-//            if ((error) != nil) {
-//                // Process error
-//                magic("Error: \(error)")
-//            } else {
-//                magic("fetched user: \(result)")
-//                let userName : NSString = result.valueForKey("name") as! NSString
-//                magic("User Name is: \(userName)")
-//                let userEmail : NSString = result.valueForKey("email") as! NSString
-//                magic("User Email is: \(userEmail)")
-//            }
-//        })
-//    }
 }
 
 

@@ -40,9 +40,7 @@ final class NetworkRequestService {
             
             if httpResponse.statusCode < 200 || httpResponse.statusCode > 299 {
                 magic("Error! status: \(NSHTTPURLResponse.localizedStringForStatusCode(httpResponse.statusCode))")
-            } /*else {
-                magic("Success: status: \(NSHTTPURLResponse.localizedStringForStatusCode(httpResponse.statusCode))")
-            }*/
+            }
             
             if uLoginLogout {
                 data = data.subdataWithRange(NSMakeRange(5, data.length - 5))

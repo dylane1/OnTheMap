@@ -14,6 +14,8 @@ final class UserSessionLogoutController {
     private var logoutCompletion: (() -> Void)?
     private var alertPresentationClosureWithParameters: AlertPresentationClosureWithParameters!
     
+    deinit { magic("being deinitialized   <----------------") }
+    
     internal func logout(withCompletion completion: () -> Void, alertPresentationClosure alertClosure: AlertPresentationClosureWithParameters) {
         guard let _ = FBSDKAccessToken.currentAccessToken() as FBSDKAccessToken! else {
             logoutCompletion                        = completion
@@ -73,6 +75,7 @@ final class UserSessionLogoutController {
                 alertPresentationClosureWithParameters?((title: LocalizedStrings.AlertTitles.logoutError, message: messageString))
                 return
         }
+        /// Dismiss Tab Bar controller after logout
         logoutCompletion?()
     }
 }

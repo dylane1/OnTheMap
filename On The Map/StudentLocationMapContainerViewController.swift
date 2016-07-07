@@ -8,17 +8,20 @@
 
 import UIKit
 
-final class StudentLocationMapContainerViewController: UIViewController, MapAndTableNavigationProtocol, StudentInformationGettable, InformationPostingPresentable, SafariViewControllerPresentable, AlertPresentable {
+final class StudentLocationMapContainerViewController: UIViewController, MapAndTableNavigationProtocol, StudentInformationGettable, InformationPostingPresentable, SafariViewControllerPresentable, AlertPresentable, ActivityIndicatorPresentable {
     
     private let studentInformationProvider = StudentInformationProvider.sharedInstance
     
     private var tabBar: TabBarController!
     private var mapContainterView: StudentLocationMapContainerView!
     
+    private var sessionLogoutController = UserSessionLogoutController()
+    
     /// InformationPostingPresentable
-    internal var informationPostingNavController: NavigationController?
+    internal var informationPostingNavController: InformationPostingNavigationController?
     
     //MARK: - View Lifecycle
+    deinit { magic("being deinitialized   <----------------") }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,8 +37,13 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
             self!.getStudentInfoArray()
         }
         
+        let logoutInitiatedClosure = { [weak self] in
+            let activityIndicatorVC = self!.getActivityIndicatorViewController()
+            self!.presentViewController(activityIndicatorVC, animated: false, completion: nil)
+        }
+        
         /// MapAndTableNavigationProtocol
-        configureNavigationItems(withRefreshClosure: refreshClosure)
+        configureNavigationItems(withRefreshClosure: refreshClosure, sessionLogoutController: sessionLogoutController, logoutInitiatedClosure: logoutInitiatedClosure, successfulLogoutCompletion: tabBar.successfulLogoutCompletion!)
     }
 
     override func viewWillAppear(animated: Bool) {

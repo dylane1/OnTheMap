@@ -12,21 +12,19 @@ struct Constants {
     /// Storyboard
     struct StoryBoardID {
         static let main     = "Main"
-        static let loginVC  = "sb_loginVC"
-//        static let fontListTableVC          = "sb_fontListTableVC"
-//        static let fontColorSelectionVC     = "sb_fontColorSelectionVC"
-//        static let sentMemesVC              = "sb_sentMemesVC"
-        static let infoPostingNavController = "sb_infoPostingNavController"
-        static let infoPostingVC            = "sb_infoPostingVC"
-//        static let emptyDataSetVC           = "sb_emptyDataSetVC"
+        static let loginVC  = "loginVC"
+        static let primaryActivityIndicatorVC = "primaryActivityIndicatorVC"
+        static let infoPostingNavController = "infoPostingNavController"
+        static let infoPostingVC            = "infoPostingVC"
     }
     
-    /// Segue
     
-    struct SegueID {
-        static let loginComplete = "seg_loginComplete"
-    }
-    
+//    
+//    struct SegueID {
+//        static let loginComplete = "seg_loginComplete"
+//        static let showLoginActivityIndicator = "seg_activityIndicator"
+//    }
+//    
     
     /// UI
     struct ColorScheme {

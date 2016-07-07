@@ -9,7 +9,7 @@
 import UIKit
 
 protocol InformationPostingPresentable {
-    var informationPostingNavController: NavigationController? { get set }
+    var informationPostingNavController: InformationPostingNavigationController? { get set }
 }
 
 extension InformationPostingPresentable where Self: UIViewController {

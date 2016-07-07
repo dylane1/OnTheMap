@@ -42,9 +42,10 @@ final class LoginValidator {
         if loginTuple != nil {
             request.HTTPBody = "{\"udacity\": {\"username\": \"\(loginTuple!.email)\", \"password\": \"\(loginTuple!.password)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
         } else if token != nil {
-            request.HTTPBody = "{\"facebook_mobile\": {\"access_token\": \"\(token!);\"}}".dataUsingEncoding(NSUTF8StringEncoding)
+            magic("facebook token: \(token!.tokenString)")
+            request.HTTPBody = "{\"facebook_mobile\": {\"access_token\": \"\(token!.tokenString);\"}}".dataUsingEncoding(NSUTF8StringEncoding)
         } else {
-            fatalError("Come on now, you gotta give me something to work with here...")
+//            fatalError("Come on now, you gotta give me something to work with here...")
         }
         
         
@@ -71,14 +72,14 @@ final class LoginValidator {
     //MARK: - Parse results
     
     private func parseLoginJSON(jsonDictionary: NSDictionary) {
-//        magic("loginDict: \(jsonDictionary)")
+        magic("loginDict: \(jsonDictionary)")
         
         guard let _ = jsonDictionary[Constants.Keys.session] as? NSDictionary,
               let accountDictionary = jsonDictionary[Constants.Keys.account] as? NSDictionary else {
                 /// Invalid login
                 
                 guard let statusCode = jsonDictionary[Constants.Keys.status] as? Int,
-                    let _ = jsonDictionary[Constants.Keys.error] as? String else {
+                    let error = jsonDictionary[Constants.Keys.error] as? String else {
                         alertPresentationClosureWithParameters?((title: LocalizedStrings.AlertTitles.loginError, message: LocalizedStrings.AlertMessages.unknownLoginError))
                         return
                 }
@@ -101,7 +102,7 @@ final class LoginValidator {
                     }
                 default:
                     /// Something else
-                    messageString = LocalizedStrings.AlertMessages.serverResponded + "\n\(statusCode): \(NSHTTPURLResponse.localizedStringForStatusCode(statusCode))"
+                    messageString = LocalizedStrings.AlertMessages.serverResponded + "\n\(error)"
                 }
                 
                 alertPresentationClosureWithParameters?((title: LocalizedStrings.AlertTitles.loginError, message: messageString))

@@ -18,11 +18,7 @@ extension MapAndTableNavigationProtocol where Self: UIViewController, Self: Info
         return navigationController as! MapAndTableNavigationController
     }
     
-    var sessionLogoutController: UserSessionLogoutController {
-        return UserSessionLogoutController()
-    }
-    
-    internal func configureNavigationItems(withRefreshClosure refresh: BarButtonClosure) {
+    internal func configureNavigationItems(withRefreshClosure refresh: BarButtonClosure, sessionLogoutController logoutController: UserSessionLogoutController, logoutInitiatedClosure logoutInitiated: () -> Void, successfulLogoutCompletion logoutCompletion: () -> Void) {
         
         let addButtonClosure = { [weak self] in
             self!.informationPostingNavController = self!.getInfoPostingNavigationController()
@@ -34,10 +30,21 @@ extension MapAndTableNavigationProtocol where Self: UIViewController, Self: Info
         }
         
         let logoutButtonClosure = { [weak self] in
+            /// Show Activity Indicator
+            logoutInitiated()
+            
+            /// Completion for successful logout
             let completion = { [weak self] in
-                self!.dismissViewControllerAnimated(true, completion: nil)
+                /// Dismiss Activity Indicator
+                self!.dismissViewControllerAnimated(false, completion: {
+                    /// Dismiss Tab Bar
+                    self!.dismissViewControllerAnimated(true, completion: {
+                        /// Set Tab Bar to nil
+                        logoutCompletion()
+                    })
+                })
             }
-            self!.sessionLogoutController.logout(withCompletion: completion, alertPresentationClosure: self!.getAlertPresentationClosure())
+            logoutController.logout(withCompletion: completion, alertPresentationClosure: self!.getAlertPresentationClosure())
         }
         
         mapAndTableNavController.configure(withAddClosure: addButtonClosure, refreshClosure: refreshButtonClosure, logoutClosure: logoutButtonClosure)
