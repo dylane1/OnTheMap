@@ -7,8 +7,13 @@
 //
 
 import UIKit
+//import FBSDKCoreKit
+import FBSDKLoginKit
+
 
 class LoginView: UIView {
+    
+    private var loginInitiatedClosure: (() -> Void)!
     private var loginSuccessClosure: (() -> Void)!
     private var alertPresentationClosureWithParameters: AlertPresentationClosureWithParameters!
     
@@ -31,33 +36,40 @@ class LoginView: UIView {
     @IBOutlet weak var passwordField: UITextField!
     
     @IBOutlet weak var loginButton: UIButton!
-    @IBOutlet weak var signInWithFacebookButton: UIButton!
     
     
     //MARK: - Actions
     
     @IBAction func loginAction(sender: AnyObject) {
-        loginValidator.configure(withLoginSuccessClosure: loginSuccessClosure, alertPresentationClosure: alertPresentationClosureWithParameters)
         /// Login (real data)
-//        loginValidator.verifyLogin(withEmail: emailString, password: passwordString)
+//        let emailLogin = (email: emailString, password: passwordString)
+//        loginValidator.login(withEmailAndPassword: emailLogin)
         
         ///TESTING:
-        loginValidator.verifyLogin(withEmail: Constants.Testing.myValidUsername, password: Constants.Testing.myValidPassword)
-//        loginValidator.verifyLogin(withEmail: "", password: "")
-//        loginValidator.verifyLogin(withEmail: Constants.Testing.myValidUsername, password: "")
+        let emailLogin = (email: Constants.Testing.myValidUsername, password: Constants.Testing.myValidPassword)
+//        let emailLogin = (email: "", password: "1234")
+//        let emailLogin = (email: Constants.Testing.myValidUsername, password: "1234")
+//        let emailLogin = (email: Constants.Testing.myValidUsername, password: "")
+        
+        initiateLogin(withEmailAndPassword: emailLogin)
     }
     
     //MARK: - Configuration
     
-    internal func configure(withLoginSuccessClosure loginClosure: () -> Void, alertPresentationClosure alertClosure: AlertPresentationClosureWithParameters) {
+    internal func configure(withLoginInitiatedClosure loginInit: () -> Void, loginSuccessClosure loginSuccess: () -> Void, alertPresentationClosure alertPresent: AlertPresentationClosureWithParameters) {
         backgroundColor = Constants.ColorScheme.orange
         
-        loginSuccessClosure                     = loginClosure
-        alertPresentationClosureWithParameters  = alertClosure
+        loginInitiatedClosure                   = loginInit
+        loginSuccessClosure                     = loginSuccess
+        alertPresentationClosureWithParameters  = alertPresent
+        
+        loginValidator.configure(withLoginSuccessClosure: loginSuccess, alertPresentationClosure: alertPresent)
         
         configureLabels()
         configureTextFields()
         configureButtons()
+        
+        checkForLoggedIntoFacebook()
     }
     
     private func configureLabels() {
@@ -85,13 +97,40 @@ class LoginView: UIView {
     
     private func configureButtons() {
         loginButton.titleLabel?.text    = LocalizedStrings.ButtonTitles.login
-        loginButton.enabled             = true //false
+        loginButton.enabled             = true//false
         
-        signInWithFacebookButton.titleLabel?.text   = LocalizedStrings.ButtonTitles.signInWithFacebook
-        signInWithFacebookButton.enabled            = false
+        let loginView = FBSDKLoginButton()
+        self.addSubview(loginView)
+        loginView.center.x = self.center.x
+        loginView.center.y = self.frame.height - 50
+        loginView.readPermissions = ["email"]
+        loginView.delegate = self
+    }
+    
+    //MARK: - Facebook check
+    private func checkForLoggedIntoFacebook() {
+        guard let token = FBSDKAccessToken.currentAccessToken() as FBSDKAccessToken! else {
+            return
+        }
+        initiateLogin(withFacebookToken: token)
     }
     
     
+    private func initiateLogin(withEmailAndPassword loginTuple:(email: String, password: String)? = nil, withFacebookToken token: FBSDKAccessToken? = nil) {
+        
+        /// Show activity indicator
+        loginInitiatedClosure()
+        
+        if loginTuple != nil {
+            loginValidator.login(withEmailAndPassword: loginTuple)
+        } else if token != nil {
+            loginValidator.login(withFacebookToken: token)
+        } else {
+            fatalError("That's not going to work...")
+        }
+    }
+    
+    //MARK: -
     /**
      * 1. Check for valid email & set color of text accordingly
      * 2. Check for both valid email & a non-empty password string & set login button enabled/disabled
@@ -102,7 +141,7 @@ class LoginView: UIView {
         
         emailTextFieldFontColor = emailString.isEmail ? Constants.ColorScheme.black : Constants.ColorScheme.red
         
-//        loginButton.enabled = emailString.isEmail && passwordString != "" ? true : false
+        loginButton.enabled = emailString.isEmail && passwordString != "" ? true : false
         
         configureTextFieldAttributes()
     }
@@ -114,6 +153,23 @@ extension LoginView: UITextFieldDelegate {
     internal func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+}
+
+//MARK: - FBSDKLoginButtonDelegate
+extension LoginView: FBSDKLoginButtonDelegate {
+    
+    internal func loginButton(loginButton: FBSDKLoginButton, didCompleteWithResult result: FBSDKLoginManagerLoginResult, error: NSError?) {
+
+        if error != nil {
+            alertPresentationClosureWithParameters((title: LocalizedStrings.AlertTitles.loginError, message: error!.localizedDescription))
+            return
+        }
+        initiateLogin(withFacebookToken: result.token)
+    }
+    
+    internal func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
+        magic("User Logged Out")
     }
 }
 

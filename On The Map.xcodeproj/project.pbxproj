@@ -17,6 +17,14 @@
 		A31EA4941D1365D7005CC5B9 /* StudentLocationAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31EA4931D1365D7005CC5B9 /* StudentLocationAnnotation.swift */; };
 		A31EA4961D136F70005CC5B9 /* SafariViewControllerPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31EA4951D136F70005CC5B9 /* SafariViewControllerPresentable.swift */; };
 		A3499F0F1D1E0CBD00C961D3 /* AlertPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3499F0E1D1E0CBD00C961D3 /* AlertPresentable.swift */; };
+		A349C24F1D2C7C23008E678D /* Dimmable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A349C24E1D2C7C23008E678D /* Dimmable.swift */; };
+		A349C2511D2D5FD0008E678D /* PrimaryActivityIndicatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A349C2501D2D5FD0008E678D /* PrimaryActivityIndicatorViewController.swift */; };
+		A349C2531D2D622D008E678D /* ActivityIndicatorPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A349C2521D2D622D008E678D /* ActivityIndicatorPresentable.swift */; };
+		A349C2551D2D63D2008E678D /* SegueHandlerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A349C2541D2D63D2008E678D /* SegueHandlerType.swift */; };
+		A34A2B631D2B1B31007E2A0E /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A34A2B601D2B1B31007E2A0E /* FBSDKCoreKit.framework */; };
+		A34A2B641D2B1B32007E2A0E /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A34A2B611D2B1B31007E2A0E /* FBSDKLoginKit.framework */; };
+		A34A2B651D2B1B32007E2A0E /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A34A2B621D2B1B31007E2A0E /* FBSDKShareKit.framework */; };
+		A34A2B671D2C1CF8007E2A0E /* UserSessionLogoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34A2B661D2C1CF8007E2A0E /* UserSessionLogoutController.swift */; };
 		A3816D1F1D08DA6A001B55A0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3816D1E1D08DA6A001B55A0 /* MapKit.framework */; };
 		A3816D241D08E866001B55A0 /* MapAndTableNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3816D231D08E866001B55A0 /* MapAndTableNavigationController.swift */; };
 		A3816D261D09DA70001B55A0 /* InformationPostingPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3816D251D09DA70001B55A0 /* InformationPostingPresentable.swift */; };
@@ -60,6 +68,14 @@
 		A31EA4931D1365D7005CC5B9 /* StudentLocationAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLocationAnnotation.swift; sourceTree = "<group>"; };
 		A31EA4951D136F70005CC5B9 /* SafariViewControllerPresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafariViewControllerPresentable.swift; sourceTree = "<group>"; };
 		A3499F0E1D1E0CBD00C961D3 /* AlertPresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertPresentable.swift; sourceTree = "<group>"; };
+		A349C24E1D2C7C23008E678D /* Dimmable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dimmable.swift; sourceTree = "<group>"; };
+		A349C2501D2D5FD0008E678D /* PrimaryActivityIndicatorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimaryActivityIndicatorViewController.swift; sourceTree = "<group>"; };
+		A349C2521D2D622D008E678D /* ActivityIndicatorPresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorPresentable.swift; sourceTree = "<group>"; };
+		A349C2541D2D63D2008E678D /* SegueHandlerType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegueHandlerType.swift; sourceTree = "<group>"; };
+		A34A2B601D2B1B31007E2A0E /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		A34A2B611D2B1B31007E2A0E /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		A34A2B621D2B1B31007E2A0E /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
+		A34A2B661D2C1CF8007E2A0E /* UserSessionLogoutController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSessionLogoutController.swift; sourceTree = "<group>"; };
 		A3816D1E1D08DA6A001B55A0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		A3816D231D08E866001B55A0 /* MapAndTableNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapAndTableNavigationController.swift; sourceTree = "<group>"; };
 		A3816D251D09DA70001B55A0 /* InformationPostingPresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InformationPostingPresentable.swift; path = ../InformationPostingPresentable.swift; sourceTree = "<group>"; };
@@ -99,7 +115,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A34A2B651D2B1B32007E2A0E /* FBSDKShareKit.framework in Frameworks */,
 				A3816D1F1D08DA6A001B55A0 /* MapKit.framework in Frameworks */,
+				A34A2B631D2B1B31007E2A0E /* FBSDKCoreKit.framework in Frameworks */,
+				A34A2B641D2B1B32007E2A0E /* FBSDKLoginKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,6 +185,9 @@
 				A3816D301D0A2474001B55A0 /* InformationPostingNavigationProtocol.swift */,
 				A3816D251D09DA70001B55A0 /* InformationPostingPresentable.swift */,
 				A38AB6DD1D187A4E00820AA9 /* ReusableView.swift */,
+				A349C24E1D2C7C23008E678D /* Dimmable.swift */,
+				A349C2521D2D622D008E678D /* ActivityIndicatorPresentable.swift */,
+				A349C2541D2D63D2008E678D /* SegueHandlerType.swift */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -182,6 +204,9 @@
 		A39CF5911CCAB1390060C890 = {
 			isa = PBXGroup;
 			children = (
+				A34A2B601D2B1B31007E2A0E /* FBSDKCoreKit.framework */,
+				A34A2B611D2B1B31007E2A0E /* FBSDKLoginKit.framework */,
+				A34A2B621D2B1B31007E2A0E /* FBSDKShareKit.framework */,
 				A3816D1E1D08DA6A001B55A0 /* MapKit.framework */,
 				A39CF59C1CCAB1390060C890 /* On The Map */,
 				A39CF59B1CCAB1390060C890 /* Products */,
@@ -209,9 +234,10 @@
 				A31EA4881D11D752005CC5B9 /* NetworkRequestService.swift */,
 				A3E8C8CD1CED0EC00040770A /* TabBarController.swift */,
 				A3E8C8CF1CED0EE40040770A /* NavigationController.swift */,
+				A349C2501D2D5FD0008E678D /* PrimaryActivityIndicatorViewController.swift */,
 				A38AB6E31D1AEBFD00820AA9 /* Protocols */,
 				A38AB6E41D1AEC1000820AA9 /* Models */,
-				A3E8C8D61CEF82F50040770A /* Login */,
+				A3E8C8D61CEF82F50040770A /* Login Logout */,
 				A3816D201D08E7EB001B55A0 /* Map And Table VCs */,
 				A3816D291D09DC02001B55A0 /* Information Posting */,
 				A39CF5A31CCAB1390060C890 /* Main.storyboard */,
@@ -232,14 +258,15 @@
 			name = Utilities;
 			sourceTree = "<group>";
 		};
-		A3E8C8D61CEF82F50040770A /* Login */ = {
+		A3E8C8D61CEF82F50040770A /* Login Logout */ = {
 			isa = PBXGroup;
 			children = (
 				A3E8C8D41CEF82EC0040770A /* LoginViewController.swift */,
 				A3E8C8D71CEF830D0040770A /* LoginView.swift */,
 				A3E8C8DB1CF656160040770A /* LoginValidator.swift */,
+				A34A2B661D2C1CF8007E2A0E /* UserSessionLogoutController.swift */,
 			);
-			name = Login;
+			name = "Login Logout";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -334,6 +361,7 @@
 				A3816D371D0B6048001B55A0 /* StudentInformation.swift in Sources */,
 				A31EA4941D1365D7005CC5B9 /* StudentLocationAnnotation.swift in Sources */,
 				A3E8C8C81CED0CB30040770A /* Constants.swift in Sources */,
+				A349C2551D2D63D2008E678D /* SegueHandlerType.swift in Sources */,
 				A3816D2F1D0A0F36001B55A0 /* InformationPostingNavigationController.swift in Sources */,
 				A3E8C8D21CED0FF70040770A /* Dynamic.swift in Sources */,
 				A31EA4871D11D501005CC5B9 /* StudentInformationProvider.swift in Sources */,
@@ -345,6 +373,7 @@
 				A31EA4901D132CD2005CC5B9 /* StudentLocationCellDataSource.swift in Sources */,
 				A31EA48E1D132C2B005CC5B9 /* StudentLocationTableViewController.swift in Sources */,
 				A38AB6E21D19F56500820AA9 /* StudentLocationRequestable.swift in Sources */,
+				A34A2B671D2C1CF8007E2A0E /* UserSessionLogoutController.swift in Sources */,
 				A3D909EC1D245467006315E5 /* Reachability.swift in Sources */,
 				A3816D261D09DA70001B55A0 /* InformationPostingPresentable.swift in Sources */,
 				A3E8C8D01CED0EE40040770A /* NavigationController.swift in Sources */,
@@ -358,10 +387,13 @@
 				A3E8C8CC1CED0CDB0040770A /* LocalizedStrings.swift in Sources */,
 				A3E8C8DC1CF656160040770A /* LoginValidator.swift in Sources */,
 				A3816D241D08E866001B55A0 /* MapAndTableNavigationController.swift in Sources */,
+				A349C2531D2D622D008E678D /* ActivityIndicatorPresentable.swift in Sources */,
 				A31EA48C1D132AF5005CC5B9 /* StudentLocationTableViewCell.swift in Sources */,
+				A349C2511D2D5FD0008E678D /* PrimaryActivityIndicatorViewController.swift in Sources */,
 				A31EA4891D11D752005CC5B9 /* NetworkRequestService.swift in Sources */,
 				A39CF5A01CCAB1390060C890 /* StudentLocationMapContainerViewController.swift in Sources */,
 				A38AB6E01D18C49300820AA9 /* NibLoadableView.swift in Sources */,
+				A349C24F1D2C7C23008E678D /* Dimmable.swift in Sources */,
 				A38AB6DE1D187A4E00820AA9 /* ReusableView.swift in Sources */,
 				A3816D331D0B2FA4001B55A0 /* AppModel.swift in Sources */,
 				A3E8C8C61CED078A0040770A /* Magic.swift in Sources */,
@@ -479,6 +511,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "On The Map/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.slingingpixels.On-The-Map";
@@ -490,6 +526,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "On The Map/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.slingingpixels.On-The-Map";

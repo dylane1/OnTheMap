@@ -13,6 +13,7 @@ protocol StudentLocationRequestable { }
 extension StudentLocationRequestable {
     
     internal func createStudentLocationRequest(withHTTPMethod method: String = Constants.HTTPMethods.get, uniqueKey key: String? = nil, objectId id: String? = nil) -> NSMutableURLRequest {
+        
         var urlString = "https://api.parse.com/1/classes/StudentLocation"
 
         /// Requesting an array of students

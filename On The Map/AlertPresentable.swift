@@ -14,14 +14,19 @@ extension AlertPresentable where Self: UIViewController {
     internal func getAlertPresentationClosure() -> AlertPresentationClosureWithParameters {
         let alertPresentationClosureWithParameters = { [unowned self] (alertParameters: AlertParameters) in
             
-            let alert = UIAlertController(
-                title: alertParameters.title,
-                message: alertParameters.message,
-                preferredStyle: .Alert)
+            /// Close any presented view controllers (Activity Indicator)
+            /// NOTE: This may hose Tab bar & Info input vc
+            self.dismissViewControllerAnimated(false, completion: {
+                let alert = UIAlertController(
+                    title: alertParameters.title,
+                    message: alertParameters.message,
+                    preferredStyle: .Alert)
+                
+                alert.addAction(UIAlertAction(title: LocalizedStrings.AlertButtonTitles.ok, style: .Default, handler: nil))
+                
+                self.presentViewController(alert, animated: true, completion: nil)
+            })
             
-            alert.addAction(UIAlertAction(title: LocalizedStrings.AlertButtonTitles.ok, style: .Default, handler: nil))
-            
-            self.presentViewController(alert, animated: true, completion: nil)
         }
         return alertPresentationClosureWithParameters
     }

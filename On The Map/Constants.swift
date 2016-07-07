@@ -12,29 +12,11 @@ struct Constants {
     /// Storyboard
     struct StoryBoardID {
         static let main     = "Main"
-        static let loginVC  = "sb_loginVC"
-//        static let fontListTableVC          = "sb_fontListTableVC"
-//        static let fontColorSelectionVC     = "sb_fontColorSelectionVC"
-//        static let sentMemesVC              = "sb_sentMemesVC"
-        static let infoPostingNavController = "sb_infoPostingNavController"
-        static let infoPostingVC            = "sb_infoPostingVC"
-//        static let emptyDataSetVC           = "sb_emptyDataSetVC"
+        static let loginVC  = "loginVC"
+        static let primaryActivityIndicatorVC = "primaryActivityIndicatorVC"
+        static let infoPostingNavController = "infoPostingNavController"
+        static let infoPostingVC            = "infoPostingVC"
     }
-    
-//    struct ReuseID {
-//        static let locationListTableCell    = "ruid_locationListTableCell"
-//        static let mapAnnotation            = "ruid_mapAnnotation"
-////        static let memeListTableCell        = "ruid_memeListTableCell"
-////        static let memeListCollectionCell   = "ruid_memeListCollectionCell"
-//    }
-    
-    /// Segue
-    
-    struct SegueID {
-        static let loginComplete = "seg_loginComplete"
-//        static let locationDetail = "seg_locationDetail"
-    }
-    
     
     /// UI
     struct ColorScheme {
@@ -62,9 +44,9 @@ struct Constants {
     //MARK: - Network
     
     struct Network {
-        static let udacityFacebookID = 365362206864879
-        static let parseAppID = "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr"
-        static let restAPIKey = "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"
+        static let udacitySessionURL    = "https://www.udacity.com/api/session"
+        static let parseAppID           = "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr"
+        static let restAPIKey           = "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"
     }
     
     struct HTTPHeaderFieldValues {
@@ -79,52 +61,15 @@ struct Constants {
     }
     
     struct HTTPMethods {
-        static let get  = "GET"
-        static let post = "POST"
-        static let put  = "PUT"
+        static let get      = "GET"
+        static let post     = "POST"
+        static let put      = "PUT"
+        static let delete   = "DELETE"
     }
     struct Testing {
         static let myValidUsername = "dylan.e3@gmail.com"
         static let myValidPassword = "*8Kjp4uGouIZ:d{*yM07l"
     }
-//
-//    static let FontColorStringArray = [
-//        "White",
-//        "Yellow",
-//        "Orange",
-//        "Red",
-//        "Purple",
-//        "Dark Blue",
-//        "Light Blue",
-//        "Green"
-//    ]
-//    
-//    static let FontColorArray = [
-//        Constants.ColorScheme.white,
-//        Constants.ColorScheme.yellow,
-//        Constants.ColorScheme.orange,
-//        Constants.ColorScheme.red,
-//        Constants.ColorScheme.purple,
-//        Constants.ColorScheme.darkBlue,
-//        Constants.ColorScheme.lightBlue,
-//        Constants.ColorScheme.green
-//    ]
-//    
-//    static let fontSize: CGFloat = 32.0
-    
-//    struct FontFamilyName {
-//        static let americanTypewriter   = "American Typewriter"
-//        static let arial                = "Arial"
-//        static let avenir               = "Avenir"
-//        static let avenirNext           = "Avenir Next"
-//        static let avenirNextCondensed  = "Avenir Next Condensed"
-//        static let copperplate          = "Copperplate"
-//        static let futura               = "Futura"
-//        static let gillSans             = "Gill Sans"
-//        static let hoeflerText          = "Hoefler Text"
-//        static let impact               = "Impact"
-//        static let markerFelt           = "Marker Felt"
-//    }
     
     struct FontName {
 //        static let americanTypewriter   = "AmericanTypewriter-Bold"
@@ -139,54 +84,15 @@ struct Constants {
 //        static let impact               = "Impact"
         static let markerFelt           = "MarkerFelt-Wide"
     }
-//
-//    struct Font {
-//        static let americanTypewriter   = UIFont(name: Constants.FontName.americanTypewriter, size: Constants.fontSize)!
-//        static let arial                = UIFont(name: Constants.FontName.arial, size: Constants.fontSize)!
-//        static let avenir               = UIFont(name: Constants.FontName.avenir, size: Constants.fontSize)!
-//        static let avenirNext           = UIFont(name: Constants.FontName.avenirNext, size: Constants.fontSize)!
-//        static let avenirNextCondensed  = UIFont(name: Constants.FontName.avenirNextCondensed, size: Constants.fontSize)!
-//        static let copperplate          = UIFont(name: Constants.FontName.copperplate, size: Constants.fontSize)!
-//        static let futura               = UIFont(name: Constants.FontName.futura, size: Constants.fontSize)!
-//        static let gillSans             = UIFont(name: Constants.FontName.gillSans, size: Constants.fontSize)!
-//        static let hoeflerText          = UIFont(name: Constants.FontName.hoeflerText, size: Constants.fontSize)!
-//        static let impact               = UIFont(name: Constants.FontName.impact, size: Constants.fontSize)!
-//        static let markerFelt           = UIFont(name: Constants.FontName.markerFelt, size: Constants.fontSize)!
-//    }
-    
-//    static let FontArray = [
-//        Constants.Font.americanTypewriter,
-//        Constants.Font.arial,
-//        Constants.Font.avenir,
-//        Constants.Font.avenirNext,
-//        Constants.Font.avenirNextCondensed,
-//        Constants.Font.copperplate,
-//        Constants.Font.futura,
-//        Constants.Font.gillSans,
-//        Constants.Font.hoeflerText,
-//        Constants.Font.impact,
-//        Constants.Font.markerFelt
-//    ]
-//    
-//    static let FontFamilyNameArray = [
-//        Constants.FontFamilyName.americanTypewriter,
-//        Constants.FontFamilyName.arial,
-//        Constants.FontFamilyName.avenir,
-//        Constants.FontFamilyName.avenirNext,
-//        Constants.FontFamilyName.avenirNextCondensed,
-//        Constants.FontFamilyName.copperplate,
-//        Constants.FontFamilyName.futura,
-//        Constants.FontFamilyName.gillSans,
-//        Constants.FontFamilyName.hoeflerText,
-//        Constants.FontFamilyName.impact,
-//        Constants.FontFamilyName.markerFelt
-//    ]
+
+
     //MARK: - Dictionary Keys
     
     struct Keys {
         ///
         static let session      = "session"
         static let account      = "account"
+        static let id           = "id"
         
         ///
         static let key          = "key"
@@ -219,24 +125,5 @@ struct Constants {
         static let missingUsername = "udacity.username"
         static let missingPassword = "udacity.password"
     }
-    
-    
-    //MARK: - Storage
-    /// Storage
-    
-//    static let userDefaults = NSUserDefaults.standardUserDefaults()
-//    
-//    struct StorageKeys {
-//        static let fontName  = "com.slingingPixels.mememe.storageKeys.fontName"
-//        static let fontColor = "com.slingingPixels.mememe.storageKeys.fontColor"
-//    }
-//    
-//    
-//    struct FileSystem {
-//        static let applicationSupport = NSSearchPathForDirectoriesInDomains(.ApplicationSupportDirectory, .UserDomainMask, true)[0]
-//    }
-//    
-//    struct ArchiveFile {
-//        static let storedMemes = FileSystem.applicationSupport + "/storedMemes.json"
-//    }
+
 }

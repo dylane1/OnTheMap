@@ -131,7 +131,7 @@
         <!--Login-->
         <scene sceneID="rZb-QY-fyL">
             <objects>
-                <viewController storyboardIdentifier="sb_loginVC" id="737-cp-hZQ" userLabel="Login" customClass="LoginViewController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="loginVC" id="737-cp-hZQ" userLabel="Login" customClass="LoginViewController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="L5q-3h-Qan"/>
                         <viewControllerLayoutGuide type="bottom" id="4l9-e6-brv"/>
@@ -157,10 +157,6 @@
                                     <action selector="loginAction:" destination="PGR-7w-anm" eventType="touchUpInside" id="EZr-pZ-Da6"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gr7-UH-WbH">
-                                <rect key="frame" x="86" y="436" width="149" height="30"/>
-                                <state key="normal" title="Login using Facebook"/>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Login to Udacity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="onF-3O-xez">
                                 <rect key="frame" x="98" y="125" width="125" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -174,17 +170,78 @@
                             <outlet property="loginButton" destination="RPG-6F-Dnx" id="lZZ-9C-lNP"/>
                             <outlet property="loginToUdacityLabel" destination="onF-3O-xez" id="g7Y-KN-Pmj"/>
                             <outlet property="passwordField" destination="MJe-xM-Lwb" id="0Jw-V1-uRC"/>
-                            <outlet property="signInWithFacebookButton" destination="Gr7-UH-WbH" id="wOT-4c-j4v"/>
                         </connections>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
-                        <segue destination="49e-Tb-3d3" kind="show" identifier="seg_loginComplete" id="8rf-5I-W0K"/>
+                        <segue destination="49e-Tb-3d3" kind="show" identifier="LoginComplete" id="8rf-5I-W0K"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5u0-Sp-B8b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-117" y="5"/>
+        </scene>
+        <!--Activity Indicator Modal-->
+        <scene sceneID="dhC-x7-kkv">
+            <objects>
+                <viewController storyboardIdentifier="primaryActivityIndicatorVC" modalPresentationStyle="overCurrentContext" id="86M-VH-8nr" userLabel="Activity Indicator Modal" customClass="PrimaryActivityIndicatorViewController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="aEe-Ap-s3O"/>
+                        <viewControllerLayoutGuide type="bottom" id="9UE-Ya-0wJ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Z44-WO-OK7">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <segue destination="0Mx-xN-Hkh" kind="presentation" identifier="ShowLoginActivityIndicatorPopover" id="SDD-8N-adE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yj4-2z-l5O" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-117" y="-567"/>
+        </scene>
+        <!--Activity Indicator Popover-->
+        <scene sceneID="vjd-8a-tHV">
+            <objects>
+                <viewController modalPresentationStyle="overCurrentContext" id="0Mx-xN-Hkh" userLabel="Activity Indicator Popover" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tiV-IU-k3h"/>
+                        <viewControllerLayoutGuide type="bottom" id="ckI-9t-WCc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="umR-3l-nNi">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yFy-Tr-n6X">
+                                <rect key="frame" x="110" y="190" width="100" height="100"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="u4P-KV-JmY">
+                                        <rect key="frame" x="32" y="31" width="37" height="37"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="u4P-KV-JmY" firstAttribute="centerX" secondItem="yFy-Tr-n6X" secondAttribute="centerX" id="7u0-U4-yBh"/>
+                                    <constraint firstAttribute="height" constant="100" id="P1v-rI-c1a"/>
+                                    <constraint firstAttribute="width" constant="100" id="ZHu-Ta-X2H"/>
+                                    <constraint firstItem="u4P-KV-JmY" firstAttribute="centerY" secondItem="yFy-Tr-n6X" secondAttribute="centerY" id="jAf-Hj-tLA"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="yFy-Tr-n6X" firstAttribute="centerX" secondItem="umR-3l-nNi" secondAttribute="centerX" id="MtK-PU-8Ug"/>
+                            <constraint firstItem="yFy-Tr-n6X" firstAttribute="centerY" secondItem="umR-3l-nNi" secondAttribute="centerY" id="piz-Yt-24v"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LQt-yM-lU9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="316" y="-567"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -209,7 +266,7 @@
         <!--Information Posting View Controller-->
         <scene sceneID="jU3-ki-IJ2">
             <objects>
-                <viewController storyboardIdentifier="sb_infoPostingVC" id="Z8F-Q2-aHg" customClass="InformationPostingViewController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="infoPostingVC" id="Z8F-Q2-aHg" customClass="InformationPostingViewController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="rAX-1c-jnb"/>
                         <viewControllerLayoutGuide type="bottom" id="cHZ-iY-plp"/>
@@ -343,7 +400,7 @@
         <!--Info Posting Nav Controller-->
         <scene sceneID="xHx-uH-sTb">
             <objects>
-                <navigationController storyboardIdentifier="sb_infoPostingNavController" automaticallyAdjustsScrollViewInsets="NO" id="jlt-ph-fsc" userLabel="Info Posting Nav Controller" customClass="InformationPostingNavigationController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="infoPostingNavController" automaticallyAdjustsScrollViewInsets="NO" id="jlt-ph-fsc" userLabel="Info Posting Nav Controller" customClass="InformationPostingNavigationController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="YhA-vA-p4J">
