@@ -16,7 +16,7 @@ class LoginViewController: UIViewController, AlertPresentable, ActivityIndicator
     
     private var loginView: LoginView!
 
-    private var activityIndicatorVC: PrimaryActivityIndicatorViewController?
+    private var activityIndicatorViewController: PrimaryActivityIndicatorViewController?
     private var mainTabBarController: TabBarController?
     
     private var successfulLogoutCompletion: (() -> Void)!
@@ -27,15 +27,22 @@ class LoginViewController: UIViewController, AlertPresentable, ActivityIndicator
         
 //
         let loginInitiatedClosure = { [unowned self] in
-            self.activityIndicatorVC = self.getActivityIndicatorViewController()
-            self.presentActivityIndicator(self.activityIndicatorVC!, completion: nil)
+            self.activityIndicatorViewController = self.getActivityIndicatorViewController()
+            self.presentActivityIndicator(self.activityIndicatorViewController!, completion: nil)
         }
         
         let loginSuccessClosure = { [unowned self] in
             let dismissalCompletion = { [unowned self] in
                 self.performSegueWithIdentifier(.LoginComplete, sender: self)
             }
-            self.dismissActivityIndicator(self.activityIndicatorVC!, completion: dismissalCompletion)
+            self.dismissActivityIndicator(self.activityIndicatorViewController!, completion: dismissalCompletion)
+        }
+        
+        let loginFailedClosure = { [unowned self] (parameters: AlertParameters) in
+            let dismissalCompletion = { [unowned self] in
+                self.presentAlertWithParameters(parameters)
+            }
+            self.dismissActivityIndicator(self.activityIndicatorViewController!, completion: dismissalCompletion)
         }
         
         successfulLogoutCompletion = { [unowned self] in
@@ -50,7 +57,11 @@ class LoginViewController: UIViewController, AlertPresentable, ActivityIndicator
         
         loginView = view as! LoginView
         
-        loginView.configure(withLoginInitiatedClosure: loginInitiatedClosure, loginSuccessClosure: loginSuccessClosure, alertPresentationClosure: getAlertPresentationClosure())
+        loginView.configure(
+            withLoginInitiatedClosure: loginInitiatedClosure,
+            loginSuccessClosure: loginSuccessClosure,
+            loginFailedClosure: loginFailedClosure
+            /*alertPresentationClosure: getAlertPresentationClosure()*/)
     }
     
     //MARK: - Segues

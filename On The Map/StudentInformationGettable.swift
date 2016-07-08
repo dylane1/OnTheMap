@@ -16,6 +16,6 @@ extension StudentInformationGettable where Self: UIViewController, Self: AlertPr
     }
     
     internal func getStudentInformation(withCompletion completion: () -> Void) {
-        studentInformationProvider.configure(withInformationReceivedCompletion: completion, alertPresentationClosure: self.getAlertPresentationClosure())
+//        studentInformationProvider.configure(withInformationReceivedCompletion: completion, alertPresentationClosure: self.getAlertPresentationClosure())
     }
 }

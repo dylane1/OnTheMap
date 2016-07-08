@@ -59,10 +59,10 @@ class InformationPostingViewController: UIViewController, InformationPostingNavi
 
         }
         
-        postingView.configure(
-            withSuccessClosure: submitSuccessfulClosure,
-            activityIndicatorPresentationClosure: presentActivityIndicator,
-            dissmissActivityIndicatorClosure: dismissActivityIndicator,
-            alertPresentationClosure: getAlertPresentationClosure())
+//        postingView.configure(
+//            withSuccessClosure: submitSuccessfulClosure,
+//            activityIndicatorPresentationClosure: presentActivityIndicator,
+//            dissmissActivityIndicatorClosure: dismissActivityIndicator,
+//            alertPresentationClosure: getAlertPresentationClosure())
     }
 }

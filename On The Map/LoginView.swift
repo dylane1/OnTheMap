@@ -15,7 +15,8 @@ class LoginView: UIView {
     
     private var loginInitiatedClosure: (() -> Void)!
     private var loginSuccessClosure: (() -> Void)!
-    private var alertPresentationClosureWithParameters: AlertPresentationClosureWithParameters!
+    private var loginFailedClosure: AlertPresentation!
+//    private var alertPresentationClosureWithParameters: AlertPresentationClosureWithParameters!
     
     private var emailString     = ""
     private var passwordString  = ""
@@ -46,8 +47,8 @@ class LoginView: UIView {
 //        loginValidator.login(withEmailAndPassword: emailLogin)
         
         ///TESTING:
-        let emailLogin = (email: Constants.Testing.myValidUsername, password: Constants.Testing.myValidPassword)
-//        let emailLogin = (email: "", password: "1234")
+//        let emailLogin = (email: Constants.Testing.myValidUsername, password: Constants.Testing.myValidPassword)
+        let emailLogin = (email: "", password: "1234")
 //        let emailLogin = (email: Constants.Testing.myValidUsername, password: "1234")
 //        let emailLogin = (email: Constants.Testing.myValidUsername, password: "")
         
@@ -56,14 +57,18 @@ class LoginView: UIView {
     
     //MARK: - Configuration
     
-    internal func configure(withLoginInitiatedClosure loginInit: () -> Void, loginSuccessClosure loginSuccess: () -> Void, alertPresentationClosure alertPresent: AlertPresentationClosureWithParameters) {
+    internal func configure(
+        withLoginInitiatedClosure loginInit: () -> Void,
+        loginSuccessClosure loginSuccess: () -> Void,
+        loginFailedClosure loginFailed: AlertPresentation) {
+        
         backgroundColor = Constants.ColorScheme.orange
         
-        loginInitiatedClosure                   = loginInit
-        loginSuccessClosure                     = loginSuccess
-        alertPresentationClosureWithParameters  = alertPresent
+        loginInitiatedClosure   = loginInit
+        loginSuccessClosure     = loginSuccess
+        loginFailedClosure      = loginFailed
         
-        loginValidator.configure(withLoginSuccessClosure: loginSuccess, alertPresentationClosure: alertPresent)
+        loginValidator.configure(withLoginSuccessClosure: loginSuccess, loginFailedClosure: loginFailed)
         
         configureLabels()
         configureTextFields()
@@ -162,7 +167,8 @@ extension LoginView: FBSDKLoginButtonDelegate {
     internal func loginButton(loginButton: FBSDKLoginButton, didCompleteWithResult result: FBSDKLoginManagerLoginResult, error: NSError?) {
 
         if error != nil {
-            alertPresentationClosureWithParameters((title: LocalizedStrings.AlertTitles.loginError, message: error!.localizedDescription))
+            loginFailedClosure(alertParameters: (title: LocalizedStrings.AlertTitles.loginError, message: error!.localizedDescription))
+//            alertPresentationClosureWithParameters((title: LocalizedStrings.AlertTitles.loginError, message: error!.localizedDescription))
             return
         }
         initiateLogin(withFacebookToken: result.token)

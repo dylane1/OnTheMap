@@ -49,7 +49,7 @@ extension MapAndTableNavigationProtocol where Self: UIViewController, Self: Info
                     })
                 })
             }
-            logoutController.logout(withCompletion: completion, alertPresentationClosure: self!.getAlertPresentationClosure())
+//            logoutController.logout(withCompletion: completion, alertPresentationClosure: self!.getAlertPresentationClosure())
         }
         
         mapAndTableNavController.configure(withAddClosure: addButtonClosure, refreshClosure: refreshButtonClosure, logoutClosure: logoutButtonClosure)

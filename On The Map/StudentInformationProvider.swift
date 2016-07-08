@@ -13,8 +13,8 @@ final class StudentInformationProvider: StudentLocationRequestable {
     static let sharedInstance = StudentInformationProvider()
     private init() {}
     
-    private var informationReceivedCompletion: (() -> Void)?
-    private var alertPresentationClosureWithParameters: AlertPresentationClosureWithParameters?
+    private var informationReceivedCompletion: (() -> Void)!
+    private var requestFailedClosure: AlertPresentation!
     
     internal var currentStudent: StudentInformation!
     
@@ -35,10 +35,14 @@ final class StudentInformationProvider: StudentLocationRequestable {
     }
     
     /// Set when getting student data from server
-    internal func configure(withInformationReceivedCompletion receivedCompletion: () -> Void, alertPresentationClosure alertClosure: AlertPresentationClosureWithParameters) {
+    internal func configure(
+        withInformationReceivedCompletion receivedCompletion: () -> Void,
+        requestFailedClosure requestFailed: AlertPresentation
+        /*alertPresentationClosure alertClosure: AlertPresentationClosureWithParameters*/) {
 
-        informationReceivedCompletion           = receivedCompletion
-        alertPresentationClosureWithParameters  = alertClosure
+        informationReceivedCompletion   = receivedCompletion
+        requestFailedClosure            = requestFailed
+//        alertPresentationClosureWithParameters  = alertClosure
         
         requestStudentInformation()
     }
@@ -52,7 +56,7 @@ final class StudentInformationProvider: StudentLocationRequestable {
             self!.parseStudentInformation(jsonDictionary)
         }
         
-        networkRequestService.configure(withRequestCompletion: requestCompletion, alertPresentationClosure: alertPresentationClosureWithParameters!)
+        networkRequestService.configure(withRequestCompletion: requestCompletion, requestFailedClosure: requestFailedClosure)
         networkRequestService.requestJSONDictionary(withURLRequest: request)
     }
     
@@ -61,13 +65,13 @@ final class StudentInformationProvider: StudentLocationRequestable {
     private func parseStudentInformation(jsonDictionary: NSDictionary) {
         
         guard let studentInformationJSON = jsonDictionary[Constants.Keys.results] as? [NSDictionary] else {
-            alertPresentationClosureWithParameters?((title: LocalizedStrings.AlertTitles.studentLocationsError, message: jsonDictionary[Constants.Keys.error] as! String))
+            requestFailedClosure(alertParameters: (title: LocalizedStrings.AlertTitles.studentLocationsError, message: jsonDictionary[Constants.Keys.error] as! String))
             
             return
         }
         
         if studentInformationJSON.count == 0 {
-            alertPresentationClosureWithParameters?((title: LocalizedStrings.AlertTitles.studentLocationsError, message: LocalizedStrings.AlertMessages.noStudentData))
+            requestFailedClosure(alertParameters: (title: LocalizedStrings.AlertTitles.studentLocationsError, message: LocalizedStrings.AlertMessages.noStudentData))
             return
         }
         

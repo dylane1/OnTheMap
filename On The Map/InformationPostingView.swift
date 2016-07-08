@@ -11,9 +11,10 @@ import UIKit
 
 class InformationPostingView: UIView, StudentLocationRequestable {
     private var submitSuccessfulClosure: (() -> Void)!
-    private var presentActivityIndicator: (() -> Void)!
-    private var dismissActivityIndicator: (() -> Void)!
-    private var alertPresentationClosureWithParameters: AlertPresentationClosureWithParameters!
+//    private var presentActivityIndicator: (() -> Void)!
+//    private var dismissActivityIndicator: (() -> Void)!
+    private var errorHandler: AlertPresentation!
+//    private var alertPresentationClosureWithParameters: AlertPresentationClosureWithParameters!
     
     @IBOutlet weak var promptView: UIView!
     @IBOutlet weak var promptLabel: UILabel!
@@ -65,16 +66,18 @@ class InformationPostingView: UIView, StudentLocationRequestable {
     
     internal func configure(
         withSuccessClosure success:() -> Void,
-        activityIndicatorPresentationClosure openAI: () -> Void,
+        errorHandler errorClosure: AlertPresentation
+        /*activityIndicatorPresentationClosure openAI: () -> Void,
         dissmissActivityIndicatorClosure closeAI: () -> Void,
-        alertPresentationClosure alertClosure: AlertPresentationClosureWithParameters) {
+        alertPresentationClosure alertClosure: AlertPresentationClosureWithParameters*/) {
         
         magic("current student: \(studentInfoProvider.currentStudent)")
         
-        submitSuccessfulClosure                 = success
-        presentActivityIndicator                = openAI
-        dismissActivityIndicator                = closeAI
-        alertPresentationClosureWithParameters  = alertClosure
+        submitSuccessfulClosure = success
+        errorHandler            = errorClosure
+//        presentActivityIndicator                = openAI
+//        dismissActivityIndicator                = closeAI
+//        alertPresentationClosureWithParameters  = alertClosure
         
         promptView.alpha        = 0
         promptView.transform    = CGAffineTransformMakeScale(0.5, 0.5)
@@ -144,7 +147,9 @@ class InformationPostingView: UIView, StudentLocationRequestable {
          THIS IS A PROBLEM
          */
         if !isValidLocation {
-            alertPresentationClosureWithParameters?((title: LocalizedStrings.AlertTitles.locationSearchError, message: LocalizedStrings.AlertMessages.pleaseTrySearchAgain))
+            
+            errorHandler(alertParameters: (title: LocalizedStrings.AlertTitles.locationSearchError, message: LocalizedStrings.AlertMessages.pleaseTrySearchAgain))
+//            alertPresentationClosureWithParameters?((title: LocalizedStrings.AlertTitles.locationSearchError, message: LocalizedStrings.AlertMessages.pleaseTrySearchAgain))
             return
         }
         
@@ -158,15 +163,16 @@ class InformationPostingView: UIView, StudentLocationRequestable {
     //MARK: - Perform network requests
 
     private func queryStudentLocation() {
-        magic("about to present")
-        presentActivityIndicator()
+        
         let request = createStudentLocationRequest(uniqueKey: studentInfoProvider.currentStudent.uniqueKey)
         
         let requestCompletion = { [weak self] (jsonDictionary: NSDictionary) in
             self!.parseStudentLocationQuery(jsonDictionary)
         }
         
-        networkRequestService.configure(withRequestCompletion: requestCompletion, alertPresentationClosure: alertPresentationClosureWithParameters)
+        networkRequestService.configure(
+            withRequestCompletion: requestCompletion,
+            requestFailedClosure: errorHandler)
         networkRequestService.requestJSONDictionary(withURLRequest: request)
     }
     
@@ -191,8 +197,6 @@ class InformationPostingView: UIView, StudentLocationRequestable {
     }
     
     private func performRequest(request: NSMutableURLRequest, withCompletion completion: GetDictionaryCompletion) {
-        magic("about to present")
-        presentActivityIndicator()
         
         var httpBody = "{"
         httpBody += "\"\(Constants.Keys.uniqueKey)\": \"\(studentInfoProvider.currentStudent.uniqueKey)\", "
@@ -207,7 +211,7 @@ class InformationPostingView: UIView, StudentLocationRequestable {
         magic(httpBody)
         request.HTTPBody = httpBody.dataUsingEncoding(NSUTF8StringEncoding)
         
-        networkRequestService.configure(withRequestCompletion: completion, alertPresentationClosure: alertPresentationClosureWithParameters)
+        networkRequestService.configure(withRequestCompletion: completion, requestFailedClosure: errorHandler)
         networkRequestService.requestJSONDictionary(withURLRequest: request)
     }
     
@@ -217,12 +221,10 @@ class InformationPostingView: UIView, StudentLocationRequestable {
         
         guard let resultArray = jsonDictionary[Constants.Keys.results] as? NSArray,
               let infoDict = resultArray[0] as? NSDictionary else {
-                alertPresentationClosureWithParameters?((title: LocalizedStrings.AlertTitles.locationSearchError, message: LocalizedStrings.AlertMessages.pleaseTrySearchAgain))
+                errorHandler(alertParameters: (title: LocalizedStrings.AlertTitles.locationSearchError, message: LocalizedStrings.AlertMessages.pleaseTrySearchAgain))
             return
         }
-        magic("about to dismiss")
-        dismissActivityIndicator()
-        
+
         studentInfoProvider.currentStudent.latitude     = infoDict[Constants.Keys.latitude] as! Double
         studentInfoProvider.currentStudent.longitude    = infoDict[Constants.Keys.longitude] as! Double
         studentInfoProvider.currentStudent.mapString    = infoDict[Constants.Keys.mapString] as! String
@@ -241,7 +243,7 @@ class InformationPostingView: UIView, StudentLocationRequestable {
 //        magic("postDict: \(jsonDictionary)")
         
         guard let _ = jsonDictionary[Constants.Keys.createdAt] as? String else {
-            alertPresentationClosureWithParameters?((title: LocalizedStrings.AlertTitles.locationCreationError, message: LocalizedStrings.AlertMessages.pleaseTryAddingLocationAgain))
+            errorHandler(alertParameters: (title: LocalizedStrings.AlertTitles.locationCreationError, message: LocalizedStrings.AlertMessages.pleaseTryAddingLocationAgain))
             return
         }
         /// No need to call dismissActivityIndicator() because submitSuccessfulClosure takes care of it
@@ -252,7 +254,7 @@ class InformationPostingView: UIView, StudentLocationRequestable {
 //        magic("updateDict: \(jsonDictionary)")
         
         guard let _ = jsonDictionary[Constants.Keys.updatedAt] as? String else {
-            alertPresentationClosureWithParameters?((title: LocalizedStrings.AlertTitles.locationUpdateError, message: LocalizedStrings.AlertMessages.pleaseTryUpdateAgain))
+            errorHandler(alertParameters: (title: LocalizedStrings.AlertTitles.locationUpdateError, message: LocalizedStrings.AlertMessages.pleaseTryUpdateAgain))
             return
         }
         submitSuccessfulClosure?()
@@ -261,21 +263,17 @@ class InformationPostingView: UIView, StudentLocationRequestable {
     //MARK: - Map
     
     private func findLocation() {
-        magic("about to present")
-        presentActivityIndicator()
-        
+
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(mapString, completionHandler: { (placemarks: [CLPlacemark]?, error: NSError?) -> Void in
             if error != nil {
                 magic("error: \(error?.localizedDescription)")
                 self.isValidLocation = false
-                self.alertPresentationClosureWithParameters?((title: LocalizedStrings.AlertTitles.locationSearchError, message: LocalizedStrings.AlertMessages.pleaseTrySearchAgain))
+                self.errorHandler(alertParameters: (title: LocalizedStrings.AlertTitles.locationSearchError, message: LocalizedStrings.AlertMessages.pleaseTrySearchAgain))
                 return
             } else {
                 self.isValidLocation    = true
                 self.placemarks         = placemarks
-                magic("about to dismiss")
-                self.dismissActivityIndicator()
             }
         })
     }

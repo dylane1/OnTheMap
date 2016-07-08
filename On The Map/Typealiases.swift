@@ -15,4 +15,5 @@ typealias OpenLinkClosure = (String) -> Void
 
 /// AlertPresentable protocol
 typealias AlertParameters = (title: String, message: String)
-typealias AlertPresentationClosureWithParameters = (AlertParameters) -> Void
+typealias AlertPresentation = (alertParameters: AlertParameters) -> Void
+//typealias AlertPresentationClosureWithParameters = (AlertParameters) -> Void

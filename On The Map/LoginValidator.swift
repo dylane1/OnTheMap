@@ -17,16 +17,18 @@ final class LoginValidator {
     }
     
     private var loginSuccessClosure: (() -> Void)!
-    private var alertPresentationClosureWithParameters: AlertPresentationClosureWithParameters!
+    private var loginFailedClosure: AlertPresentation!
     
     private var networkRequestService = NetworkRequestService()
     
     private lazy var studentInfoProvider = StudentInformationProvider.sharedInstance
     
     //MARK: - Configuration
-    internal func configure(withLoginSuccessClosure successClosure: () -> Void, alertPresentationClosure alertClosure: AlertPresentationClosureWithParameters) {
-        loginSuccessClosure                     = successClosure
-        alertPresentationClosureWithParameters  = alertClosure
+    internal func configure(withLoginSuccessClosure successClosure: () -> Void, loginFailedClosure loginFailed: AlertPresentation) {
+        
+        loginSuccessClosure = successClosure
+        loginFailedClosure  = loginFailed
+//        alertPresentationClosureWithParameters  = alertClosure
     }
     
     //MARK: - Perform network requests
@@ -53,7 +55,10 @@ final class LoginValidator {
             self.parseLoginJSON(jsonDictionary)
         }
         
-        networkRequestService.configure(withRequestCompletion: requestCompletion, alertPresentationClosure: alertPresentationClosureWithParameters)
+        networkRequestService.configure(
+            withRequestCompletion: requestCompletion,
+            requestFailedClosure: loginFailedClosure
+            /*alertPresentationClosure: alertPresentationClosureWithParameters*/)
         networkRequestService.requestJSONDictionary(withURLRequest: request, isUdacityLoginLogout: true)
     }
     
@@ -65,7 +70,9 @@ final class LoginValidator {
             self.parsePublicUserDataJSON(jsonDictionary, userKey: acctDict[Constants.Keys.key] as! String)
         }
         
-        networkRequestService.configure(withRequestCompletion: requestCompletion, alertPresentationClosure: alertPresentationClosureWithParameters)
+        networkRequestService.configure(
+            withRequestCompletion: requestCompletion,
+            requestFailedClosure: loginFailedClosure)
         networkRequestService.requestJSONDictionary(withURLRequest: request, isUdacityLoginLogout: true)
     }
     
@@ -80,7 +87,9 @@ final class LoginValidator {
                 
                 guard let statusCode = jsonDictionary[Constants.Keys.status] as? Int,
                     let error = jsonDictionary[Constants.Keys.error] as? String else {
-                        alertPresentationClosureWithParameters?((title: LocalizedStrings.AlertTitles.loginError, message: LocalizedStrings.AlertMessages.unknownLoginError))
+                        
+                        loginFailedClosure(alertParameters: (title: LocalizedStrings.AlertTitles.loginError, message: LocalizedStrings.AlertMessages.unknownLoginError))
+                        
                         return
                 }
                 
@@ -104,8 +113,7 @@ final class LoginValidator {
                     /// Something else
                     messageString = LocalizedStrings.AlertMessages.serverResponded + "\n\(error)"
                 }
-                
-                alertPresentationClosureWithParameters?((title: LocalizedStrings.AlertTitles.loginError, message: messageString))
+                loginFailedClosure(alertParameters: (title: LocalizedStrings.AlertTitles.loginError, message: messageString))
                 return
         }
         /// Made it through with a valid account
@@ -115,7 +123,7 @@ final class LoginValidator {
     private func parsePublicUserDataJSON(jsonDictionary: NSDictionary, userKey key: String) {
 //        magic("userDictionary: \(jsonDictionary)")
         guard let userDictionary = jsonDictionary[Constants.Keys.user] as? NSDictionary else {
-            alertPresentationClosureWithParameters?((title: LocalizedStrings.AlertTitles.userInfoError, message: LocalizedStrings.AlertMessages.userInfoError))
+            loginFailedClosure(alertParameters: (title: LocalizedStrings.AlertTitles.userInfoError, message: LocalizedStrings.AlertMessages.userInfoError))
             return
         }
         
