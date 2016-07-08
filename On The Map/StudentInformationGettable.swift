@@ -15,7 +15,14 @@ extension StudentInformationGettable where Self: UIViewController, Self: AlertPr
         return StudentInformationProvider.sharedInstance
     }
     
-    internal func getStudentInformation(withCompletion completion: () -> Void) {
-//        studentInformationProvider.configure(withInformationReceivedCompletion: completion, alertPresentationClosure: self.getAlertPresentationClosure())
+    internal func getStudentInformation(withCompletion completion: () -> Void, alertPresentationClosure alertPresentation: AlertPresentation) {
+        studentInformationProvider.configure(withInformationReceivedCompletion: completion, alertPresentationClosure: alertPresentation)
+    }
+    
+    internal func performFetchWithCompletion(completion: () -> Void) {
+        let fetchFailed = { [weak self] (parameters: AlertParameters) in
+            self!.presentAlertWithParameters(parameters)
+        }
+        getStudentInformation(withCompletion: completion, alertPresentationClosure: fetchFailed)
     }
 }

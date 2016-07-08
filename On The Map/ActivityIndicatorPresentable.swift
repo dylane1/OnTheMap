@@ -8,7 +8,9 @@
 
 import UIKit
 
-protocol ActivityIndicatorPresentable { }
+protocol ActivityIndicatorPresentable {
+    var activityIndicatorViewController: PrimaryActivityIndicatorViewController? { get set }
+}
 
 extension ActivityIndicatorPresentable where Self: UIViewController {
     internal func getActivityIndicatorViewController() -> PrimaryActivityIndicatorViewController {

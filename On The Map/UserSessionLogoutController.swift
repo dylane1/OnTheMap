@@ -12,14 +12,14 @@ import FBSDKLoginKit
 final class UserSessionLogoutController {
     
     private var logoutCompletion: (() -> Void)!
-    private var errorHandler: AlertPresentation!
+    private var presentErrorAlert: AlertPresentation!
     
     deinit { magic("being deinitialized   <----------------") }
     
     internal func logout(withCompletion completion: () -> Void, errorHandler errorClosure: AlertPresentation) {
         guard let _ = FBSDKAccessToken.currentAccessToken() as FBSDKAccessToken! else {
             logoutCompletion    = completion
-            errorHandler        = errorClosure
+            presentErrorAlert   = errorClosure
             
             udacityLogout()
             return
@@ -52,7 +52,7 @@ final class UserSessionLogoutController {
         }
         
         let networkRequestService = NetworkRequestService()
-        networkRequestService.configure(withRequestCompletion: requestCompletion, requestFailedClosure: errorHandler)
+        networkRequestService.configure(withRequestCompletion: requestCompletion, requestFailedClosure: presentErrorAlert)
         networkRequestService.requestJSONDictionary(withURLRequest: request, isUdacityLoginLogout: true)
         
     }
@@ -67,12 +67,12 @@ final class UserSessionLogoutController {
                 
                 guard let statusCode = jsonDictionary[Constants.Keys.status] as? Int,
                     let _ = jsonDictionary[Constants.Keys.error] as? String else {
-                        errorHandler(alertParameters: (title: LocalizedStrings.AlertTitles.logoutError, message: LocalizedStrings.AlertMessages.unknownLogoutError))
+                        presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.logoutError, message: LocalizedStrings.AlertMessages.unknownLogoutError))
                         return
                 }
                 let messageString = LocalizedStrings.AlertMessages.serverResponded + "\n\(statusCode): \(NSHTTPURLResponse.localizedStringForStatusCode(statusCode))"
                 
-                errorHandler(alertParameters: (title: LocalizedStrings.AlertTitles.logoutError, message: messageString))
+                presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.logoutError, message: messageString))
                 return
         }
         /// Dismiss Tab Bar controller after logout

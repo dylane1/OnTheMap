@@ -17,7 +17,7 @@ final class LoginValidator {
     }
     
     private var loginSuccessClosure: (() -> Void)!
-    private var loginFailedClosure: AlertPresentation!
+    private var presentErrorAlert: AlertPresentation!
     
     private var networkRequestService = NetworkRequestService()
     
@@ -27,8 +27,7 @@ final class LoginValidator {
     internal func configure(withLoginSuccessClosure successClosure: () -> Void, loginFailedClosure loginFailed: AlertPresentation) {
         
         loginSuccessClosure = successClosure
-        loginFailedClosure  = loginFailed
-//        alertPresentationClosureWithParameters  = alertClosure
+        presentErrorAlert   = loginFailed
     }
     
     //MARK: - Perform network requests
@@ -47,7 +46,7 @@ final class LoginValidator {
             magic("facebook token: \(token!.tokenString)")
             request.HTTPBody = "{\"facebook_mobile\": {\"access_token\": \"\(token!.tokenString);\"}}".dataUsingEncoding(NSUTF8StringEncoding)
         } else {
-//            fatalError("Come on now, you gotta give me something to work with here...")
+            magic("Come on now, you gotta give me something to work with here...")
         }
         
         
@@ -55,10 +54,7 @@ final class LoginValidator {
             self.parseLoginJSON(jsonDictionary)
         }
         
-        networkRequestService.configure(
-            withRequestCompletion: requestCompletion,
-            requestFailedClosure: loginFailedClosure
-            /*alertPresentationClosure: alertPresentationClosureWithParameters*/)
+        networkRequestService.configure(withRequestCompletion: requestCompletion, requestFailedClosure: presentErrorAlert)
         networkRequestService.requestJSONDictionary(withURLRequest: request, isUdacityLoginLogout: true)
     }
     
@@ -70,9 +66,7 @@ final class LoginValidator {
             self.parsePublicUserDataJSON(jsonDictionary, userKey: acctDict[Constants.Keys.key] as! String)
         }
         
-        networkRequestService.configure(
-            withRequestCompletion: requestCompletion,
-            requestFailedClosure: loginFailedClosure)
+        networkRequestService.configure(withRequestCompletion: requestCompletion, requestFailedClosure: presentErrorAlert)
         networkRequestService.requestJSONDictionary(withURLRequest: request, isUdacityLoginLogout: true)
     }
     
@@ -88,7 +82,7 @@ final class LoginValidator {
                 guard let statusCode = jsonDictionary[Constants.Keys.status] as? Int,
                     let error = jsonDictionary[Constants.Keys.error] as? String else {
                         
-                        loginFailedClosure(alertParameters: (title: LocalizedStrings.AlertTitles.loginError, message: LocalizedStrings.AlertMessages.unknownLoginError))
+                        presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.loginError, message: LocalizedStrings.AlertMessages.unknownLoginError))
                         
                         return
                 }
@@ -107,13 +101,13 @@ final class LoginValidator {
                             messageString = LocalizedStrings.AlertMessages.pleaseEnterPassword
                         }
                     } else {
-                        messageString = LocalizedStrings.AlertMessages.unknownLoginError
+                        messageString = jsonDictionary[Constants.Keys.error] as! String
                     }
                 default:
                     /// Something else
                     messageString = LocalizedStrings.AlertMessages.serverResponded + "\n\(error)"
                 }
-                loginFailedClosure(alertParameters: (title: LocalizedStrings.AlertTitles.loginError, message: messageString))
+                presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.loginError, message: messageString))
                 return
         }
         /// Made it through with a valid account
@@ -123,7 +117,7 @@ final class LoginValidator {
     private func parsePublicUserDataJSON(jsonDictionary: NSDictionary, userKey key: String) {
 //        magic("userDictionary: \(jsonDictionary)")
         guard let userDictionary = jsonDictionary[Constants.Keys.user] as? NSDictionary else {
-            loginFailedClosure(alertParameters: (title: LocalizedStrings.AlertTitles.userInfoError, message: LocalizedStrings.AlertMessages.userInfoError))
+            presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.userInfoError, message: LocalizedStrings.AlertMessages.userInfoError))
             return
         }
         

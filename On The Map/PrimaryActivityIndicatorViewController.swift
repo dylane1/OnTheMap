@@ -42,6 +42,9 @@ class PrimaryActivityIndicatorViewController: UIViewController, Dimmable, SegueH
     
     internal func dismissSecondary(withCompletion completion: (() -> Void)? = nil) {
         activityIndicatorClosedCompletion = completion
-        secondaryViewController.unwindSegue()
+        magic("")
+        if secondaryViewController != nil {
+            secondaryViewController.unwindSegue()
+        }
     }
 }

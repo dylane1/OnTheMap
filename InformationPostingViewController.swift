@@ -14,6 +14,9 @@ class InformationPostingViewController: UIViewController, InformationPostingNavi
     private var dismissActivityIndicator: (() -> Void)!
     private var postingView: InformationPostingView!
     
+    /// ActivityIndicatorPresentable
+    internal var activityIndicatorViewController: PrimaryActivityIndicatorViewController?
+    
     //MARK: - View Lifecycle
     deinit { magic("being deinitialized   <----------------") }
     

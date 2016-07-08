@@ -10,11 +10,9 @@ import MapKit
 import UIKit
 
 class InformationPostingView: UIView, StudentLocationRequestable {
+    
     private var submitSuccessfulClosure: (() -> Void)!
-//    private var presentActivityIndicator: (() -> Void)!
-//    private var dismissActivityIndicator: (() -> Void)!
-    private var errorHandler: AlertPresentation!
-//    private var alertPresentationClosureWithParameters: AlertPresentationClosureWithParameters!
+    private var presentErrorAlert: AlertPresentation!
     
     @IBOutlet weak var promptView: UIView!
     @IBOutlet weak var promptLabel: UILabel!
@@ -64,20 +62,12 @@ class InformationPostingView: UIView, StudentLocationRequestable {
     
     //MARK: - Configuration
     
-    internal func configure(
-        withSuccessClosure success:() -> Void,
-        errorHandler errorClosure: AlertPresentation
-        /*activityIndicatorPresentationClosure openAI: () -> Void,
-        dissmissActivityIndicatorClosure closeAI: () -> Void,
-        alertPresentationClosure alertClosure: AlertPresentationClosureWithParameters*/) {
+    internal func configure(withSuccessClosure success:() -> Void, errorHandler errorClosure: AlertPresentation) {
         
         magic("current student: \(studentInfoProvider.currentStudent)")
         
         submitSuccessfulClosure = success
-        errorHandler            = errorClosure
-//        presentActivityIndicator                = openAI
-//        dismissActivityIndicator                = closeAI
-//        alertPresentationClosureWithParameters  = alertClosure
+        presentErrorAlert       = errorClosure
         
         promptView.alpha        = 0
         promptView.transform    = CGAffineTransformMakeScale(0.5, 0.5)
@@ -135,11 +125,6 @@ class InformationPostingView: UIView, StudentLocationRequestable {
         bottomButton.setTitle(LocalizedStrings.ButtonTitles.submit, forState: .Normal)
     }
     
-//    private func configureActivityIndicator() {
-//        activityIndicator.hidesWhenStopped = true
-//        activityIndicator.activityIndicatorViewStyle = .WhiteLarge
-//    }
-    
     //MARK: - Actions
     
     @IBAction func bottomButtonAction(sender: AnyObject) {
@@ -148,8 +133,8 @@ class InformationPostingView: UIView, StudentLocationRequestable {
          */
         if !isValidLocation {
             
-            errorHandler(alertParameters: (title: LocalizedStrings.AlertTitles.locationSearchError, message: LocalizedStrings.AlertMessages.pleaseTrySearchAgain))
-//            alertPresentationClosureWithParameters?((title: LocalizedStrings.AlertTitles.locationSearchError, message: LocalizedStrings.AlertMessages.pleaseTrySearchAgain))
+            presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.locationSearchError, message: LocalizedStrings.AlertMessages.pleaseTrySearchAgain))
+            
             return
         }
         
@@ -160,6 +145,7 @@ class InformationPostingView: UIView, StudentLocationRequestable {
         }
     }
     
+    //TODO: This should be pulled out and into a new file
     //MARK: - Perform network requests
 
     private func queryStudentLocation() {
@@ -170,9 +156,7 @@ class InformationPostingView: UIView, StudentLocationRequestable {
             self!.parseStudentLocationQuery(jsonDictionary)
         }
         
-        networkRequestService.configure(
-            withRequestCompletion: requestCompletion,
-            requestFailedClosure: errorHandler)
+        networkRequestService.configure(withRequestCompletion: requestCompletion, requestFailedClosure: presentErrorAlert)
         networkRequestService.requestJSONDictionary(withURLRequest: request)
     }
     
@@ -211,7 +195,7 @@ class InformationPostingView: UIView, StudentLocationRequestable {
         magic(httpBody)
         request.HTTPBody = httpBody.dataUsingEncoding(NSUTF8StringEncoding)
         
-        networkRequestService.configure(withRequestCompletion: completion, requestFailedClosure: errorHandler)
+        networkRequestService.configure(withRequestCompletion: completion, requestFailedClosure: presentErrorAlert)
         networkRequestService.requestJSONDictionary(withURLRequest: request)
     }
     
@@ -221,7 +205,7 @@ class InformationPostingView: UIView, StudentLocationRequestable {
         
         guard let resultArray = jsonDictionary[Constants.Keys.results] as? NSArray,
               let infoDict = resultArray[0] as? NSDictionary else {
-                errorHandler(alertParameters: (title: LocalizedStrings.AlertTitles.locationSearchError, message: LocalizedStrings.AlertMessages.pleaseTrySearchAgain))
+                presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.locationSearchError, message: LocalizedStrings.AlertMessages.pleaseTrySearchAgain))
             return
         }
 
@@ -243,7 +227,7 @@ class InformationPostingView: UIView, StudentLocationRequestable {
 //        magic("postDict: \(jsonDictionary)")
         
         guard let _ = jsonDictionary[Constants.Keys.createdAt] as? String else {
-            errorHandler(alertParameters: (title: LocalizedStrings.AlertTitles.locationCreationError, message: LocalizedStrings.AlertMessages.pleaseTryAddingLocationAgain))
+            presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.locationCreationError, message: LocalizedStrings.AlertMessages.pleaseTryAddingLocationAgain))
             return
         }
         /// No need to call dismissActivityIndicator() because submitSuccessfulClosure takes care of it
@@ -254,7 +238,7 @@ class InformationPostingView: UIView, StudentLocationRequestable {
 //        magic("updateDict: \(jsonDictionary)")
         
         guard let _ = jsonDictionary[Constants.Keys.updatedAt] as? String else {
-            errorHandler(alertParameters: (title: LocalizedStrings.AlertTitles.locationUpdateError, message: LocalizedStrings.AlertMessages.pleaseTryUpdateAgain))
+            presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.locationUpdateError, message: LocalizedStrings.AlertMessages.pleaseTryUpdateAgain))
             return
         }
         submitSuccessfulClosure?()
@@ -269,7 +253,7 @@ class InformationPostingView: UIView, StudentLocationRequestable {
             if error != nil {
                 magic("error: \(error?.localizedDescription)")
                 self.isValidLocation = false
-                self.errorHandler(alertParameters: (title: LocalizedStrings.AlertTitles.locationSearchError, message: LocalizedStrings.AlertMessages.pleaseTrySearchAgain))
+                self.presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.locationSearchError, message: LocalizedStrings.AlertMessages.pleaseTrySearchAgain))
                 return
             } else {
                 self.isValidLocation    = true

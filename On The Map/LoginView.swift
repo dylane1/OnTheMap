@@ -15,8 +15,7 @@ class LoginView: UIView {
     
     private var loginInitiatedClosure: (() -> Void)!
     private var loginSuccessClosure: (() -> Void)!
-    private var loginFailedClosure: AlertPresentation!
-//    private var alertPresentationClosureWithParameters: AlertPresentationClosureWithParameters!
+    private var presentErrorAlert: AlertPresentation!
     
     private var emailString     = ""
     private var passwordString  = ""
@@ -47,8 +46,8 @@ class LoginView: UIView {
 //        loginValidator.login(withEmailAndPassword: emailLogin)
         
         ///TESTING:
-//        let emailLogin = (email: Constants.Testing.myValidUsername, password: Constants.Testing.myValidPassword)
-        let emailLogin = (email: "", password: "1234")
+        let emailLogin = (email: Constants.Testing.myValidUsername, password: Constants.Testing.myValidPassword)
+//        let emailLogin = (email: "", password: "1234")
 //        let emailLogin = (email: Constants.Testing.myValidUsername, password: "1234")
 //        let emailLogin = (email: Constants.Testing.myValidUsername, password: "")
         
@@ -66,7 +65,7 @@ class LoginView: UIView {
         
         loginInitiatedClosure   = loginInit
         loginSuccessClosure     = loginSuccess
-        loginFailedClosure      = loginFailed
+        presentErrorAlert       = loginFailed
         
         loginValidator.configure(withLoginSuccessClosure: loginSuccess, loginFailedClosure: loginFailed)
         
@@ -167,8 +166,7 @@ extension LoginView: FBSDKLoginButtonDelegate {
     internal func loginButton(loginButton: FBSDKLoginButton, didCompleteWithResult result: FBSDKLoginManagerLoginResult, error: NSError?) {
 
         if error != nil {
-            loginFailedClosure(alertParameters: (title: LocalizedStrings.AlertTitles.loginError, message: error!.localizedDescription))
-//            alertPresentationClosureWithParameters((title: LocalizedStrings.AlertTitles.loginError, message: error!.localizedDescription))
+            presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.loginError, message: error!.localizedDescription))
             return
         }
         initiateLogin(withFacebookToken: result.token)

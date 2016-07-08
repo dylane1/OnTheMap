@@ -17,6 +17,9 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
     /// InformationPostingPresentable
     internal var informationPostingNavController: InformationPostingNavigationController?
     
+    /// ActivityIndicatorPresentable
+    internal var activityIndicatorViewController: PrimaryActivityIndicatorViewController?
+    
     private var sessionLogoutController = UserSessionLogoutController()
     
     //MARK: - View Lifecycle
@@ -38,13 +41,13 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
             self!.getStudentInfoArray()
         }
         
-        let logoutInitiatedClosure = { [weak self] in
-            let activityIndicatorVC = self!.getActivityIndicatorViewController()
-            self!.presentViewController(activityIndicatorVC, animated: false, completion: nil)
-        }
+//        let logoutInitiatedClosure = { [weak self] in
+//            let activityIndicatorVC = self!.getActivityIndicatorViewController()
+//            self!.presentViewController(activityIndicatorVC, animated: false, completion: nil)
+//        }
         
         /// MapAndTableNavigationProtocol
-        configureNavigationItems(withRefreshClosure: refreshClosure, sessionLogoutController: sessionLogoutController, logoutInitiatedClosure: logoutInitiatedClosure, successfulLogoutCompletion: tabBar.successfulLogoutCompletion!)
+        configureNavigationItems(withRefreshClosure: refreshClosure, sessionLogoutController: sessionLogoutController,/* logoutInitiatedClosure: logoutInitiatedClosure,*/ successfulLogoutCompletion: tabBar.successfulLogoutCompletion!)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -59,7 +62,7 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
         }
         
         /// StudentInformationGettable
-        getStudentInformation(withCompletion: completion)
+        performFetchWithCompletion(completion)
     }
 }
 

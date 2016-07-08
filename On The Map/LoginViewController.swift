@@ -16,7 +16,8 @@ class LoginViewController: UIViewController, AlertPresentable, ActivityIndicator
     
     private var loginView: LoginView!
 
-    private var activityIndicatorViewController: PrimaryActivityIndicatorViewController?
+    internal var activityIndicatorViewController: PrimaryActivityIndicatorViewController?
+    
     private var mainTabBarController: TabBarController?
     
     private var successfulLogoutCompletion: (() -> Void)!
@@ -24,8 +25,6 @@ class LoginViewController: UIViewController, AlertPresentable, ActivityIndicator
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-//
         let loginInitiatedClosure = { [unowned self] in
             self.activityIndicatorViewController = self.getActivityIndicatorViewController()
             self.presentActivityIndicator(self.activityIndicatorViewController!, completion: nil)
@@ -60,8 +59,7 @@ class LoginViewController: UIViewController, AlertPresentable, ActivityIndicator
         loginView.configure(
             withLoginInitiatedClosure: loginInitiatedClosure,
             loginSuccessClosure: loginSuccessClosure,
-            loginFailedClosure: loginFailedClosure
-            /*alertPresentationClosure: getAlertPresentationClosure()*/)
+            loginFailedClosure: loginFailedClosure)
     }
     
     //MARK: - Segues

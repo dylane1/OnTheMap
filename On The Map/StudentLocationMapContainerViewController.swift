@@ -20,6 +20,9 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
     /// InformationPostingPresentable
     internal var informationPostingNavController: InformationPostingNavigationController?
     
+    /// ActivityIndicatorPresentable
+    internal var activityIndicatorViewController: PrimaryActivityIndicatorViewController?
+    
     //MARK: - View Lifecycle
     deinit { magic("being deinitialized   <----------------") }
     
@@ -37,13 +40,13 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
             self!.getStudentInfoArray()
         }
         
-        let logoutInitiatedClosure = { [weak self] in
-            let activityIndicatorVC = self!.getActivityIndicatorViewController()
-            self!.presentViewController(activityIndicatorVC, animated: false, completion: nil)
-        }
+//        let logoutInitiatedClosure = { [weak self] in
+//            self!.activityIndicatorViewController = self!.getActivityIndicatorViewController()
+//            self!.presentActivityIndicator(self!.activityIndicatorViewController!, completion: nil)
+//        }
         
         /// MapAndTableNavigationProtocol
-        configureNavigationItems(withRefreshClosure: refreshClosure, sessionLogoutController: sessionLogoutController, logoutInitiatedClosure: logoutInitiatedClosure, successfulLogoutCompletion: tabBar.successfulLogoutCompletion!)
+        configureNavigationItems(withRefreshClosure: refreshClosure, sessionLogoutController: sessionLogoutController,/* logoutInitiatedClosure: logoutInitiatedClosure,*/ successfulLogoutCompletion: tabBar.successfulLogoutCompletion!)
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -69,7 +72,13 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
         }
         
         /// StudentInformationGettable
-        getStudentInformation(withCompletion: completion)
+        performFetchWithCompletion(completion)
+//        let fetchFailed = { [weak self] (parameters: AlertParameters) in
+//            self!.presentAlertWithParameters(parameters)
+//        }
+//        
+//        /// StudentInformationGettable
+//        getStudentInformation(withCompletion: completion, alertPresentationClosure: fetchFailed)
     }
     
     private func openLink(withURLString link: String) {
