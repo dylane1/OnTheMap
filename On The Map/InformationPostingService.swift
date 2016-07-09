@@ -20,10 +20,7 @@ final class InformationPostingService: StudentLocationRequestable {
     private var networkRequestService = NetworkRequestService()
     
     private lazy var studentInfoProvider = StudentInformationProvider.sharedInstance
-    
-//    private var previouslyEnteredLocationObjectId: String?
-    
-//    private var
+
     //MARK: - Configuration
     
     internal func configure(
@@ -38,12 +35,9 @@ final class InformationPostingService: StudentLocationRequestable {
         presentErrorAlert           = alertPresentation
     }
     
+    //MARK: - Query existing location information
     
-    
-    //TODO: This should be pulled out and into a new file
-    //MARK: - Perform network requests
-    
-    internal func queryStudentLocation(withCompletion completion: (locationValues: (mapString: String, mediaURL: String, previouslyEnteredLocationObjectId: String?)?) -> Void) {
+    internal func queryStudentLocation(withCompletion completion: (studentInformationValues: (mapString: String, mediaURL: String, previouslyEnteredLocationObjectId: String?)?) -> Void) {
         
         let aiPresented = { [weak self] in
             let request = self!.createStudentLocationRequest(uniqueKey: self!.studentInfoProvider.currentStudent.uniqueKey)
@@ -58,25 +52,49 @@ final class InformationPostingService: StudentLocationRequestable {
         presentActivityIndicator(completion: aiPresented)
     }
     
-//    private func postStudentLocation(withParameters params: (mapString: String, mediaURL: String, placemark: CLPlacemark)) {
-//        let request = createStudentLocationRequest(withHTTPMethod: Constants.HTTPMethods.post)
-//        
-//        let requestCompletion = { [weak self] (jsonDictionary: NSDictionary) in
-//            self!.parsePostResponse(jsonDictionary)
-//        }
-//        
-//        performRequest(request, params: params, completion: requestCompletion)
-//    }
+    private func parseStudentLocationQuery(jsonDictionary: NSDictionary, completion: (studentInformationValues: (mapString: String, mediaURL: String, previouslyEnteredLocationObjectId: String?)?) -> Void) {
+        
+        guard let resultArray = jsonDictionary[Constants.Keys.results] as? NSArray,
+            let infoDict = resultArray[0] as? NSDictionary else {
+                presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.locationSearchError, message: LocalizedStrings.AlertMessages.pleaseTrySearchAgain))
+                return
+        }
+        
+        studentInfoProvider.currentStudent.latitude     = infoDict[Constants.Keys.latitude] as! Double
+        studentInfoProvider.currentStudent.longitude    = infoDict[Constants.Keys.longitude] as! Double
+        studentInfoProvider.currentStudent.mapString    = infoDict[Constants.Keys.mapString] as! String
+        studentInfoProvider.currentStudent.mediaURL     = infoDict[Constants.Keys.mediaURL] as! String
+        
+        let mapString   = studentInfoProvider.currentStudent.mapString
+        let mediaURL    = studentInfoProvider.currentStudent.mediaURL
+        
+        let previouslyEnteredLocationObjectId = infoDict[Constants.Keys.objectId] as? String
+        
+        completion(studentInformationValues: (mapString, mediaURL, previouslyEnteredLocationObjectId))
+    }
     
-//    private func updateStudentLocation(withParameters params: (mapString: String, mediaURL: String, placemark: CLPlacemark)) {
-//        let request = createStudentLocationRequest(withHTTPMethod: Constants.HTTPMethods.put, objectId: previouslyEnteredLocationObjectId!)
-//        
-//        let requestCompletion = { [weak self] (jsonDictionary: NSDictionary) in
-//            self!.parseUpdateResponse(jsonDictionary)
-//        }
-//        
-//        performRequest(request, params: params, completion: requestCompletion)
-//    }
+    //MARK: - Add a new student location / updated existing
+    
+    internal func postStudentLocation(withParameters params: (mapString: String, mediaURL: String, placemark: CLPlacemark)) {
+        let request = createStudentLocationRequest(withHTTPMethod: Constants.HTTPMethods.post)
+        
+        let requestCompletion = { [weak self] (jsonDictionary: NSDictionary) in
+            self!.parsePostResponse(jsonDictionary)
+        }
+        
+        performRequest(request, params: params, completion: requestCompletion)
+    }
+    
+    internal func updateStudentLocation(withParameters params: (mapString: String, mediaURL: String, placemark: CLPlacemark), previouslyEnteredLocationObjectId: String) {
+        
+        let request = createStudentLocationRequest(withHTTPMethod: Constants.HTTPMethods.put, objectId: previouslyEnteredLocationObjectId)
+        
+        let requestCompletion = { [weak self] (jsonDictionary: NSDictionary) in
+            self!.parseUpdateResponse(jsonDictionary)
+        }
+        
+        performRequest(request, params: params, completion: requestCompletion)
+    }
     
     private func performRequest(request: NSMutableURLRequest, params: (mapString: String, mediaURL: String, placemark: CLPlacemark), completion: GetDictionaryCompletion) {
         
@@ -100,29 +118,6 @@ final class InformationPostingService: StudentLocationRequestable {
         presentActivityIndicator(completion: aiPresented)
     }
     
-    //MARK: - Parse results
-    
-    private func parseStudentLocationQuery(jsonDictionary: NSDictionary, completion: (locationValues: (mapString: String, mediaURL: String, previouslyEnteredLocationObjectId: String?)?) -> Void) {
-        
-        guard let resultArray = jsonDictionary[Constants.Keys.results] as? NSArray,
-            let infoDict = resultArray[0] as? NSDictionary else {
-                presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.locationSearchError, message: LocalizedStrings.AlertMessages.pleaseTrySearchAgain))
-                return
-        }
-        
-        studentInfoProvider.currentStudent.latitude     = infoDict[Constants.Keys.latitude] as! Double
-        studentInfoProvider.currentStudent.longitude    = infoDict[Constants.Keys.longitude] as! Double
-        studentInfoProvider.currentStudent.mapString    = infoDict[Constants.Keys.mapString] as! String
-        studentInfoProvider.currentStudent.mediaURL     = infoDict[Constants.Keys.mediaURL] as! String
-        
-        let mapString   = studentInfoProvider.currentStudent.mapString
-        let mediaURL    = studentInfoProvider.currentStudent.mediaURL
-        
-        let previouslyEnteredLocationObjectId = infoDict[Constants.Keys.objectId] as? String
-        
-        completion(locationValues: (mapString, mediaURL, previouslyEnteredLocationObjectId))
-    }
-    
     private func parsePostResponse(jsonDictionary: NSDictionary) {
         
         guard let _ = jsonDictionary[Constants.Keys.createdAt] as? String else {
@@ -140,24 +135,4 @@ final class InformationPostingService: StudentLocationRequestable {
         }
         submitSuccessfulClosure()
     }
-    
-    //MARK: - Map
-    
-//    private func findLocation(withMapString mapString: String) -> (isValidLocation: Bool, placemarks: [CLPlacemark]?) {
-//        presentActivityIndicator(completion: nil)
-//        
-//        var isValidLocation = false
-//        let geocoder = CLGeocoder()
-//        geocoder.geocodeAddressString(mapString, completionHandler: { (placemarks: [CLPlacemark]?, error: NSError?) -> Void in
-//            if error != nil {
-////                self.isValidLocation = false
-//                self.presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.locationSearchError, message: LocalizedStrings.AlertMessages.pleaseTrySearchAgain))
-//                return
-//            } else {
-//                isValidLocation = true
-//                self.placemarks         = placemarks
-//                self.dismissActivityIndicator()
-//            }
-//        })
-//    }
 }

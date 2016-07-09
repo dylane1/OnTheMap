@@ -28,18 +28,26 @@ class InformationPostingView: UIView, StudentLocationRequestable {
     
     private var informationPostingService = InformationPostingService()
     
-    private var studentLocationValues: (mapString: String, mediaURL: String, previouslyEnteredLocationObjectId: String?)? {
+    private var studentInformationValues: (mapString: String, mediaURL: String, previouslyEnteredLocationObjectId: String?)? {
         didSet {
-            if studentLocationValues != nil {
-                mapString                           = studentLocationValues!.mapString
-                mediaURL                            = studentLocationValues!.mediaURL
-                previouslyEnteredLocationObjectId   = studentLocationValues!.previouslyEnteredLocationObjectId
+            if studentInformationValues != nil {
+                mapString                           = studentInformationValues!.mapString
+                mediaURL                            = studentInformationValues!.mediaURL
+                previouslyEnteredLocationObjectId   = studentInformationValues!.previouslyEnteredLocationObjectId
+                
+                locationTextField.text  = mapString
+                urlTextField.text       = mediaURL
             }
         }
     }
+    
+    private var previousMapString = ""
     private var mapString: String = "" {
         didSet {
-            findLocation()
+            if mapString != previousMapString {
+                findLocation()
+            }
+            previousMapString = mapString
         }
     }
     
@@ -66,8 +74,6 @@ class InformationPostingView: UIView, StudentLocationRequestable {
         }
     }
     
-    private var networkRequestService = NetworkRequestService()
-    
     private lazy var studentInfoProvider = StudentInformationProvider.sharedInstance
     
     private var previouslyEnteredLocationObjectId: String?
@@ -80,7 +86,7 @@ class InformationPostingView: UIView, StudentLocationRequestable {
         successClosure success:() -> Void,
         alertPresentationClosure alertPresentation: AlertPresentation) {
         
-        magic("current student: \(studentInfoProvider.currentStudent)")
+//        magic("current student: \(studentInfoProvider.currentStudent)")
         
         presentActivityIndicator    = presentAI
         dismissActivityIndicator    = dismissAI
@@ -97,11 +103,11 @@ class InformationPostingView: UIView, StudentLocationRequestable {
         configureBottomButton()
         promptViewAnimation()
         
-//        queryStudentLocation()
         informationPostingService.configure(withActivityIndicatorPresentation: presentAI, activityIndicatorDismissal: dismissAI, successClosure: success, alertPresentationClosure: alertPresentation)
         
-        let queryCompletion = { [weak self] (locationValues: (mapString: String, mediaURL: String, previouslyEnteredLocationObjectId: String?)?) in
-            self!.studentLocationValues = locationValues
+        /// Initial query for existing student information
+        let queryCompletion = { [weak self] (studentInformationValues: (mapString: String, mediaURL: String, previouslyEnteredLocationObjectId: String?)?) in
+            self!.studentInformationValues = studentInformationValues
         }
         informationPostingService.queryStudentLocation(withCompletion: queryCompletion)
     }
@@ -159,113 +165,12 @@ class InformationPostingView: UIView, StudentLocationRequestable {
         }
         
         if previouslyEnteredLocationObjectId != nil {
-            updateStudentLocation()
+            informationPostingService.updateStudentLocation(withParameters: (mapString: mapString, mediaURL: mediaURL, placemark: placemarks![0]), previouslyEnteredLocationObjectId: previouslyEnteredLocationObjectId!)
         } else {
-            postStudentLocation()
+            informationPostingService.postStudentLocation(withParameters: (mapString: mapString, mediaURL: mediaURL, placemark: placemarks![0]))
         }
-    }
-    
-    //TODO: This should be pulled out and into a new file
-    //MARK: - Perform network requests
-
-//    private func queryStudentLocation() {
-//        magic("query location open ai")
-//        let aiPresented = { [weak self] in
-//            let request = self!.createStudentLocationRequest(uniqueKey: self!.studentInfoProvider.currentStudent.uniqueKey)
-//            
-//            let requestCompletion = { [weak self] (jsonDictionary: NSDictionary) in
-//                self!.parseStudentLocationQuery(jsonDictionary)
-//            }
-//            
-//            self!.networkRequestService.configure(withRequestCompletion: requestCompletion, requestFailedClosure: self!.presentErrorAlert)
-//            self!.networkRequestService.requestJSONDictionary(withURLRequest: request)
-//        }
-//        presentActivityIndicator(completion: aiPresented)
-//    }
-    
-    private func postStudentLocation() {
-        let request = createStudentLocationRequest(withHTTPMethod: Constants.HTTPMethods.post)
-        
-        let requestCompletion = { [weak self] (jsonDictionary: NSDictionary) in
-            self!.parsePostResponse(jsonDictionary)
-        }
-        
-        performRequest(request, withCompletion: requestCompletion)
     }
 
-    private func updateStudentLocation() {
-        let request = createStudentLocationRequest(withHTTPMethod: Constants.HTTPMethods.put, objectId: previouslyEnteredLocationObjectId!)
-        
-        let requestCompletion = { [weak self] (jsonDictionary: NSDictionary) in
-            self!.parseUpdateResponse(jsonDictionary)
-        }
-        
-        performRequest(request, withCompletion: requestCompletion)
-    }
-    
-    private func performRequest(request: NSMutableURLRequest, withCompletion completion: GetDictionaryCompletion) {
-        
-        let aiPresented = { [weak self] in
-            var httpBody = "{"
-            httpBody += "\"\(Constants.Keys.uniqueKey)\": \"\(self!.studentInfoProvider.currentStudent.uniqueKey)\", "
-            httpBody += "\"\(Constants.Keys.firstName)\": \"\(self!.studentInfoProvider.currentStudent.firstName)\", "
-            httpBody += "\"\(Constants.Keys.lastName)\": \"\(self!.studentInfoProvider.currentStudent.lastName)\", "
-            httpBody += "\"\(Constants.Keys.mapString)\": \"\(self!.mapString)\", "
-            httpBody += "\"\(Constants.Keys.mediaURL)\": \"\(self!.mediaURL)\", "
-            httpBody += "\"\(Constants.Keys.latitude)\": \((self!.placemarks![0].location?.coordinate.latitude)!), "
-            httpBody += "\"\(Constants.Keys.longitude)\": \((self!.placemarks![0].location?.coordinate.longitude)!)"
-            httpBody += "}"
-            
-            magic(httpBody)
-            request.HTTPBody = httpBody.dataUsingEncoding(NSUTF8StringEncoding)
-            
-            self!.networkRequestService.configure(withRequestCompletion: completion, requestFailedClosure: self!.presentErrorAlert)
-            self!.networkRequestService.requestJSONDictionary(withURLRequest: request)
-        }
-        presentActivityIndicator(completion: aiPresented)
-    }
-    
-    //MARK: - Parse results
-    
-//    private func parseStudentLocationQuery(jsonDictionary: NSDictionary) {
-//        
-//        guard let resultArray = jsonDictionary[Constants.Keys.results] as? NSArray,
-//              let infoDict = resultArray[0] as? NSDictionary else {
-//                presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.locationSearchError, message: LocalizedStrings.AlertMessages.pleaseTrySearchAgain))
-//            return
-//        }
-//        
-//        studentInfoProvider.currentStudent.latitude     = infoDict[Constants.Keys.latitude] as! Double
-//        studentInfoProvider.currentStudent.longitude    = infoDict[Constants.Keys.longitude] as! Double
-//        studentInfoProvider.currentStudent.mapString    = infoDict[Constants.Keys.mapString] as! String
-//        studentInfoProvider.currentStudent.mediaURL     = infoDict[Constants.Keys.mediaURL] as! String
-//        
-//        mapString   = studentInfoProvider.currentStudent.mapString
-//        mediaURL    = studentInfoProvider.currentStudent.mediaURL
-//        
-//        previouslyEnteredLocationObjectId = infoDict[Constants.Keys.objectId] as? String
-//        
-//        locationTextField.text  = mapString
-//        urlTextField.text       = mediaURL
-//    }
-    
-    private func parsePostResponse(jsonDictionary: NSDictionary) {
-        
-        guard let _ = jsonDictionary[Constants.Keys.createdAt] as? String else {
-            presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.locationCreationError, message: LocalizedStrings.AlertMessages.pleaseTryAddingLocationAgain))
-            return
-        }
-        submitSuccessfulClosure()
-    }
-    
-    private func parseUpdateResponse(jsonDictionary: NSDictionary) {
-        
-        guard let _ = jsonDictionary[Constants.Keys.updatedAt] as? String else {
-            presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.locationUpdateError, message: LocalizedStrings.AlertMessages.pleaseTryUpdateAgain))
-            return
-        }
-        submitSuccessfulClosure()
-    }
     
     //MARK: - Map
     
@@ -313,9 +218,7 @@ class InformationPostingView: UIView, StudentLocationRequestable {
             self.urlTextFieldTopConstraint.constant += (self.urlTextField.frame.height + 4)
             self.urlTextField.alpha = 1.0
             self.layoutIfNeeded()
-            }, completion: { (complete: Bool) in
-//                self.showLocationOnMap()
-            })
+            }, completion: nil)
     }
     
     private func animateBottomButtonIntoView() {
