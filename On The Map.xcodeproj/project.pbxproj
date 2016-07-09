@@ -18,6 +18,7 @@
 		A31EA4961D136F70005CC5B9 /* SafariViewControllerPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31EA4951D136F70005CC5B9 /* SafariViewControllerPresentable.swift */; };
 		A326978C1D2EFF8C00597140 /* SecondaryActivityIndicatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A326978B1D2EFF8C00597140 /* SecondaryActivityIndicatorViewController.swift */; };
 		A326978E1D303FC600597140 /* InformationPostingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A326978D1D303FC600597140 /* InformationPostingService.swift */; };
+		A32697911D319E6C00597140 /* ColorSchemes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32697901D319E6C00597140 /* ColorSchemes.swift */; };
 		A3499F0F1D1E0CBD00C961D3 /* AlertPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3499F0E1D1E0CBD00C961D3 /* AlertPresentable.swift */; };
 		A349C24F1D2C7C23008E678D /* Dimmable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A349C24E1D2C7C23008E678D /* Dimmable.swift */; };
 		A349C2511D2D5FD0008E678D /* PrimaryActivityIndicatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A349C2501D2D5FD0008E678D /* PrimaryActivityIndicatorViewController.swift */; };
@@ -71,6 +72,7 @@
 		A31EA4951D136F70005CC5B9 /* SafariViewControllerPresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafariViewControllerPresentable.swift; sourceTree = "<group>"; };
 		A326978B1D2EFF8C00597140 /* SecondaryActivityIndicatorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondaryActivityIndicatorViewController.swift; sourceTree = "<group>"; };
 		A326978D1D303FC600597140 /* InformationPostingService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationPostingService.swift; sourceTree = "<group>"; };
+		A32697901D319E6C00597140 /* ColorSchemes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorSchemes.swift; sourceTree = "<group>"; };
 		A3499F0E1D1E0CBD00C961D3 /* AlertPresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertPresentable.swift; sourceTree = "<group>"; };
 		A349C24E1D2C7C23008E678D /* Dimmable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dimmable.swift; sourceTree = "<group>"; };
 		A349C2501D2D5FD0008E678D /* PrimaryActivityIndicatorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimaryActivityIndicatorViewController.swift; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 				A3E8C8D31CED10040040770A /* Utilities */,
 				A31EA48A1D11DF59005CC5B9 /* Not used */,
 				A3E8C8C71CED0CB30040770A /* Constants.swift */,
+				A32697901D319E6C00597140 /* ColorSchemes.swift */,
 				A3E8C8C91CED0CC70040770A /* Typealiases.swift */,
 				A3E8C8CB1CED0CDB0040770A /* LocalizedStrings.swift */,
 				A3E8C8D91CF6342B0040770A /* Extensions.swift */,
@@ -388,6 +391,7 @@
 				A31EA48E1D132C2B005CC5B9 /* StudentLocationTableViewController.swift in Sources */,
 				A38AB6E21D19F56500820AA9 /* StudentLocationRequestable.swift in Sources */,
 				A326978E1D303FC600597140 /* InformationPostingService.swift in Sources */,
+				A32697911D319E6C00597140 /* ColorSchemes.swift in Sources */,
 				A34A2B671D2C1CF8007E2A0E /* UserSessionLogoutController.swift in Sources */,
 				A3D909EC1D245467006315E5 /* Reachability.swift in Sources */,
 				A3816D261D09DA70001B55A0 /* InformationPostingPresentable.swift in Sources */,

@@ -140,36 +140,75 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5PL-yy-Xl6">
-                                <rect key="frame" x="112" y="161" width="97" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5PL-yy-Xl6">
+                                <rect key="frame" x="56" y="161" width="208" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MJe-xM-Lwb">
-                                <rect key="frame" x="112" y="205" width="97" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MJe-xM-Lwb">
+                                <rect key="frame" x="56" y="199" width="208" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RPG-6F-Dnx">
-                                <rect key="frame" x="141" y="253" width="38" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RPG-6F-Dnx">
+                                <rect key="frame" x="56" y="237" width="208" height="30"/>
+                                <color key="backgroundColor" red="0.4941176471" green="0.82745098039999998" blue="0.12941176469999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Login"/>
                                 <connections>
                                     <action selector="loginAction:" destination="PGR-7w-anm" eventType="touchUpInside" id="EZr-pZ-Da6"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Login to Udacity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="onF-3O-xez">
-                                <rect key="frame" x="98" y="125" width="125" height="21"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JXR-ed-rwU">
+                                <rect key="frame" x="0.0" y="20" width="320" height="100"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6p9-uY-hAh">
+                                        <rect key="frame" x="8" y="8" width="304" height="84"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailingMargin" secondItem="6p9-uY-hAh" secondAttribute="trailing" id="9Z5-qN-Bys"/>
+                                    <constraint firstItem="6p9-uY-hAh" firstAttribute="top" secondItem="JXR-ed-rwU" secondAttribute="topMargin" id="ESb-xd-n4k"/>
+                                    <constraint firstAttribute="height" constant="100" id="Flf-K0-diU"/>
+                                    <constraint firstItem="6p9-uY-hAh" firstAttribute="leading" secondItem="JXR-ed-rwU" secondAttribute="leadingMargin" id="T7i-y7-f6H"/>
+                                    <constraint firstAttribute="bottomMargin" secondItem="6p9-uY-hAh" secondAttribute="bottom" id="UQL-dp-xw9"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login to Udacity" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="onF-3O-xez">
+                                <rect key="frame" x="16" y="132" width="288" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="JXR-ed-rwU" firstAttribute="top" secondItem="L5q-3h-Qan" secondAttribute="bottom" id="0QS-9m-awB"/>
+                            <constraint firstItem="MJe-xM-Lwb" firstAttribute="top" secondItem="5PL-yy-Xl6" secondAttribute="bottom" constant="8" id="5io-FZ-Rvx"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="RPG-6F-Dnx" secondAttribute="trailing" constant="40" id="C4g-yI-ZYh"/>
+                            <constraint firstItem="JXR-ed-rwU" firstAttribute="leading" secondItem="PGR-7w-anm" secondAttribute="leading" id="DoZ-oK-jFn"/>
+                            <constraint firstItem="RPG-6F-Dnx" firstAttribute="leading" secondItem="PGR-7w-anm" secondAttribute="leadingMargin" constant="40" id="GBI-Vo-PKF"/>
+                            <constraint firstItem="5PL-yy-Xl6" firstAttribute="top" secondItem="onF-3O-xez" secondAttribute="bottom" constant="8" id="GuD-kB-aio"/>
+                            <constraint firstAttribute="trailing" secondItem="JXR-ed-rwU" secondAttribute="trailing" id="JDM-87-VFZ"/>
+                            <constraint firstItem="onF-3O-xez" firstAttribute="top" secondItem="JXR-ed-rwU" secondAttribute="bottom" constant="12" id="OnZ-Rw-mu5"/>
+                            <constraint firstItem="onF-3O-xez" firstAttribute="leading" secondItem="PGR-7w-anm" secondAttribute="leadingMargin" id="SdG-Fc-5Lp"/>
+                            <constraint firstItem="MJe-xM-Lwb" firstAttribute="leading" secondItem="PGR-7w-anm" secondAttribute="leadingMargin" constant="40" id="Tj1-BG-fwd"/>
+                            <constraint firstItem="RPG-6F-Dnx" firstAttribute="top" secondItem="MJe-xM-Lwb" secondAttribute="bottom" constant="8" id="b5Z-un-80s"/>
+                            <constraint firstItem="5PL-yy-Xl6" firstAttribute="leading" secondItem="PGR-7w-anm" secondAttribute="leadingMargin" constant="40" id="bYy-a4-AvN"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="onF-3O-xez" secondAttribute="trailing" id="csB-t5-4Zm"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="MJe-xM-Lwb" secondAttribute="trailing" constant="40" id="czk-lM-dut"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="5PL-yy-Xl6" secondAttribute="trailing" constant="40" id="iYG-o4-mWb"/>
+                        </constraints>
                         <connections>
                             <outlet property="emailField" destination="5PL-yy-Xl6" id="jld-rx-dlk"/>
                             <outlet property="loginButton" destination="RPG-6F-Dnx" id="lZZ-9C-lNP"/>
                             <outlet property="loginToUdacityLabel" destination="onF-3O-xez" id="g7Y-KN-Pmj"/>
                             <outlet property="passwordField" destination="MJe-xM-Lwb" id="0Jw-V1-uRC"/>
+                            <outlet property="titleLabel" destination="6p9-uY-hAh" id="RlT-oO-h1N"/>
+                            <outlet property="titleView" destination="JXR-ed-rwU" id="dur-2M-dUy"/>
                         </connections>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>

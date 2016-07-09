@@ -209,7 +209,7 @@ class InformationPostingView: UIView, StudentLocationRequestable {
         UIView.animateWithDuration(1.7, delay: 0.5, usingSpringWithDamping: 0.3, initialSpringVelocity: 0.5, options: .CurveEaseOut, animations: {
             self.promptView.transform = CGAffineTransformMakeScale(1.0, 1.0)
             self.promptView.alpha = 1.0
-            self.layoutIfNeeded()
+//            self.layoutIfNeeded()
             }, completion: nil)
     }
     

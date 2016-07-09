@@ -11,11 +11,11 @@ import UIKit
 struct Constants {
     /// Storyboard
     struct StoryBoardID {
-        static let main     = "Main"
-        static let loginVC  = "loginVC"
-        static let primaryActivityIndicatorVC = "primaryActivityIndicatorVC"
-        static let infoPostingNavController = "infoPostingNavController"
-        static let infoPostingVC            = "infoPostingVC"
+        static let main                         = "Main"
+        static let loginVC                      = "loginVC"
+        static let primaryActivityIndicatorVC   = "primaryActivityIndicatorVC"
+        static let infoPostingNavController     = "infoPostingNavController"
+        static let infoPostingVC                = "infoPostingVC"
     }
     
     /// UI

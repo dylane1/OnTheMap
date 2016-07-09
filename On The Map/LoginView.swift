@@ -13,9 +13,6 @@ import FBSDKLoginKit
 
 class LoginView: UIView {
     
-//    private var presentActivityIndicator: ((completion: (() -> Void)?) -> Void)!
-//    private var dismissActivityIndicator: (() -> Void)!
-//    private var loginSuccessfulClosure: (() -> Void)!
     private var presentErrorAlert: AlertPresentation!
     
     private var emailString     = ""
@@ -31,6 +28,8 @@ class LoginView: UIView {
     
     //MARK: - IBOutlets
     
+    @IBOutlet weak var titleView: UIView!
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var loginToUdacityLabel: UILabel!
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
@@ -61,8 +60,7 @@ class LoginView: UIView {
         alertPresentationClosure alertPresentation: AlertPresentation) {
         
         backgroundColor = Constants.ColorScheme.orange
-        
-//        presentActivityIndicator    = presentAI
+
         presentErrorAlert = alertPresentation
         
         loginValidator.configure(
@@ -70,14 +68,40 @@ class LoginView: UIView {
             loginSuccessClosure: success,
             alertPresentationClosure: alertPresentation)
         
+        configureTitleView()
         configureLabels()
         configureTextFields()
         configureButtons()
         
         checkForLoggedIntoFacebook()
+        
+        titleViewAnimation()
+    }
+    
+    private func configureTitleView() {
+        titleView.backgroundColor = UIColor.clearColor()
+        titleView.alpha        = 0
+        titleView.transform    = CGAffineTransformMakeScale(0.5, 0.5)
     }
     
     private func configureLabels() {
+        /// Title
+        let shadow = NSShadow()
+        shadow.shadowColor = Constants.ColorScheme.veryDarkBlue
+        shadow.shadowOffset = CGSize(width: -1.0, height: -1.0)
+        shadow.shadowBlurRadius = 5
+        
+        let titleLabelAttributes: [String : AnyObject] = [
+            NSShadowAttributeName: shadow,
+            NSForegroundColorAttributeName: Constants.ColorScheme.white,
+            NSFontAttributeName: UIFont(name: Constants.FontName.markerFelt, size: 50)!]
+        
+        titleLabel.adjustsFontSizeToFitWidth = true
+        
+        titleLabel.attributedText = NSAttributedString(string: LocalizedStrings.ViewControllerTitles.onTheMap, attributes: titleLabelAttributes)
+        
+        
+        /// Login
         loginToUdacityLabel.text = LocalizedStrings.Labels.loginToUdacity
     }
     
@@ -147,6 +171,32 @@ class LoginView: UIView {
         
         configureTextFieldAttributes()
     }
+    
+    //MARK: - Animations
+    
+    private func titleViewAnimation() {
+        UIView.animateWithDuration(0.7, delay: 0.5, usingSpringWithDamping: 0.5, initialSpringVelocity: 1.0, options: .CurveEaseOut, animations: {
+            self.titleView.transform = CGAffineTransformMakeScale(1.0, 1.0)
+            self.titleView.alpha = 1.0
+//            self.layoutIfNeeded()
+            }, completion: nil)
+    }
+    
+//    private func animateURLTextFieldIntoView() {
+//        UIView.animateWithDuration(0.5, animations: {
+//            self.urlTextFieldTopConstraint.constant += (self.urlTextField.frame.height + 4)
+//            self.urlTextField.alpha = 1.0
+//            self.layoutIfNeeded()
+//            }, completion: nil)
+//    }
+//    
+//    private func animateBottomButtonIntoView() {
+//        UIView.animateWithDuration(1.7, delay: 0.5, usingSpringWithDamping: 0.3, initialSpringVelocity: 0.5, options: .CurveEaseOut, animations: {
+//            self.bottomButton.transform = CGAffineTransformMakeScale(1.0, 1.0)
+//            self.bottomButton.alpha = 1.0
+//            self.layoutIfNeeded()
+//            }, completion: nil)
+//    }
 }
 
 //MARK: - UITextFieldDelegate
