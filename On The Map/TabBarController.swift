@@ -9,7 +9,7 @@
 import UIKit
 
 class TabBarController: UITabBarController {
-    internal var successfulLogoutCompletion: (() -> Void)?
+//    internal var successfulLogoutCompletion: (() -> Void)?
     
     deinit { magic("being deinitialized   <----------------") }
     

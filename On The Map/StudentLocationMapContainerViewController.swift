@@ -40,8 +40,21 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
             self!.getStudentInfoArray()
         }
         
+        
+        let presentActivityIndicator = getActivityIndicatorPresentation()
+        let presentErrorAlert = getAlertPresentation()
+        
+        let logoutSuccessClosure = getSuccessfulLogoutClosure()
+        
+        sessionLogoutController.configure(
+            withActivityIndicatorPresentation: presentActivityIndicator,
+            logoutSuccessClosure: logoutSuccessClosure,
+            alertPresentationClosure: presentErrorAlert)
+        
         /// MapAndTableNavigationProtocol
-        configureNavigationItems(withRefreshClosure: refreshClosure, sessionLogoutController: sessionLogoutController, successfulLogoutCompletion: tabBar.successfulLogoutCompletion!)
+        configureNavigationItems(
+            withRefreshClosure: refreshClosure,
+            sessionLogoutController: sessionLogoutController)
     }
 
     override func viewWillAppear(animated: Bool) {

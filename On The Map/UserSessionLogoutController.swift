@@ -11,50 +11,66 @@ import FBSDKLoginKit
 
 final class UserSessionLogoutController {
     
-    private var logoutCompletion: (() -> Void)!
+    private var presentActivityIndicator: ((completion: (() -> Void)?) -> Void)!
+    //    private var dismissActivityIndicator: (() -> Void)!
+    private var logoutSuccessClosure: (() -> Void)!
     private var presentErrorAlert: AlertPresentation!
+    
+    //MARK: - View Lifecycle
     
     deinit { magic("being deinitialized   <----------------") }
     
-    internal func logout(withCompletion completion: () -> Void, errorHandler errorClosure: AlertPresentation) {
+    //MARK: - Configuration
+    
+    internal func configure(
+        withActivityIndicatorPresentation presentAI: (completion: (() -> Void)?) -> Void,
+        logoutSuccessClosure success: () -> Void,
+        alertPresentationClosure alertPresentation: AlertPresentation) {
+        
+        presentActivityIndicator    = presentAI
+        logoutSuccessClosure        = success
+        presentErrorAlert           = alertPresentation    }
+    
+    //MARK: -
+    internal func logout() {
         guard let _ = FBSDKAccessToken.currentAccessToken() as FBSDKAccessToken! else {
-            logoutCompletion    = completion
-            presentErrorAlert   = errorClosure
-            
             udacityLogout()
             return
         }
         let loginManager = FBSDKLoginManager()
         loginManager.logOut()
-        completion()
+        magic("about to call logout of fb")
+        logoutSuccessClosure()
+        
     }
     
     private func udacityLogout() {
-        
-        let request = NSMutableURLRequest(URL: NSURL(string: Constants.Network.udacitySessionURL)!)
-        
-        request.HTTPMethod = Constants.HTTPMethods.delete
-        
-        var xsrfCookie: NSHTTPCookie? = nil
-        
-        let sharedCookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
-        
-        for cookie in sharedCookieStorage.cookies! {
-            if cookie.name == "XSRF-TOKEN" { xsrfCookie = cookie }
+        let aiPresented = { [weak self] in
+            let request = NSMutableURLRequest(URL: NSURL(string: Constants.Network.udacitySessionURL)!)
+            
+            request.HTTPMethod = Constants.HTTPMethods.delete
+            
+            var xsrfCookie: NSHTTPCookie? = nil
+            
+            let sharedCookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
+            
+            for cookie in sharedCookieStorage.cookies! {
+                if cookie.name == "XSRF-TOKEN" { xsrfCookie = cookie }
+            }
+            
+            if let xsrfCookie = xsrfCookie {
+                request.setValue(xsrfCookie.value, forHTTPHeaderField: "X-XSRF-TOKEN")
+            }
+            
+            let requestCompletion = { [weak self] (jsonDictionary: NSDictionary) in
+                self!.parseLogoutJSON(jsonDictionary)
+            }
+            
+            let networkRequestService = NetworkRequestService()
+            networkRequestService.configure(withRequestCompletion: requestCompletion, requestFailedClosure: self!.presentErrorAlert)
+            networkRequestService.requestJSONDictionary(withURLRequest: request, isUdacityLoginLogout: true)
         }
-        
-        if let xsrfCookie = xsrfCookie {
-            request.setValue(xsrfCookie.value, forHTTPHeaderField: "X-XSRF-TOKEN")
-        }
-
-        let requestCompletion = { [weak self] (jsonDictionary: NSDictionary) in
-            self!.parseLogoutJSON(jsonDictionary)
-        }
-        
-        let networkRequestService = NetworkRequestService()
-        networkRequestService.configure(withRequestCompletion: requestCompletion, requestFailedClosure: presentErrorAlert)
-        networkRequestService.requestJSONDictionary(withURLRequest: request, isUdacityLoginLogout: true)
-        
+        presentActivityIndicator(completion: aiPresented)
     }
     
     //MARK: - Parse results
@@ -75,7 +91,6 @@ final class UserSessionLogoutController {
                 presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.logoutError, message: messageString))
                 return
         }
-        /// Dismiss Tab Bar controller after logout
-        logoutCompletion()
+        logoutSuccessClosure()
     }
 }

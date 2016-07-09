@@ -83,7 +83,7 @@ final class LoginValidator {
     //MARK: - Parse results
     
     private func parseLoginJSON(jsonDictionary: NSDictionary) {
-        magic("loginDict: \(jsonDictionary)")
+//        magic("loginDict: \(jsonDictionary)")
         
         guard let _ = jsonDictionary[Constants.Keys.session] as? NSDictionary,
               let accountDictionary = jsonDictionary[Constants.Keys.account] as? NSDictionary else {

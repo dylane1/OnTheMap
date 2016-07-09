@@ -28,25 +28,29 @@ class LoginViewController: UIViewController, AlertPresentable, ActivityIndicator
         super.viewDidLoad()
         
         let presentActivityIndicator = getActivityIndicatorPresentation()
-
         let presentErrorAlert = getAlertPresentation()
 
         let loginSuccessClosure = { [unowned self] in
-            let dismissalCompletion = { [unowned self] in
+            if self.activityIndicatorViewController != nil {
+                let dismissalCompletion = { [unowned self] in
+                    self.activityIndicatorViewController = nil
+                    self.performSegueWithIdentifier(.LoginComplete, sender: self)
+                }
+                self.dismissActivityIndicator(self.activityIndicatorViewController!, completion: dismissalCompletion)
+            } else {
                 self.performSegueWithIdentifier(.LoginComplete, sender: self)
             }
-            self.dismissActivityIndicator(self.activityIndicatorViewController!, completion: dismissalCompletion)
         }
         
-        successfulLogoutCompletion = { [unowned self] in
-            /**
-             Ok, I probably don't need this, but I want to make sure everything
-             is getting dealloc'd. Unfortunately this is not the case currently.
-             Guessing I've got some retain cycles somewhere that I need to track
-             down.
-             */
-            self.mainTabBarController = nil
-        }
+//        successfulLogoutCompletion = { [unowned self] in
+//            /**
+//             Ok, I probably don't need this, but I want to make sure everything
+//             is getting dealloc'd. Unfortunately this is not the case currently.
+//             Guessing I've got some retain cycles somewhere that I need to track
+//             down.
+//             */
+//            self.mainTabBarController = nil
+//        }
         
         loginView = view as! LoginView
         
@@ -60,6 +64,6 @@ class LoginViewController: UIViewController, AlertPresentable, ActivityIndicator
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         mainTabBarController = segue.destinationViewController as? TabBarController
-        mainTabBarController!.successfulLogoutCompletion = successfulLogoutCompletion
+//        mainTabBarController!.successfulLogoutCompletion = successfulLogoutCompletion
     }
 }

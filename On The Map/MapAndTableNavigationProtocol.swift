@@ -18,7 +18,22 @@ extension MapAndTableNavigationProtocol where Self: UIViewController, Self: Info
         return navigationController as! MapAndTableNavigationController
     }
     
-    internal func configureNavigationItems(withRefreshClosure refresh: BarButtonClosure, sessionLogoutController logoutController: UserSessionLogoutController, successfulLogoutCompletion logoutCompletion: () -> Void) {
+    internal func getSuccessfulLogoutClosure() -> () -> Void {
+        let logoutSuccessClosure = { [weak self] in
+            if self!.activityIndicatorViewController != nil {
+                let dismissalCompletion = { [weak self] in
+                    /// Dismiss Me
+                    self!.dismissViewControllerAnimated(true, completion: nil)
+                }
+                self!.dismissActivityIndicator(self!.activityIndicatorViewController!, completion: dismissalCompletion)
+            } else {
+                self!.dismissViewControllerAnimated(true, completion: nil)
+            }
+        }
+        return logoutSuccessClosure
+    }
+    
+    internal func configureNavigationItems(withRefreshClosure refresh: BarButtonClosure, sessionLogoutController logoutController: UserSessionLogoutController) {
         
         let addButtonClosure = { [weak self] in
             self!.informationPostingNavController = self!.getInfoPostingNavigationController()
@@ -29,36 +44,8 @@ extension MapAndTableNavigationProtocol where Self: UIViewController, Self: Info
             refresh()
         }
         
-        let logoutButtonClosure = { [weak self] in
-            /// Show Activity Indicator
-            self!.activityIndicatorViewController = self!.getActivityIndicatorViewController()
-            self!.presentActivityIndicator(self!.activityIndicatorViewController!, completion: nil)
-            
-            /// Completion for successful logout
-            let completion = { [weak self] in
-                self!.dismissActivityIndicator(self!.activityIndicatorViewController!, completion: {
-                    /// Dismiss Tab Bar
-                    self!.dismissViewControllerAnimated(true, completion: {
-                        /// Set Tab Bar to nil
-                        //FIXME: Get rid of this....
-                        /**
-                         Note: May not need this if I'm able to track down the
-                         retain cycles preventing the tab bar from being deallocated
-                         */
-                        logoutCompletion()
-                    })
-                })
-            }
-            
-            /// In event of error, dismiss activityIndicator and present alert
-            let logoutFailedClosure = { [weak self] (parameters: AlertParameters) in
-                let dismissalCompletion = { [weak self] in
-                    self!.presentAlertWithParameters(parameters)
-                }
-                self!.dismissActivityIndicator(self!.activityIndicatorViewController!, completion: dismissalCompletion)
-            }
-            
-            logoutController.logout(withCompletion: completion, errorHandler: logoutFailedClosure)
+        let logoutButtonClosure = {
+            logoutController.logout()
         }
         
         mapAndTableNavController.configure(withAddClosure: addButtonClosure, refreshClosure: refreshButtonClosure, logoutClosure: logoutButtonClosure)

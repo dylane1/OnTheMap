@@ -138,6 +138,15 @@
 			name = "Not used";
 			sourceTree = "<group>";
 		};
+		A326978F1D31738A00597140 /* Activity Indicator */ = {
+			isa = PBXGroup;
+			children = (
+				A349C2501D2D5FD0008E678D /* PrimaryActivityIndicatorViewController.swift */,
+				A326978B1D2EFF8C00597140 /* SecondaryActivityIndicatorViewController.swift */,
+			);
+			name = "Activity Indicator";
+			sourceTree = "<group>";
+		};
 		A3816D201D08E7EB001B55A0 /* Map And Table VCs */ = {
 			isa = PBXGroup;
 			children = (
@@ -238,9 +247,8 @@
 				A31EA4881D11D752005CC5B9 /* NetworkRequestService.swift */,
 				A3E8C8CD1CED0EC00040770A /* TabBarController.swift */,
 				A3E8C8CF1CED0EE40040770A /* NavigationController.swift */,
-				A349C2501D2D5FD0008E678D /* PrimaryActivityIndicatorViewController.swift */,
+				A326978F1D31738A00597140 /* Activity Indicator */,
 				A31EA4861D11D501005CC5B9 /* StudentInformationProvider.swift */,
-				A326978B1D2EFF8C00597140 /* SecondaryActivityIndicatorViewController.swift */,
 				A38AB6E31D1AEBFD00820AA9 /* Protocols */,
 				A38AB6E41D1AEC1000820AA9 /* Models */,
 				A3E8C8D61CEF82F50040770A /* Login Logout */,
