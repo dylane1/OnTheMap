@@ -28,12 +28,10 @@ final class LoginValidator {
     //MARK: - Configuration
     internal func configure(
         withActivityIndicatorPresentation presentAI: (completion: (() -> Void)?) -> Void,
-        /*activityIndicatorDismissal dismissAI: () -> Void,*/
         loginSuccessClosure success: () -> Void,
         alertPresentationClosure alertPresentation: AlertPresentation) {
         
         presentActivityIndicator    = presentAI
-//        dismissActivityIndicator    = dismissAI
         loginSuccessClosure         = success
         presentErrorAlert           = alertPresentation
     }
@@ -147,7 +145,7 @@ final class LoginValidator {
         
         studentInfoProvider.configure(withCurrentStudent: currentUser)
         
-        self.loginSuccessClosure()
+        loginSuccessClosure()
     }
 }
 

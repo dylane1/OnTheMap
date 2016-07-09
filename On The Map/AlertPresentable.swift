@@ -11,7 +11,15 @@ import UIKit
 protocol AlertPresentable { }
 
 extension AlertPresentable where Self: UIViewController, Self: ActivityIndicatorPresentable {
-    
+    /**
+     Not sure how I feel about Self being forced to conform to ActivityIndicatorPresentable...
+     
+     However, if there is an activity indicator present, it must be dismissed
+     before the alert can be presented. Maybe if I pass the ai reference into 
+     the function:
+     
+     let presentErrorAlert = { [weak self] (aiToDismiss: PrimaryActivityIndicatorController, parameters: AlertParameters) in .... }
+     */
     internal func getAlertPresentation() -> ((AlertParameters) -> Void){
         let presentErrorAlert = { [weak self] (parameters: AlertParameters) in
             let dismissalCompletion = { [weak self] in

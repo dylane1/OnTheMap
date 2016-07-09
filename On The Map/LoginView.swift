@@ -13,7 +13,7 @@ import FBSDKLoginKit
 
 class LoginView: UIView {
     
-    private var presentActivityIndicator: ((completion: (() -> Void)?) -> Void)!
+//    private var presentActivityIndicator: ((completion: (() -> Void)?) -> Void)!
 //    private var dismissActivityIndicator: (() -> Void)!
 //    private var loginSuccessfulClosure: (() -> Void)!
     private var presentErrorAlert: AlertPresentation!
@@ -57,16 +57,13 @@ class LoginView: UIView {
     
     internal func configure(
         withActivityIndicatorPresentation presentAI: (completion: (() -> Void)?) -> Void,
-        /*activityIndicatorDismissal dismissAI: () -> Void,*/
         successClosure success:() -> Void,
         alertPresentationClosure alertPresentation: AlertPresentation) {
         
         backgroundColor = Constants.ColorScheme.orange
         
-        presentActivityIndicator    = presentAI
-//        dismissActivityIndicator    = dismissAI
-//        loginSuccessfulClosure      = success
-        presentErrorAlert           = alertPresentation
+//        presentActivityIndicator    = presentAI
+        presentErrorAlert = alertPresentation
         
         loginValidator.configure(
             withActivityIndicatorPresentation: presentAI,
