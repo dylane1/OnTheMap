@@ -10,7 +10,7 @@ import UIKit
 
 protocol StudentInformationGettable { }
 
-extension StudentInformationGettable where Self: UIViewController, Self: AlertPresentable {
+extension StudentInformationGettable where Self: UIViewController, Self: AlertPresentable, Self: ActivityIndicatorPresentable {
     private var studentInformationProvider: StudentInformationProvider {
         return StudentInformationProvider.sharedInstance
     }

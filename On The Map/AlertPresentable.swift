@@ -10,7 +10,20 @@ import UIKit
 
 protocol AlertPresentable { }
 
-extension AlertPresentable where Self: UIViewController {
+extension AlertPresentable where Self: UIViewController, Self: ActivityIndicatorPresentable {
+    
+    internal func getAlertPresentation() -> ((AlertParameters) -> Void){
+        let presentErrorAlert = { [weak self] (parameters: AlertParameters) in
+            let dismissalCompletion = { [weak self] in
+                self!.activityIndicatorViewController = nil
+                self!.presentAlertWithParameters(parameters)
+            }
+            if self!.activityIndicatorViewController != nil {
+                self!.dismissActivityIndicator(self!.activityIndicatorViewController!, completion: dismissalCompletion)
+            }
+        }
+        return presentErrorAlert
+    }
     
     internal func presentAlertWithParameters(parameters: AlertParameters, completion: (() -> Void)? = nil) {
         let alert = UIAlertController(

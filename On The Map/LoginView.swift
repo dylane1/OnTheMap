@@ -13,8 +13,9 @@ import FBSDKLoginKit
 
 class LoginView: UIView {
     
-    private var loginInitiatedClosure: (() -> Void)!
-    private var loginSuccessClosure: (() -> Void)!
+    private var presentActivityIndicator: ((completion: (() -> Void)?) -> Void)!
+//    private var dismissActivityIndicator: (() -> Void)!
+//    private var loginSuccessfulClosure: (() -> Void)!
     private var presentErrorAlert: AlertPresentation!
     
     private var emailString     = ""
@@ -31,10 +32,8 @@ class LoginView: UIView {
     //MARK: - IBOutlets
     
     @IBOutlet weak var loginToUdacityLabel: UILabel!
-    
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
-    
     @IBOutlet weak var loginButton: UIButton!
     
     
@@ -57,17 +56,22 @@ class LoginView: UIView {
     //MARK: - Configuration
     
     internal func configure(
-        withLoginInitiatedClosure loginInit: () -> Void,
-        loginSuccessClosure loginSuccess: () -> Void,
-        loginFailedClosure loginFailed: AlertPresentation) {
+        withActivityIndicatorPresentation presentAI: (completion: (() -> Void)?) -> Void,
+        /*activityIndicatorDismissal dismissAI: () -> Void,*/
+        successClosure success:() -> Void,
+        alertPresentationClosure alertPresentation: AlertPresentation) {
         
         backgroundColor = Constants.ColorScheme.orange
         
-        loginInitiatedClosure   = loginInit
-        loginSuccessClosure     = loginSuccess
-        presentErrorAlert       = loginFailed
+        presentActivityIndicator    = presentAI
+//        dismissActivityIndicator    = dismissAI
+//        loginSuccessfulClosure      = success
+        presentErrorAlert           = alertPresentation
         
-        loginValidator.configure(withLoginSuccessClosure: loginSuccess, loginFailedClosure: loginFailed)
+        loginValidator.configure(
+            withActivityIndicatorPresentation: presentAI,
+            loginSuccessClosure: success,
+            alertPresentationClosure: alertPresentation)
         
         configureLabels()
         configureTextFields()
@@ -122,9 +126,6 @@ class LoginView: UIView {
     
     private func initiateLogin(withEmailAndPassword loginTuple:(email: String, password: String)? = nil, withFacebookToken token: FBSDKAccessToken? = nil) {
         
-        /// Show activity indicator
-        loginInitiatedClosure()
-        
         if loginTuple != nil {
             loginValidator.login(withEmailAndPassword: loginTuple)
         } else if token != nil {
@@ -164,7 +165,7 @@ extension LoginView: UITextFieldDelegate {
 extension LoginView: FBSDKLoginButtonDelegate {
     
     internal func loginButton(loginButton: FBSDKLoginButton, didCompleteWithResult result: FBSDKLoginManagerLoginResult, error: NSError?) {
-
+        
         if error != nil {
             presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.loginError, message: error!.localizedDescription))
             return

@@ -16,6 +16,8 @@ final class LoginValidator {
         case MissingParameter   = 400 /// staus  = 400; parameter = "udacity.username" || "udacity.password"
     }
     
+    private var presentActivityIndicator: ((completion: (() -> Void)?) -> Void)!
+//    private var dismissActivityIndicator: (() -> Void)!
     private var loginSuccessClosure: (() -> Void)!
     private var presentErrorAlert: AlertPresentation!
     
@@ -24,38 +26,48 @@ final class LoginValidator {
     private lazy var studentInfoProvider = StudentInformationProvider.sharedInstance
     
     //MARK: - Configuration
-    internal func configure(withLoginSuccessClosure successClosure: () -> Void, loginFailedClosure loginFailed: AlertPresentation) {
+    internal func configure(
+        withActivityIndicatorPresentation presentAI: (completion: (() -> Void)?) -> Void,
+        /*activityIndicatorDismissal dismissAI: () -> Void,*/
+        loginSuccessClosure success: () -> Void,
+        alertPresentationClosure alertPresentation: AlertPresentation) {
         
-        loginSuccessClosure = successClosure
-        presentErrorAlert   = loginFailed
+        presentActivityIndicator    = presentAI
+//        dismissActivityIndicator    = dismissAI
+        loginSuccessClosure         = success
+        presentErrorAlert           = alertPresentation
     }
     
     //MARK: - Perform network requests
     
     internal func login(withEmailAndPassword loginTuple:(email: String, password: String)? = nil, withFacebookToken token: FBSDKAccessToken? = nil) {
         
-        let request = NSMutableURLRequest(URL: NSURL(string: Constants.Network.udacitySessionURL)!)
-        
-        request.HTTPMethod = Constants.HTTPMethods.post
-        request.addValue(Constants.HTTPHeaderFieldValues.applicationJSON, forHTTPHeaderField: Constants.HTTPHeaderFields.accept)
-        request.addValue(Constants.HTTPHeaderFieldValues.applicationJSON, forHTTPHeaderField: Constants.HTTPHeaderFields.contentType)
-        
-        if loginTuple != nil {
-            request.HTTPBody = "{\"udacity\": {\"username\": \"\(loginTuple!.email)\", \"password\": \"\(loginTuple!.password)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
-        } else if token != nil {
-            magic("facebook token: \(token!.tokenString)")
-            request.HTTPBody = "{\"facebook_mobile\": {\"access_token\": \"\(token!.tokenString);\"}}".dataUsingEncoding(NSUTF8StringEncoding)
-        } else {
-            magic("Come on now, you gotta give me something to work with here...")
+        let aiPresented = { [weak self] in
+            let request = NSMutableURLRequest(URL: NSURL(string: Constants.Network.udacitySessionURL)!)
+            
+            request.HTTPMethod = Constants.HTTPMethods.post
+            request.addValue(Constants.HTTPHeaderFieldValues.applicationJSON, forHTTPHeaderField: Constants.HTTPHeaderFields.accept)
+            request.addValue(Constants.HTTPHeaderFieldValues.applicationJSON, forHTTPHeaderField: Constants.HTTPHeaderFields.contentType)
+            
+            if loginTuple != nil {
+                request.HTTPBody = "{\"udacity\": {\"username\": \"\(loginTuple!.email)\", \"password\": \"\(loginTuple!.password)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
+            } else if token != nil {
+                magic("facebook token: \(token!.tokenString)")
+                request.HTTPBody = "{\"facebook_mobile\": {\"access_token\": \"\(token!.tokenString);\"}}".dataUsingEncoding(NSUTF8StringEncoding)
+            } else {
+                magic("Come on now, you gotta give me something to work with here...")
+            }
+            
+            
+            let requestCompletion = { [weak self] (jsonDictionary: NSDictionary) in
+                self!.parseLoginJSON(jsonDictionary)
+            }
+            
+            self!.networkRequestService.configure(withRequestCompletion: requestCompletion, requestFailedClosure: self!.presentErrorAlert)
+            self!.networkRequestService.requestJSONDictionary(withURLRequest: request, isUdacityLoginLogout: true)
         }
+        presentActivityIndicator(completion: aiPresented)
         
-        
-        let requestCompletion = { [unowned self] (jsonDictionary: NSDictionary) in
-            self.parseLoginJSON(jsonDictionary)
-        }
-        
-        networkRequestService.configure(withRequestCompletion: requestCompletion, requestFailedClosure: presentErrorAlert)
-        networkRequestService.requestJSONDictionary(withURLRequest: request, isUdacityLoginLogout: true)
     }
     
     private func getPublicUserData(withAccountDict acctDict: NSDictionary) {

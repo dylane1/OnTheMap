@@ -13,6 +13,28 @@ protocol ActivityIndicatorPresentable {
 }
 
 extension ActivityIndicatorPresentable where Self: UIViewController {
+    internal func getActivityIndicatorPresentation() -> ((() -> Void)? -> Void) {
+        let presentActivityIndicator = { [weak self] (completion: (() -> Void)?) in
+            if self!.activityIndicatorViewController == nil {
+                self!.activityIndicatorViewController = self!.getActivityIndicatorViewController()
+                self!.presentActivityIndicator(self!.activityIndicatorViewController!, completion: completion)
+            }
+        }
+        return presentActivityIndicator
+    }
+    
+    internal func getActivityIndicatorDismissal() -> (() -> Void) {
+        let dismissActivityIndicator = { [weak self] in
+            if self!.activityIndicatorViewController != nil {
+                self!.dismissActivityIndicator(self!.activityIndicatorViewController!, completion: {
+                    self!.activityIndicatorViewController = nil
+                })
+            }
+        }
+        return dismissActivityIndicator
+    }
+    
+    
     internal func getActivityIndicatorViewController() -> PrimaryActivityIndicatorViewController {
         
         let activityIndicatorViewController = UIStoryboard(name: Constants.StoryBoardID.main, bundle: nil).instantiateViewControllerWithIdentifier(Constants.StoryBoardID.primaryActivityIndicatorVC) as! PrimaryActivityIndicatorViewController

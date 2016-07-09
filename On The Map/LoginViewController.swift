@@ -25,10 +25,46 @@ class LoginViewController: UIViewController, AlertPresentable, ActivityIndicator
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let loginInitiatedClosure = { [unowned self] in
-            self.activityIndicatorViewController = self.getActivityIndicatorViewController()
-            self.presentActivityIndicator(self.activityIndicatorViewController!, completion: nil)
-        }
+        let presentActivityIndicator = getActivityIndicatorPresentation()
+        //        let presentActivityIndicator = { [weak self] (completion: (() -> Void)?) in
+        //            if self!.activityIndicatorViewController == nil {
+        //                self!.activityIndicatorViewController = self!.getActivityIndicatorViewController()
+        //                self!.presentActivityIndicator(self!.activityIndicatorViewController!, completion: completion)
+        //            }
+        //        }
+//        let dismissActivityIndicator = getActivityIndicatorDismissal()
+        
+        //        let dismissActivityIndicator = { [weak self] in
+        //            if self!.activityIndicatorViewController != nil {
+        //                self!.dismissActivityIndicator(self!.activityIndicatorViewController!, completion: {
+        //                    self!.activityIndicatorViewController = nil
+        //                })
+        //            }
+        //        }
+        
+//        let submitSuccessfulClosure = { [weak self] in
+//            let dismissalCompletion = { [weak self] in
+//                /// Dismiss Me
+//                self!.dismissViewControllerAnimated(true, completion: nil)
+//            }
+//            self!.dismissActivityIndicator(self!.activityIndicatorViewController!, completion: dismissalCompletion)
+//        }
+        let presentErrorAlert = getAlertPresentation()
+        
+//        let presentErrorAlert = { [weak self] (parameters: AlertParameters) in
+//            let dismissalCompletion = { [weak self] in
+//                self!.activityIndicatorViewController = nil
+//                self!.presentAlertWithParameters(parameters)
+//            }
+//            self!.dismissActivityIndicator(self!.activityIndicatorViewController!, completion: dismissalCompletion)
+//        }
+        /**
+         July 8, 2016: Stopping point
+         
+         Look at InformationPostingViewController for improving these closrues
+         */
+        
+        
         
         let loginSuccessClosure = { [unowned self] in
             let dismissalCompletion = { [unowned self] in
@@ -37,12 +73,12 @@ class LoginViewController: UIViewController, AlertPresentable, ActivityIndicator
             self.dismissActivityIndicator(self.activityIndicatorViewController!, completion: dismissalCompletion)
         }
         
-        let loginFailedClosure = { [unowned self] (parameters: AlertParameters) in
-            let dismissalCompletion = { [unowned self] in
-                self.presentAlertWithParameters(parameters)
-            }
-            self.dismissActivityIndicator(self.activityIndicatorViewController!, completion: dismissalCompletion)
-        }
+//        let loginFailedClosure = { [unowned self] (parameters: AlertParameters) in
+//            let dismissalCompletion = { [unowned self] in
+//                self.presentAlertWithParameters(parameters)
+//            }
+//            self.dismissActivityIndicator(self.activityIndicatorViewController!, completion: dismissalCompletion)
+//        }
         
         successfulLogoutCompletion = { [unowned self] in
             /**
@@ -57,9 +93,10 @@ class LoginViewController: UIViewController, AlertPresentable, ActivityIndicator
         loginView = view as! LoginView
         
         loginView.configure(
-            withLoginInitiatedClosure: loginInitiatedClosure,
-            loginSuccessClosure: loginSuccessClosure,
-            loginFailedClosure: loginFailedClosure)
+            withActivityIndicatorPresentation: presentActivityIndicator,
+            /*activityIndicatorDismissal: dismissActivityIndicator,*/
+            successClosure: loginSuccessClosure,
+            alertPresentationClosure: presentErrorAlert)
     }
     
     //MARK: - Segues
