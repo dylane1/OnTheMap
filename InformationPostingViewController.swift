@@ -10,8 +10,6 @@ import UIKit
 
 class InformationPostingViewController: UIViewController, InformationPostingNavigationProtocol, AlertPresentable, ActivityIndicatorPresentable {
     
-    private var presentActivityIndicator: (() -> Void)!
-    private var dismissActivityIndicator: (() -> Void)!
     private var postingView: InformationPostingView!
     
     /// ActivityIndicatorPresentable
@@ -28,44 +26,43 @@ class InformationPostingViewController: UIViewController, InformationPostingNavi
         let navController = navigationController! as! NavigationController
         navController.setNavigationBarAttributes(isAppTitle: false)
         
-        presentActivityIndicator = { [weak self] in
-            magic("Present!")
-            let activityIndicatorVC = self!.getActivityIndicatorViewController()
-            
-            /**
-             Make extension UIViewController
-             presentActivityIndicator(activityIndicatorInstance, animated: completion:)
-             */
-            self!.presentViewController(activityIndicatorVC, animated: false, completion: nil)
+        let presentActivityIndicator = { [weak self] (completion: (() -> Void)?) in
+            if self!.activityIndicatorViewController == nil {
+                self!.activityIndicatorViewController = self!.getActivityIndicatorViewController()
+                self!.presentActivityIndicator(self!.activityIndicatorViewController!, completion: completion)
+            }
         }
         
-        dismissActivityIndicator = { [weak self] in
-            magic("Dismiss!")
-            self!.dismissViewControllerAnimated(false, completion: nil)
+        let dismissActivityIndicator = { [weak self] in
+            if self!.activityIndicatorViewController != nil {
+                self!.dismissActivityIndicator(self!.activityIndicatorViewController!, completion: {
+                    self!.activityIndicatorViewController = nil
+                })
+            }
         }
-        
-        configureView()
-        configureNavigationItems()
-    }
-    
-    //MARK: - Configuration
-    
-    private func configureView() {
-        postingView = view as! InformationPostingView
         
         let submitSuccessfulClosure = { [weak self] in
-            /// Dismiss Activity Indicator
-            self!.dismissViewControllerAnimated(true, completion: {
+            let dismissalCompletion = { [weak self] in
                 /// Dismiss Me
                 self!.dismissViewControllerAnimated(true, completion: nil)
-            })
-
+            }
+            self!.dismissActivityIndicator(self!.activityIndicatorViewController!, completion: dismissalCompletion)
         }
         
-//        postingView.configure(
-//            withSuccessClosure: submitSuccessfulClosure,
-//            activityIndicatorPresentationClosure: presentActivityIndicator,
-//            dissmissActivityIndicatorClosure: dismissActivityIndicator,
-//            alertPresentationClosure: getAlertPresentationClosure())
+        let presentErrorAlert = { [weak self] (parameters: AlertParameters) in
+            let dismissalCompletion = { [weak self] in
+                self!.activityIndicatorViewController = nil
+                self!.presentAlertWithParameters(parameters)
+            }
+            self!.dismissActivityIndicator(self!.activityIndicatorViewController!, completion: dismissalCompletion)
+        }
+        postingView = view as! InformationPostingView
+        
+        postingView.configure(
+            withActivityIndicatorPresentation: presentActivityIndicator,
+            activityIndicatorDismissal: dismissActivityIndicator,
+            successClosure: submitSuccessfulClosure,
+            alertPresentationClosure: presentErrorAlert)
+        configureNavigationItems()
     }
 }

@@ -322,22 +322,17 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="W3G-Re-8ZP">
-                                <rect key="frame" x="142" y="339" width="37" height="37"/>
-                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="5Mo-Gk-hLb" firstAttribute="top" secondItem="CVi-2m-YkT" secondAttribute="bottom" constant="8" id="2nL-Zs-Id2"/>
                             <constraint firstItem="CVi-2m-YkT" firstAttribute="top" secondItem="Wxo-jQ-qne" secondAttribute="bottom" constant="4" id="2o8-i4-lgn"/>
                             <constraint firstAttribute="trailing" secondItem="CVi-2m-YkT" secondAttribute="trailing" constant="8" id="2p4-bo-X6c"/>
-                            <constraint firstItem="W3G-Re-8ZP" firstAttribute="centerX" secondItem="0Py-in-vSX" secondAttribute="centerX" id="5sU-yX-yfM"/>
                             <constraint firstAttribute="trailing" secondItem="5Mo-Gk-hLb" secondAttribute="trailing" id="Ev5-sS-WtA"/>
                             <constraint firstItem="Wxo-jQ-qne" firstAttribute="leading" secondItem="0Py-in-vSX" secondAttribute="leading" constant="8" id="FIw-t5-BCi"/>
                             <constraint firstItem="Wxo-jQ-qne" firstAttribute="top" secondItem="3Kh-Oo-5yH" secondAttribute="bottom" id="HaL-0B-jht"/>
                             <constraint firstItem="3Kh-Oo-5yH" firstAttribute="top" secondItem="rAX-1c-jnb" secondAttribute="bottom" id="Lg8-1P-J5N"/>
                             <constraint firstItem="CVi-2m-YkT" firstAttribute="leading" secondItem="0Py-in-vSX" secondAttribute="leading" constant="8" id="M4u-YC-anh"/>
-                            <constraint firstItem="5Mo-Gk-hLb" firstAttribute="top" secondItem="W3G-Re-8ZP" secondAttribute="bottom" constant="-140" id="OYJ-iC-uU7"/>
                             <constraint firstAttribute="trailing" secondItem="Wxo-jQ-qne" secondAttribute="trailing" constant="8" id="aqM-AN-sNz"/>
                             <constraint firstItem="vnY-Ap-dKZ" firstAttribute="centerX" secondItem="0Py-in-vSX" secondAttribute="centerX" id="bBs-o8-LX0"/>
                             <constraint firstItem="5Mo-Gk-hLb" firstAttribute="leading" secondItem="0Py-in-vSX" secondAttribute="leading" id="c6L-Th-Ivp"/>
@@ -347,7 +342,6 @@
                             <constraint firstAttribute="trailing" secondItem="3Kh-Oo-5yH" secondAttribute="trailing" id="s1l-az-dZ1"/>
                         </constraints>
                         <connections>
-                            <outlet property="activityIndicator" destination="W3G-Re-8ZP" id="qhk-Wc-jLb"/>
                             <outlet property="bottomButton" destination="vnY-Ap-dKZ" id="TuK-Wz-G2c"/>
                             <outlet property="locationTextField" destination="Wxo-jQ-qne" id="fJz-6y-Gn6"/>
                             <outlet property="mapView" destination="5Mo-Gk-hLb" id="UYT-Ab-zOu"/>

@@ -40,13 +40,8 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
             self!.getStudentInfoArray()
         }
         
-//        let logoutInitiatedClosure = { [weak self] in
-//            self!.activityIndicatorViewController = self!.getActivityIndicatorViewController()
-//            self!.presentActivityIndicator(self!.activityIndicatorViewController!, completion: nil)
-//        }
-        
         /// MapAndTableNavigationProtocol
-        configureNavigationItems(withRefreshClosure: refreshClosure, sessionLogoutController: sessionLogoutController,/* logoutInitiatedClosure: logoutInitiatedClosure,*/ successfulLogoutCompletion: tabBar.successfulLogoutCompletion!)
+        configureNavigationItems(withRefreshClosure: refreshClosure, sessionLogoutController: sessionLogoutController, successfulLogoutCompletion: tabBar.successfulLogoutCompletion!)
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -73,12 +68,6 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
         
         /// StudentInformationGettable
         performFetchWithCompletion(completion)
-//        let fetchFailed = { [weak self] (parameters: AlertParameters) in
-//            self!.presentAlertWithParameters(parameters)
-//        }
-//        
-//        /// StudentInformationGettable
-//        getStudentInformation(withCompletion: completion, alertPresentationClosure: fetchFailed)
     }
     
     private func openLink(withURLString link: String) {

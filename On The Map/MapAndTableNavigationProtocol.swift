@@ -18,7 +18,7 @@ extension MapAndTableNavigationProtocol where Self: UIViewController, Self: Info
         return navigationController as! MapAndTableNavigationController
     }
     
-    internal func configureNavigationItems(withRefreshClosure refresh: BarButtonClosure, sessionLogoutController logoutController: UserSessionLogoutController,/* logoutInitiatedClosure logoutInitiated: () -> Void,*/ successfulLogoutCompletion logoutCompletion: () -> Void) {
+    internal func configureNavigationItems(withRefreshClosure refresh: BarButtonClosure, sessionLogoutController logoutController: UserSessionLogoutController, successfulLogoutCompletion logoutCompletion: () -> Void) {
         
         let addButtonClosure = { [weak self] in
             self!.informationPostingNavController = self!.getInfoPostingNavigationController()
@@ -31,7 +31,6 @@ extension MapAndTableNavigationProtocol where Self: UIViewController, Self: Info
         
         let logoutButtonClosure = { [weak self] in
             /// Show Activity Indicator
-//            logoutInitiated()
             self!.activityIndicatorViewController = self!.getActivityIndicatorViewController()
             self!.presentActivityIndicator(self!.activityIndicatorViewController!, completion: nil)
             
