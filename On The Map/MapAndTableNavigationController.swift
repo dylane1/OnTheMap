@@ -40,20 +40,16 @@ final class MapAndTableNavigationController: NavigationController {
             action: #selector(refreshButtonTapped))
         rightItemArray.append(refreshButton)
         
-        addButton = UIBarButtonItem(
-            barButtonSystemItem: .Add,
-            target: self,
-            action: #selector(addButtonTapped))
-        rightItemArray.append(addButton)
+        let pinButton   = UIButton(type: .System)
+        pinButton.frame    = CGRectMake(0, 0, 44, 44)
+        pinButton.addTarget(self, action: #selector(addButtonTapped), forControlEvents: UIControlEvents.TouchUpInside)
         
-        /*
-         let settingsButton      = UIButton(type: .System)
-         settingsButton.frame    = CGRectMake(0, 0, 44, 44)
-         settingsButton.addTarget(self, action: "openSettings", forControlEvents: UIControlEvents.TouchUpInside)
-         
-         let gearImg = IconProvider.imageOf32PointIcon(Icons.gear32, fillColor: GTColor.orange)
-         settingsButton.setImage(gearImg, forState: .Normal)
-        */
+        let pinImage = IconProvider.imageOf32PointIcon(.Pin, fillColor: UIColor.blackColor())
+        pinButton.setImage(pinImage, forState: .Normal)
+        
+        let addButton = UIBarButtonItem(customView: pinButton)
+        
+        rightItemArray.append(addButton)
         
         navigationBar.topItem?.rightBarButtonItems = rightItemArray
         

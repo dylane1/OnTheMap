@@ -5,6 +5,7 @@
 //  Created by Dylan Edwards on 7/10/16.
 //  Copyright © 2016 Slinging Pixels Media. All rights reserved.
 //
+/// Icon bezier drawing code generated in PaintCode
 
 import UIKit
 
