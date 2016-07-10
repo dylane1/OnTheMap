@@ -15,17 +15,17 @@ class NavigationController: UINavigationController {
     
     internal func setNavigationBarAttributes(isAppTitle isTitle: Bool) {
         
-        navigationBar.barTintColor = Constants.ColorScheme.darkBlue
-        navigationBar.tintColor    = Constants.ColorScheme.white
+        navigationBar.barTintColor = Theme03.barTintColor
+        navigationBar.tintColor    = Theme03.buttonTint
         navigationBar.translucent  = true
         
         let shadow = NSShadow()
-        shadow.shadowColor = Constants.ColorScheme.veryDarkBlue
+        shadow.shadowColor = Theme03.shadowDark
         shadow.shadowOffset = CGSize(width: -1.0, height: -1.0)
         
         var titleLabelAttributes: [String : AnyObject] = [
             NSShadowAttributeName: shadow,
-            NSForegroundColorAttributeName : Constants.ColorScheme.white]
+            NSForegroundColorAttributeName : Theme03.textLight]
         
         if isTitle {
             titleLabelAttributes[NSFontAttributeName] = UIFont(name: Constants.FontName.markerFelt, size: 24)!

@@ -46,6 +46,15 @@ final class MapAndTableNavigationController: NavigationController {
             action: #selector(addButtonTapped))
         rightItemArray.append(addButton)
         
+        /*
+         let settingsButton      = UIButton(type: .System)
+         settingsButton.frame    = CGRectMake(0, 0, 44, 44)
+         settingsButton.addTarget(self, action: "openSettings", forControlEvents: UIControlEvents.TouchUpInside)
+         
+         let gearImg = IconProvider.imageOf32PointIcon(Icons.gear32, fillColor: GTColor.orange)
+         settingsButton.setImage(gearImg, forState: .Normal)
+        */
+        
         navigationBar.topItem?.rightBarButtonItems = rightItemArray
         
         logoutButton = UIBarButtonItem(

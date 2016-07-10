@@ -15,8 +15,8 @@ class TabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tabBar.barTintColor = Constants.ColorScheme.darkBlue
-        tabBar.tintColor = Constants.ColorScheme.white
+        tabBar.barTintColor = Theme03.barTintColor
+        tabBar.tintColor = Theme03.buttonTint
         
         /// Shift icon down
         for item in tabBar.items! {

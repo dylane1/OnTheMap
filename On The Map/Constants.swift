@@ -74,7 +74,7 @@ struct Constants {
     struct FontName {
 //        static let americanTypewriter   = "AmericanTypewriter-Bold"
 //        static let arial                = "Arial-BoldMT"
-//        static let avenir               = "Avenir-Black"
+        static let avenir               = "Avenir-Black"
 //        static let avenirNext           = "AvenirNext-Heavy"
 //        static let avenirNextCondensed  = "AvenirNextCondensed-Heavy"
 //        static let copperplate          = "Copperplate-Bold"

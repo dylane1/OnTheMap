@@ -8,11 +8,65 @@
 
 import UIKit
 
+
+struct Theme01 {
+    static let loginScreenBGColor = UIColor.mistGray()
+    static let locationSubmitScreenBGColor = UIColor.fantasy()
+    static let barTintColor = UIColor.mistGray()
+    static let titleText = UIColor.fantasy()
+    static let shadowDark = UIColor.rangoonGreen()
+    static let textFieldText = UIColor.rangoonGreen()
+    static let textFieldBackground = UIColor.fantasy()
+    static let buttonBackground = UIColor.peat()
+    static let buttonTint = UIColor.fantasy()
+}
+
+struct Theme02 {
+    static let loginScreenBGColor = UIColor.blueBayoux()
+    static let locationSubmitScreenBGColor = UIColor.pearlBush()
+    static let barTintColor = UIColor.blueBayoux()
+    static let titleText = UIColor.fantasy()
+    static let shadowDark = UIColor.rangoonGreen()
+    static let textFieldText = UIColor.rangoonGreen()
+    static let textFieldBackground = UIColor.fantasy()
+    static let buttonBackground = UIColor.bullShot()
+    static let buttonTint = UIColor.fantasy()
+}
+
+struct Theme03 {
+    static let loginScreenBGColor = UIColor.spanishGreen()
+    static let locationSubmitScreenBGColor = UIColor.zanah()
+    static let barTintColor = UIColor.spanishGreen()
+    static let textLight = UIColor.romance()
+    static let textDark = UIColor.timberGreen()
+    static let shadowLight = UIColor.romance()
+    static let shadowDark = UIColor.timberGreen()
+    static let textFieldText = UIColor.timberGreen()
+    static let textFieldBackground = UIColor.romance()
+    static let buttonBackground = UIColor.ceSoir()
+    static let buttonTint = UIColor.romance()
+}
+
+/**
+ Universal
+ **/
+extension UIColor {
+    /**
+     name: Red Orange
+     hex: #FF3B30
+     
+     **/
+    public class func redOrange() -> UIColor {
+        return UIColor(red:1.00, green:0.23, blue:0.19, alpha:1.00)
+    }
+}
+
 /**
  On The Map Color Palate 01
  **/
 
 extension UIColor {
+
     
     /**
      name: Rangoon Green

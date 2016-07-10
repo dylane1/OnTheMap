@@ -19,6 +19,7 @@
 		A326978C1D2EFF8C00597140 /* SecondaryActivityIndicatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A326978B1D2EFF8C00597140 /* SecondaryActivityIndicatorViewController.swift */; };
 		A326978E1D303FC600597140 /* InformationPostingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A326978D1D303FC600597140 /* InformationPostingService.swift */; };
 		A32697911D319E6C00597140 /* ColorSchemes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32697901D319E6C00597140 /* ColorSchemes.swift */; };
+		A32697941D32E0DE00597140 /* IconProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32697931D32E0DE00597140 /* IconProvider.swift */; };
 		A3499F0F1D1E0CBD00C961D3 /* AlertPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3499F0E1D1E0CBD00C961D3 /* AlertPresentable.swift */; };
 		A349C24F1D2C7C23008E678D /* Dimmable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A349C24E1D2C7C23008E678D /* Dimmable.swift */; };
 		A349C2511D2D5FD0008E678D /* PrimaryActivityIndicatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A349C2501D2D5FD0008E678D /* PrimaryActivityIndicatorViewController.swift */; };
@@ -73,6 +74,7 @@
 		A326978B1D2EFF8C00597140 /* SecondaryActivityIndicatorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondaryActivityIndicatorViewController.swift; sourceTree = "<group>"; };
 		A326978D1D303FC600597140 /* InformationPostingService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationPostingService.swift; sourceTree = "<group>"; };
 		A32697901D319E6C00597140 /* ColorSchemes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorSchemes.swift; sourceTree = "<group>"; };
+		A32697931D32E0DE00597140 /* IconProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconProvider.swift; sourceTree = "<group>"; };
 		A3499F0E1D1E0CBD00C961D3 /* AlertPresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertPresentable.swift; sourceTree = "<group>"; };
 		A349C24E1D2C7C23008E678D /* Dimmable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dimmable.swift; sourceTree = "<group>"; };
 		A349C2501D2D5FD0008E678D /* PrimaryActivityIndicatorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimaryActivityIndicatorViewController.swift; sourceTree = "<group>"; };
@@ -147,6 +149,15 @@
 				A326978B1D2EFF8C00597140 /* SecondaryActivityIndicatorViewController.swift */,
 			);
 			name = "Activity Indicator";
+			sourceTree = "<group>";
+		};
+		A32697921D32E0B300597140 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				A32697901D319E6C00597140 /* ColorSchemes.swift */,
+				A32697931D32E0DE00597140 /* IconProvider.swift */,
+			);
+			name = UI;
 			sourceTree = "<group>";
 		};
 		A3816D201D08E7EB001B55A0 /* Map And Table VCs */ = {
@@ -242,7 +253,7 @@
 				A3E8C8D31CED10040040770A /* Utilities */,
 				A31EA48A1D11DF59005CC5B9 /* Not used */,
 				A3E8C8C71CED0CB30040770A /* Constants.swift */,
-				A32697901D319E6C00597140 /* ColorSchemes.swift */,
+				A32697921D32E0B300597140 /* UI */,
 				A3E8C8C91CED0CC70040770A /* Typealiases.swift */,
 				A3E8C8CB1CED0CDB0040770A /* LocalizedStrings.swift */,
 				A3E8C8D91CF6342B0040770A /* Extensions.swift */,
@@ -418,6 +429,7 @@
 				A3816D331D0B2FA4001B55A0 /* AppModel.swift in Sources */,
 				A3E8C8C61CED078A0040770A /* Magic.swift in Sources */,
 				A31EA4921D13477E005CC5B9 /* StudentLocationMapContainerView.swift in Sources */,
+				A32697941D32E0DE00597140 /* IconProvider.swift in Sources */,
 				A3E8C8D51CEF82EC0040770A /* LoginViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

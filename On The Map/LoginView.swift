@@ -21,7 +21,7 @@ class LoginView: UIView {
     private var emailTextFieldFontColor = Constants.ColorScheme.red
     private var textFieldAttributes = [
         NSFontAttributeName: UIFont.systemFontOfSize(17, weight: UIFontWeightLight),
-        NSForegroundColorAttributeName: Constants.ColorScheme.red
+        NSForegroundColorAttributeName: UIColor.redOrange()
     ]
     
     private lazy var loginValidator = LoginValidator()
@@ -59,7 +59,7 @@ class LoginView: UIView {
         successClosure success:() -> Void,
         alertPresentationClosure alertPresentation: AlertPresentation) {
         
-        backgroundColor = Constants.ColorScheme.orange
+        backgroundColor = Theme03.loginScreenBGColor
 
         presentErrorAlert = alertPresentation
         
@@ -86,14 +86,14 @@ class LoginView: UIView {
     
     private func configureLabels() {
         /// Title
-        let shadow = NSShadow()
-        shadow.shadowColor = Constants.ColorScheme.veryDarkBlue
-        shadow.shadowOffset = CGSize(width: -1.0, height: -1.0)
-        shadow.shadowBlurRadius = 5
+        let titleShadow = NSShadow()
+        titleShadow.shadowColor = Theme03.shadowDark
+        titleShadow.shadowOffset = CGSize(width: -1.0, height: -1.0)
+        titleShadow.shadowBlurRadius = 5
         
         let titleLabelAttributes: [String : AnyObject] = [
-            NSShadowAttributeName: shadow,
-            NSForegroundColorAttributeName: Constants.ColorScheme.white,
+            NSShadowAttributeName: titleShadow,
+            NSForegroundColorAttributeName: Theme03.textLight,
             NSFontAttributeName: UIFont(name: Constants.FontName.markerFelt, size: 50)!]
         
         titleLabel.adjustsFontSizeToFitWidth = true
@@ -102,14 +102,27 @@ class LoginView: UIView {
         
         
         /// Login
-        loginToUdacityLabel.text = LocalizedStrings.Labels.loginToUdacity
+        let loginLabelShadow = NSShadow()
+        loginLabelShadow.shadowColor = Theme03.shadowDark
+        loginLabelShadow.shadowOffset = CGSize(width: -1.0, height: -1.0)
+        loginLabelShadow.shadowBlurRadius = 2
+        
+        let loginLabelAttributes: [String : AnyObject] = [
+            NSShadowAttributeName: loginLabelShadow,
+            NSForegroundColorAttributeName: Theme03.textLight,
+            NSFontAttributeName: UIFont(name: Constants.FontName.avenir, size: 20)!]
+        
+        loginToUdacityLabel.attributedText = NSAttributedString(string: LocalizedStrings.Labels.loginToUdacity, attributes: loginLabelAttributes)
     }
     
     private func configureTextFields() {
-        emailField.delegate     = self
-        emailField.placeholder  = LocalizedStrings.TextFieldPlaceHolders.email
+        
+        emailField.backgroundColor  = Theme03.textFieldBackground
+        emailField.delegate         = self
+        emailField.placeholder      = LocalizedStrings.TextFieldPlaceHolders.email
         emailField.addTarget(self, action: #selector(validateTextFields), forControlEvents: .EditingChanged)
         
+        passwordField.backgroundColor   = Theme03.textFieldBackground
         passwordField.delegate          = self
         passwordField.secureTextEntry   = true
         passwordField.placeholder       = LocalizedStrings.TextFieldPlaceHolders.password
@@ -127,6 +140,9 @@ class LoginView: UIView {
     private func configureButtons() {
         loginButton.titleLabel?.text    = LocalizedStrings.ButtonTitles.login
         loginButton.enabled             = true//false
+        loginButton.backgroundColor     = Theme03.buttonBackground
+        loginButton.tintColor           = Theme03.buttonTint
+        loginButton.layer.cornerRadius  = 6
         
         let loginView = FBSDKLoginButton()
         self.addSubview(loginView)
@@ -152,7 +168,7 @@ class LoginView: UIView {
         } else if token != nil {
             loginValidator.login(withFacebookToken: token)
         } else {
-            fatalError("That's not going to work...")
+            magic("That's not going to work...")
         }
     }
     
@@ -165,7 +181,7 @@ class LoginView: UIView {
         emailString     = emailField.text as String! ?? ""
         passwordString  = passwordField.text as String! ?? ""
         
-        emailTextFieldFontColor = emailString.isEmail ? Constants.ColorScheme.black : Constants.ColorScheme.red
+        emailTextFieldFontColor = emailString.isEmail ? Theme03.textFieldText : Constants.ColorScheme.red
         
         loginButton.enabled = emailString.isEmail && passwordString != "" ? true : false
         
