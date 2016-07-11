@@ -22,6 +22,8 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
     
     private var sessionLogoutController = UserSessionLogoutController()
     
+    private let locationMarker = IconProvider.imageOfLocationMarkerWithColor(Theme03.locationMarker)
+    
     //MARK: - View Lifecycle
     deinit { magic("being deinitialized   <----------------") }
     
@@ -87,8 +89,7 @@ extension StudentLocationTableViewController {
 
         let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as StudentLocationTableViewCell
 
-        let testImg = UIImage()
-        let model = StudentLocationCellModel(image: testImg, studentInformation: studentInformationProvider.studentInformationArray![indexPath.row])
+        let model = StudentLocationCellModel(image: locationMarker, studentInformation: studentInformationProvider.studentInformationArray![indexPath.row])
         
         cell.configure(withDataSource: model)
         

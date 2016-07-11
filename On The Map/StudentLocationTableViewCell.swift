@@ -31,8 +31,9 @@ class StudentLocationTableViewCell: UITableViewCell /*, NibLoadableView*/ {
     }
     
     private func configureImageView() {
-//        iconImageView.backgroundColor = Constants.ColorScheme.darkGrey
+        iconImageView.backgroundColor = UIColor.clearColor()
         iconImageView.image = dataSource.image
+        magic("icon image: \(iconImageView.image)")
     }
     
     private func configureLabels() {

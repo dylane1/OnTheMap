@@ -46,12 +46,26 @@ extension IconProvider {
         }
         return imageOfIcon
     }
+    
+    static func imageOfLocationMarkerWithColor(fillColor: UIColor) -> UIImage {
+        var image: UIImage {
+            UIGraphicsBeginImageContextWithOptions(CGSizeMake(40, 43), false, 0)
+            drawLocationMarkerWithColor(fillColor)
+            
+            let img = UIGraphicsGetImageFromCurrentImageContext()!
+            UIGraphicsEndImageContext()
+            
+            return img
+        }
+        magic("img: \(image)")
+        return image
+    }
 }
 
 //MARK: - Icons30PointRepresentable
 
 extension IconProvider: Icons30PointRepresentable {
-    static func draw30PointMapWithColor(fillColor: UIColor) {
+    private static func draw30PointMapWithColor(fillColor: UIColor) {
         //// Symbolicons-Junior 2
         //// Map Drawing
         let mapPath = UIBezierPath()
@@ -90,7 +104,7 @@ extension IconProvider: Icons30PointRepresentable {
         mapPath.fill()
     }
     
-    static func draw30PointListWithColor(fillColor: UIColor) {
+    private static func draw30PointListWithColor(fillColor: UIColor) {
         //// Symbolicons-Junior 2
         //// List Drawing
         let listPath = UIBezierPath()
@@ -148,7 +162,7 @@ extension IconProvider: Icons30PointRepresentable {
 //MARK: - Icons32PointRepresentable
 
 extension IconProvider: Icons32PointRepresentable {
-    static func draw32PointPinWithColor(fillColor: UIColor) {
+    private static func draw32PointPinWithColor(fillColor: UIColor) {
         //// Symbolicons-Junior 2
         //// Pin Drawing
         let pinPath = UIBezierPath()
@@ -180,3 +194,63 @@ extension IconProvider: Icons32PointRepresentable {
         pinPath.fill()
     }
 }
+
+//MARK: - IconsVariousSizes
+
+extension IconProvider {
+    private static func drawLocationMarkerWithColor(fillColor: UIColor) {
+        //// Symbolicons-Junior
+        //// location Drawing
+        let locationPath = UIBezierPath()
+        locationPath.moveToPoint(CGPoint(x: 20, y: 21))
+        locationPath.addCurveToPoint(CGPoint(x: 16, y: 17), controlPoint1: CGPoint(x: 17.79, y: 21), controlPoint2: CGPoint(x: 16, y: 19.21))
+        locationPath.addCurveToPoint(CGPoint(x: 20, y: 13), controlPoint1: CGPoint(x: 16, y: 14.79), controlPoint2: CGPoint(x: 17.79, y: 13))
+        locationPath.addCurveToPoint(CGPoint(x: 24, y: 17), controlPoint1: CGPoint(x: 22.21, y: 13), controlPoint2: CGPoint(x: 24, y: 14.79))
+        locationPath.addCurveToPoint(CGPoint(x: 20, y: 21), controlPoint1: CGPoint(x: 24, y: 19.21), controlPoint2: CGPoint(x: 22.21, y: 21))
+        locationPath.closePath()
+        locationPath.moveToPoint(CGPoint(x: 20, y: 5))
+        locationPath.addCurveToPoint(CGPoint(x: 8, y: 17), controlPoint1: CGPoint(x: 12, y: 5), controlPoint2: CGPoint(x: 8, y: 11))
+        locationPath.addCurveToPoint(CGPoint(x: 20, y: 37), controlPoint1: CGPoint(x: 8, y: 23), controlPoint2: CGPoint(x: 20, y: 37))
+        locationPath.addCurveToPoint(CGPoint(x: 32, y: 17), controlPoint1: CGPoint(x: 20, y: 37), controlPoint2: CGPoint(x: 32, y: 23))
+        locationPath.addCurveToPoint(CGPoint(x: 20, y: 5), controlPoint1: CGPoint(x: 32, y: 11), controlPoint2: CGPoint(x: 28, y: 5))
+        locationPath.closePath()
+        locationPath.miterLimit = 4;
+        
+        locationPath.usesEvenOddFillRule = true;
+        
+        fillColor.setFill()
+        locationPath.fill()
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -13,20 +13,26 @@ class StudentLocationMapContainerView: UIView {
 
     @IBOutlet weak var mapView: MKMapView!
     
+    private var studentInformationArray = [StudentInformation]()
     private var annotations = [StudentLocationAnnotation]()
     
     private var openLinkClosure: OpenLinkClosure?
     
+    private var mapRendered = false
+    
     //MARK: - Configuration
     
     internal func configure(withStudentInformationArray array: [StudentInformation], openLinkClosure closure: OpenLinkClosure) {
+        
         mapView.delegate    = self
-        openLinkClosure     = closure
+        
+        studentInformationArray = array
+        openLinkClosure         = closure
         
         /// clear for refresh
         clearAnnotations()
         
-        placeAnnotations(withStudentInformationArray: array)
+        if mapRendered { placeAnnotations(withStudentInformationArray: array) }
     }
     
     //MARK: - Map View
@@ -49,6 +55,14 @@ class StudentLocationMapContainerView: UIView {
 }
 
 extension StudentLocationMapContainerView: MKMapViewDelegate {
+    
+    func mapViewDidFinishRenderingMap(mapView: MKMapView, fullyRendered: Bool) {
+        mapRendered = true
+        placeAnnotations(withStudentInformationArray: studentInformationArray)
+//        if urlTextField.alpha == 0 && placemarks != nil {
+//            animateURLTextFieldIntoView()
+//        }
+    }
     
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         if let annotation = annotation as? StudentLocationAnnotation {

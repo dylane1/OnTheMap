@@ -56,7 +56,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dbe-UF-uFD">
-                                            <rect key="frame" x="0.0" y="0.0" width="40" height="43"/>
+                                            <rect key="frame" x="0.0" y="8" width="40" height="43"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="43" id="bJW-IR-mKY"/>
                                                 <constraint firstAttribute="width" constant="40" id="iVb-wJ-Shw"/>
@@ -77,8 +77,8 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="RNH-uh-mOY" firstAttribute="top" secondItem="SCi-bj-2YK" secondAttribute="bottom" id="7GD-py-wiw"/>
+                                        <constraint firstItem="dbe-UF-uFD" firstAttribute="centerY" secondItem="CYD-Yc-0GK" secondAttribute="centerY" id="9vA-ai-Wb6"/>
                                         <constraint firstItem="RNH-uh-mOY" firstAttribute="leading" secondItem="dbe-UF-uFD" secondAttribute="trailing" constant="8" id="Fer-81-Jy4"/>
-                                        <constraint firstItem="dbe-UF-uFD" firstAttribute="top" secondItem="CYD-Yc-0GK" secondAttribute="top" id="GYs-tp-QrR"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="SCi-bj-2YK" secondAttribute="trailing" id="IWd-Ve-DpL"/>
                                         <constraint firstItem="SCi-bj-2YK" firstAttribute="leading" secondItem="dbe-UF-uFD" secondAttribute="trailing" constant="8" id="Tag-z9-uIW"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="RNH-uh-mOY" secondAttribute="trailing" id="VIY-9M-whe"/>
