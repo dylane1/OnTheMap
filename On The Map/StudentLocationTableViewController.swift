@@ -22,7 +22,8 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
     
     private var sessionLogoutController = UserSessionLogoutController()
     
-    private let locationMarker = IconProvider.imageOfLocationMarkerWithColor(Theme03.locationMarker)
+    private let iconProvider = IconProvider()
+    private var locationMarker: UIImage!
     
     //MARK: - View Lifecycle
     deinit { magic("being deinitialized   <----------------") }
@@ -57,6 +58,8 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
         configureNavigationItems(
             withRefreshClosure: refreshClosure,
             sessionLogoutController: sessionLogoutController)
+        
+        locationMarker = iconProvider.imageOfDrawnIcon(.LocationMarker, size: CGSize(width: 40, height: 43), fillColor: Theme03.locationMarker)
     }
     
     override func viewWillAppear(animated: Bool) {

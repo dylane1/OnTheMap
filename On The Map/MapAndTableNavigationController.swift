@@ -44,7 +44,9 @@ final class MapAndTableNavigationController: NavigationController {
         pinButton.frame    = CGRectMake(0, 0, 44, 44)
         pinButton.addTarget(self, action: #selector(addButtonTapped), forControlEvents: UIControlEvents.TouchUpInside)
         
-        let pinImage = IconProvider.imageOfDrawnIcon(.Pin, size: .ThirtyTwo, fillColor: UIColor.blackColor())
+        let iconProvider = IconProvider()
+        let pinImage = iconProvider.imageOfDrawnIcon(.Pin, size: CGSize(width: 32, height: 32), fillColor: Theme03.tabBarItemUnselected)
+        
         pinButton.setImage(pinImage, forState: .Normal)
         
         let addButton = UIBarButtonItem(customView: pinButton)

@@ -47,6 +47,10 @@
 		A39CF5A51CCAB1390060C890 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A39CF5A31CCAB1390060C890 /* Main.storyboard */; };
 		A39CF5A71CCAB1390060C890 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A39CF5A61CCAB1390060C890 /* Assets.xcassets */; };
 		A39CF5AA1CCAB1390060C890 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A39CF5A81CCAB1390060C890 /* LaunchScreen.storyboard */; };
+		A3BCA3091D34092E00B02C9A /* MapIconDrawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BCA3081D34092E00B02C9A /* MapIconDrawable.swift */; };
+		A3BCA30C1D340F4600B02C9A /* PinIconDrawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BCA30B1D340F4600B02C9A /* PinIconDrawable.swift */; };
+		A3BCA30E1D34102800B02C9A /* ListIconDrawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BCA30D1D34102800B02C9A /* ListIconDrawable.swift */; };
+		A3BCA3101D3410C300B02C9A /* LocationMarkerIconDrawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BCA30F1D3410C300B02C9A /* LocationMarkerIconDrawable.swift */; };
 		A3D909EC1D245467006315E5 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D909EB1D245467006315E5 /* Reachability.swift */; };
 		A3E8C8C61CED078A0040770A /* Magic.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8C8C51CED078A0040770A /* Magic.swift */; };
 		A3E8C8C81CED0CB30040770A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8C8C71CED0CB30040770A /* Constants.swift */; };
@@ -104,6 +108,10 @@
 		A39CF5A61CCAB1390060C890 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A39CF5A91CCAB1390060C890 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A39CF5AB1CCAB1390060C890 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A3BCA3081D34092E00B02C9A /* MapIconDrawable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapIconDrawable.swift; sourceTree = "<group>"; };
+		A3BCA30B1D340F4600B02C9A /* PinIconDrawable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinIconDrawable.swift; sourceTree = "<group>"; };
+		A3BCA30D1D34102800B02C9A /* ListIconDrawable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListIconDrawable.swift; sourceTree = "<group>"; };
+		A3BCA30F1D3410C300B02C9A /* LocationMarkerIconDrawable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationMarkerIconDrawable.swift; sourceTree = "<group>"; };
 		A3D909EB1D245467006315E5 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		A3E8C8C51CED078A0040770A /* Magic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Magic.swift; path = Magic/Magic.swift; sourceTree = "<group>"; };
 		A3E8C8C71CED0CB30040770A /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -156,6 +164,7 @@
 			children = (
 				A32697901D319E6C00597140 /* ColorSchemes.swift */,
 				A32697931D32E0DE00597140 /* IconProvider.swift */,
+				A3BCA30A1D340F1300B02C9A /* Icons */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -276,6 +285,17 @@
 			path = "On The Map";
 			sourceTree = "<group>";
 		};
+		A3BCA30A1D340F1300B02C9A /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				A3BCA3081D34092E00B02C9A /* MapIconDrawable.swift */,
+				A3BCA30B1D340F4600B02C9A /* PinIconDrawable.swift */,
+				A3BCA30D1D34102800B02C9A /* ListIconDrawable.swift */,
+				A3BCA30F1D3410C300B02C9A /* LocationMarkerIconDrawable.swift */,
+			);
+			name = Icons;
+			sourceTree = "<group>";
+		};
 		A3E8C8D31CED10040040770A /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -387,6 +407,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A3816D371D0B6048001B55A0 /* StudentInformation.swift in Sources */,
+				A3BCA3101D3410C300B02C9A /* LocationMarkerIconDrawable.swift in Sources */,
 				A31EA4941D1365D7005CC5B9 /* StudentLocationAnnotation.swift in Sources */,
 				A3E8C8C81CED0CB30040770A /* Constants.swift in Sources */,
 				A349C2551D2D63D2008E678D /* SegueHandlerType.swift in Sources */,
@@ -409,9 +430,12 @@
 				A3E8C8D01CED0EE40040770A /* NavigationController.swift in Sources */,
 				A3816D2D1D09E46B001B55A0 /* MapAndTableNavigationProtocol.swift in Sources */,
 				A3E8C8D81CEF830D0040770A /* LoginView.swift in Sources */,
+				A3BCA3091D34092E00B02C9A /* MapIconDrawable.swift in Sources */,
+				A3BCA30E1D34102800B02C9A /* ListIconDrawable.swift in Sources */,
 				A39CF59E1CCAB1390060C890 /* AppDelegate.swift in Sources */,
 				A3816D281D09DB9B001B55A0 /* InformationPostingViewController.swift in Sources */,
 				A3816D311D0A2474001B55A0 /* InformationPostingNavigationProtocol.swift in Sources */,
+				A3BCA30C1D340F4600B02C9A /* PinIconDrawable.swift in Sources */,
 				A3E8C8DA1CF6342B0040770A /* Extensions.swift in Sources */,
 				A31EA4961D136F70005CC5B9 /* SafariViewControllerPresentable.swift in Sources */,
 				A3E8C8CC1CED0CDB0040770A /* LocalizedStrings.swift in Sources */,
