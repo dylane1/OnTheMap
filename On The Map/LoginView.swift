@@ -195,7 +195,7 @@ class LoginView: UIView {
         emailString     = emailField.text as String! ?? ""
         passwordString  = passwordField.text as String! ?? ""
         
-        emailTextFieldFontColor = emailString.isEmail ? Theme03.textFieldText : Constants.ColorScheme.red
+        emailTextFieldFontColor = emailString.isEmail ? Theme03.textFieldText : Theme03.textError
         
         loginButton.enabled = emailString.isEmail && passwordString != "" ? true : false
         

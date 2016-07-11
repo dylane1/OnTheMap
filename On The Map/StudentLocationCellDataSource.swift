@@ -18,13 +18,13 @@ protocol StudentLocationCellDataSource {
 extension StudentLocationCellDataSource {
     internal var titleTextAttributes: [String : AnyObject] {
         return [
-            NSForegroundColorAttributeName: Constants.ColorScheme.black,
+            NSForegroundColorAttributeName: Theme03.textDark,
             NSFontAttributeName: UIFont.systemFontOfSize(17, weight: UIFontWeightLight)
         ]
     }
     internal var subtitleTextAttributes: [String : AnyObject] {
         return [
-            NSForegroundColorAttributeName: Constants.ColorScheme.black,
+            NSForegroundColorAttributeName: Theme03.textDark,
             NSFontAttributeName: UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
         ]
     }

@@ -39,6 +39,7 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
         navController.setNavigationBarAttributes(isAppTitle: true)
 
         tableView.delegate = self
+        tableView.backgroundColor = Theme03.tableViewBGColor
         
         let refreshClosure = { [weak self] in
             self!.getStudentInfoArray()
@@ -76,6 +77,44 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
         /// StudentInformationGettable
         performFetchWithCompletion(completion)
     }
+    /*
+    private func openNewIntervalSetupViewController(sender: AnyObject) {
+        dismissViewControllerAnimated(true, completion: nil)//Close any popovers
+        
+        /* User figured it out, kill the Help Prompt countdown */
+        if helpPromptCountdownEngine != nil { killCountdownEngine() }
+        
+        newIntervalSetupVC = UIStoryboard(name: StoryBoardIDs.sb_Main, bundle: nil).instantiateViewControllerWithIdentifier(StoryBoardIDs.sb_newIntervalSetupVC) as? NewIntervalSetupViewController
+        
+        //        newIntervalSetupVC!.preferredContentSize = CGSizeMake(310, 310)
+        
+        newIntervalSetupVC!.titleTextFieldPlaceholder = LocalizedStrings.Common.anInterval //"\(LocalizedStrings.Common.interval) \(intervalArray.count + 1)"
+        
+        newIntervalSetupVC!.didFinish = { [weak self] (controller, newObjectArray: [AnyObject]) in
+            self!.addNewTimerIntervals(newObjectArray as! [TimerInterval])
+            self!.toggleWelcomeText()
+            
+            self!.dismissViewControllerAnimated(true, completion: {
+                self!.newIntervalSetupVC = nil
+            })
+            
+        }
+        
+        newIntervalSetupVC!.didCancel = { [weak self] controller in
+            self!.dismissViewControllerAnimated(true, completion: {
+                self!.newIntervalSetupVC = nil
+            })
+        }
+        
+        //        prepareOverlayVC(newIntervalSetupVC!)
+        overlayTransitioningDelegate = OverlayTransitioningDelegate(withPreferredContentSize: CGSizeMake(310, 310), cornerRadius: 12.0, dimmingBGColor: UIColor(white: 0.0, alpha: 0.5), doFadeInAlpha: true)
+        
+        newIntervalSetupVC!.transitioningDelegate = overlayTransitioningDelegate
+        newIntervalSetupVC!.modalPresentationStyle = .Custom
+        
+        presentViewController(newIntervalSetupVC!, animated: true, completion: nil)
+    }
+    */
 }
 
 //MARK: - Table View Data Source

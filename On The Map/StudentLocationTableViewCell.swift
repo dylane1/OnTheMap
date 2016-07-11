@@ -12,6 +12,7 @@ class StudentLocationTableViewCell: UITableViewCell /*, NibLoadableView*/ {
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var subtitleLabel: UILabel!
     @IBOutlet private weak var iconImageView: UIImageView!
+    @IBOutlet weak var showLocationButton: UIButton!
     
     private var dataSource: StudentLocationCellDataSource!
     
@@ -21,10 +22,17 @@ class StudentLocationTableViewCell: UITableViewCell /*, NibLoadableView*/ {
         super.awakeFromNib()
     }
 
+    //MARK: - Actions
+    
+    @IBAction func showLocationAction(sender: AnyObject) {
+        magic(dataSource.studentInformation.firstName)
+    }
+    
     //MARK: - Configuration
     
     internal func configure(withDataSource dataSource: StudentLocationCellDataSource) {
         self.dataSource = dataSource
+        backgroundColor = UIColor.clearColor()
         configureImageView()
         configureLabels()
         configureCell()
@@ -60,7 +68,7 @@ class StudentLocationTableViewCell: UITableViewCell /*, NibLoadableView*/ {
         
         /// Show URLs that won't open in Safari in a red color
         if subTitle.safariOpenableURL == nil {
-            subtitleAttributes[NSForegroundColorAttributeName] = Constants.ColorScheme.red
+            subtitleAttributes[NSForegroundColorAttributeName] = Theme03.textError
             isInvalidURL = true
         } else {
             isInvalidURL = false
@@ -72,6 +80,7 @@ class StudentLocationTableViewCell: UITableViewCell /*, NibLoadableView*/ {
     }
     
     private func configureCell() {
+        
 //        backgroundColor = (isInvalidURL) ? Constants.ColorScheme.lightGrey : UIColor.clearColor()
     }
 

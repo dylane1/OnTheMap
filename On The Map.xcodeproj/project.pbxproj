@@ -51,6 +51,10 @@
 		A3BCA30C1D340F4600B02C9A /* PinIconDrawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BCA30B1D340F4600B02C9A /* PinIconDrawable.swift */; };
 		A3BCA30E1D34102800B02C9A /* ListIconDrawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BCA30D1D34102800B02C9A /* ListIconDrawable.swift */; };
 		A3BCA3101D3410C300B02C9A /* LocationMarkerIconDrawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BCA30F1D3410C300B02C9A /* LocationMarkerIconDrawable.swift */; };
+		A3BCA3121D341D5400B02C9A /* MapPresentingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BCA3111D341D5400B02C9A /* MapPresentingViewController.swift */; };
+		A3BCA3161D34204600B02C9A /* OverlayPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BCA3131D34204600B02C9A /* OverlayPresentationController.swift */; };
+		A3BCA3171D34204600B02C9A /* OverlayTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BCA3141D34204600B02C9A /* OverlayTransitioningDelegate.swift */; };
+		A3BCA3181D34204600B02C9A /* BouncyViewControllerAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BCA3151D34204600B02C9A /* BouncyViewControllerAnimator.swift */; };
 		A3D909EC1D245467006315E5 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D909EB1D245467006315E5 /* Reachability.swift */; };
 		A3E8C8C61CED078A0040770A /* Magic.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8C8C51CED078A0040770A /* Magic.swift */; };
 		A3E8C8C81CED0CB30040770A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8C8C71CED0CB30040770A /* Constants.swift */; };
@@ -112,6 +116,10 @@
 		A3BCA30B1D340F4600B02C9A /* PinIconDrawable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinIconDrawable.swift; sourceTree = "<group>"; };
 		A3BCA30D1D34102800B02C9A /* ListIconDrawable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListIconDrawable.swift; sourceTree = "<group>"; };
 		A3BCA30F1D3410C300B02C9A /* LocationMarkerIconDrawable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationMarkerIconDrawable.swift; sourceTree = "<group>"; };
+		A3BCA3111D341D5400B02C9A /* MapPresentingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapPresentingViewController.swift; sourceTree = "<group>"; };
+		A3BCA3131D34204600B02C9A /* OverlayPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayPresentationController.swift; sourceTree = "<group>"; };
+		A3BCA3141D34204600B02C9A /* OverlayTransitioningDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayTransitioningDelegate.swift; sourceTree = "<group>"; };
+		A3BCA3151D34204600B02C9A /* BouncyViewControllerAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BouncyViewControllerAnimator.swift; sourceTree = "<group>"; };
 		A3D909EB1D245467006315E5 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		A3E8C8C51CED078A0040770A /* Magic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Magic.swift; path = Magic/Magic.swift; sourceTree = "<group>"; };
 		A3E8C8C71CED0CB30040770A /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -195,6 +203,7 @@
 				A31EA48F1D132CD2005CC5B9 /* StudentLocationCellDataSource.swift */,
 				A31EA48D1D132C2B005CC5B9 /* StudentLocationTableViewController.swift */,
 				A31EA48B1D132AF5005CC5B9 /* StudentLocationTableViewCell.swift */,
+				A3BCA3111D341D5400B02C9A /* MapPresentingViewController.swift */,
 			);
 			name = Table;
 			sourceTree = "<group>";
@@ -296,9 +305,20 @@
 			name = Icons;
 			sourceTree = "<group>";
 		};
+		A3BCA3191D34205200B02C9A /* Custom Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				A3BCA3131D34204600B02C9A /* OverlayPresentationController.swift */,
+				A3BCA3141D34204600B02C9A /* OverlayTransitioningDelegate.swift */,
+				A3BCA3151D34204600B02C9A /* BouncyViewControllerAnimator.swift */,
+			);
+			name = "Custom Presentation";
+			sourceTree = "<group>";
+		};
 		A3E8C8D31CED10040040770A /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				A3BCA3191D34205200B02C9A /* Custom Presentation */,
 				A3E8C8C51CED078A0040770A /* Magic.swift */,
 				A3E8C8D11CED0FF70040770A /* Dynamic.swift */,
 				A3D909EB1D245467006315E5 /* Reachability.swift */,
@@ -419,6 +439,7 @@
 				A31EA4851D11CEBF005CC5B9 /* StudentInformationGettable.swift in Sources */,
 				A3E8C8CE1CED0EC00040770A /* TabBarController.swift in Sources */,
 				A3E8C8CA1CED0CC70040770A /* Typealiases.swift in Sources */,
+				A3BCA3161D34204600B02C9A /* OverlayPresentationController.swift in Sources */,
 				A31EA4901D132CD2005CC5B9 /* StudentLocationCellDataSource.swift in Sources */,
 				A31EA48E1D132C2B005CC5B9 /* StudentLocationTableViewController.swift in Sources */,
 				A38AB6E21D19F56500820AA9 /* StudentLocationRequestable.swift in Sources */,
@@ -442,6 +463,8 @@
 				A3E8C8DC1CF656160040770A /* LoginValidator.swift in Sources */,
 				A3816D241D08E866001B55A0 /* MapAndTableNavigationController.swift in Sources */,
 				A349C2531D2D622D008E678D /* ActivityIndicatorPresentable.swift in Sources */,
+				A3BCA3181D34204600B02C9A /* BouncyViewControllerAnimator.swift in Sources */,
+				A3BCA3121D341D5400B02C9A /* MapPresentingViewController.swift in Sources */,
 				A326978C1D2EFF8C00597140 /* SecondaryActivityIndicatorViewController.swift in Sources */,
 				A31EA48C1D132AF5005CC5B9 /* StudentLocationTableViewCell.swift in Sources */,
 				A349C2511D2D5FD0008E678D /* PrimaryActivityIndicatorViewController.swift in Sources */,
@@ -455,6 +478,7 @@
 				A31EA4921D13477E005CC5B9 /* StudentLocationMapContainerView.swift in Sources */,
 				A32697941D32E0DE00597140 /* IconProvider.swift in Sources */,
 				A3E8C8D51CEF82EC0040770A /* LoginViewController.swift in Sources */,
+				A3BCA3171D34204600B02C9A /* OverlayTransitioningDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

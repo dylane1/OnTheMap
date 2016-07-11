@@ -37,6 +37,7 @@ struct Theme03 {
     /// Universal
     static let textLight = UIColor.romance()
     static let textDark = UIColor.timberGreen()
+    static let textError = UIColor.redOrange()
     static let shadowLight = UIColor.romance()
     static let shadowDark = UIColor.timberGreen()
     static let textFieldText = UIColor.timberGreen()
@@ -57,7 +58,8 @@ struct Theme03 {
     
     
     /// Table View
-    static let locationMarker = UIColor.redOrange()
+    static let tableViewBGColor = UIColor.romance()
+    static let locationMarker = UIColor.ceSoir()
     
     /// Location Submit View
     static let locationSubmitScreenBGColor = UIColor.desertStorm()

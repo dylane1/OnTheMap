@@ -74,21 +74,33 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zYL-5L-bBQ">
+                                            <rect key="frame" x="0.0" y="0.0" width="48" height="58"/>
+                                            <state key="normal" title="Button"/>
+                                            <connections>
+                                                <action selector="showLocationAction:" destination="KRo-jc-0dD" eventType="touchUpInside" id="Q9j-eS-fdw"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="RNH-uh-mOY" firstAttribute="top" secondItem="SCi-bj-2YK" secondAttribute="bottom" id="7GD-py-wiw"/>
                                         <constraint firstItem="dbe-UF-uFD" firstAttribute="centerY" secondItem="CYD-Yc-0GK" secondAttribute="centerY" id="9vA-ai-Wb6"/>
+                                        <constraint firstItem="RNH-uh-mOY" firstAttribute="leading" secondItem="zYL-5L-bBQ" secondAttribute="trailing" id="AWj-VF-R7R"/>
                                         <constraint firstItem="RNH-uh-mOY" firstAttribute="leading" secondItem="dbe-UF-uFD" secondAttribute="trailing" constant="8" id="Fer-81-Jy4"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="SCi-bj-2YK" secondAttribute="trailing" id="IWd-Ve-DpL"/>
+                                        <constraint firstAttribute="bottom" secondItem="zYL-5L-bBQ" secondAttribute="bottom" id="Sfu-9F-ga9"/>
                                         <constraint firstItem="SCi-bj-2YK" firstAttribute="leading" secondItem="dbe-UF-uFD" secondAttribute="trailing" constant="8" id="Tag-z9-uIW"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="RNH-uh-mOY" secondAttribute="trailing" id="VIY-9M-whe"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="RNH-uh-mOY" secondAttribute="bottom" id="dZf-hA-VqV"/>
+                                        <constraint firstItem="zYL-5L-bBQ" firstAttribute="top" secondItem="CYD-Yc-0GK" secondAttribute="top" id="gTR-Ea-0XD"/>
                                         <constraint firstItem="SCi-bj-2YK" firstAttribute="top" secondItem="CYD-Yc-0GK" secondAttribute="topMargin" id="hkb-Yq-sZw"/>
+                                        <constraint firstItem="zYL-5L-bBQ" firstAttribute="leading" secondItem="CYD-Yc-0GK" secondAttribute="leading" id="jew-xx-6E2"/>
                                         <constraint firstItem="dbe-UF-uFD" firstAttribute="leading" secondItem="CYD-Yc-0GK" secondAttribute="leading" id="whA-5X-JET"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="iconImageView" destination="dbe-UF-uFD" id="Pqd-3S-X2K"/>
+                                    <outlet property="showLocationButton" destination="zYL-5L-bBQ" id="xPf-d6-sBX"/>
                                     <outlet property="subtitleLabel" destination="RNH-uh-mOY" id="R9Z-aV-4wP"/>
                                     <outlet property="titleLabel" destination="SCi-bj-2YK" id="Nda-Sw-QI9"/>
                                 </connections>
@@ -108,6 +120,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DLU-UI-cxk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1242" y="360"/>
+        </scene>
+        <!--Map Presenting View Controller-->
+        <scene sceneID="pFL-Zp-7rS">
+            <objects>
+                <viewController id="ZBv-a4-lZc" customClass="MapPresentingViewController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="C5g-c9-vu4"/>
+                        <viewControllerLayoutGuide type="bottom" id="Q5y-gI-flw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="jmG-Fs-Pv4">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bN7-FW-ATC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1659" y="645"/>
         </scene>
         <!--Location Detail-->
         <scene sceneID="sGN-HZ-3fV">
