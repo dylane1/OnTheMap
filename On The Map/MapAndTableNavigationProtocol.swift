@@ -18,6 +18,13 @@ extension MapAndTableNavigationProtocol where Self: UIViewController, Self: Info
         return navigationController as! MapAndTableNavigationController
     }
     
+    internal func configureNavigationController() {
+        navigationItem.title    = LocalizedStrings.ViewControllerTitles.onTheMap
+        
+        let navController = navigationController! as! MapAndTableNavigationController
+        navController.setNavigationBarAttributes(isAppTitle: true)
+    }
+    
     internal func getSuccessfulLogoutClosure() -> () -> Void {
         let logoutSuccessClosure = { [weak self] in
             if self!.activityIndicatorViewController != nil {

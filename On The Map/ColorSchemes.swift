@@ -35,8 +35,9 @@ struct Theme02 {
 
 struct Theme03 {
     static let loginScreenBGColor = UIColor.spanishGreen()
-    static let locationSubmitScreenBGColor = UIColor.zanah()
+    static let locationSubmitScreenBGColor = UIColor.desertStorm()
     static let barTintColor = UIColor.spanishGreen()
+    static let tabBarItemUnselected = UIColor.timberGreen()
     static let textLight = UIColor.romance()
     static let textDark = UIColor.timberGreen()
     static let shadowLight = UIColor.romance()
@@ -54,10 +55,25 @@ extension UIColor {
     /**
      name: Red Orange
      hex: #FF3B30
-     
      **/
     public class func redOrange() -> UIColor {
         return UIColor(red:1.00, green:0.23, blue:0.19, alpha:1.00)
+    }
+    
+    /**
+     name: Blizzard Blue
+     hex: #AEE1F5
+     **/
+    public class func blizzardBlue() -> UIColor {
+        return UIColor(red:0.68, green:0.88, blue:0.96, alpha:1.00)
+    }
+    
+    /**
+     name: Apricot
+     hex: #F8D2B0
+     **/
+    public class func apricot() -> UIColor {
+       return UIColor(red:0.97, green:0.82, blue:0.69, alpha:1.00)
     }
 }
 
@@ -95,11 +111,18 @@ extension UIColor {
         return UIColor(red: 0.9921568627, green: 0.8627450980, blue: 0.6509803922, alpha: 1.0000000000)
     }
     
+    /** 
+     name: Desert Storm
+     hex: #EBE8E0
+     **/
+    public class func desertStorm() -> UIColor {
+        return UIColor(red:0.92, green:0.91, blue:0.88, alpha:1.00)
+    }
+    
     /**
      name: Fantasy
      hex: #F9F5ED
      **/
-    
     public class func fantasy() -> UIColor {
         return UIColor(red: 0.9764705882, green: 0.9607843137, blue: 0.9294117647, alpha: 1.0000000000)
     }

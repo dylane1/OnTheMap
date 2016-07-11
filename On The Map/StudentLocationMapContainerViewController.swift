@@ -12,7 +12,7 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
     
     private let studentInformationProvider = StudentInformationProvider.sharedInstance
     
-    private var tabBar: TabBarController!
+//    private var tabBar: TabBarController!
     private var mapContainterView: StudentLocationMapContainerView!
     
     private var sessionLogoutController = UserSessionLogoutController()
@@ -29,17 +29,11 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = LocalizedStrings.ViewControllerTitles.onTheMap
-        
-        let navController = navigationController! as! MapAndTableNavigationController
-        navController.setNavigationBarAttributes(isAppTitle: true)
-        
-        tabBar = tabBarController as! TabBarController
+        configureNavigationController()
 
         let refreshClosure = { [weak self] in
             self!.getStudentInfoArray()
         }
-        
         
         let presentActivityIndicator = getActivityIndicatorPresentation()
         let presentErrorAlert = getAlertPresentation()

@@ -28,13 +28,13 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = LocalizedStrings.ViewControllerTitles.onTheMap
+        configureNavigationController()
+        
+        navigationItem.title    = LocalizedStrings.ViewControllerTitles.onTheMap
         
         let navController = navigationController! as! MapAndTableNavigationController
         navController.setNavigationBarAttributes(isAppTitle: true)
-        
-        tabBar = tabBarController as! TabBarController
-        
+
         tableView.delegate = self
         
         let refreshClosure = { [weak self] in
