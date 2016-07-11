@@ -35,6 +35,7 @@ struct Theme02 {
 
 struct Theme03 {
     static let loginScreenBGColor = UIColor.spanishGreen()
+    static let loginScreenBGGradient = UIColor.timberGreenAlpha50()
     static let locationSubmitScreenBGColor = UIColor.desertStorm()
     static let barTintColor = UIColor.spanishGreen()
     static let tabBarItemUnselected = UIColor.timberGreen()
@@ -88,7 +89,6 @@ extension UIColor {
      name: Rangoon Green
      hex: #1F1F1A
      **/
-    
     public class func rangoonGreen() -> UIColor {
         return UIColor(red: 0.1215686275, green: 0.1215686275, blue: 0.1019607843, alpha: 1.0000000000);
     }
@@ -97,7 +97,6 @@ extension UIColor {
      name: Tapa
      hex: #797874
      **/
-    
     public class func tapa() -> UIColor {
         return UIColor(red: 0.4745098039, green: 0.4705882353, blue: 0.4549019608, alpha: 1.0000000000)
     }
@@ -106,7 +105,6 @@ extension UIColor {
      name: Cape Honey
      hex: #FDDCA6
      **/
-    
     public class func capeHoney() -> UIColor {
         return UIColor(red: 0.9921568627, green: 0.8627450980, blue: 0.6509803922, alpha: 1.0000000000)
     }
@@ -131,7 +129,6 @@ extension UIColor {
      name: Peat
      hex: #7B6A51
      **/
-    
     public class func peat() -> UIColor {
         return UIColor(red: 0.4823529412, green: 0.4156862745, blue: 0.3176470588, alpha: 1.0000000000)
     }
@@ -140,7 +137,6 @@ extension UIColor {
      name: Mist Gray
      hex: #C6C3BC
      **/
-    
     public class func mistGray() -> UIColor {
         return UIColor(red: 0.7764705882, green: 0.7647058824, blue: 0.7372549020, alpha: 1.0000000000)
     }
@@ -157,11 +153,7 @@ extension UIColor {
      name: Fantasy
      hex: #FAF5ED
      **/
-    
-//    public class func fantasy() -> UIColor {
-//        return UIColor(red: 0.9803921569, green: 0.9607843137, blue: 0.9294117647, alpha: 1.0000000000);
-//    }
-    
+
     /**
      name: Pearl Bush
      hex: #E8DED1
@@ -193,11 +185,6 @@ extension UIColor {
      name: Rangoon Green
      hex: #1F1F1A
      **/
-    
-//    public class func rangoonGreen() -> UIColor {
-//        return UIColor(red: 0.1215686275, green: 0.1215686275, blue: 0.1019607843, alpha: 1.0000000000);
-//    }
-//    
 }
 
 /**
@@ -210,7 +197,6 @@ extension UIColor {
      name: Blue Chalk
      hex: #EBD3E9
      **/
-    
     public class func blueChalk() -> UIColor {
         return UIColor(red: 0.9215686275, green: 0.8274509804, blue: 0.9137254902, alpha: 1.0000000000);
     }
@@ -219,7 +205,6 @@ extension UIColor {
      name: Ce Soir
      hex: #9E6F9C
      **/
-    
     public class func ceSoir() -> UIColor {
         return UIColor(red: 0.6196078431, green: 0.4352941176, blue: 0.6117647059, alpha: 1.0000000000);
     }
@@ -228,7 +213,6 @@ extension UIColor {
      name: Romance
      hex: #FFFFFE
      **/
-    
     public class func romance() -> UIColor {
         return UIColor(red: 1.0000000000, green: 1.0000000000, blue: 0.9960784314, alpha: 1.0000000000);
     }
@@ -237,7 +221,6 @@ extension UIColor {
      name: Zanah
      hex: #DBEBD4
      **/
-    
     public class func zanah() -> UIColor {
         return UIColor(red: 0.8588235294, green: 0.9215686275, blue: 0.8313725490, alpha: 1.0000000000);
     }
@@ -246,7 +229,6 @@ extension UIColor {
      name: Spanish Green
      hex: #899E7F
      **/
-    
     public class func spanishGreen() -> UIColor {
         return UIColor(red: 0.5372549020, green: 0.6196078431, blue: 0.4980392157, alpha: 1.0000000000);
     }
@@ -255,9 +237,12 @@ extension UIColor {
      name: Timber Green
      hex: #343C35
      **/
-    
     public class func timberGreen() -> UIColor {
         return UIColor(red: 0.2039215686, green: 0.2352941176, blue: 0.2078431373, alpha: 1.0000000000);
+    }
+    
+    public class func timberGreenAlpha50() -> UIColor {
+        return UIColor(red: 0.2039215686, green: 0.2352941176, blue: 0.2078431373, alpha: 0.5000000000);
     }
     
 }

@@ -26,6 +26,7 @@ class LoginView: UIView {
     
     private lazy var loginValidator = LoginValidator()
     
+    private let gradientLayer = CAGradientLayer()
     //MARK: - IBOutlets
     
     @IBOutlet weak var titleView: UIView!
@@ -59,8 +60,6 @@ class LoginView: UIView {
         successClosure success:() -> Void,
         alertPresentationClosure alertPresentation: AlertPresentation) {
         
-        backgroundColor = Theme03.loginScreenBGColor
-
         presentErrorAlert = alertPresentation
         
         loginValidator.configure(
@@ -68,6 +67,7 @@ class LoginView: UIView {
             loginSuccessClosure: success,
             alertPresentationClosure: alertPresentation)
         
+        configureBackground()
         configureTitleView()
         configureLabels()
         configureTextFields()
@@ -76,6 +76,20 @@ class LoginView: UIView {
         checkForLoggedIntoFacebook()
         
         titleViewAnimation()
+    }
+    
+    private func configureBackground() {
+        backgroundColor = Theme03.loginScreenBGColor
+
+        gradientLayer.frame = bounds
+        
+        let color1 = UIColor.clearColor().CGColor
+        let color2 = Theme03.loginScreenBGGradient.CGColor
+        
+        gradientLayer.colors = [color1, color2]
+        gradientLayer.locations = [0.6, 1.0]
+        
+        layer.insertSublayer(gradientLayer, atIndex: 0)
     }
     
     private func configureTitleView() {
