@@ -11,6 +11,7 @@ final class OverlayPresentationController: UIPresentationController {
     private var dimmingBGColor: UIColor!
     private var contentSize: CGSize!
     private var tapToDismiss = false
+    private var presentationComplete: (() -> Void)?
     private var dismissalCompletion: (() -> Void)?
     
     //MARK: - View Lifecycle
@@ -73,7 +74,9 @@ final class OverlayPresentationController: UIPresentationController {
 //            if self!.doFadeInAlpha! {
 //                self!.presentedViewController.view.alpha = 1.0
 //            }
-        }, completion: nil)
+            }, completion: { [weak self] in
+                self!.presentationComplete?()
+            })
         
     }
     

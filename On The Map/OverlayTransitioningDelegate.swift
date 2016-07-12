@@ -5,9 +5,6 @@
 import UIKit
 
 //TODO: Remove  Dimmable when done getting this working
-enum DirectionCP {
-    case Up, Down, Left, Right, UpZ, DownZ
-}
 
 enum Position {
     case Top, Bottom, Left, Right, Center
@@ -15,47 +12,82 @@ enum Position {
 
 final class OverlayTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
     
+    /** OverlayPresentationController **/
     private var preferredContentSize: CGSize!
-    private var cornerRadius: CGFloat!
     private var dimmingBGColor: UIColor!
-    private var fadeInAlpha = true
     private var tapToDismiss = false
-    
-    private var inFromPosition: Position!
-    private var inDirection: DirectionCP? /** Could be coming upZ or downZ */
-    private var outToPosition: Position!
-    private var outDirection: DirectionCP? /** Could be leaving upZ or downZ */
-    
+    private var presentationCompletion: (() -> Void)?
     private var dismissalCompletion: (() -> Void)?
+    
+    /** TransitionInAnimator **/
+    private var durationIn: Double!
+    private var fromPosition: Position!
+    private var useScaleIn = false
+    private var cornerRadius: CGFloat!
+    private var shadowColor: UIColor?
+    private var fadeInAlpha = false
+    private var springDampening: CGFloat!
+    private var springVelocity: CGFloat!
+    
+    /** TransitionOutAnimator **/
+    private var durationOut: Double!
+    private var outToPosition: Position!
+    private var useScaleOut: Bool = false
+    private var fadeOutAlpha: Bool = false
+    
     
     private override init() {
         super.init()
     }
     
     required convenience init(
+        /** OverlayPresentationController **/
         withPreferredContentSize contentSize: CGSize,
+        dimmingBGColor bgColor: UIColor                     = UIColor(white: 0.0, alpha: 0.5),
+        tapBackgroundToDismiss tap: Bool                    = false,
+        presentationCompletion inComplete: (() -> Void)?    = nil,
+        dismissalCompletion outComplete: (() -> Void)?      = nil,
+                            
+        /** TransitionInAnimator **/
+        durationIn timeIn: Double           = 0.5,
+        fromPosition inFrom: Position       = .Bottom,
+        useScaleIn scaleIn: Bool            = false,
         cornerRadius corners: CGFloat       = 0.0,
-        dimmingBGColor bgColor: UIColor     = UIColor(white: 0.0, alpha: 0.5),
-        fadeInAlpha fadeIn: Bool            = true,
-        tapToDismiss tap: Bool              = false,
-        inFromPosition inFrom: Position     = .Top,
-        inDirection inDir: DirectionCP?     = nil,
-        outToPosition outTo: Position       = .Bottom,
-        outDirection outDir: DirectionCP?   = nil,
-        dismissalCompletion outComplete: (() -> Void)?  = nil) {
+        shadowColor shadow: UIColor?        = nil,
+        fadeInAlpha fadeIn: Bool            = false,
+        springDampening dampening: CGFloat  = 1.0,
+        springVelocity velocity: CGFloat    = 0.0,
+        
+        /** TransitionOutAnimator **/
+        durationOut timeOut: Double     = 0.5,
+        outToPosition outTo: Position   = .Bottom,
+        useScaleOut scaleOut: Bool      = false,
+        fadeOutAlpha fadeOut: Bool      = false) {
         
         self.init()
         
+        /** OverlayPresentationController **/
         preferredContentSize    = contentSize
-        cornerRadius            = corners
         dimmingBGColor          = bgColor
-        fadeInAlpha             = fadeIn
         tapToDismiss            = tap
-        inFromPosition          = inFrom
-        inDirection             = inDir
-        outToPosition           = outTo
-        outDirection            = outDir
+        presentationCompletion  = inComplete
         dismissalCompletion     = outComplete
+        
+        /** TransitionInAnimator **/
+        durationIn      = timeIn
+        fromPosition    = inFrom
+        useScaleIn      = scaleIn
+        cornerRadius    = corners
+        shadowColor     = shadow
+        fadeInAlpha     = fadeIn
+        springDampening = dampening
+        springVelocity  = velocity
+        
+        /** TransitionOutAnimator **/
+        durationOut     = timeOut
+        outToPosition   = outTo
+        useScaleOut     = scaleOut
+        fadeOutAlpha    = fadeOut
     }
     
     func presentationControllerForPresentedViewController(
@@ -77,14 +109,34 @@ final class OverlayTransitioningDelegate: NSObject, UIViewControllerTransitionin
         presentingController presenting: UIViewController,
         sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         
-        return TransitionInAnimator(withDuration: 0.3, cornerRadius: cornerRadius, shadowColor: nil, fadeInAlpha: fadeInAlpha, springDampening: 0.5, springVelocity: 10.0)
-//        return BouncyViewControllerAnimator(withFromPosition: inFromPosition)
+        return TransitionInAnimator(
+            withDuration: durationIn,
+            fromPosition: fromPosition,
+            useScale: useScaleIn,
+            cornerRadius: cornerRadius,
+            shadowColor: shadowColor,
+            fadeInAlpha: fadeInAlpha,
+            springDampening: springDampening,
+            springVelocity: springVelocity)
     }
   
     func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return TransitionOutAnimator(/*withToPosition: .Bottom*/)
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

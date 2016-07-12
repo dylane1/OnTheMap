@@ -8,71 +8,21 @@
 
 import UIKit
 
-/**
- This is very informative:
- http://ericasadun.com/2015/10/19/sets-vs-dictionaries-smackdown-in-swiftlang/
-
- I was hoping to implement a dictionary of options like the NSAttributedString
- attribute dictionary.
- 
- Unfortunately as of 2016-07-12 I haven't figured out how to use this correctly
- and I need to finish the project. I'll need to come back to it later.
-**/
-//enum TransitionInOptions: String {
-//    case TransitionInFromPosition
-//    case TransitionInUseScale
-//    case TransitionInCornerRadius
-//    case TransitionInShadowColor
-//    case TransitionInFadeInAlpha
-//    case TransitionInSpringDampening
-//    case TransitionInSpringVelocity
-//}
-//enum TransitionInOptions {
-//    case TransitionInFromPosition(Position)
-//    case TransitionInUseScale(Bool)
-//    case TransitionInCornerRadius(CGFloat)
-//    case TransitionInShadowColor(UIColor)
-//    case TransitionInFadeInAlpha(Bool)
-//    case TransitionInSpringDampening(CGFloat)
-//    case TransitionInSpringVelocity(CGFloat)
-//}
-//
-//extension TransitionInOptions: Hashable, Equatable {
-//    var hashValue: Int {
-//        switch self {
-//        case .TransitionInFromPosition: return 1
-//        case .TransitionInUseScale: return 2
-//        case .TransitionInCornerRadius: return 3
-//        case .TransitionInShadowColor: return 4
-//        case .TransitionInFadeInAlpha: return 5
-//        case .TransitionInSpringDampening: return 6
-//        case .TransitionInSpringVelocity: return 7
-//        }
-//    }
-//}
-//func ==(lhs: TransitionInOptions, rhs: TransitionInOptions) -> Bool {
-//    return lhs.hashValue == rhs.hashValue
-//}
-
 final class TransitionInAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     
     /** 
-     Making default behavior in from bottom like Apple does
+     Making default behavior in from bottom, with no bounce
      **/
     
     /// Required
     private var duration: Double!
     
     /// Optional
-    
-//    private var transitionOptions: Set<TransitionInOptions>?
-//    private var transitionOptions: [String : AnyObject]?
-    
-    private var fromPosition: Position?
-    private var useScale: Bool!
+    private var fromPosition: Position!
+    private var useScale = false
     private var cornerRadius: CGFloat!
     private var shadowColor: UIColor?
-    private var fadeInAlpha: Bool!
+    private var fadeInAlpha = false
     private var springDampening: CGFloat!
     private var springVelocity: CGFloat!
     
@@ -88,15 +38,13 @@ final class TransitionInAnimator: NSObject, UIViewControllerAnimatedTransitionin
         cornerRadius corners: CGFloat       = 0.0,
         shadowColor shadow: UIColor?        = nil,
         fadeInAlpha alpha: Bool             = false,
-        springDampening dampening: CGFloat  = 0.0,
+        springDampening dampening: CGFloat  = 1.0,
         springVelocity velocity: CGFloat    = 0.0) {
         
         self.init()
         
         duration        = time
-        
-//        transitionOptions = [.TransitionInFromPosition : .Bottom ]
-        
+        fromPosition    = position
         useScale        = scale
         cornerRadius    = corners
         shadowColor     = shadow
@@ -110,50 +58,87 @@ final class TransitionInAnimator: NSObject, UIViewControllerAnimatedTransitionin
     }
     
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)! as UIViewController
+        let presentedViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)! as UIViewController
+        let presentedView = presentedViewController.view
         let containerView = transitionContext.containerView()
         
         let animationDuration = self .transitionDuration(transitionContext)
         
-        toViewController.view.transform = CGAffineTransformMakeScale(0.1, 0.1)
+        let center = presentedView.center
+        let destinationCenter = center
         
-//        if fromPosition != nil {
-//            let center = presentedView.center
-//            switch fromPosition! {
-//            case .Top:
-//                presentedView.center = CGPointMake(center.x, -presentedView.bounds.size.height)
-//            case .Bottom:
-//                presentedView.center = CGPointMake(center.x, +presentedView.bounds.size.height)
-//            case .Left:
-//                presentedView.center = CGPointMake(center.y, -presentedView.bounds.size.width)
-//            case .Right:
-//                presentedView.center = CGPointMake(center.y, +presentedView.bounds.size.width)
-//            default: /** Center */
-//                break
-//            }
-//        }
-        
-        
-        if shadowColor != nil {
-            toViewController.view.layer.shadowColor = UIColor.blackColor().CGColor
-            toViewController.view.layer.shadowOffset = CGSizeMake(0.0, 2.0)
-            toViewController.view.layer.shadowOpacity = 0.3
+        if fromPosition != .Center {
+            switch fromPosition! {
+            case .Top:
+                presentedView.center = CGPointMake(center.x, -presentedView.bounds.size.height)
+            case .Bottom:
+                presentedView.center = CGPointMake(center.x, +presentedView.bounds.size.height)
+            case .Left:
+                presentedView.center = CGPointMake(center.y, -presentedView.bounds.size.width)
+            case .Right:
+                presentedView.center = CGPointMake(center.y, +presentedView.bounds.size.width)
+            default: /** Center */
+                break
+            }
         }
         
-        toViewController.view.layer.cornerRadius = cornerRadius
-        toViewController.view.clipsToBounds = true
+        if useScale {
+            presentedView.transform = CGAffineTransformMakeScale(0.1, 0.1)
+        }
+
+        if fadeInAlpha {
+            presentedView.alpha = 0.1
+        }
         
-        containerView!.addSubview(toViewController.view)
+        if shadowColor != nil {
+            presentedView.layer.shadowColor     = shadowColor!.CGColor
+            presentedView.layer.shadowOffset    = CGSizeMake(4.0, 4.0)
+            presentedView.layer.shadowOpacity   = 0.6
+            presentedView.layer.shadowRadius    = 15
+        }
         
-        UIView.animateWithDuration(animationDuration,
-                                   delay: 0,
-                                   usingSpringWithDamping: springDampening,
-                                   initialSpringVelocity: springVelocity,
-                                   options: [],
-                                   animations: { () -> Void in
-            toViewController.view.transform = CGAffineTransformIdentity
+        presentedView.layer.cornerRadius = cornerRadius
+        presentedView.clipsToBounds = true
+        
+        containerView!.addSubview(presentedView)
+        
+        UIView.animateWithDuration(
+            animationDuration,
+            delay: 0,
+            usingSpringWithDamping: springDampening,
+            initialSpringVelocity: springVelocity,
+            options: [],
+            animations: { () -> Void in
+                presentedView.transform = CGAffineTransformIdentity
+                presentedView.alpha     = 1.0
+                presentedView.center    = destinationCenter
             }, completion: { (finished) -> Void in
                 transitionContext.completeTransition(finished)
         })
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
