@@ -14,6 +14,7 @@ struct Constants {
         static let main                         = "Main"
         static let loginVC                      = "loginVC"
         static let primaryActivityIndicatorVC   = "primaryActivityIndicatorVC"
+        static let mapPresentationVC            = "mapPresentationVC"
         static let infoPostingNavController     = "infoPostingNavController"
         static let infoPostingVC                = "infoPostingVC"
     }

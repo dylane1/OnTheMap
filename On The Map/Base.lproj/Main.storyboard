@@ -76,7 +76,6 @@
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zYL-5L-bBQ">
                                             <rect key="frame" x="0.0" y="0.0" width="48" height="58"/>
-                                            <state key="normal" title="Button"/>
                                             <connections>
                                                 <action selector="showLocationAction:" destination="KRo-jc-0dD" eventType="touchUpInside" id="Q9j-eS-fdw"/>
                                             </connections>
@@ -113,18 +112,15 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="EJn-pf-rjE"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
-                    <connections>
-                        <segue destination="eiV-TO-wEi" kind="show" identifier="seg_locationDetail" id="Ogu-Kt-mi7"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DLU-UI-cxk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1242" y="360"/>
         </scene>
-        <!--Map Presenting View Controller-->
+        <!--Map Container View Controller-->
         <scene sceneID="pFL-Zp-7rS">
             <objects>
-                <viewController id="ZBv-a4-lZc" customClass="MapPresentingViewController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="mapPresentationVC" id="ZBv-a4-lZc" customClass="MapContainerViewController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="C5g-c9-vu4"/>
                         <viewControllerLayoutGuide type="bottom" id="Q5y-gI-flw"/>
@@ -132,32 +128,37 @@
                     <view key="view" contentMode="scaleToFill" id="jmG-Fs-Pv4">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GOd-DK-OR9">
+                                <rect key="frame" x="0.0" y="28" width="320" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="O49-fV-so7">
+                                <rect key="frame" x="0.0" y="57" width="320" height="423"/>
+                            </mapView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="O49-fV-so7" secondAttribute="trailing" id="5Vq-9n-tgD"/>
+                            <constraint firstItem="O49-fV-so7" firstAttribute="leading" secondItem="jmG-Fs-Pv4" secondAttribute="leading" id="AMd-l4-aDQ"/>
+                            <constraint firstItem="Q5y-gI-flw" firstAttribute="top" secondItem="O49-fV-so7" secondAttribute="bottom" priority="750" id="IlE-EC-TV2"/>
+                            <constraint firstItem="O49-fV-so7" firstAttribute="top" secondItem="GOd-DK-OR9" secondAttribute="bottom" constant="8" id="J8P-vP-6lE"/>
+                            <constraint firstItem="GOd-DK-OR9" firstAttribute="leading" secondItem="jmG-Fs-Pv4" secondAttribute="leading" id="cV7-A4-3Bd"/>
+                            <constraint firstAttribute="trailing" secondItem="GOd-DK-OR9" secondAttribute="trailing" id="jzI-mK-rHS"/>
+                            <constraint firstItem="GOd-DK-OR9" firstAttribute="top" secondItem="C5g-c9-vu4" secondAttribute="bottom" constant="8" id="tlQ-Eg-WzN"/>
+                        </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="locationLabel" destination="GOd-DK-OR9" id="O02-kQ-kJn"/>
+                        <outlet property="mapView" destination="O49-fV-so7" id="FGF-ib-DqG"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bN7-FW-ATC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1659" y="645"/>
-        </scene>
-        <!--Location Detail-->
-        <scene sceneID="sGN-HZ-3fV">
-            <objects>
-                <viewController title="Location Detail" id="eiV-TO-wEi" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="rXf-bT-OFq"/>
-                        <viewControllerLayoutGuide type="bottom" id="Huy-uW-ae3"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="LpE-Wx-uZO">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cdO-kO-Tr7" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1831" y="-19"/>
+            <point key="canvasLocation" x="1722" y="365"/>
         </scene>
         <!--Login-->
         <scene sceneID="rZb-QY-fyL">

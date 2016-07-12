@@ -9,6 +9,9 @@
 import UIKit
 
 class StudentLocationTableViewCell: UITableViewCell /*, NibLoadableView*/ {
+    
+    private var presentMapViewController: ((locationName: String, latitude: Double, longitude: Double) -> Void)!
+    
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var subtitleLabel: UILabel!
     @IBOutlet private weak var iconImageView: UIImageView!
@@ -25,14 +28,16 @@ class StudentLocationTableViewCell: UITableViewCell /*, NibLoadableView*/ {
     //MARK: - Actions
     
     @IBAction func showLocationAction(sender: AnyObject) {
-        magic(dataSource.studentInformation.firstName)
+        presentMapViewController?(locationName: dataSource.studentInformation.mapString, latitude: dataSource.studentInformation.latitude, longitude: dataSource.studentInformation.longitude)
     }
     
     //MARK: - Configuration
     
-    internal func configure(withDataSource dataSource: StudentLocationCellDataSource) {
-        self.dataSource = dataSource
-        backgroundColor = UIColor.clearColor()
+    internal func configure(withDataSource dataSource: StudentLocationCellDataSource, presentMapViewController: (locationName: String, latitude: Double, longitude: Double) -> Void) {
+        
+        self.dataSource                 = dataSource
+        self.presentMapViewController   = presentMapViewController
+        backgroundColor                 = UIColor.clearColor()
         configureImageView()
         configureLabels()
         configureCell()
@@ -41,7 +46,6 @@ class StudentLocationTableViewCell: UITableViewCell /*, NibLoadableView*/ {
     private func configureImageView() {
         iconImageView.backgroundColor = UIColor.clearColor()
         iconImageView.image = dataSource.image
-        magic("icon image: \(iconImageView.image)")
     }
     
     private func configureLabels() {

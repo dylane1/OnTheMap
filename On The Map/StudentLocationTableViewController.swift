@@ -10,6 +10,10 @@ import UIKit
 
 final class StudentLocationTableViewController: UITableViewController, MapAndTableNavigationProtocol, StudentInformationGettable, InformationPostingPresentable, SafariViewControllerPresentable, AlertPresentable, ActivityIndicatorPresentable {
     
+    private var presentMapViewController: ((locationName: String, latitude: Double, longitude: Double) -> Void)!
+    private var overlayTransitioningDelegate: OverlayTransitioningDelegate!
+    private var mapViewController: MapContainerViewController?
+    
     private let studentInformationProvider = StudentInformationProvider.sharedInstance
     
     private var tabBar: TabBarController!
@@ -61,6 +65,12 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
             sessionLogoutController: sessionLogoutController)
         
         locationMarker = iconProvider.imageOfDrawnIcon(.LocationMarker, size: CGSize(width: 40, height: 43), fillColor: Theme03.locationMarker)
+        
+        presentMapViewController = { [weak self] (locationName: String, latitude: Double, longitude: Double) in
+            
+            self!.openMapViewController(withLocationName: locationName, latitude: latitude, longitude: longitude)
+            
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -77,44 +87,35 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
         /// StudentInformationGettable
         performFetchWithCompletion(completion)
     }
-    /*
-    private func openNewIntervalSetupViewController(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion: nil)//Close any popovers
+    
+    private func openMapViewController(withLocationName name: String, latitude: Double, longitude: Double) {
         
-        /* User figured it out, kill the Help Prompt countdown */
-        if helpPromptCountdownEngine != nil { killCountdownEngine() }
+        mapViewController = UIStoryboard(name: Constants.StoryBoardID.main, bundle: nil).instantiateViewControllerWithIdentifier(Constants.StoryBoardID.mapPresentationVC) as? MapContainerViewController
         
-        newIntervalSetupVC = UIStoryboard(name: StoryBoardIDs.sb_Main, bundle: nil).instantiateViewControllerWithIdentifier(StoryBoardIDs.sb_newIntervalSetupVC) as? NewIntervalSetupViewController
+        mapViewController!.configure(withLocationName: name, latitude: latitude, longitude: longitude)
         
-        //        newIntervalSetupVC!.preferredContentSize = CGSizeMake(310, 310)
+        let width = self.view.frame.width - 40
+        let height = width
+        let mapVCPreferredContentSize = CGSizeMake(width, height)
         
-        newIntervalSetupVC!.titleTextFieldPlaceholder = LocalizedStrings.Common.anInterval //"\(LocalizedStrings.Common.interval) \(intervalArray.count + 1)"
-        
-        newIntervalSetupVC!.didFinish = { [weak self] (controller, newObjectArray: [AnyObject]) in
-            self!.addNewTimerIntervals(newObjectArray as! [TimerInterval])
-            self!.toggleWelcomeText()
-            
-            self!.dismissViewControllerAnimated(true, completion: {
-                self!.newIntervalSetupVC = nil
-            })
-            
+        let dismissalCompletion = { [weak self] in
+            self!.mapViewController = nil
         }
         
-        newIntervalSetupVC!.didCancel = { [weak self] controller in
-            self!.dismissViewControllerAnimated(true, completion: {
-                self!.newIntervalSetupVC = nil
-            })
-        }
+        overlayTransitioningDelegate = OverlayTransitioningDelegate(
+            withPreferredContentSize: mapVCPreferredContentSize,
+            cornerRadius: 0.0,
+            dimmingBGColor: Theme03.mapPresentationDimView,
+            fadeInAlpha: true,
+            tapToDismiss: true,
+            dismissalCompletion: dismissalCompletion)
         
-        //        prepareOverlayVC(newIntervalSetupVC!)
-        overlayTransitioningDelegate = OverlayTransitioningDelegate(withPreferredContentSize: CGSizeMake(310, 310), cornerRadius: 12.0, dimmingBGColor: UIColor(white: 0.0, alpha: 0.5), doFadeInAlpha: true)
+        mapViewController!.transitioningDelegate = overlayTransitioningDelegate
+        mapViewController!.modalPresentationStyle = .Custom
         
-        newIntervalSetupVC!.transitioningDelegate = overlayTransitioningDelegate
-        newIntervalSetupVC!.modalPresentationStyle = .Custom
-        
-        presentViewController(newIntervalSetupVC!, animated: true, completion: nil)
+        presentViewController(mapViewController!, animated: true, completion: nil)
     }
-    */
+    
 }
 
 //MARK: - Table View Data Source
@@ -133,7 +134,7 @@ extension StudentLocationTableViewController {
 
         let model = StudentLocationCellModel(image: locationMarker, studentInformation: studentInformationProvider.studentInformationArray![indexPath.row])
         
-        cell.configure(withDataSource: model)
+        cell.configure(withDataSource: model, presentMapViewController: presentMapViewController)
         
         return cell
     }

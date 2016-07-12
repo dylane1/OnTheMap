@@ -52,7 +52,7 @@ struct Theme03 {
     /// Tab Bar / Navigation Bar
     static let barTintColor = UIColor.spanishGreen()
     static let tabBarItemUnselected = UIColor.timberGreen()
-
+    static let mapPresentationDimView = UIColor.timberGreenAlpha50()
     
     /// Map View
     

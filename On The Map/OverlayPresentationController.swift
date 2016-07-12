@@ -7,53 +7,72 @@ import UIKit
 
 final class OverlayPresentationController: UIPresentationController {
     
-    private let dimmingView = UIView()
-    
+    private var dimmingView: UIView!
     private var dimmingBGColor: UIColor!
-    private var doFadeInAlpha:  Bool!
-    private var contentSize:    CGSize! //WTF? why can't I set preferredContentSized? THis isn't a UIViewController!
+    private var contentSize: CGSize!
+    private var tapToDismiss = false
+    private var dismissalCompletion: (() -> Void)?
     
-    private override init(
-        presentedViewController:    UIViewController,
-        presentingViewController:   UIViewController)
-    {
+    //MARK: - View Lifecycle
+    
+    private override init( presentedViewController: UIViewController, presentingViewController: UIViewController) {
         super.init(presentedViewController: presentedViewController, presentingViewController: presentingViewController)
+        
 //        println(" ----------------------------> \(self.description) is initialized init(coder)")
     }
-//    deinit { println("\(self.description) is being deinitialized   <----------------") }
+    deinit { magic("\(self.description) is being deinitialized   <----------------") }
     
     required convenience init(
-        presentedViewController:    UIViewController,
-        presentingViewController:   UIViewController,
-        cornerRadius:               CGFloat,
-        preferredContentSize:       CGSize,
-        dimmingBGColor:             UIColor = UIColor(white: 0.0, alpha: 0.5),
-        doFadeInAlpha:              Bool    = true)
-    {
-        self.init(presentedViewController: presentedViewController,presentingViewController: presentingViewController)
+        presentedViewController: UIViewController,
+        presentingViewController: UIViewController,
+        preferredContentSize: CGSize,
+        dimmingBGColor bgColor: UIColor = UIColor(white: 0.0, alpha: 0.5),
+        tapToDismiss tap: Bool = false,
+        dismissalCompletion completion: (() -> Void)? = nil) {
         
-        presentedViewController.view.cornerRadius   = CGFloat(cornerRadius)
-        self.contentSize                            = preferredContentSize
-        self.dimmingView.backgroundColor            = dimmingBGColor
-        self.doFadeInAlpha                          = doFadeInAlpha
+        self.init(presentedViewController: presentedViewController, presentingViewController: presentingViewController)
+
+        contentSize         = preferredContentSize
+        dimmingBGColor      = bgColor
+        dismissalCompletion = completion
+        tapToDismiss        = tap
+    }
+    
+    //MARK: - Configuration
+    
+    func setupDimmingView() {
+        dimmingView = UIView()
+        
+        dimmingView.backgroundColor = dimmingBGColor
+        dimmingView.alpha           = 0.0
+        dimmingView.frame           = containerView!.bounds
+
+        if tapToDismiss {
+            let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(OverlayPresentationController.dimmingViewTapped(_:)))
+            dimmingView.addGestureRecognizer(tapRecognizer)
+        }
+    }
+    
+    func dimmingViewTapped(tapRecognizer: UITapGestureRecognizer) {
+        presentingViewController.dismissViewControllerAnimated(true, completion: nil)
     }
     
     override func presentationTransitionWillBegin() {
-        dimmingView.frame = containerView!.bounds
-        dimmingView.alpha = 0.0
-        if doFadeInAlpha! {
-            presentedViewController.view.alpha = 0.0
-        }
-//        magic("presentedViewController: \(presentedViewController)")
+        setupDimmingView()
+        
+        
+//        if doFadeInAlpha! {
+//            presentedViewController.view.alpha = 0.0
+//        }
+
         presentedViewController.preferredContentSize = contentSize
         containerView!.insertSubview(dimmingView, atIndex: 0)
         
-        //TODO: WTF is 'context' in here? Why is it here?
         presentedViewController.transitionCoordinator()?.animateAlongsideTransition( { [weak self] context in
             self!.dimmingView.alpha = 1.0
-            if self!.doFadeInAlpha! {
-                self!.presentedViewController.view.alpha = 1.0
-            }
+//            if self!.doFadeInAlpha! {
+//                self!.presentedViewController.view.alpha = 1.0
+//            }
         }, completion: nil)
         
     }
@@ -63,6 +82,7 @@ final class OverlayPresentationController: UIPresentationController {
             self!.dimmingView.alpha = 0.0
         }, completion: { [weak self] context in
             self!.dimmingView.removeFromSuperview()
+            self!.dismissalCompletion?()
         })
     }
     
