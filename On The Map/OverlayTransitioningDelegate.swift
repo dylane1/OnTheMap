@@ -9,6 +9,18 @@ import UIKit
 enum Position {
     case Top, Bottom, Left, Right, Center
 }
+//TODO: Implement options dictionary ease initiation parameters
+
+//enum TransitionInOptions: String {
+//    case TransitionInFromPosition
+//    case TransitionInUseScale
+//    case TransitionInCornerRadius
+//    case TransitionInShadowColor
+//    case TransitionInFadeInAlpha
+//    case TransitionInSpringDampening
+//    case TransitionInSpringVelocity
+//}
+
 
 final class OverlayTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
     

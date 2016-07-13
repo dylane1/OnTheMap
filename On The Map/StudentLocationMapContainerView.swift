@@ -13,12 +13,14 @@ class StudentLocationMapContainerView: UIView {
 
     @IBOutlet weak var mapView: MKMapView!
     
+    /// Use a preloaded image until map is renedered so user doesn't see empty screen
+    @IBOutlet weak var preloadedMapImage: UIImageView!
+    private var mapRendered = false
+    
     private var studentInformationArray = [StudentInformation]()
     private var annotations = [StudentLocationAnnotation]()
     
     private var openLinkClosure: OpenLinkClosure?
-    
-    private var mapRendered = false
     
     //MARK: - Configuration
     
@@ -29,11 +31,23 @@ class StudentLocationMapContainerView: UIView {
         studentInformationArray = array
         openLinkClosure         = closure
         
+        configureMapImage()
         /// clear for refresh
         clearAnnotations()
         
-        if mapRendered { placeAnnotations(withStudentInformationArray: array) }
+        if mapRendered {
+            placeAnnotations(withStudentInformationArray: array)
+        }
     }
+    
+    private func configureMapImage() {
+        preloadedMapImage.alpha = 0.0
+        
+        if !mapRendered {
+            /// Need to determine map size & load correct image accordingly
+        }
+    }
+    
     
     //MARK: - Map View
     
@@ -58,7 +72,8 @@ extension StudentLocationMapContainerView: MKMapViewDelegate {
     
     func mapViewDidFinishRenderingMap(mapView: MKMapView, fullyRendered: Bool) {
         mapRendered = true
-        placeAnnotations(withStudentInformationArray: studentInformationArray)
+        configureMapImage()
+        //placeAnnotations(withStudentInformationArray: studentInformationArray)
 //        if urlTextField.alpha == 0 && placemarks != nil {
 //            animateURLTextFieldIntoView()
 //        }

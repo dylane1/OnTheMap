@@ -41,13 +41,7 @@ class StudentLocationTableViewCell: UITableViewCell /*, NibLoadableView*/ {
         
         configureLabels()
         configureLocationButton()
-        configureCell()
     }
-    
-//    private func configureImageView() {
-//        iconImageView.backgroundColor = UIColor.clearColor()
-//        iconImageView.image = dataSource.image
-//    }
     
     private func configureLabels() {
         /// Title label
@@ -75,21 +69,6 @@ class StudentLocationTableViewCell: UITableViewCell /*, NibLoadableView*/ {
          Show URLs that won't open in Safari in a red color & Set disclosure
          indicator color to disabled state
         */
-        /**
-         let pinButton   = UIButton(type: .System)
-         pinButton.frame    = CGRectMake(0, 0, 44, 44)
-         pinButton.addTarget(self, action: #selector(addButtonTapped), forControlEvents: UIControlEvents.TouchUpInside)
-         
-         let iconProvider = IconProvider()
-         let pinImage = iconProvider.imageOfDrawnIcon(.Pin, size: CGSize(width: 32, height: 32), fillColor: Theme03.tabBarItemUnselected)
-         
-         pinButton.setImage(pinImage, forState: .Normal)
-         
-         
-         cell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"accessory.png"]];
- */
-        //
-        
         let iconProvider = IconProvider()
     
         let disclosureIndicatorImage: UIImage!
@@ -121,9 +100,6 @@ class StudentLocationTableViewCell: UITableViewCell /*, NibLoadableView*/ {
     private func configureLocationButton() {
         let iconProvider = IconProvider()
         
-//        let locationMarkerImage = iconProvider.imageOfDrawnIcon(.LocationMarker30Point, size: CGSize(width: 30, height: 30), fillColor: Theme03.locationMarker)
-//        
-//        showLocationButton.setImage(locationMarkerImage, forState: .Normal)
         let mapButtonImage = iconProvider.imageOfDrawnIcon(.MapButton, size: CGSize(width: 30, height: 50), fillColor: Theme03.locationMarker)
         
         showLocationButton.setImage(mapButtonImage, forState: .Normal)
@@ -131,54 +107,4 @@ class StudentLocationTableViewCell: UITableViewCell /*, NibLoadableView*/ {
         showLocationButton.setTitle(nil, forState: .Normal)
         showLocationButton.tintColor = Theme03.locationMarker
     }
-    
-    
-    private func configureCell() {
-        
-//        backgroundColor = (isInvalidURL) ? Constants.ColorScheme.lightGrey : UIColor.clearColor()
-    }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

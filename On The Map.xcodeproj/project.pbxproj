@@ -58,6 +58,10 @@
 		A3BCA31D1D34677400B02C9A /* TransitionInAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BCA31C1D34677400B02C9A /* TransitionInAnimator.swift */; };
 		A3BCA31F1D35ED1E00B02C9A /* DisclosureIndicatorDrawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BCA31E1D35ED1E00B02C9A /* DisclosureIndicatorDrawable.swift */; };
 		A3BCA3211D36A3AD00B02C9A /* MapButtonDrawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BCA3201D36A3AD00B02C9A /* MapButtonDrawable.swift */; };
+		A3C7DD2D1D36C05B00904461 /* Map_iPhone4s.png in Resources */ = {isa = PBXBuildFile; fileRef = A3C7DD291D36C05B00904461 /* Map_iPhone4s.png */; };
+		A3C7DD2E1D36C05B00904461 /* Map_iPhone5.png in Resources */ = {isa = PBXBuildFile; fileRef = A3C7DD2A1D36C05B00904461 /* Map_iPhone5.png */; };
+		A3C7DD2F1D36C05B00904461 /* Map_iPhone6.png in Resources */ = {isa = PBXBuildFile; fileRef = A3C7DD2B1D36C05B00904461 /* Map_iPhone6.png */; };
+		A3C7DD301D36C05B00904461 /* Map_iPhone6Plus.png in Resources */ = {isa = PBXBuildFile; fileRef = A3C7DD2C1D36C05B00904461 /* Map_iPhone6Plus.png */; };
 		A3D909EC1D245467006315E5 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D909EB1D245467006315E5 /* Reachability.swift */; };
 		A3E8C8C61CED078A0040770A /* Magic.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8C8C51CED078A0040770A /* Magic.swift */; };
 		A3E8C8C81CED0CB30040770A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8C8C71CED0CB30040770A /* Constants.swift */; };
@@ -126,6 +130,10 @@
 		A3BCA31C1D34677400B02C9A /* TransitionInAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionInAnimator.swift; sourceTree = "<group>"; };
 		A3BCA31E1D35ED1E00B02C9A /* DisclosureIndicatorDrawable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisclosureIndicatorDrawable.swift; sourceTree = "<group>"; };
 		A3BCA3201D36A3AD00B02C9A /* MapButtonDrawable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapButtonDrawable.swift; sourceTree = "<group>"; };
+		A3C7DD291D36C05B00904461 /* Map_iPhone4s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Map_iPhone4s.png; sourceTree = "<group>"; };
+		A3C7DD2A1D36C05B00904461 /* Map_iPhone5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Map_iPhone5.png; sourceTree = "<group>"; };
+		A3C7DD2B1D36C05B00904461 /* Map_iPhone6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Map_iPhone6.png; sourceTree = "<group>"; };
+		A3C7DD2C1D36C05B00904461 /* Map_iPhone6Plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Map_iPhone6Plus.png; sourceTree = "<group>"; };
 		A3D909EB1D245467006315E5 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		A3E8C8C51CED078A0040770A /* Magic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Magic.swift; path = Magic/Magic.swift; sourceTree = "<group>"; };
 		A3E8C8C71CED0CB30040770A /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -293,6 +301,7 @@
 				A3816D201D08E7EB001B55A0 /* Map And Table VCs */,
 				A3816D291D09DC02001B55A0 /* Information Posting */,
 				A39CF5A31CCAB1390060C890 /* Main.storyboard */,
+				A3C7DD281D36C05B00904461 /* Images */,
 				A39CF5A61CCAB1390060C890 /* Assets.xcassets */,
 				A39CF5A81CCAB1390060C890 /* LaunchScreen.storyboard */,
 				A39CF5AB1CCAB1390060C890 /* Info.plist */,
@@ -322,6 +331,17 @@
 				A3BCA31A1D34663E00B02C9A /* TransitionOutAnimator.swift */,
 			);
 			name = "Custom Presentation";
+			sourceTree = "<group>";
+		};
+		A3C7DD281D36C05B00904461 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				A3C7DD291D36C05B00904461 /* Map_iPhone4s.png */,
+				A3C7DD2A1D36C05B00904461 /* Map_iPhone5.png */,
+				A3C7DD2B1D36C05B00904461 /* Map_iPhone6.png */,
+				A3C7DD2C1D36C05B00904461 /* Map_iPhone6Plus.png */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 		A3E8C8D31CED10040040770A /* Utilities */ = {
@@ -405,8 +425,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3C7DD2E1D36C05B00904461 /* Map_iPhone5.png in Resources */,
 				A39CF5AA1CCAB1390060C890 /* LaunchScreen.storyboard in Resources */,
 				A39CF5A71CCAB1390060C890 /* Assets.xcassets in Resources */,
+				A3C7DD301D36C05B00904461 /* Map_iPhone6Plus.png in Resources */,
+				A3C7DD2D1D36C05B00904461 /* Map_iPhone4s.png in Resources */,
+				A3C7DD2F1D36C05B00904461 /* Map_iPhone6.png in Resources */,
 				A39CF5A51CCAB1390060C890 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

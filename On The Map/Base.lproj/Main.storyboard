@@ -21,16 +21,24 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="p3J-G4-HX5">
                                 <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                             </mapView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="b7E-ZO-7p7">
+                                <rect key="frame" x="20" y="84" width="280" height="327"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="p3J-G4-HX5" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="4gk-3B-eFU"/>
+                            <constraint firstAttribute="trailing" secondItem="b7E-ZO-7p7" secondAttribute="trailing" constant="20" id="6uM-jl-XQT"/>
                             <constraint firstAttribute="trailing" secondItem="p3J-G4-HX5" secondAttribute="trailing" id="HL8-VZ-gGV"/>
+                            <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="b7E-ZO-7p7" secondAttribute="bottom" constant="20" id="TVu-02-ixZ"/>
                             <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="p3J-G4-HX5" secondAttribute="bottom" id="dPp-Bl-BsI"/>
+                            <constraint firstItem="b7E-ZO-7p7" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" constant="20" id="kzd-E4-np0"/>
                             <constraint firstItem="p3J-G4-HX5" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" id="q1h-Ae-XTu"/>
+                            <constraint firstItem="b7E-ZO-7p7" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" constant="20" id="sI7-um-IJ8"/>
                         </constraints>
                         <connections>
                             <outlet property="mapView" destination="p3J-G4-HX5" id="dHZ-Zg-Jaq"/>
+                            <outlet property="preloadedMapImage" destination="b7E-ZO-7p7" id="YAE-Nf-cGo"/>
                         </connections>
                     </view>
                     <navigationItem key="navigationItem" id="C12-IS-bZi"/>
