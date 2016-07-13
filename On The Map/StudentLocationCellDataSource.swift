@@ -9,7 +9,6 @@
 import UIKit
 
 protocol StudentLocationCellDataSource {
-    var image: UIImage { get }
     var studentInformation: StudentInformation { get }
     var titleTextAttributes: [String : AnyObject] { get }
     var subtitleTextAttributes: [String : AnyObject] { get }
@@ -31,6 +30,5 @@ extension StudentLocationCellDataSource {
 }
 
 struct StudentLocationCellModel: StudentLocationCellDataSource {
-    var image: UIImage
     var studentInformation: StudentInformation
 }

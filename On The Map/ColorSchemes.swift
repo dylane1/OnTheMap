@@ -60,6 +60,8 @@ struct Theme03 {
     /// Table View
     static let tableViewBGColor = UIColor.romance()
     static let locationMarker = UIColor.ceSoir()
+    static let disclosureIndicatorEnabled = UIColor.ceSoir()
+    static let disclosureIndicatorDisabled = UIColor.mistGray()
     
     /// Location Submit View
     static let locationSubmitScreenBGColor = UIColor.desertStorm()

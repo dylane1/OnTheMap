@@ -104,12 +104,12 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
         
         overlayTransitioningDelegate = OverlayTransitioningDelegate(
             withPreferredContentSize: mapVCPreferredContentSize,
-            tapBackgroundToDismiss: true/*
             dimmingBGColor: Theme03.mapPresentationDimView,
-            cornerRadius: 0.0,
+            cornerRadius: 6.0,
+            shadowColor: Theme03.shadowDark,
             tapBackgroundToDismiss: true,
-            fadeInAlpha: true,
-            dismissalCompletion: dismissalCompletion*/)
+            dismissalCompletion: dismissalCompletion,
+            fadeInAlpha: true)
         
         mapViewController!.transitioningDelegate = overlayTransitioningDelegate
         mapViewController!.modalPresentationStyle = .Custom
@@ -133,7 +133,7 @@ extension StudentLocationTableViewController {
 
         let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as StudentLocationTableViewCell
 
-        let model = StudentLocationCellModel(image: locationMarker, studentInformation: studentInformationProvider.studentInformationArray![indexPath.row])
+        let model = StudentLocationCellModel(studentInformation: studentInformationProvider.studentInformationArray![indexPath.row])
         
         cell.configure(withDataSource: model, presentMapViewController: presentMapViewController)
         

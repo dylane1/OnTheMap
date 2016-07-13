@@ -14,6 +14,9 @@ enum Icon: String {
     case Map
     case List
     case LocationMarker
+    case LocationMarker30Point
+    case DisclosureIndicator
+    case MapButton
 }
 
 protocol IconProviderProtocol {
@@ -22,7 +25,14 @@ protocol IconProviderProtocol {
 
 struct IconProvider { }
 
-extension IconProvider: IconProviderProtocol, PinIconDrawable, MapIconDrawable, ListIconDrawable, LocationMarkerIconDrawable {
+extension IconProvider: IconProviderProtocol,
+                        PinIconDrawable,
+                        MapIconDrawable,
+                        ListIconDrawable,
+                        LocationMarkerIconDrawable,
+                        DisclosureIndicatorDrawable,
+                        MapButtonDrawable{
+    
     func imageOfDrawnIcon(icon: Icon, size: CGSize, fillColor: UIColor) -> UIImage {
         var image: UIImage {
             UIGraphicsBeginImageContextWithOptions(CGSizeMake(size.width, size.height), false, 0)
@@ -36,6 +46,12 @@ extension IconProvider: IconProviderProtocol, PinIconDrawable, MapIconDrawable, 
                 draw30PointListWithColor(fillColor)
             case .LocationMarker:
                 drawLocationMarkerWithColor(fillColor)
+            case .LocationMarker30Point:
+                draw30PointLocationMarkerWithColor(fillColor)
+            case .DisclosureIndicator:
+                draw20PointDisclosureIndicatorWithColor(fillColor)
+            case .MapButton:
+                draw30PointMapButtonWithColor(fillColor)
             }
             
             let img = UIGraphicsGetImageFromCurrentImageContext()!

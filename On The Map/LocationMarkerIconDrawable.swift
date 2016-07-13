@@ -27,9 +27,9 @@ extension LocationMarkerIconDrawable where Self: IconProviderProtocol {
         locationPath.addCurveToPoint(CGPoint(x: 32, y: 17), controlPoint1: CGPoint(x: 20, y: 37), controlPoint2: CGPoint(x: 32, y: 23))
         locationPath.addCurveToPoint(CGPoint(x: 20, y: 5), controlPoint1: CGPoint(x: 32, y: 11), controlPoint2: CGPoint(x: 28, y: 5))
         locationPath.closePath()
-        locationPath.miterLimit = 4;
+        locationPath.miterLimit = 4
         
-        locationPath.usesEvenOddFillRule = true;
+        locationPath.usesEvenOddFillRule = true
         
         fillColor.setFill()
         locationPath.fill()
@@ -37,21 +37,21 @@ extension LocationMarkerIconDrawable where Self: IconProviderProtocol {
     
     internal func draw30PointLocationMarkerWithColor(fillColor: UIColor) {
         let locationPath = UIBezierPath()
-        locationPath.moveToPoint(CGPoint(x: 15, y: 15.5))
-        locationPath.addCurveToPoint(CGPoint(x: 11.67, y: 12.12), controlPoint1: CGPoint(x: 13.16, y: 15.5), controlPoint2: CGPoint(x: 11.67, y: 13.99))
-        locationPath.addCurveToPoint(CGPoint(x: 15, y: 8.75), controlPoint1: CGPoint(x: 11.67, y: 10.26), controlPoint2: CGPoint(x: 13.16, y: 8.75))
-        locationPath.addCurveToPoint(CGPoint(x: 18.33, y: 12.12), controlPoint1: CGPoint(x: 16.84, y: 8.75), controlPoint2: CGPoint(x: 18.33, y: 10.26))
-        locationPath.addCurveToPoint(CGPoint(x: 15, y: 15.5), controlPoint1: CGPoint(x: 18.33, y: 13.99), controlPoint2: CGPoint(x: 16.84, y: 15.5))
+        locationPath.moveToPoint(CGPoint(x: 15, y: 15))
+        locationPath.addCurveToPoint(CGPoint(x: 12, y: 12), controlPoint1: CGPoint(x: 13.34, y: 15), controlPoint2: CGPoint(x: 12, y: 13.66))
+        locationPath.addCurveToPoint(CGPoint(x: 15, y: 9), controlPoint1: CGPoint(x: 12, y: 10.34), controlPoint2: CGPoint(x: 13.34, y: 9))
+        locationPath.addCurveToPoint(CGPoint(x: 18, y: 12), controlPoint1: CGPoint(x: 16.66, y: 9), controlPoint2: CGPoint(x: 18, y: 10.34))
+        locationPath.addCurveToPoint(CGPoint(x: 15, y: 15), controlPoint1: CGPoint(x: 18, y: 13.66), controlPoint2: CGPoint(x: 16.66, y: 15))
         locationPath.closePath()
-        locationPath.moveToPoint(CGPoint(x: 15, y: 2))
-        locationPath.addCurveToPoint(CGPoint(x: 5, y: 12.12), controlPoint1: CGPoint(x: 8.33, y: 2), controlPoint2: CGPoint(x: 5, y: 7.06))
-        locationPath.addCurveToPoint(CGPoint(x: 15, y: 29), controlPoint1: CGPoint(x: 5, y: 17.19), controlPoint2: CGPoint(x: 15, y: 29))
-        locationPath.addCurveToPoint(CGPoint(x: 25, y: 12.12), controlPoint1: CGPoint(x: 15, y: 29), controlPoint2: CGPoint(x: 25, y: 17.19))
-        locationPath.addCurveToPoint(CGPoint(x: 15, y: 2), controlPoint1: CGPoint(x: 25, y: 7.06), controlPoint2: CGPoint(x: 21.67, y: 2))
+        locationPath.moveToPoint(CGPoint(x: 15, y: 3))
+        locationPath.addCurveToPoint(CGPoint(x: 6, y: 12), controlPoint1: CGPoint(x: 9, y: 3), controlPoint2: CGPoint(x: 6, y: 7.5))
+        locationPath.addCurveToPoint(CGPoint(x: 15, y: 27), controlPoint1: CGPoint(x: 6, y: 16.5), controlPoint2: CGPoint(x: 15, y: 27))
+        locationPath.addCurveToPoint(CGPoint(x: 24, y: 12), controlPoint1: CGPoint(x: 15, y: 27), controlPoint2: CGPoint(x: 24, y: 16.5))
+        locationPath.addCurveToPoint(CGPoint(x: 15, y: 3), controlPoint1: CGPoint(x: 24, y: 7.5), controlPoint2: CGPoint(x: 21, y: 3))
         locationPath.closePath()
-        locationPath.miterLimit = 4;
+        locationPath.miterLimit = 4
         
-        locationPath.usesEvenOddFillRule = true;
+        locationPath.usesEvenOddFillRule = true
         
         fillColor.setFill()
         locationPath.fill()

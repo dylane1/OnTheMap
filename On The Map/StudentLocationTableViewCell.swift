@@ -38,15 +38,16 @@ class StudentLocationTableViewCell: UITableViewCell /*, NibLoadableView*/ {
         self.dataSource                 = dataSource
         self.presentMapViewController   = presentMapViewController
         backgroundColor                 = UIColor.clearColor()
-        configureImageView()
+        
         configureLabels()
+        configureLocationButton()
         configureCell()
     }
     
-    private func configureImageView() {
-        iconImageView.backgroundColor = UIColor.clearColor()
-        iconImageView.image = dataSource.image
-    }
+//    private func configureImageView() {
+//        iconImageView.backgroundColor = UIColor.clearColor()
+//        iconImageView.image = dataSource.image
+//    }
     
     private func configureLabels() {
         /// Title label
@@ -89,19 +90,48 @@ class StudentLocationTableViewCell: UITableViewCell /*, NibLoadableView*/ {
  */
         //
         
-        
+        let iconProvider = IconProvider()
     
+        let disclosureIndicatorImage: UIImage!
+        
         if subTitle.safariOpenableURL == nil {
-            subtitleAttributes[NSForegroundColorAttributeName] = Theme03.textError
             isInvalidURL = true
+            
+            subtitleAttributes[NSForegroundColorAttributeName] = Theme03.textError
+            
+            disclosureIndicatorImage = iconProvider.imageOfDrawnIcon(.DisclosureIndicator, size: CGSize(width: 20, height: 20), fillColor: Theme03.disclosureIndicatorDisabled)
         } else {
             isInvalidURL = false
+            
+            disclosureIndicatorImage = iconProvider.imageOfDrawnIcon(.DisclosureIndicator, size: CGSize(width: 20, height: 20), fillColor: Theme03.disclosureIndicatorEnabled)
         }
+        
+        configureDisclosureIndicatorWithImage(disclosureIndicatorImage)
         
         let subtitleAttributedString = NSMutableAttributedString(string: subTitle, attributes: subtitleAttributes)
         
         subtitleLabel.attributedText = subtitleAttributedString
     }
+    
+    private func configureDisclosureIndicatorWithImage(image: UIImage) {
+        iconImageView.backgroundColor = UIColor.clearColor()
+        iconImageView.image = image
+    }
+    
+    private func configureLocationButton() {
+        let iconProvider = IconProvider()
+        
+//        let locationMarkerImage = iconProvider.imageOfDrawnIcon(.LocationMarker30Point, size: CGSize(width: 30, height: 30), fillColor: Theme03.locationMarker)
+//        
+//        showLocationButton.setImage(locationMarkerImage, forState: .Normal)
+        let mapButtonImage = iconProvider.imageOfDrawnIcon(.MapButton, size: CGSize(width: 30, height: 50), fillColor: Theme03.locationMarker)
+        
+        showLocationButton.setImage(mapButtonImage, forState: .Normal)
+        
+        showLocationButton.setTitle(nil, forState: .Normal)
+        showLocationButton.tintColor = Theme03.locationMarker
+    }
+    
     
     private func configureCell() {
         
@@ -109,6 +139,32 @@ class StudentLocationTableViewCell: UITableViewCell /*, NibLoadableView*/ {
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
