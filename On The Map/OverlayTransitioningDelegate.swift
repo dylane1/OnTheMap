@@ -121,7 +121,7 @@ final class OverlayTransitioningDelegate: NSObject, UIViewControllerTransitionin
     }
   
     func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return TransitionOutAnimator(/*withToPosition: .Bottom*/)
+        return TransitionOutAnimator(withDuration: durationOut, toPosition: outToPosition, useScale: useScaleOut, fadeOutAlpha: fadeOutAlpha)
     }
 }
 

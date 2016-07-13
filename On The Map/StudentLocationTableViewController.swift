@@ -104,11 +104,12 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
         
         overlayTransitioningDelegate = OverlayTransitioningDelegate(
             withPreferredContentSize: mapVCPreferredContentSize,
-            cornerRadius: 0.0,
+            tapBackgroundToDismiss: true/*
             dimmingBGColor: Theme03.mapPresentationDimView,
+            cornerRadius: 0.0,
+            tapBackgroundToDismiss: true,
             fadeInAlpha: true,
-            tapToDismiss: true,
-            dismissalCompletion: dismissalCompletion)
+            dismissalCompletion: dismissalCompletion*/)
         
         mapViewController!.transitioningDelegate = overlayTransitioningDelegate
         mapViewController!.modalPresentationStyle = .Custom

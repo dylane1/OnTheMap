@@ -70,7 +70,27 @@ class StudentLocationTableViewCell: UITableViewCell /*, NibLoadableView*/ {
         
         let subTitle = dataSource.studentInformation.mediaURL
         
-        /// Show URLs that won't open in Safari in a red color
+        /**
+         Show URLs that won't open in Safari in a red color & Set disclosure
+         indicator color to disabled state
+        */
+        /**
+         let pinButton   = UIButton(type: .System)
+         pinButton.frame    = CGRectMake(0, 0, 44, 44)
+         pinButton.addTarget(self, action: #selector(addButtonTapped), forControlEvents: UIControlEvents.TouchUpInside)
+         
+         let iconProvider = IconProvider()
+         let pinImage = iconProvider.imageOfDrawnIcon(.Pin, size: CGSize(width: 32, height: 32), fillColor: Theme03.tabBarItemUnselected)
+         
+         pinButton.setImage(pinImage, forState: .Normal)
+         
+         
+         cell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"accessory.png"]];
+ */
+        //
+        
+        
+    
         if subTitle.safariOpenableURL == nil {
             subtitleAttributes[NSForegroundColorAttributeName] = Theme03.textError
             isInvalidURL = true
@@ -89,3 +109,20 @@ class StudentLocationTableViewCell: UITableViewCell /*, NibLoadableView*/ {
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

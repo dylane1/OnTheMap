@@ -74,7 +74,7 @@ final class OverlayPresentationController: UIPresentationController {
 //            if self!.doFadeInAlpha! {
 //                self!.presentedViewController.view.alpha = 1.0
 //            }
-            }, completion: { [weak self] in
+            }, completion: { [weak self] context in
                 self!.presentationComplete?()
             })
         

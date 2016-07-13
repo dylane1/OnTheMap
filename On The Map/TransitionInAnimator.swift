@@ -18,7 +18,7 @@ final class TransitionInAnimator: NSObject, UIViewControllerAnimatedTransitionin
     private var duration: Double!
     
     /// Optional
-    private var fromPosition: Position!
+    private var fromPosition: Position = .Bottom
     private var useScale = false
     private var cornerRadius: CGFloat!
     private var shadowColor: UIColor?
@@ -68,7 +68,7 @@ final class TransitionInAnimator: NSObject, UIViewControllerAnimatedTransitionin
         let destinationCenter = center
         
         if fromPosition != .Center {
-            switch fromPosition! {
+            switch fromPosition {
             case .Top:
                 presentedView.center = CGPointMake(center.x, -presentedView.bounds.size.height)
             case .Bottom:
@@ -87,7 +87,7 @@ final class TransitionInAnimator: NSObject, UIViewControllerAnimatedTransitionin
         }
 
         if fadeInAlpha {
-            presentedView.alpha = 0.1
+            presentedView.alpha = 0.0
         }
         
         if shadowColor != nil {

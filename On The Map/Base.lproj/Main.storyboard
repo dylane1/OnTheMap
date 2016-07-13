@@ -76,6 +76,7 @@
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zYL-5L-bBQ">
                                             <rect key="frame" x="0.0" y="0.0" width="48" height="58"/>
+                                            <state key="normal" title="Button"/>
                                             <connections>
                                                 <action selector="showLocationAction:" destination="KRo-jc-0dD" eventType="touchUpInside" id="Q9j-eS-fdw"/>
                                             </connections>
@@ -115,7 +116,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DLU-UI-cxk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1242" y="360"/>
+            <point key="canvasLocation" x="1298" y="360"/>
         </scene>
         <!--Map Container View Controller-->
         <scene sceneID="pFL-Zp-7rS">
