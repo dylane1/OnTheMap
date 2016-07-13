@@ -55,47 +55,49 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="58"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dbe-UF-uFD">
-                                            <rect key="frame" x="0.0" y="8" width="40" height="43"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="43" id="bJW-IR-mKY"/>
-                                                <constraint firstAttribute="width" constant="40" id="iVb-wJ-Shw"/>
-                                            </constraints>
-                                        </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SCi-bj-2YK">
-                                            <rect key="frame" x="48" y="8" width="264" height="21"/>
+                                            <rect key="frame" x="16" y="8" width="211" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RNH-uh-mOY">
-                                            <rect key="frame" x="48" y="29" width="264" height="21"/>
+                                            <rect key="frame" x="16" y="29" width="211" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zYL-5L-bBQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="48" height="58"/>
+                                            <rect key="frame" x="230" y="0.0" width="44" height="58"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="44" id="1x1-zf-6cA"/>
+                                            </constraints>
                                             <state key="normal" title="Button"/>
                                             <connections>
                                                 <action selector="showLocationAction:" destination="KRo-jc-0dD" eventType="touchUpInside" id="Q9j-eS-fdw"/>
                                             </connections>
                                         </button>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dbe-UF-uFD">
+                                            <rect key="frame" x="282" y="14" width="30" height="30"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="30" id="bJW-IR-mKY"/>
+                                                <constraint firstAttribute="width" constant="30" id="iVb-wJ-Shw"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="RNH-uh-mOY" firstAttribute="top" secondItem="SCi-bj-2YK" secondAttribute="bottom" id="7GD-py-wiw"/>
+                                        <constraint firstItem="SCi-bj-2YK" firstAttribute="leading" secondItem="CYD-Yc-0GK" secondAttribute="leadingMargin" constant="8" id="978-Xd-YXN"/>
                                         <constraint firstItem="dbe-UF-uFD" firstAttribute="centerY" secondItem="CYD-Yc-0GK" secondAttribute="centerY" id="9vA-ai-Wb6"/>
-                                        <constraint firstItem="RNH-uh-mOY" firstAttribute="leading" secondItem="zYL-5L-bBQ" secondAttribute="trailing" id="AWj-VF-R7R"/>
-                                        <constraint firstItem="RNH-uh-mOY" firstAttribute="leading" secondItem="dbe-UF-uFD" secondAttribute="trailing" constant="8" id="Fer-81-Jy4"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="SCi-bj-2YK" secondAttribute="trailing" id="IWd-Ve-DpL"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="dbe-UF-uFD" secondAttribute="trailing" id="CWa-Kv-8TS"/>
                                         <constraint firstAttribute="bottom" secondItem="zYL-5L-bBQ" secondAttribute="bottom" id="Sfu-9F-ga9"/>
-                                        <constraint firstItem="SCi-bj-2YK" firstAttribute="leading" secondItem="dbe-UF-uFD" secondAttribute="trailing" constant="8" id="Tag-z9-uIW"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="RNH-uh-mOY" secondAttribute="trailing" id="VIY-9M-whe"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="RNH-uh-mOY" secondAttribute="bottom" id="dZf-hA-VqV"/>
                                         <constraint firstItem="zYL-5L-bBQ" firstAttribute="top" secondItem="CYD-Yc-0GK" secondAttribute="top" id="gTR-Ea-0XD"/>
+                                        <constraint firstItem="zYL-5L-bBQ" firstAttribute="leading" secondItem="SCi-bj-2YK" secondAttribute="trailing" constant="3" id="gzd-VE-nyg"/>
                                         <constraint firstItem="SCi-bj-2YK" firstAttribute="top" secondItem="CYD-Yc-0GK" secondAttribute="topMargin" id="hkb-Yq-sZw"/>
-                                        <constraint firstItem="zYL-5L-bBQ" firstAttribute="leading" secondItem="CYD-Yc-0GK" secondAttribute="leading" id="jew-xx-6E2"/>
-                                        <constraint firstItem="dbe-UF-uFD" firstAttribute="leading" secondItem="CYD-Yc-0GK" secondAttribute="leading" id="whA-5X-JET"/>
+                                        <constraint firstItem="RNH-uh-mOY" firstAttribute="leading" secondItem="CYD-Yc-0GK" secondAttribute="leadingMargin" constant="8" id="hxl-9e-Mgw"/>
+                                        <constraint firstItem="zYL-5L-bBQ" firstAttribute="leading" secondItem="RNH-uh-mOY" secondAttribute="trailing" constant="3" id="owD-qV-UrV"/>
+                                        <constraint firstItem="dbe-UF-uFD" firstAttribute="leading" secondItem="zYL-5L-bBQ" secondAttribute="trailing" constant="8" id="weX-7V-mng"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>

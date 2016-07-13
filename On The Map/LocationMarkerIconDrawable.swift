@@ -34,4 +34,26 @@ extension LocationMarkerIconDrawable where Self: IconProviderProtocol {
         fillColor.setFill()
         locationPath.fill()
     }
+    
+    internal func draw30PointLocationMarkerWithColor(fillColor: UIColor) {
+        let locationPath = UIBezierPath()
+        locationPath.moveToPoint(CGPoint(x: 15, y: 15.5))
+        locationPath.addCurveToPoint(CGPoint(x: 11.67, y: 12.12), controlPoint1: CGPoint(x: 13.16, y: 15.5), controlPoint2: CGPoint(x: 11.67, y: 13.99))
+        locationPath.addCurveToPoint(CGPoint(x: 15, y: 8.75), controlPoint1: CGPoint(x: 11.67, y: 10.26), controlPoint2: CGPoint(x: 13.16, y: 8.75))
+        locationPath.addCurveToPoint(CGPoint(x: 18.33, y: 12.12), controlPoint1: CGPoint(x: 16.84, y: 8.75), controlPoint2: CGPoint(x: 18.33, y: 10.26))
+        locationPath.addCurveToPoint(CGPoint(x: 15, y: 15.5), controlPoint1: CGPoint(x: 18.33, y: 13.99), controlPoint2: CGPoint(x: 16.84, y: 15.5))
+        locationPath.closePath()
+        locationPath.moveToPoint(CGPoint(x: 15, y: 2))
+        locationPath.addCurveToPoint(CGPoint(x: 5, y: 12.12), controlPoint1: CGPoint(x: 8.33, y: 2), controlPoint2: CGPoint(x: 5, y: 7.06))
+        locationPath.addCurveToPoint(CGPoint(x: 15, y: 29), controlPoint1: CGPoint(x: 5, y: 17.19), controlPoint2: CGPoint(x: 15, y: 29))
+        locationPath.addCurveToPoint(CGPoint(x: 25, y: 12.12), controlPoint1: CGPoint(x: 15, y: 29), controlPoint2: CGPoint(x: 25, y: 17.19))
+        locationPath.addCurveToPoint(CGPoint(x: 15, y: 2), controlPoint1: CGPoint(x: 25, y: 7.06), controlPoint2: CGPoint(x: 21.67, y: 2))
+        locationPath.closePath()
+        locationPath.miterLimit = 4;
+        
+        locationPath.usesEvenOddFillRule = true;
+        
+        fillColor.setFill()
+        locationPath.fill()
+    }
 }
