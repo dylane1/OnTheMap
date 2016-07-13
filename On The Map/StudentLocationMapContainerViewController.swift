@@ -29,6 +29,9 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        mapContainterView = view as! StudentLocationMapContainerView
+        mapContainterView.configureMapImage()
+        
         configureNavigationController()
 
         let refreshClosure = { [weak self] in
@@ -58,7 +61,6 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
     //MARK: - Configuration
     
     private func configureView() {
-        mapContainterView = view as! StudentLocationMapContainerView
         
         let openLinkClosure = { [weak self] (urlString: String) in
             self!.openLink(withURLString: urlString)

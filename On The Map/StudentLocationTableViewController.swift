@@ -156,7 +156,7 @@ extension StudentLocationTableViewController {
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 59.0
+        return 78.0
     }
     override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         /// Allows the bottom cell to be fully visible when scrolled to end of list

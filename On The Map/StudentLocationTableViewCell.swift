@@ -12,8 +12,9 @@ class StudentLocationTableViewCell: UITableViewCell /*, NibLoadableView*/ {
     
     private var presentMapViewController: ((locationName: String, latitude: Double, longitude: Double) -> Void)!
     
-    @IBOutlet private weak var titleLabel: UILabel!
-    @IBOutlet private weak var subtitleLabel: UILabel!
+    @IBOutlet private weak var nameLabel: UILabel!
+    @IBOutlet private weak var locationLabel: UILabel!
+    @IBOutlet private weak var linkLabel: UILabel!
     @IBOutlet private weak var iconImageView: UIImageView!
     @IBOutlet weak var showLocationButton: UIButton!
     
@@ -44,52 +45,59 @@ class StudentLocationTableViewCell: UITableViewCell /*, NibLoadableView*/ {
     }
     
     private func configureLabels() {
-        /// Title label
-        titleLabel.adjustsFontSizeToFitWidth  = true
+        /// Name label
+        nameLabel.adjustsFontSizeToFitWidth  = true
         
-        let titleAttributes = dataSource.titleTextAttributes
+        let nameTextAttributes = dataSource.nameTextAttributes
         
         let fn = dataSource.studentInformation.firstName
         let ln = dataSource.studentInformation.lastName
         
         let fullName = fn + " " + ln
         
-        let titleAttributedString = NSMutableAttributedString(string: fullName, attributes: titleAttributes)
+        let nameAttributedString = NSMutableAttributedString(string: fullName, attributes: nameTextAttributes)
         
-        titleLabel.attributedText = titleAttributedString
+        nameLabel.attributedText = nameAttributedString
         
-        /// Subtitle label
-        subtitleLabel.adjustsFontSizeToFitWidth  = true
+        /// Location label
+        locationLabel.adjustsFontSizeToFitWidth  = true
         
-        var subtitleAttributes = dataSource.subtitleTextAttributes
+        let locationTextAttributes = dataSource.locationTextAttributes
         
-        let subTitle = dataSource.studentInformation.mediaURL
+        let locationAttributedString = NSMutableAttributedString(string: dataSource.studentInformation.mapString, attributes: locationTextAttributes)
+
+        locationLabel.attributedText = locationAttributedString
         
+        /// Link label
         /**
          Show URLs that won't open in Safari in a red color & Set disclosure
          indicator color to disabled state
         */
-        let iconProvider = IconProvider()
-    
-        let disclosureIndicatorImage: UIImage!
+        let linkText = dataSource.studentInformation.mediaURL
+        var linkTextAttributes = dataSource.linkTextAttributes
         
-        if subTitle.safariOpenableURL == nil {
+        let iconProvider = IconProvider()
+        let disclosureIndicatorImage: UIImage!
+    
+        if linkText.safariOpenableURL == nil {
             isInvalidURL = true
             
-            subtitleAttributes[NSForegroundColorAttributeName] = Theme03.textError
+            linkTextAttributes[NSForegroundColorAttributeName] = Theme03.textError
             
             disclosureIndicatorImage = iconProvider.imageOfDrawnIcon(.DisclosureIndicator, size: CGSize(width: 20, height: 20), fillColor: Theme03.disclosureIndicatorDisabled)
         } else {
             isInvalidURL = false
+            
+            linkTextAttributes[NSUnderlineStyleAttributeName] = NSUnderlineStyle.StyleSingle.rawValue
             
             disclosureIndicatorImage = iconProvider.imageOfDrawnIcon(.DisclosureIndicator, size: CGSize(width: 20, height: 20), fillColor: Theme03.disclosureIndicatorEnabled)
         }
         
         configureDisclosureIndicatorWithImage(disclosureIndicatorImage)
         
-        let subtitleAttributedString = NSMutableAttributedString(string: subTitle, attributes: subtitleAttributes)
+        let linkTextAttributedString = NSMutableAttributedString(string: linkText, attributes: linkTextAttributes)
         
-        subtitleLabel.attributedText = subtitleAttributedString
+        linkLabel.attributedText = linkTextAttributedString
     }
     
     private func configureDisclosureIndicatorWithImage(image: UIImage) {

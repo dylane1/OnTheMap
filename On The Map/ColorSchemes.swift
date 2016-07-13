@@ -35,36 +35,37 @@ struct Theme02 {
 
 struct Theme03 {
     /// Universal
-    static let textLight = UIColor.romance()
-    static let textDark = UIColor.timberGreen()
-    static let textError = UIColor.redOrange()
-    static let shadowLight = UIColor.romance()
-    static let shadowDark = UIColor.timberGreen()
-    static let textFieldText = UIColor.timberGreen()
-    static let textFieldBackground = UIColor.romance()
-    static let buttonBackground = UIColor.ceSoir()
-    static let buttonTint = UIColor.romance()
+    static let textLight            = UIColor.romance()
+    static let textDark             = UIColor.timberGreen()
+    static let textLink             = UIColor.ceSoir()
+    static let textError            = UIColor.redOrange()
+    static let shadowLight          = UIColor.romance()
+    static let shadowDark           = UIColor.timberGreen()
+    static let textFieldText        = UIColor.timberGreen()
+    static let textFieldBackground  = UIColor.romance()
+    static let buttonBackground     = UIColor.ceSoir()
+    static let buttonTint           = UIColor.romance()
     
     /// Login
-    static let loginScreenBGColor = UIColor.spanishGreen()
-    static let loginScreenBGGradient = UIColor.timberGreenAlpha50()
+    static let loginScreenBGColor       = UIColor.spanishGreen()
+    static let loginScreenBGGradient    = UIColor.timberGreenAlpha50()
     
     /// Tab Bar / Navigation Bar
-    static let barTintColor = UIColor.spanishGreen()
-    static let tabBarItemUnselected = UIColor.timberGreen()
-    static let mapPresentationDimView = UIColor.timberGreenAlpha50()
+    static let barTintColor             = UIColor.spanishGreen()
+    static let tabBarItemUnselected     = UIColor.timberGreen()
+    static let mapPresentationDimView   = UIColor.timberGreenAlpha50()
     
     /// Map View
     
     
     /// Table View
-    static let tableViewBGColor = UIColor.romance()
-    static let locationMarker = UIColor.ceSoir()
-    static let disclosureIndicatorEnabled = UIColor.ceSoir()
-    static let disclosureIndicatorDisabled = UIColor.mistGray()
+    static let tableViewBGColor             = UIColor.romance()
+    static let locationMarker               = UIColor.ceSoir()
+    static let disclosureIndicatorEnabled   = UIColor.ceSoir()
+    static let disclosureIndicatorDisabled  = UIColor.mistGray()
     
     /// Location Submit View
-    static let locationSubmitScreenBGColor = UIColor.desertStorm()
+    static let locationSubmitScreenBGColor  = UIColor.desertStorm()
     
     
     

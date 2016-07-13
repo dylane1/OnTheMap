@@ -10,20 +10,27 @@ import UIKit
 
 protocol StudentLocationCellDataSource {
     var studentInformation: StudentInformation { get }
-    var titleTextAttributes: [String : AnyObject] { get }
-    var subtitleTextAttributes: [String : AnyObject] { get }
+    var nameTextAttributes: [String : AnyObject] { get }
+    var locationTextAttributes: [String : AnyObject] { get }
+    var linkTextAttributes: [String : AnyObject] { get }
 }
 
 extension StudentLocationCellDataSource {
-    internal var titleTextAttributes: [String : AnyObject] {
+    internal var nameTextAttributes: [String : AnyObject] {
         return [
             NSForegroundColorAttributeName: Theme03.textDark,
-            NSFontAttributeName: UIFont.systemFontOfSize(17, weight: UIFontWeightLight)
+            NSFontAttributeName: UIFont.systemFontOfSize(20, weight: UIFontWeightMedium)
         ]
     }
-    internal var subtitleTextAttributes: [String : AnyObject] {
+    internal var locationTextAttributes: [String : AnyObject] {
         return [
             NSForegroundColorAttributeName: Theme03.textDark,
+            NSFontAttributeName: UIFont.systemFontOfSize(16, weight: UIFontWeightMedium)
+        ]
+    }
+    internal var linkTextAttributes: [String : AnyObject] {
+        return [
+            NSForegroundColorAttributeName: Theme03.textLink,
             NSFontAttributeName: UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
         ]
     }

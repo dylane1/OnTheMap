@@ -40,11 +40,29 @@ class StudentLocationMapContainerView: UIView {
         }
     }
     
-    private func configureMapImage() {
+    /**
+     Show a map image on top of map view while it loads so the user doesn't
+     see a blank screen
+     */
+    internal func configureMapImage() {
         preloadedMapImage.alpha = 0.0
+        
+        let screenHeight = UIScreen.mainScreen().bounds.height
         
         if !mapRendered {
             /// Need to determine map size & load correct image accordingly
+            switch screenHeight {
+            case Constants.ScreenHeight.iPhone4s:
+                preloadedMapImage.image = UIImage(named: Constants.MapImage.iPhone4s)
+            case Constants.ScreenHeight.iPhone5:
+                preloadedMapImage.image = UIImage(named: Constants.MapImage.iPhone5)
+            case Constants.ScreenHeight.iPhone6:
+                preloadedMapImage.image = UIImage(named: Constants.MapImage.iPhone6)
+            default:
+                /// iPhone6Plus
+                preloadedMapImage.image = UIImage(named: Constants.MapImage.iPhone6Plus)
+            }
+            preloadedMapImage.alpha = 1.0
         }
     }
     
@@ -72,11 +90,8 @@ extension StudentLocationMapContainerView: MKMapViewDelegate {
     
     func mapViewDidFinishRenderingMap(mapView: MKMapView, fullyRendered: Bool) {
         mapRendered = true
-        configureMapImage()
-        //placeAnnotations(withStudentInformationArray: studentInformationArray)
-//        if urlTextField.alpha == 0 && placemarks != nil {
-//            animateURLTextFieldIntoView()
-//        }
+        preloadedMapImage.alpha = 0.0
+        placeAnnotations(withStudentInformationArray: studentInformationArray)
     }
     
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {

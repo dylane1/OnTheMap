@@ -41,7 +41,19 @@ struct Constants {
 //        static let yellow       = UIColor(red: 0.898, green: 0.792, blue: 0.090, alpha: 1.00) //E5CA17
     }
     
+    struct ScreenHeight {
+        static let iPhone4s: CGFloat    = 480
+        static let iPhone5: CGFloat     = 568
+        static let iPhone6: CGFloat     = 667
+        static let iPhone6Plus: CGFloat = 736
+    }
     
+    struct MapImage {
+        static let iPhone4s     = "Map_iPhone4s.png"
+        static let iPhone5      = "Map_iPhone5.png"
+        static let iPhone6      = "Map_iPhone6.png"
+        static let iPhone6Plus  = "Map_iPhone6Plus.png"
+    }
     //MARK: - Network
     
     struct Network {
