@@ -26,8 +26,15 @@ class InformationPostingViewController: UIViewController, InformationPostingNavi
         let navController = navigationController! as! NavigationController
         navController.setNavigationBarAttributes(isAppTitle: false)
         
-        let presentActivityIndicator    = getActivityIndicatorPresentation()
-        let dismissActivityIndicator    = getActivityIndicatorDismissal()
+        let presentActivityIndicator = { [weak self] (completion: (() -> Void)?) in
+            self!.presentActivityIndicator(withPresentationCompletion: nil/*, dismissalCompletion: completion*/)
+        }
+//        let presentActivityIndicator    = getActivityIndicatorPresentation()
+        
+        let dismissActivityIndicator = { [weak self] in
+            self!.dismissActivityIndicator(withCompletion: nil)
+        }
+//        let dismissActivityIndicator    = getActivityIndicatorDismissal()
         let presentErrorAlert           = getAlertPresentation()
         
         let submitSuccessfulClosure = { [weak self] in
@@ -35,7 +42,8 @@ class InformationPostingViewController: UIViewController, InformationPostingNavi
                 /// Dismiss Me
                 self!.dismissViewControllerAnimated(true, completion: nil)
             }
-            self!.dismissActivityIndicator(self!.activityIndicatorViewController!, completion: dismissalCompletion)
+            self!.dismissActivityIndicator(withCompletion: dismissalCompletion)
+//            self!.dismissActivityIndicator(self!.activityIndicatorViewController!, completion: dismissalCompletion)
         }
         
         postingView = view as! InformationPostingView

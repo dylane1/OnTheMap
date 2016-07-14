@@ -49,10 +49,14 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
             self!.getStudentInfoArray()
         }
         
-        let presentActivityIndicator = getActivityIndicatorPresentation()
+        let presentActivityIndicator = {[unowned self] (completion: (() -> Void)?) in
+            self.presentActivityIndicator(withPresentationCompletion: nil/*, dismissalCompletion: completion*/)
+        }//getActivityIndicatorPresentation()
         let presentErrorAlert = getAlertPresentation()
         
-        let logoutSuccessClosure = getSuccessfulLogoutClosure()
+        let logoutSuccessClosure = { [weak self] in
+            self!.dismissViewControllerAnimated(true, completion: nil)
+        }//getSuccessfulLogoutClosure()
         
         sessionLogoutController.configure(
             withActivityIndicatorPresentation: presentActivityIndicator,
@@ -106,6 +110,7 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
             withPreferredContentSize: mapVCPreferredContentSize,
             dimmingBGColor: Theme03.mapPresentationDimView,
             cornerRadius: 6.0,
+            /* SHADOW NOT WORKING*/
             shadowColor: Theme03.shadowDark,
             tapBackgroundToDismiss: true,
             dismissalCompletion: dismissalCompletion,

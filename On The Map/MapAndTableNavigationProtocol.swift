@@ -25,20 +25,20 @@ extension MapAndTableNavigationProtocol where Self: UIViewController, Self: Info
         navController.setNavigationBarAttributes(isAppTitle: true)
     }
     
-    internal func getSuccessfulLogoutClosure() -> () -> Void {
-        let logoutSuccessClosure = { [weak self] in
-            if self!.activityIndicatorViewController != nil {
-                let dismissalCompletion = { [weak self] in
-                    /// Dismiss Me
-                    self!.dismissViewControllerAnimated(true, completion: nil)
-                }
-                self!.dismissActivityIndicator(self!.activityIndicatorViewController!, completion: dismissalCompletion)
-            } else {
-                self!.dismissViewControllerAnimated(true, completion: nil)
-            }
-        }
-        return logoutSuccessClosure
-    }
+//    internal func getSuccessfulLogoutClosure() -> () -> Void {
+//        let logoutSuccessClosure = { [weak self] in
+//            if self!.activityIndicatorViewController != nil {
+//                let dismissalCompletion = { [weak self] in
+//                    /// Dismiss Me
+//                    self!.dismissViewControllerAnimated(true, completion: nil)
+//                }
+//                self!.dismissActivityIndicator(self!.activityIndicatorViewController!, completion: dismissalCompletion)
+//            } else {
+//                self!.dismissViewControllerAnimated(true, completion: nil)
+//            }
+//        }
+//        return logoutSuccessClosure
+//    }
     
     internal func configureNavigationItems(withRefreshClosure refresh: BarButtonClosure, sessionLogoutController logoutController: UserSessionLogoutController) {
         

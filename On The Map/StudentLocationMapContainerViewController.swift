@@ -38,10 +38,14 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
             self!.getStudentInfoArray()
         }
         
-        let presentActivityIndicator = getActivityIndicatorPresentation()
+        let presentActivityIndicator = {[unowned self] (completion: (() -> Void)?) in
+            self.presentActivityIndicator(withPresentationCompletion: nil/*, dismissalCompletion: completion*/)
+        }//getActivityIndicatorPresentation()
         let presentErrorAlert = getAlertPresentation()
         
-        let logoutSuccessClosure = getSuccessfulLogoutClosure()
+        let logoutSuccessClosure = { [weak self] in
+            self!.dismissViewControllerAnimated(true, completion: nil)
+        }//getSuccessfulLogoutClosure()
         
         sessionLogoutController.configure(
             withActivityIndicatorPresentation: presentActivityIndicator,
