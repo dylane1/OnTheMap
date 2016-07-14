@@ -22,7 +22,7 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
     internal var informationPostingNavController: InformationPostingNavigationController?
     
     /// ActivityIndicatorPresentable
-    internal var activityIndicatorViewController: PrimaryActivityIndicatorViewController?
+    internal var activityIndicatorViewController: ActivityIndicatorViewController?
     
     private var sessionLogoutController = UserSessionLogoutController()
     
@@ -50,13 +50,16 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
         }
         
         let presentActivityIndicator = {[unowned self] (completion: (() -> Void)?) in
-            self.presentActivityIndicator(withPresentationCompletion: nil/*, dismissalCompletion: completion*/)
-        }//getActivityIndicatorPresentation()
+            self.presentActivityIndicator(self.getActivityIndicatorViewController(), completion: completion)
+        }
+        
         let presentErrorAlert = getAlertPresentation()
         
-        let logoutSuccessClosure = { [weak self] in
-            self!.dismissViewControllerAnimated(true, completion: nil)
-        }//getSuccessfulLogoutClosure()
+        let logoutSuccessClosure = { [unowned self] in
+            self.dismissActivityIndicator(completion: {
+                self.dismissViewControllerAnimated(true, completion: nil)
+            })
+        }
         
         sessionLogoutController.configure(
             withActivityIndicatorPresentation: presentActivityIndicator,
@@ -108,13 +111,16 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
         
         overlayTransitioningDelegate = OverlayTransitioningDelegate(
             withPreferredContentSize: mapVCPreferredContentSize,
-            dimmingBGColor: Theme03.mapPresentationDimView,
+            dismissalCompletion: dismissalCompletion,
+            /*dimmingBGColor: Theme03.mapPresentationDimView,
             cornerRadius: 6.0,
             /* SHADOW NOT WORKING*/
             shadowColor: Theme03.shadowDark,
             tapBackgroundToDismiss: true,
-            dismissalCompletion: dismissalCompletion,
-            fadeInAlpha: true)
+            fadeInAlpha: true*/
+            options: [
+                .DimmingBGColor : Theme03.mapPresentationDimView
+            ])
         
         mapViewController!.transitioningDelegate = overlayTransitioningDelegate
         mapViewController!.modalPresentationStyle = .Custom

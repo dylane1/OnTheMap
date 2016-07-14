@@ -13,7 +13,7 @@ class InformationPostingViewController: UIViewController, InformationPostingNavi
     private var postingView: InformationPostingView!
     
     /// ActivityIndicatorPresentable
-    internal var activityIndicatorViewController: PrimaryActivityIndicatorViewController?
+    internal var activityIndicatorViewController: ActivityIndicatorViewController?
     
     //MARK: - View Lifecycle
     deinit { magic("being deinitialized   <----------------") }
@@ -27,12 +27,12 @@ class InformationPostingViewController: UIViewController, InformationPostingNavi
         navController.setNavigationBarAttributes(isAppTitle: false)
         
         let presentActivityIndicator = { [weak self] (completion: (() -> Void)?) in
-            self!.presentActivityIndicator(withPresentationCompletion: nil/*, dismissalCompletion: completion*/)
+            self!.presentActivityIndicator(self!.getActivityIndicatorViewController(), completion: nil)
         }
 //        let presentActivityIndicator    = getActivityIndicatorPresentation()
         
         let dismissActivityIndicator = { [weak self] in
-            self!.dismissActivityIndicator(withCompletion: nil)
+            self!.dismissActivityIndicator(completion: nil)
         }
 //        let dismissActivityIndicator    = getActivityIndicatorDismissal()
         let presentErrorAlert           = getAlertPresentation()
@@ -42,7 +42,7 @@ class InformationPostingViewController: UIViewController, InformationPostingNavi
                 /// Dismiss Me
                 self!.dismissViewControllerAnimated(true, completion: nil)
             }
-            self!.dismissActivityIndicator(withCompletion: dismissalCompletion)
+            self!.dismissActivityIndicator(completion: dismissalCompletion)
 //            self!.dismissActivityIndicator(self!.activityIndicatorViewController!, completion: dismissalCompletion)
         }
         

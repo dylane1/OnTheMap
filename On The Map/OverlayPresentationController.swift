@@ -11,7 +11,11 @@ final class OverlayPresentationController: UIPresentationController {
     private var dimmingBGColor: UIColor!
     private var contentSize: CGSize!
     private var tapToDismiss = false
-    private var presentationComplete: (() -> Void)?
+    
+    /**
+     Need dismissalCompletion if the tap background to dismiss option is
+     used.
+    */
     private var dismissalCompletion: (() -> Void)?
     
     //MARK: - View Lifecycle
@@ -61,22 +65,12 @@ final class OverlayPresentationController: UIPresentationController {
     override func presentationTransitionWillBegin() {
         setupDimmingView()
         
-        
-//        if doFadeInAlpha! {
-//            presentedViewController.view.alpha = 0.0
-//        }
-
         presentedViewController.preferredContentSize = contentSize
         containerView!.insertSubview(dimmingView, atIndex: 0)
         
         presentedViewController.transitionCoordinator()?.animateAlongsideTransition( { [weak self] context in
             self!.dimmingView.alpha = 1.0
-//            if self!.doFadeInAlpha! {
-//                self!.presentedViewController.view.alpha = 1.0
-//            }
-            }, completion: { [weak self] context in
-                self!.presentationComplete?()
-            })
+        }, completion: nil)
         
     }
     

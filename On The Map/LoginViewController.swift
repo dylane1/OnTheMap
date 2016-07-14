@@ -16,7 +16,7 @@ class LoginViewController: UIViewController, AlertPresentable, ActivityIndicator
     
     private var loginView: LoginView!
 
-//    internal var activityIndicatorViewController: PrimaryActivityIndicatorViewController?
+    internal var activityIndicatorViewController: ActivityIndicatorViewController?
     
     private var mainTabBarController: TabBarController?
     
@@ -29,36 +29,15 @@ class LoginViewController: UIViewController, AlertPresentable, ActivityIndicator
         
         
         let presentActivityIndicator = { [unowned self] (completion: (() -> Void)?) in
-            self.presentActivityIndicator(withPresentationCompletion: nil/*, dismissalCompletion: completion*/)
+            self.presentActivityIndicator(self.getActivityIndicatorViewController(), completion: completion)
         }
         
-        
-        
-        
-        
-//        let presentActivityIndicator = { [unowned self] (completion: (() -> Void)?) in
-//            self.presentActivityIndicator(withPresentationCompletion: nil, dismissalCompletion: {
-//                completion?() // Might be an alert
-//                self.performSegueWithIdentifier(.LoginComplete, sender: self)
-//            })
-//        }//getActivityIndicatorPresentation()
         let presentErrorAlert = getAlertPresentation()
 
         let loginSuccessClosure = { [unowned self] in
-            self.dismissActivityIndicator(withCompletion: {
-//                self.activityIndicatorViewController = nil
+            self.dismissActivityIndicator(completion: {
                 self.performSegueWithIdentifier(.LoginComplete, sender: self)
-            
             })
-//            if self.activityIndicatorViewController != nil {
-//                let dismissalCompletion = { [unowned self] in
-//                    self.activityIndicatorViewController = nil
-//                    self.performSegueWithIdentifier(.LoginComplete, sender: self)
-//                }
-//                self.dismissActivityIndicator(self.activityIndicatorViewController!, completion: dismissalCompletion)
-//            } else {
-//                self.performSegueWithIdentifier(.LoginComplete, sender: self)
-//            }
         }
         
 //        successfulLogoutCompletion = { [unowned self] in

@@ -17,11 +17,10 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
     
     private var sessionLogoutController = UserSessionLogoutController()
     
+    internal var activityIndicatorViewController: ActivityIndicatorViewController?
+    
     /// InformationPostingPresentable
     internal var informationPostingNavController: InformationPostingNavigationController?
-    
-    /// ActivityIndicatorPresentable
-    internal var activityIndicatorViewController: PrimaryActivityIndicatorViewController?
     
     //MARK: - View Lifecycle
     deinit { magic("being deinitialized   <----------------") }
@@ -38,14 +37,17 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
             self!.getStudentInfoArray()
         }
         
-        let presentActivityIndicator = {[unowned self] (completion: (() -> Void)?) in
-            self.presentActivityIndicator(withPresentationCompletion: nil/*, dismissalCompletion: completion*/)
-        }//getActivityIndicatorPresentation()
+        let presentActivityIndicator = { [unowned self] (completion: (() -> Void)?) in
+            self.presentActivityIndicator(self.getActivityIndicatorViewController(), completion: completion)
+        }
+        
         let presentErrorAlert = getAlertPresentation()
         
-        let logoutSuccessClosure = { [weak self] in
-            self!.dismissViewControllerAnimated(true, completion: nil)
-        }//getSuccessfulLogoutClosure()
+        let logoutSuccessClosure = { [unowned self] in
+            self.dismissActivityIndicator(completion: {
+                self.dismissViewControllerAnimated(true, completion: nil)
+            })
+        }
         
         sessionLogoutController.configure(
             withActivityIndicatorPresentation: presentActivityIndicator,

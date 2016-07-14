@@ -26,7 +26,7 @@ extension AlertPresentable where Self: UIViewController, Self: ActivityIndicator
 //                self!.activityIndicatorViewController = nil
                 self!.presentAlertWithParameters(parameters)
             }
-            self!.dismissActivityIndicator(withCompletion: dismissalCompletion)
+            self!.dismissActivityIndicator(completion: dismissalCompletion)
 //            if self!.activityIndicatorViewController != nil {
 //                self!.dismissActivityIndicator(self!.activityIndicatorViewController!, completion: dismissalCompletion)
 //            }

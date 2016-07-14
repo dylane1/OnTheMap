@@ -226,15 +226,15 @@
 		A38AB6E31D1AEBFD00820AA9 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				A38AB6E11D19F56500820AA9 /* StudentLocationRequestable.swift */,
+				A349C2521D2D622D008E678D /* ActivityIndicatorPresentable.swift */,
 				A3499F0E1D1E0CBD00C961D3 /* AlertPresentable.swift */,
+				A38AB6E11D19F56500820AA9 /* StudentLocationRequestable.swift */,
 				A31EA4951D136F70005CC5B9 /* SafariViewControllerPresentable.swift */,
 				A31EA4841D11CEBF005CC5B9 /* StudentInformationGettable.swift */,
 				A3816D2C1D09E46B001B55A0 /* MapAndTableNavigationProtocol.swift */,
 				A3816D301D0A2474001B55A0 /* InformationPostingNavigationProtocol.swift */,
 				A3816D251D09DA70001B55A0 /* InformationPostingPresentable.swift */,
 				A38AB6DD1D187A4E00820AA9 /* ReusableView.swift */,
-				A349C2521D2D622D008E678D /* ActivityIndicatorPresentable.swift */,
 				A349C2541D2D63D2008E678D /* SegueHandlerType.swift */,
 			);
 			name = Protocols;
