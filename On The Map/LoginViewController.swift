@@ -10,6 +10,10 @@ import UIKit
 
 class LoginViewController: UIViewController, AlertPresentable, ActivityIndicatorPresentable, SegueHandlerType {
     
+    /** 
+     Admittedly this is silly for a single segue, but I want to standardize the
+     segue presentation process for all apps using SegueHandlerType protocol
+     */
     enum SegueIdentifier: String {
         case LoginComplete
     }
@@ -61,7 +65,10 @@ class LoginViewController: UIViewController, AlertPresentable, ActivityIndicator
     //MARK: - Segues
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        mainTabBarController = segue.destinationViewController as? TabBarController
-//        mainTabBarController!.successfulLogoutCompletion = successfulLogoutCompletion
+        /// Overkill for this situation, but would be useful for multiple seques
+        switch segueIdentifierForSegue(segue) {
+        case .LoginComplete:
+            mainTabBarController = segue.destinationViewController as? TabBarController
+        }
     }
 }

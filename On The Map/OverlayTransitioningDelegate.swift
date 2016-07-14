@@ -27,11 +27,7 @@ enum TransitionInOption {
 }
 
 
-final class OverlayTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate /*OptionsHandlerType*/ {
-    
-//    enum Position: String {
-//        case Top, Bottom, Left, Right, Center
-//    }
+final class OverlayTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
     
     private var options: [TransitionInOption : Any]?
     
@@ -63,52 +59,14 @@ final class OverlayTransitioningDelegate: NSObject, UIViewControllerTransitionin
     }
     
     required convenience init(
-        /** OverlayPresentationController **/
         withPreferredContentSize contentSize: CGSize,
-//        dimmingBGColor bgColor: UIColor                     = UIColor(white: 0.0, alpha: 0.5),
-//        tapBackgroundToDismiss tap: Bool                    = false,
-        dismissalCompletion outComplete: (() -> Void)?      = nil,
-                            
-        /** TransitionInAnimator **/
-//        durationIn timeIn: Double           = 0.5,
-//        fromPosition inFrom: Position       = .Bottom,
-//        useScaleIn scaleIn: Bool            = false,
-//        cornerRadius corners: CGFloat       = 0.0,
-//        shadowColor shadow: UIColor?        = nil,
-//        fadeInAlpha fadeIn: Bool            = false,
-//        springDampening dampening: CGFloat  = 1.0,
-//        springVelocity velocity: CGFloat    = 0.0,
-        
-        /** TransitionOutAnimator **/
-//        durationOut timeOut: Double     = 0.5,
-//        outToPosition outTo: Position   = .Bottom,
-//        useScaleOut scaleOut: Bool      = false,
-//        fadeOutAlpha fadeOut: Bool      = false,
+        dismissalCompletion outComplete: (() -> Void)? = nil,
         options opts: [TransitionInOption : Any]? = nil) {
         
         self.init()
         
-        /** OverlayPresentationController **/
         preferredContentSize    = contentSize
-//        dimmingBGColor          = bgColor
-//        tapToDismiss            = tap
         dismissalCompletion     = outComplete
-        
-        /** TransitionInAnimator **/
-//        durationIn      = timeIn
-//        fromPosition    = inFrom
-//        useScaleIn      = scaleIn
-//        cornerRadius    = corners
-//        shadowColor     = shadow
-//        fadeInAlpha     = fadeIn
-//        springDampening = dampening
-//        springVelocity  = velocity
-        
-        /** TransitionOutAnimator **/
-//        durationOut     = timeOut
-//        outToPosition   = outTo
-//        useScaleOut     = scaleOut
-//        fadeOutAlpha    = fadeOut
         options = opts
         
         checkForOptions()
@@ -117,12 +75,55 @@ final class OverlayTransitioningDelegate: NSObject, UIViewControllerTransitionin
     private func checkForOptions() {
         guard let options = options else { return }
         
+        /** OverlayPresentationController **/
+        
+        if let bgDimming = options[.DimmingBGColor] as? UIColor {
+            dimmingBGColor = bgDimming
+        }
+        if let tapDissmiss = options[.TapToDismiss] as? Bool {
+            tapToDismiss = tapDissmiss
+        }
+        
+        /** TransitionInAnimator **/
+        
+        if let timeIn = options[.DurationIn] as? Double {
+            durationIn = timeIn
+        }
         if let inFrom = options[.InFromPosition] as? Position {
-//            inFrom = Position(rawValue: inFromString) {
-//            magic("inFrom: \(inFrom)")
             fromPosition = inFrom
-        } else {
-            magic("invalid position string sent")
+        }
+        if let scaleIn = options[.ScaleIn] as? Bool {
+            useScaleIn = scaleIn
+        }
+        if let corners = options[.CornerRadius] as? CGFloat {
+            cornerRadius = corners
+        }
+        if let shadow = options[.ShadowColor] as? UIColor {
+            shadowColor = shadow
+        }
+        if let alphaIn = options[.AlphaIn] as? Bool {
+            fadeInAlpha = alphaIn
+        }
+        if let dampening = options[.SpringDampening] as? CGFloat {
+            springDampening = dampening
+        }
+        if let velocity = options[.SpringVelocity] as? CGFloat {
+            springVelocity = velocity
+        }
+        
+        /** TransitionOutAnimator **/
+        
+        if let timeOut = options[.DurationOut] as? Double {
+            durationIn = timeOut
+        }
+        if let outTo = options[.OutToPosition] as? Position {
+            outToPosition = outTo
+        }
+        if let scaleOut = options[.ScaleOut] as? Bool {
+            useScaleOut = scaleOut
+        }
+        if let alphaOut = options[.AlphaOut] as? Bool {
+            fadeOutAlpha = alphaOut
         }
     }
     
