@@ -12,7 +12,6 @@ enum Position {
 enum TransitionInOption {
     case AlphaIn /// Bool
     case AlphaOut /// Bool
-    case CornerRadius /// CGFloat
     case DimmingBGColor /// UIColor
     case DurationIn /// Double
     case DurationOut /// Double
@@ -20,7 +19,6 @@ enum TransitionInOption {
     case OutToPosition /// Position
     case ScaleIn /// Bool
     case ScaleOut /// Bool
-    case ShadowColor /// UIColor
     case SpringDampening /// CGFloat
     case SpringVelocity /// CGFloat
     case TapToDismiss /// Bool
@@ -41,8 +39,6 @@ final class OverlayTransitioningDelegate: NSObject, UIViewControllerTransitionin
     private var durationIn: Double          = 0.5
     private var fromPosition: Position      = .Bottom
     private var useScaleIn                  = false
-    private var cornerRadius: CGFloat       = 0.0
-    private var shadowColor: UIColor?
     private var fadeInAlpha                 = false
     private var springDampening: CGFloat    = 1.0
     private var springVelocity: CGFloat     = 0.0
@@ -95,12 +91,6 @@ final class OverlayTransitioningDelegate: NSObject, UIViewControllerTransitionin
         if let scaleIn = options[.ScaleIn] as? Bool {
             useScaleIn = scaleIn
         }
-        if let corners = options[.CornerRadius] as? CGFloat {
-            cornerRadius = corners
-        }
-        if let shadow = options[.ShadowColor] as? UIColor {
-            shadowColor = shadow
-        }
         if let alphaIn = options[.AlphaIn] as? Bool {
             fadeInAlpha = alphaIn
         }
@@ -150,8 +140,6 @@ final class OverlayTransitioningDelegate: NSObject, UIViewControllerTransitionin
             withDuration: durationIn,
             fromPosition: fromPosition,
             useScale: useScaleIn,
-            cornerRadius: cornerRadius,
-            shadowColor: shadowColor,
             fadeInAlpha: fadeInAlpha,
             springDampening: springDampening,
             springVelocity: springVelocity)

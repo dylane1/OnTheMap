@@ -25,13 +25,16 @@ extension ActivityIndicatorPresentable where Self: UIViewController {
         
         let overlayTransitioningDelegate = OverlayTransitioningDelegate(
             withPreferredContentSize: CGSizeMake(80, 80),
-            /*dimmingBGColor: Theme03.activityIndicatorDimmingBGColor,
-            cornerRadius: 6.0,
-            shadowColor: Theme03.shadowLight,
-            tapBackgroundToDismiss: false,
-            fadeInAlpha: true,*/
             options: [
-                .InFromPosition : Position.Center
+                .InFromPosition : Position.Center,
+                .DurationIn: 0.3,
+                .AlphaIn: true,
+                .ScaleIn: true,
+                .OutToPosition: Position.Center,
+                .DurationOut: 0.3,
+                .AlphaOut: true,
+                .ScaleOut: true,
+                .DimmingBGColor: Theme03.activityIndicatorDimmingBGColor
             ])
         
         activityIndicator.transitioningDelegate = overlayTransitioningDelegate

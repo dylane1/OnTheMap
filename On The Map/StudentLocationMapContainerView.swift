@@ -11,6 +11,7 @@ import UIKit
 
 class StudentLocationMapContainerView: UIView {
 
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var mapView: MKMapView!
     
     /// Use a preloaded image until map is renedered so user doesn't see empty screen
@@ -21,6 +22,11 @@ class StudentLocationMapContainerView: UIView {
     private var annotations = [StudentLocationAnnotation]()
     
     private var openLinkClosure: OpenLinkClosure?
+    
+//    private var timer = NSTimer()
+//    private var delay = 0.05
+//    private var annotationViewArray: [MKAnnotationView]?
+//    private var annotationIndex = 0
     
     //MARK: - Configuration
     
@@ -64,6 +70,9 @@ class StudentLocationMapContainerView: UIView {
             }
             preloadedMapImage.alpha = 1.0
         }
+        
+        activityIndicator.color = UIColor.ceSoir()
+        activityIndicator.startAnimating()
     }
     
     
@@ -76,12 +85,25 @@ class StudentLocationMapContainerView: UIView {
         }
 
         mapView.addAnnotations(annotations)
+        activityIndicator.stopAnimating()
     }
     
     private func clearAnnotations() {
         if annotations.count > 0 {
             mapView.removeAnnotations(annotations)
             annotations.removeAll()
+        }
+    }
+    
+    private func animateAnnotationsWithAnnotationArray(views: [MKAnnotationView]) {
+        for annotation in views {
+            let endFrame = annotation.frame
+            annotation.frame = CGRectOffset(endFrame, 0, -500)
+            
+            UIView.animateWithDuration(0.3, animations: {
+                annotation.frame = endFrame
+            })
+            
         }
     }
 }
@@ -116,4 +138,31 @@ extension StudentLocationMapContainerView: MKMapViewDelegate {
         let annotation = view.annotation as! StudentLocationAnnotation
         openLinkClosure?(annotation.mediaURL)
     }
+    
+    func mapView(mapView: MKMapView, didAddAnnotationViews views: [MKAnnotationView]) {
+        animateAnnotationsWithAnnotationArray(views)
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -31,7 +31,7 @@ final class OverlayPresentationController: UIPresentationController {
         presentedViewController: UIViewController,
         presentingViewController: UIViewController,
         preferredContentSize: CGSize,
-        dimmingBGColor bgColor: UIColor = UIColor(white: 0.0, alpha: 0.5),
+        dimmingBGColor bgColor: UIColor = UIColor.blackColor(),
         tapToDismiss tap: Bool = false,
         dismissalCompletion completion: (() -> Void)? = nil) {
         
@@ -69,7 +69,7 @@ final class OverlayPresentationController: UIPresentationController {
         containerView!.insertSubview(dimmingView, atIndex: 0)
         
         presentedViewController.transitionCoordinator()?.animateAlongsideTransition( { [weak self] context in
-            self!.dimmingView.alpha = 1.0
+            self!.dimmingView.alpha = 0.5
         }, completion: nil)
         
     }

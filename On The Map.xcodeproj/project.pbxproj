@@ -314,8 +314,8 @@
 		A3BCA3191D34205200B02C9A /* Custom Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				A3BCA3131D34204600B02C9A /* OverlayPresentationController.swift */,
 				A3BCA3141D34204600B02C9A /* OverlayTransitioningDelegate.swift */,
+				A3BCA3131D34204600B02C9A /* OverlayPresentationController.swift */,
 				A3BCA31C1D34677400B02C9A /* TransitionInAnimator.swift */,
 				A3BCA31A1D34663E00B02C9A /* TransitionOutAnimator.swift */,
 			);

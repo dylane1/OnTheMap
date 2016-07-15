@@ -24,19 +24,25 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="b7E-ZO-7p7">
                                 <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                             </imageView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="reB-nM-7Ok">
+                                <rect key="frame" x="142" y="222" width="37" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="p3J-G4-HX5" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="4gk-3B-eFU"/>
                             <constraint firstAttribute="trailing" secondItem="b7E-ZO-7p7" secondAttribute="trailing" id="6uM-jl-XQT"/>
                             <constraint firstAttribute="trailing" secondItem="p3J-G4-HX5" secondAttribute="trailing" id="HL8-VZ-gGV"/>
+                            <constraint firstItem="reB-nM-7Ok" firstAttribute="centerY" secondItem="tsR-hK-woN" secondAttribute="centerY" id="IDv-yn-04f"/>
                             <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="b7E-ZO-7p7" secondAttribute="bottom" id="TVu-02-ixZ"/>
                             <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="p3J-G4-HX5" secondAttribute="bottom" id="dPp-Bl-BsI"/>
+                            <constraint firstItem="reB-nM-7Ok" firstAttribute="centerX" secondItem="tsR-hK-woN" secondAttribute="centerX" id="eW0-Ct-0CO"/>
                             <constraint firstItem="b7E-ZO-7p7" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="kzd-E4-np0"/>
                             <constraint firstItem="p3J-G4-HX5" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" id="q1h-Ae-XTu"/>
                             <constraint firstItem="b7E-ZO-7p7" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" id="sI7-um-IJ8"/>
                         </constraints>
                         <connections>
+                            <outlet property="activityIndicator" destination="reB-nM-7Ok" id="goe-CR-FQg"/>
                             <outlet property="mapView" destination="p3J-G4-HX5" id="dHZ-Zg-Jaq"/>
                             <outlet property="preloadedMapImage" destination="b7E-ZO-7p7" id="YAE-Nf-cGo"/>
                         </connections>

@@ -20,8 +20,6 @@ final class TransitionInAnimator: NSObject, UIViewControllerAnimatedTransitionin
     /// Optional
     private var fromPosition: Position = .Bottom
     private var useScale = false
-    private var cornerRadius: CGFloat!
-    private var shadowColor: UIColor?
     private var fadeInAlpha = false
     private var springDampening: CGFloat!
     private var springVelocity: CGFloat!
@@ -46,8 +44,6 @@ final class TransitionInAnimator: NSObject, UIViewControllerAnimatedTransitionin
         duration        = time
         fromPosition    = position
         useScale        = scale
-        cornerRadius    = corners
-        shadowColor     = shadow
         fadeInAlpha     = alpha
         springDampening = dampening
         springVelocity  = velocity
@@ -89,16 +85,6 @@ final class TransitionInAnimator: NSObject, UIViewControllerAnimatedTransitionin
         if fadeInAlpha {
             presentedView.alpha = 0.0
         }
-        
-        if shadowColor != nil {
-            presentedView.layer.shadowColor     = shadowColor!.CGColor
-            presentedView.layer.shadowOffset    = CGSizeMake(4.0, 4.0)
-            presentedView.layer.shadowOpacity   = 0.6
-            presentedView.layer.shadowRadius    = 15
-        }
-        
-        presentedView.layer.cornerRadius = cornerRadius
-        presentedView.clipsToBounds = true
         
         containerView!.addSubview(presentedView)
         
