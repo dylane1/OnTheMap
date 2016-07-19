@@ -9,25 +9,27 @@ enum Position {
 }
 
 /// Dictionary Keys
-enum TransitionInOption {
-    case AlphaIn /// Bool
-    case AlphaOut /// Bool
-    case DimmingBGColor /// UIColor
-    case DurationIn /// Double
-    case DurationOut /// Double
-    case InFromPosition /// Position
-    case OutToPosition /// Position
-    case ScaleIn /// Bool
-    case ScaleOut /// Bool
-    case SpringDampening /// CGFloat
-    case SpringVelocity /// CGFloat
-    case TapToDismiss /// Bool
+enum TransitionOption {
+    case AlphaIn            /// Bool
+    case AlphaOut           /// Bool
+    case DelayIn            /// Double
+    case DelayOut           /// Double
+    case DimmingBGColor     /// UIColor
+    case DurationIn         /// Double
+    case DurationOut        /// Double
+    case InFromPosition     /// Position
+    case OutToPosition      /// Position
+    case ScaleIn            /// Bool
+    case ScaleOut           /// Bool
+    case SpringDampening    /// CGFloat
+    case SpringVelocity     /// CGFloat
+    case TapToDismiss       /// Bool
 }
 
 
 final class OverlayTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
     
-    private var options: [TransitionInOption : Any]?
+    private var options: [TransitionOption : Any]?
     
     /** OverlayPresentationController **/
     private var preferredContentSize: CGSize!
@@ -37,6 +39,7 @@ final class OverlayTransitioningDelegate: NSObject, UIViewControllerTransitionin
     
     /** TransitionInAnimator **/
     private var durationIn: Double          = 0.5
+    private var delayIn: Double             = 0.0
     private var fromPosition: Position      = .Bottom
     private var useScaleIn                  = false
     private var fadeInAlpha                 = false
@@ -45,29 +48,20 @@ final class OverlayTransitioningDelegate: NSObject, UIViewControllerTransitionin
     
     /** TransitionOutAnimator **/
     private var durationOut: Double         = 0.5
+    private var delayOut: Double            = 0.0
     private var outToPosition: Position     = .Bottom
     private var useScaleOut: Bool           = false
     private var fadeOutAlpha: Bool          = false
     
-    
-    private override init() {
-        super.init()
-    }
-    
-    required convenience init(
-        withPreferredContentSize contentSize: CGSize,
-        dismissalCompletion outComplete: (() -> Void)? = nil,
-        options opts: [TransitionInOption : Any]? = nil) {
-        
-        self.init()
-        
+    internal func configureTransitionWithContentSize(contentSize: CGSize, options opts: [TransitionOption : Any]? = nil, dismissalCompletion outComplete: (() -> Void)? = nil) {
+
         preferredContentSize    = contentSize
         dismissalCompletion     = outComplete
         options = opts
         
         checkForOptions()
     }
-    
+
     private func checkForOptions() {
         guard let options = options else { return }
         
@@ -84,6 +78,9 @@ final class OverlayTransitioningDelegate: NSObject, UIViewControllerTransitionin
         
         if let timeIn = options[.DurationIn] as? Double {
             durationIn = timeIn
+        }
+        if let pauseIn = options[.DelayIn] as? Double {
+            delayIn = pauseIn
         }
         if let inFrom = options[.InFromPosition] as? Position {
             fromPosition = inFrom
@@ -105,6 +102,9 @@ final class OverlayTransitioningDelegate: NSObject, UIViewControllerTransitionin
         
         if let timeOut = options[.DurationOut] as? Double {
             durationIn = timeOut
+        }
+        if let pauseOut = options[.DelayOut] as? Double {
+            delayOut = pauseOut
         }
         if let outTo = options[.OutToPosition] as? Position {
             outToPosition = outTo

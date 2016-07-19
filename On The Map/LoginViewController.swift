@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController, AlertPresentable, ActivityIndicatorPresentable, SegueHandlerType {
+class LoginViewController: UIViewController, AlertPresentable, ActivityIndicatorPresentable, SegueHandlerType, SafariViewControllerPresentable {
     
     /** 
      Admittedly this is silly for a single segue, but I want to standardize the
@@ -28,6 +28,10 @@ class LoginViewController: UIViewController, AlertPresentable, ActivityIndicator
     
     //MARK: - View Lifecycle
     
+//    override func prefersStatusBarHidden() -> Bool {
+//        return true
+//    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,6 +46,10 @@ class LoginViewController: UIViewController, AlertPresentable, ActivityIndicator
             self.dismissActivityIndicator(completion: {
                 self.performSegueWithIdentifier(.LoginComplete, sender: self)
             })
+        }
+        
+        let openUdacitySignUp = { [unowned self] in
+            self.openLinkInSafari(withURLString: Constants.Network.udacitySignUpURL)
         }
         
 //        successfulLogoutCompletion = { [unowned self] in
@@ -59,7 +67,8 @@ class LoginViewController: UIViewController, AlertPresentable, ActivityIndicator
         loginView.configure(
             withActivityIndicatorPresentation: presentActivityIndicator,
             successClosure: loginSuccessClosure,
-            alertPresentationClosure: presentErrorAlert)
+            alertPresentationClosure: presentErrorAlert,
+            openUdacitySignUp: openUdacitySignUp)
     }
     
     //MARK: - Segues

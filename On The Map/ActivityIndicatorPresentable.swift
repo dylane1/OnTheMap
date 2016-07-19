@@ -23,23 +23,23 @@ extension ActivityIndicatorPresentable where Self: UIViewController {
     
     internal func presentActivityIndicator(activityIndicator: ActivityIndicatorViewController, completion: (() -> Void)?) {
         
-        let overlayTransitioningDelegate = OverlayTransitioningDelegate(
-            withPreferredContentSize: CGSizeMake(80, 80),
-            options: [
-                .InFromPosition : Position.Center,
-                .DurationIn: 0.3,
-                .AlphaIn: true,
-                .ScaleIn: true,
-                .OutToPosition: Position.Center,
-                .DurationOut: 0.3,
-                .AlphaOut: true,
-                .ScaleOut: true,
-                .DimmingBGColor: Theme03.activityIndicatorDimmingBGColor
-            ])
+        let overlayTransitioningDelegate = OverlayTransitioningDelegate()
         
         activityIndicator.transitioningDelegate = overlayTransitioningDelegate
         activityIndicator.modalPresentationStyle = .Custom
         
+        //TODO: Can I make this a class func like UIView.animateWithDuration() ?
+        overlayTransitioningDelegate.configureTransitionWithContentSize(CGSizeMake(80, 80), options: [
+                                                                    .InFromPosition : Position.Center,
+                                                                    .DurationIn: 0.3,
+                                                                    .AlphaIn: true,
+                                                                    .ScaleIn: true,
+                                                                    .OutToPosition: Position.Center,
+                                                                    .DurationOut: 0.3,
+                                                                    .AlphaOut: true,
+                                                                    .ScaleOut: true,
+                                                                    .DimmingBGColor: Theme03.activityIndicatorDimmingBGColor
+            ])
         presentViewController(activityIndicator, animated: true, completion: completion)
     }
     

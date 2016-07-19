@@ -18,9 +18,10 @@ final class TransitionInAnimator: NSObject, UIViewControllerAnimatedTransitionin
     private var duration: Double!
     
     /// Optional
-    private var fromPosition: Position = .Bottom
-    private var useScale = false
-    private var fadeInAlpha = false
+    private var delay: Double           = 0.0
+    private var fromPosition: Position  = .Bottom
+    private var useScale                = false
+    private var fadeInAlpha             = false
     private var springDampening: CGFloat!
     private var springVelocity: CGFloat!
     
@@ -31,6 +32,7 @@ final class TransitionInAnimator: NSObject, UIViewControllerAnimatedTransitionin
     
     required convenience init(
         withDuration time: Double,
+        delay del: Double                   = 0.0,
         fromPosition position: Position     = .Bottom,
         useScale scale: Bool                = false,
         cornerRadius corners: CGFloat       = 0.0,
@@ -42,6 +44,7 @@ final class TransitionInAnimator: NSObject, UIViewControllerAnimatedTransitionin
         self.init()
         
         duration        = time
+        delay           = del
         fromPosition    = position
         useScale        = scale
         fadeInAlpha     = alpha
@@ -90,7 +93,7 @@ final class TransitionInAnimator: NSObject, UIViewControllerAnimatedTransitionin
         
         UIView.animateWithDuration(
             animationDuration,
-            delay: 0,
+            delay: delay,
             usingSpringWithDamping: springDampening,
             initialSpringVelocity: springVelocity,
             options: [],

@@ -14,6 +14,7 @@ import FBSDKLoginKit
 class LoginView: UIView {
     
     private var presentErrorAlert: AlertPresentation!
+    private var openSignUpPage: (() -> Void)!
     
     private var emailString     = ""
     private var passwordString  = ""
@@ -27,16 +28,22 @@ class LoginView: UIView {
     private lazy var loginValidator = LoginValidator()
     
     private let gradientLayer = CAGradientLayer()
+    
     //MARK: - IBOutlets
     
-    @IBOutlet weak var titleView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var loginToUdacityLabel: UILabel!
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
     
+    @IBOutlet weak var noAccountLabel: UILabel!
+    @IBOutlet weak var signUpButton: UIButton!
+    @IBOutlet weak var titleLabelTopConstraint: NSLayoutConstraint!
     
+    private var titleLabelConstraintConstantDestination: CGFloat = 40.0
+    
+    let facebookLoginButton = FBSDKLoginButton()
     //MARK: - Actions
     
     @IBAction func loginAction(sender: AnyObject) {
@@ -53,14 +60,20 @@ class LoginView: UIView {
         initiateLogin(withEmailAndPassword: emailLogin)
     }
     
+    @IBAction func signUpAction(sender: AnyObject) {
+        openSignUpPage()
+    }
+    
     //MARK: - Configuration
     
     internal func configure(
         withActivityIndicatorPresentation presentAI: (completion: (() -> Void)?) -> Void,
         successClosure success:() -> Void,
-        alertPresentationClosure alertPresentation: AlertPresentation) {
+        alertPresentationClosure alertPresentation: AlertPresentation,
+        openUdacitySignUp signUpClosure: () -> Void) {
         
-        presentErrorAlert = alertPresentation
+        presentErrorAlert   = alertPresentation
+        openSignUpPage      = signUpClosure
         
         loginValidator.configure(
             withActivityIndicatorPresentation: presentAI,
@@ -68,14 +81,13 @@ class LoginView: UIView {
             alertPresentationClosure: alertPresentation)
         
         configureBackground()
-        configureTitleView()
         configureLabels()
         configureTextFields()
         configureButtons()
         
         checkForLoggedIntoFacebook()
         
-        titleViewAnimation()
+        prepareForAnimation()
     }
     
     private func configureBackground() {
@@ -92,12 +104,6 @@ class LoginView: UIView {
         layer.insertSublayer(gradientLayer, atIndex: 0)
     }
     
-    private func configureTitleView() {
-        titleView.backgroundColor = UIColor.clearColor()
-        titleView.alpha        = 0
-        titleView.transform    = CGAffineTransformMakeScale(0.5, 0.5)
-    }
-    
     private func configureLabels() {
         /// Title
         let titleShadow = NSShadow()
@@ -108,12 +114,13 @@ class LoginView: UIView {
         let titleLabelAttributes: [String : AnyObject] = [
             NSShadowAttributeName: titleShadow,
             NSForegroundColorAttributeName: Theme03.textLight,
-            NSFontAttributeName: UIFont(name: Constants.FontName.markerFelt, size: 50)!]
+            NSFontAttributeName: UIFont(name: Constants.FontName.markerFelt, size: 52)!]
         
         titleLabel.adjustsFontSizeToFitWidth = true
         
         titleLabel.attributedText = NSAttributedString(string: LocalizedStrings.ViewControllerTitles.onTheMap, attributes: titleLabelAttributes)
         
+        titleLabelTopConstraint.constant = (bounds.height / 2 - (titleLabel.bounds.height + 22))
         
         /// Login
         let loginLabelShadow = NSShadow()
@@ -127,6 +134,25 @@ class LoginView: UIView {
             NSFontAttributeName: UIFont(name: Constants.FontName.avenir, size: 20)!]
         
         loginToUdacityLabel.attributedText = NSAttributedString(string: LocalizedStrings.Labels.loginToUdacity, attributes: loginLabelAttributes)
+        
+        loginToUdacityLabel.transform = CGAffineTransformMakeScale(0.1, 0.1)
+        loginToUdacityLabel.alpha = 0
+        
+        /// Don't have account
+        
+        let labelString = LocalizedStrings.Labels.dontHaveAccount + " " + LocalizedStrings.Labels.signUp
+        
+        let attributedString = NSMutableAttributedString(string: labelString)
+        
+        attributedString.addAttribute(NSFontAttributeName, value: UIFont(name: Constants.FontName.avenir, size: 14)!, range: NSRange(location: 0, length: labelString.characters.count))
+        
+        attributedString.addAttribute(NSForegroundColorAttributeName, value: Theme03.textLight, range: NSRange(location: 0, length: labelString.characters.count))
+        
+        attributedString.addAttribute(NSUnderlineStyleAttributeName, value: NSUnderlineStyle.StyleSingle.rawValue, range: NSRange(location: LocalizedStrings.Labels.dontHaveAccount.characters.count + 1, length: LocalizedStrings.Labels.signUp.characters.count))
+        
+        noAccountLabel.attributedText   = attributedString
+        noAccountLabel.transform        = CGAffineTransformMakeScale(0.1, 0.1)
+        noAccountLabel.alpha            = 0
     }
     
     private func configureTextFields() {
@@ -135,12 +161,16 @@ class LoginView: UIView {
         emailField.delegate         = self
         emailField.placeholder      = LocalizedStrings.TextFieldPlaceHolders.email
         emailField.addTarget(self, action: #selector(validateTextFields), forControlEvents: .EditingChanged)
+        emailField.alpha = 0
+        emailField.transform = CGAffineTransformMakeScale(0.1, 0.1)
         
         passwordField.backgroundColor   = Theme03.textFieldBackground
         passwordField.delegate          = self
         passwordField.secureTextEntry   = true
         passwordField.placeholder       = LocalizedStrings.TextFieldPlaceHolders.password
         passwordField.addTarget(self, action: #selector(validateTextFields), forControlEvents: .EditingChanged)
+        passwordField.alpha = 0
+        passwordField.transform = CGAffineTransformMakeScale(0.1, 0.1)
         
         configureTextFieldAttributes()
     }
@@ -157,13 +187,20 @@ class LoginView: UIView {
         loginButton.backgroundColor     = Theme03.buttonBackground
         loginButton.tintColor           = Theme03.buttonTint
         loginButton.layer.cornerRadius  = 6
+        loginButton.alpha               = 0
+        loginButton.transform           = CGAffineTransformMakeScale(0.1, 0.1)
         
-        let loginView = FBSDKLoginButton()
-        self.addSubview(loginView)
-        loginView.center.x = self.center.x
-        loginView.center.y = self.frame.height - 50
-        loginView.readPermissions = ["email"]
-        loginView.delegate = self
+        signUpButton.setTitle(nil, forState: .Normal)
+        signUpButton.alpha              = 0
+        signUpButton.transform          = CGAffineTransformMakeScale(0.1, 0.1)
+        
+        self.addSubview(facebookLoginButton)
+        facebookLoginButton.center.x = self.center.x
+        facebookLoginButton.center.y = self.frame.height - 50
+        facebookLoginButton.readPermissions = ["email"]
+        facebookLoginButton.delegate = self
+        facebookLoginButton.alpha = 0
+        facebookLoginButton.transform = CGAffineTransformMakeScale(0.1, 0.1)
     }
     
     //MARK: - Facebook check
@@ -204,29 +241,50 @@ class LoginView: UIView {
     
     //MARK: - Animations
     
-    private func titleViewAnimation() {
-        UIView.animateWithDuration(0.7, delay: 0.5, usingSpringWithDamping: 0.5, initialSpringVelocity: 1.0, options: .CurveEaseOut, animations: {
-            self.titleView.transform = CGAffineTransformMakeScale(1.0, 1.0)
-            self.titleView.alpha = 1.0
-//            self.layoutIfNeeded()
-            }, completion: nil)
+    /** 
+     This is needed because for some reason the animation breaks if titleAnimation()
+     is called immediately from configure(). The scale transform works, but the
+     constraint animation doesn't.
+     */
+    private func prepareForAnimation() {
+        let delayInSeconds = 1.00
+        let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(delayInSeconds * Double(NSEC_PER_SEC)))
+        
+        dispatch_after(popTime, dispatch_get_main_queue()) {
+            self.titleAnimation()
+        }
     }
     
-//    private func animateURLTextFieldIntoView() {
-//        UIView.animateWithDuration(0.5, animations: {
-//            self.urlTextFieldTopConstraint.constant += (self.urlTextField.frame.height + 4)
-//            self.urlTextField.alpha = 1.0
-//            self.layoutIfNeeded()
-//            }, completion: nil)
-//    }
-//    
-//    private func animateBottomButtonIntoView() {
-//        UIView.animateWithDuration(1.7, delay: 0.5, usingSpringWithDamping: 0.3, initialSpringVelocity: 0.5, options: .CurveEaseOut, animations: {
-//            self.bottomButton.transform = CGAffineTransformMakeScale(1.0, 1.0)
-//            self.bottomButton.alpha = 1.0
-//            self.layoutIfNeeded()
-//            }, completion: nil)
-//    }
+    private func titleAnimation() {
+        UIView.animateWithDuration(0.7, delay: 0.5, usingSpringWithDamping: 0.5, initialSpringVelocity: 1.0, options: .CurveEaseOut, animations: {
+            
+            self.titleLabel.transform = CGAffineTransformMakeScale(0.8, 0.8)
+            self.titleLabelTopConstraint.constant = self.titleLabelConstraintConstantDestination
+            
+            self.layoutIfNeeded()
+            }, completion: { complete in
+                self.kickOffOtherAnimations()
+            })
+    }
+    
+    private func kickOffOtherAnimations() {
+        animateView(loginToUdacityLabel, delay: 0.0)
+        animateView(emailField, delay: 0.1)
+        animateView(passwordField, delay: 0.2)
+        animateView(loginButton, delay: 0.3)
+        animateView(noAccountLabel, delay: 0.4)
+        animateView(signUpButton, delay: 0.4)
+        animateView(facebookLoginButton, delay: 0.5)
+    }
+    
+    private func animateView(view: UIView, delay: Double) {
+        UIView.animateWithDuration(0.5, delay: delay, usingSpringWithDamping: 0.5, initialSpringVelocity: 1.0, options: .CurveEaseOut, animations: {
+            
+            view.transform = CGAffineTransformMakeScale(1.0, 1.0)
+            view.alpha = 1.0
+            self.layoutIfNeeded()
+            }, completion: nil)
+    }
 }
 
 //MARK: - UITextFieldDelegate

@@ -23,6 +23,7 @@ class StudentLocationMapContainerView: UIView {
     
     private var openLinkClosure: OpenLinkClosure?
     
+    private var animatedPinsIn = false
 //    private var timer = NSTimer()
 //    private var delay = 0.05
 //    private var annotationViewArray: [MKAnnotationView]?
@@ -40,6 +41,7 @@ class StudentLocationMapContainerView: UIView {
         configureMapImage()
         /// clear for refresh
         clearAnnotations()
+        animatedPinsIn = false
         
         if mapRendered {
             placeAnnotations(withStudentInformationArray: array)
@@ -96,15 +98,17 @@ class StudentLocationMapContainerView: UIView {
     }
     
     private func animateAnnotationsWithAnnotationArray(views: [MKAnnotationView]) {
+        magic("views count: \(views.count)")
         for annotation in views {
             let endFrame = annotation.frame
             annotation.frame = CGRectOffset(endFrame, 0, -500)
+            let duration = 0.3
             
-            UIView.animateWithDuration(0.3, animations: {
+            UIView.animateWithDuration(duration, animations: {
                 annotation.frame = endFrame
             })
-            
         }
+        animatedPinsIn = true
     }
 }
 
@@ -118,18 +122,18 @@ extension StudentLocationMapContainerView: MKMapViewDelegate {
     
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         if let annotation = annotation as? StudentLocationAnnotation {
-            var view: MKPinAnnotationView
-            if let dequeuedView = mapView.dequeueReusableAnnotationViewWithIdentifier(MKPinAnnotationView.reuseIdentifier)
-                as? MKPinAnnotationView {
+            var pinView: MKPinAnnotationView
+            if let dequeuedView = mapView.dequeueReusableAnnotationViewWithIdentifier(MKPinAnnotationView.reuseIdentifier) as? MKPinAnnotationView {
+                
                 dequeuedView.annotation = annotation
-                view = dequeuedView
+                pinView = dequeuedView
             } else {
-                view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: MKPinAnnotationView.reuseIdentifier)
-                view.canShowCallout = true
-                view.calloutOffset = CGPoint(x: -5, y: 5)
-                view.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure) as UIView
+                pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: MKPinAnnotationView.reuseIdentifier)
+                pinView.canShowCallout = true
+                pinView.calloutOffset = CGPoint(x: -5, y: 5)
+                pinView.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure) as UIView
             }
-            return view
+        return pinView
         }
         return nil
     }
@@ -140,7 +144,10 @@ extension StudentLocationMapContainerView: MKMapViewDelegate {
     }
     
     func mapView(mapView: MKMapView, didAddAnnotationViews views: [MKAnnotationView]) {
-        animateAnnotationsWithAnnotationArray(views)
+        if !animatedPinsIn {
+            animateAnnotationsWithAnnotationArray(views)
+        }
+        
     }
 }
 

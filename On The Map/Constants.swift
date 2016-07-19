@@ -57,6 +57,7 @@ struct Constants {
     //MARK: - Network
     
     struct Network {
+        static let udacitySignUpURL     = "https://www.udacity.com"
         static let udacitySessionURL    = "https://www.udacity.com/api/session"
         static let parseAppID           = "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr"
         static let restAPIKey           = "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"

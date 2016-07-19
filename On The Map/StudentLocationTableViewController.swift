@@ -109,21 +109,21 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
             self!.mapViewController = nil
         }
         
-        overlayTransitioningDelegate = OverlayTransitioningDelegate(
-            withPreferredContentSize: mapVCPreferredContentSize,
-            dismissalCompletion: dismissalCompletion,
-            /*dimmingBGColor: Theme03.mapPresentationDimView,
-            cornerRadius: 6.0,
-            /* SHADOW NOT WORKING*/
-            shadowColor: Theme03.shadowDark,
-            tapBackgroundToDismiss: true,
-            fadeInAlpha: true*/
-            options: [
-                .DimmingBGColor : Theme03.mapPresentationDimView
-            ])
+        overlayTransitioningDelegate = OverlayTransitioningDelegate()
         
         mapViewController!.transitioningDelegate = overlayTransitioningDelegate
         mapViewController!.modalPresentationStyle = .Custom
+        
+        overlayTransitioningDelegate.configureTransitionWithContentSize(mapVCPreferredContentSize, dismissalCompletion: dismissalCompletion, options: [
+            .DimmingBGColor : Theme03.mapPresentationDimView,
+                .InFromPosition : Position.Center,
+            .OutToPosition : Position.Center,
+            .AlphaIn : true,
+            .AlphaOut : true,
+            .TapToDismiss:  true,
+            .ScaleIn : true,
+            .ScaleOut : true
+            ])
         
         presentViewController(mapViewController!, animated: true, completion: nil)
     }

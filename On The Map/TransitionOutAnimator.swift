@@ -11,19 +11,26 @@ import UIKit
 final class TransitionOutAnimator : NSObject, UIViewControllerAnimatedTransitioning {
     
     private var duration: Double!
-    private var toPosition: Position = .Bottom
-    private var useScale: Bool = false
-    private var fadeOutAlpha: Bool = false
+    private var delay: Double           = 0.0
+    private var toPosition: Position    = .Bottom
+    private var useScale: Bool          = false
+    private var fadeOutAlpha: Bool      = false
     
     private override init() {
         super.init()
     }
     
-    required convenience init(withDuration time: Double, toPosition position: Position = .Bottom, useScale scale: Bool = false, fadeOutAlpha alpha: Bool = false) {
+    required convenience init(
+        withDuration time: Double,
+        delay del: Double               = 0.0,
+        toPosition position: Position   = .Bottom,
+        useScale scale: Bool            = false,
+        fadeOutAlpha alpha: Bool        = false) {
         
         self.init()
         
         duration        = time
+        delay           = del
         toPosition      = position
         useScale        = scale
         fadeOutAlpha    = alpha
@@ -59,8 +66,14 @@ final class TransitionOutAnimator : NSObject, UIViewControllerAnimatedTransition
 
         let animationDuration = self .transitionDuration(transitionContext)
         
-        UIView.animateWithDuration(animationDuration, animations: { () -> Void in
-            magic("presentedView.center: \(presentedView.center); destinationCenter: \(destinationCenter)")
+        UIView.animateWithDuration(
+            animationDuration,
+            delay: delay,
+            usingSpringWithDamping: 1.0,
+            initialSpringVelocity: 0.0,
+            options: [],
+            animations: { () -> Void in
+            
             presentedView.center = destinationCenter
             
             if self.useScale {

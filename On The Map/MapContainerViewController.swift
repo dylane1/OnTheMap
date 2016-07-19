@@ -21,7 +21,7 @@ class MapContainerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        magic("")
+        prettyIt()
         configureLabelWithString(locationName)
         showLocationOnMap(withLatitude: latitude, longitude: longitude)
     }
@@ -40,6 +40,17 @@ class MapContainerViewController: UIViewController {
         longitude       = lon
     }
 
+    private func prettyIt() {
+        
+        //TODO: Fix cornerRadius on bottom :(
+        view.layer.cornerRadius = 6
+        view.layer.shadowColor = UIColor.blackColor().CGColor //Theme03.shadowDark.CGColor
+        view.layer.shadowOpacity = 0.6
+        view.layer.shadowRadius = 10
+        view.layer.shadowOffset = CGSize(width: 5, height: 5)
+        view.layer.masksToBounds = false
+    }
+    
     private func configureLabelWithString(name: String) {
         magic("name: \(name)")
         locationLabel.text = name
