@@ -78,6 +78,9 @@
 		A3E8C8D81CEF830D0040770A /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8C8D71CEF830D0040770A /* LoginView.swift */; };
 		A3E8C8DA1CF6342B0040770A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8C8D91CF6342B0040770A /* Extensions.swift */; };
 		A3E8C8DC1CF656160040770A /* LoginValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8C8DB1CF656160040770A /* LoginValidator.swift */; };
+		A3FC793E1D3FBAA4005B486A /* TitleLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FC793D1D3FBAA4005B486A /* TitleLayer.swift */; };
+		A3FC79411D3FBC87005B486A /* Title320.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FC79401D3FBC87005B486A /* Title320.swift */; };
+		A3FC79431D3FCAA9005B486A /* TitleAnimationHolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FC79421D3FCAA9005B486A /* TitleAnimationHolderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -154,6 +157,9 @@
 		A3E8C8D71CEF830D0040770A /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		A3E8C8D91CF6342B0040770A /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		A3E8C8DB1CF656160040770A /* LoginValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = LoginValidator.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		A3FC793D1D3FBAA4005B486A /* TitleLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleLayer.swift; sourceTree = "<group>"; };
+		A3FC79401D3FBC87005B486A /* Title320.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Title320.swift; sourceTree = "<group>"; };
+		A3FC79421D3FCAA9005B486A /* TitleAnimationHolderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleAnimationHolderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,7 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				A32697901D319E6C00597140 /* ColorSchemes.swift */,
-				A32697931D32E0DE00597140 /* IconProvider.swift */,
+				A3FC793F1D3FBAAF005B486A /* Login View */,
 				A3BCA30A1D340F1300B02C9A /* Icons */,
 			);
 			name = UI;
@@ -311,6 +317,7 @@
 		A3BCA30A1D340F1300B02C9A /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				A32697931D32E0DE00597140 /* IconProvider.swift */,
 				A3BCA3081D34092E00B02C9A /* MapIconDrawable.swift */,
 				A3BCA30B1D340F4600B02C9A /* PinIconDrawable.swift */,
 				A3BCA30D1D34102800B02C9A /* ListIconDrawable.swift */,
@@ -366,8 +373,18 @@
 				A3E8C8D71CEF830D0040770A /* LoginView.swift */,
 				A3E8C8DB1CF656160040770A /* LoginValidator.swift */,
 				A34A2B661D2C1CF8007E2A0E /* UserSessionLogoutController.swift */,
+				A3FC79421D3FCAA9005B486A /* TitleAnimationHolderView.swift */,
 			);
 			name = "Login Logout";
+			sourceTree = "<group>";
+		};
+		A3FC793F1D3FBAAF005B486A /* Login View */ = {
+			isa = PBXGroup;
+			children = (
+				A3FC793D1D3FBAA4005B486A /* TitleLayer.swift */,
+				A3FC79401D3FBC87005B486A /* Title320.swift */,
+			);
+			name = "Login View";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -500,10 +517,12 @@
 				A3816D281D09DB9B001B55A0 /* InformationPostingViewController.swift in Sources */,
 				A3816D311D0A2474001B55A0 /* InformationPostingNavigationProtocol.swift in Sources */,
 				A3BCA30C1D340F4600B02C9A /* PinIconDrawable.swift in Sources */,
+				A3FC793E1D3FBAA4005B486A /* TitleLayer.swift in Sources */,
 				A3E8C8DA1CF6342B0040770A /* Extensions.swift in Sources */,
 				A31EA4961D136F70005CC5B9 /* SafariViewControllerPresentable.swift in Sources */,
 				A3E8C8CC1CED0CDB0040770A /* LocalizedStrings.swift in Sources */,
 				A3E8C8DC1CF656160040770A /* LoginValidator.swift in Sources */,
+				A3FC79431D3FCAA9005B486A /* TitleAnimationHolderView.swift in Sources */,
 				A3C7DD321D39BC4300904461 /* PointAnnotation.swift in Sources */,
 				A3816D241D08E866001B55A0 /* MapAndTableNavigationController.swift in Sources */,
 				A3BCA3211D36A3AD00B02C9A /* MapButtonDrawable.swift in Sources */,
@@ -518,6 +537,7 @@
 				A349C24F1D2C7C23008E678D /* Dimmable.swift in Sources */,
 				A38AB6DE1D187A4E00820AA9 /* ReusableView.swift in Sources */,
 				A3816D331D0B2FA4001B55A0 /* AppModel.swift in Sources */,
+				A3FC79411D3FBC87005B486A /* Title320.swift in Sources */,
 				A3E8C8C61CED078A0040770A /* Magic.swift in Sources */,
 				A31EA4921D13477E005CC5B9 /* StudentLocationMapContainerView.swift in Sources */,
 				A32697941D32E0DE00597140 /* IconProvider.swift in Sources */,

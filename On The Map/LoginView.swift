@@ -121,6 +121,7 @@ class LoginView: UIView {
         titleLabel.attributedText = NSAttributedString(string: LocalizedStrings.ViewControllerTitles.onTheMap, attributes: titleLabelAttributes)
         
         titleLabelTopConstraint.constant = (bounds.height / 2 - (titleLabel.bounds.height + 22))
+        titleLabel.alpha = 0
         
         /// Login
         let loginLabelShadow = NSShadow()
@@ -129,7 +130,7 @@ class LoginView: UIView {
         loginLabelShadow.shadowBlurRadius = 2
         
         let loginLabelAttributes: [String : AnyObject] = [
-            NSShadowAttributeName: loginLabelShadow,
+            /*NSShadowAttributeName: loginLabelShadow,*/
             NSForegroundColorAttributeName: Theme03.textLight,
             NSFontAttributeName: UIFont(name: Constants.FontName.avenir, size: 20)!]
         
