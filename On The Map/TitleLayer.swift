@@ -16,31 +16,25 @@ import UIKit
 //}
 class TitleLayer: CAShapeLayer {
     private var fromValue: CGPath!
-    
-    private var path320x480Start: UIBezierPath {
-        return Title320.path480Start()
-    }
-    
-    private var path320x568Start: UIBezierPath {
-        return Title320.path568Start()
-    }
-    
-    private var path320Finish: UIBezierPath {
-        return Title320.pathFinish()
-    }
+    private var toValue: CGPath!
+
     override init() {
         super.init()
-        fillColor = Theme03.textLight.CGColor// Colors.red.CGColor
+        fillColor = Theme03.textLight.CGColor
         
-        switch UIScreen.mainScreen().bounds.height {
-        case 480:
-            path = path320x480Start.CGPath
-        case 568:
-            path = path320x568Start.CGPath
-        case 667:
-            break
-        case 736:
-            break
+        switch Constants.screenHeight {
+        case Constants.DeviceScreenHeight.iPhone4s:
+            path = Title480And568h.path480Start().CGPath
+            toValue = Title480And568h.pathFinish().CGPath
+        case Constants.DeviceScreenHeight.iPhone5:
+            path = Title480And568h.path568Start().CGPath
+            toValue = Title480And568h.pathFinish().CGPath
+        case Constants.DeviceScreenHeight.iPhone6:
+            path = Title667h.pathStart().CGPath
+            toValue = Title667h.pathFinish().CGPath
+        case Constants.DeviceScreenHeight.iPhone6Plus:
+            path = Title736h.pathStart().CGPath
+            toValue = Title736h.pathFinish().CGPath
         default:
             break
         }
@@ -53,11 +47,12 @@ class TitleLayer: CAShapeLayer {
     
     internal func animateWithDuration(duration: CFTimeInterval) {
         let animation: CABasicAnimation = CABasicAnimation(keyPath: "path")
-        animation.fromValue = fromValue
-        animation.toValue = path320Finish.CGPath
-        animation.duration = duration
-        animation.fillMode = kCAFillModeForwards
-        animation.removedOnCompletion = false
+        animation.fromValue             = fromValue
+        animation.toValue               = toValue
+        animation.duration              = duration
+        animation.fillMode              = kCAFillModeForwards
+        animation.removedOnCompletion   = false
+        
         addAnimation(animation, forKey: nil)
     }
 }

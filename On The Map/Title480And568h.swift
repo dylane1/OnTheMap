@@ -1,5 +1,5 @@
 //
-//  Title320.swift
+//  Title480And568h.swift
 //  On The Map
 //
 //  Created by Dylan Edwards on 7/20/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct Title320 {
+struct Title480And568h {
     static func path480Start() -> UIBezierPath {
         let frame: CGRect = CGRect(x: 0, y: 0, width: 320, height: 480)
         

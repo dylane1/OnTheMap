@@ -55,16 +55,14 @@ class StudentLocationMapContainerView: UIView {
     internal func configureMapImage() {
         preloadedMapImage.alpha = 0.0
         
-        let screenHeight = UIScreen.mainScreen().bounds.height
-        
         if !mapRendered {
             /// Need to determine map size & load correct image accordingly
-            switch screenHeight {
-            case Constants.ScreenHeight.iPhone4s:
+            switch Constants.screenHeight {
+            case Constants.DeviceScreenHeight.iPhone4s:
                 preloadedMapImage.image = UIImage(assetIdentifier: .Map_iPhone4s)
-            case Constants.ScreenHeight.iPhone5:
+            case Constants.DeviceScreenHeight.iPhone5:
                 preloadedMapImage.image = UIImage(assetIdentifier: .Map_iPhone5)
-            case Constants.ScreenHeight.iPhone6:
+            case Constants.DeviceScreenHeight.iPhone6:
                 preloadedMapImage.image = UIImage(assetIdentifier: .Map_iPhone6)
             default:
                 /// iPhone6Plus

@@ -8,14 +8,11 @@
 
 import UIKit
 
-//protocol TitleAnimationHolderViewDelegate: class {
-//    func animateLabel()
-//}
-
 class TitleAnimationHolderView: UIView {
-    let titleLayer = TitleLayer()
     
-//    var parentFrame :CGRect = CGRectZero
+    let titleLayer = TitleLayer()
+    let maskLayer = CAShapeLayer()
+    let circleLayer = CircleMaskLayer()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,15 +24,40 @@ class TitleAnimationHolderView: UIView {
         super.init(coder: coder)!
     }
     
-    func addTitle() {
+    override func didMoveToWindow() {
         layer.addSublayer(titleLayer)
-        titleLayer.animateWithDuration(2.3)
-//        let delayInSeconds = 0.2
-//        let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(delayInSeconds * Double(NSEC_PER_SEC)))
-//        
-//        dispatch_after(popTime, dispatch_get_main_queue()) {
-//            self.wobbleOval()
-//        }
-        //        NSTimer.scheduledTimerWithTimeInterval(1.3, target: self, selector: #selector(HolderView.wobbleOval), userInfo: nil, repeats: false)
+        titleLayer.mask = circleLayer
+    }
+
+    
+    //MARK: - 
+    
+    internal func revealTitle(withClosure closure: () -> Void) {
+        
+        circleLayer.expandWithDuration(0.3)
+        
+        let popTime0 = dispatch_time(DISPATCH_TIME_NOW, Int64(0.3 * Double(NSEC_PER_SEC)))
+        
+        dispatch_after(popTime0, dispatch_get_main_queue()) {
+            self.animateTitle()
+        }
+        
+        let popTime1 = dispatch_time(DISPATCH_TIME_NOW, Int64(0.6 * Double(NSEC_PER_SEC)))
+        
+        dispatch_after(popTime1, dispatch_get_main_queue()) {
+            /// Kick off the other animations
+            closure()
+        }
+    }
+    
+    private func animateTitle() {
+        /** 
+         Note, this doesn't actually get done in that time, there must be a
+         big performance hit when animating complex bezier paths. I could probably
+         get much better performace by animating rastered images, but then the
+         blur from scaling is an issue. Slightly slow, but crisp is better than
+         fast but blurred...
+         */
+        titleLayer.animateWithDuration(0.3)
     }
 }

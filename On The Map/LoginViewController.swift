@@ -18,8 +18,6 @@ class LoginViewController: UIViewController, AlertPresentable, ActivityIndicator
         case LoginComplete
     }
     
-    private var holderView = TitleAnimationHolderView(frame: CGRectZero)
-    
     private var loginView: LoginView!
 
     internal var activityIndicatorViewController: ActivityIndicatorViewController?
@@ -36,14 +34,7 @@ class LoginViewController: UIViewController, AlertPresentable, ActivityIndicator
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        /// Adding a delay prevent animation glitch
-        let delayInSeconds = 0.5
-        let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(delayInSeconds * Double(NSEC_PER_SEC)))
-        
-        dispatch_after(popTime, dispatch_get_main_queue()) {
-            self.addHolderView()
-        }
-        
+
         let presentActivityIndicator = { [unowned self] (completion: (() -> Void)?) in
             self.presentActivityIndicator(self.getActivityIndicatorViewController(), completion: completion)
         }
@@ -77,15 +68,6 @@ class LoginViewController: UIViewController, AlertPresentable, ActivityIndicator
             successClosure: loginSuccessClosure,
             alertPresentationClosure: presentErrorAlert,
             openUdacitySignUp: openUdacitySignUp)
-    }
-    
-    //MARK: - 
-    
-    func addHolderView() {
-        holderView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height)
-//        holderView.parentFrame = view.frame
-        view.addSubview(holderView)
-        holderView.addTitle()
     }
     
     

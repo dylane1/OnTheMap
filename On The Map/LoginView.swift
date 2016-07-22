@@ -19,7 +19,7 @@ class LoginView: UIView {
     private var emailString     = ""
     private var passwordString  = ""
     
-    private var emailTextFieldFontColor = Constants.ColorScheme.red
+    private var emailTextFieldFontColor = Theme03.textError
     private var textFieldAttributes = [
         NSFontAttributeName: UIFont.systemFontOfSize(17, weight: UIFontWeightLight),
         NSForegroundColorAttributeName: UIColor.redOrange()
@@ -29,9 +29,13 @@ class LoginView: UIView {
     
     private let gradientLayer = CAGradientLayer()
     
+//    private var spiralAnimationPathView = SpiralAnimationPathLayer
+    private var starAnimationHolderView = StarAnimationHolderView()
+    private var titleAnimationHolderView = TitleAnimationHolderView()
+    
     //MARK: - IBOutlets
     
-    @IBOutlet weak var titleLabel: UILabel!
+//    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var loginToUdacityLabel: UILabel!
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
@@ -39,9 +43,9 @@ class LoginView: UIView {
     
     @IBOutlet weak var noAccountLabel: UILabel!
     @IBOutlet weak var signUpButton: UIButton!
-    @IBOutlet weak var titleLabelTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var loginLabelTopConstraint: NSLayoutConstraint!
     
-    private var titleLabelConstraintConstantDestination: CGFloat = 40.0
+//    private var loginLabelConstraintConstantDestination: CGFloat!// = 100.0
     
     let facebookLoginButton = FBSDKLoginButton()
     //MARK: - Actions
@@ -87,7 +91,17 @@ class LoginView: UIView {
         
         checkForLoggedIntoFacebook()
         
-        prepareForAnimation()
+        /// Animation time!
+        
+        /// Adding a delay prevent animation glitch
+        let delayInSeconds = 0.5
+        let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(delayInSeconds * Double(NSEC_PER_SEC)))
+        
+        dispatch_after(popTime, dispatch_get_main_queue()) {
+            self.beginIntroAnimation()
+//            self.addTitleHolderView()
+        }
+//        prepareForAnimation()
     }
     
     private func configureBackground() {
@@ -105,32 +119,10 @@ class LoginView: UIView {
     }
     
     private func configureLabels() {
-        /// Title
-        let titleShadow = NSShadow()
-        titleShadow.shadowColor = Theme03.shadowDark
-        titleShadow.shadowOffset = CGSize(width: -1.0, height: -1.0)
-        titleShadow.shadowBlurRadius = 5
-        
-        let titleLabelAttributes: [String : AnyObject] = [
-            NSShadowAttributeName: titleShadow,
-            NSForegroundColorAttributeName: Theme03.textLight,
-            NSFontAttributeName: UIFont(name: Constants.FontName.markerFelt, size: 52)!]
-        
-        titleLabel.adjustsFontSizeToFitWidth = true
-        
-        titleLabel.attributedText = NSAttributedString(string: LocalizedStrings.ViewControllerTitles.onTheMap, attributes: titleLabelAttributes)
-        
-        titleLabelTopConstraint.constant = (bounds.height / 2 - (titleLabel.bounds.height + 22))
-        titleLabel.alpha = 0
         
         /// Login
-        let loginLabelShadow = NSShadow()
-        loginLabelShadow.shadowColor = Theme03.shadowDark
-        loginLabelShadow.shadowOffset = CGSize(width: -1.0, height: -1.0)
-        loginLabelShadow.shadowBlurRadius = 2
         
         let loginLabelAttributes: [String : AnyObject] = [
-            /*NSShadowAttributeName: loginLabelShadow,*/
             NSForegroundColorAttributeName: Theme03.textLight,
             NSFontAttributeName: UIFont(name: Constants.FontName.avenir, size: 20)!]
         
@@ -138,6 +130,19 @@ class LoginView: UIView {
         
         loginToUdacityLabel.transform = CGAffineTransformMakeScale(0.1, 0.1)
         loginToUdacityLabel.alpha = 0
+        
+        /// Slightly different layout for each device
+        switch Constants.screenHeight {
+        case Constants.DeviceScreenHeight.iPhone4s:
+            loginLabelTopConstraint.constant = 100
+        case Constants.DeviceScreenHeight.iPhone5:
+            loginLabelTopConstraint.constant = 120
+        case Constants.DeviceScreenHeight.iPhone6:
+            loginLabelTopConstraint.constant = 140
+        default:
+            /// iPhone6Plus
+            loginLabelTopConstraint.constant = 160
+        }
         
         /// Don't have account
         
@@ -242,33 +247,35 @@ class LoginView: UIView {
     
     //MARK: - Animations
     
-    /** 
-     This is needed because for some reason the animation breaks if titleAnimation()
-     is called immediately from configure(). The scale transform works, but the
-     constraint animation doesn't.
-     */
-    private func prepareForAnimation() {
-        let delayInSeconds = 1.00
+    private func beginIntroAnimation() {
+        /**
+         A delay is needed because for some reason the animation breaks if it's
+         kicked off immediately from configure(). The scale transform works, but the
+         constraint animation doesn't.
+         */
+        let delayInSeconds = 0.5
         let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(delayInSeconds * Double(NSEC_PER_SEC)))
         
         dispatch_after(popTime, dispatch_get_main_queue()) {
-            self.titleAnimation()
+            self.addTitleHolderView()
         }
     }
     
-    private func titleAnimation() {
-        UIView.animateWithDuration(0.7, delay: 0.5, usingSpringWithDamping: 0.5, initialSpringVelocity: 1.0, options: .CurveEaseOut, animations: {
-            
-            self.titleLabel.transform = CGAffineTransformMakeScale(0.8, 0.8)
-            self.titleLabelTopConstraint.constant = self.titleLabelConstraintConstantDestination
-            
-            self.layoutIfNeeded()
-            }, completion: { complete in
-                self.kickOffOtherAnimations()
-            })
+    private func animateStarAlongPath() {
+        
     }
     
-    private func kickOffOtherAnimations() {
+    private func addTitleHolderView() {
+        titleHolderView.frame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height)
+        
+        insertSubview(titleHolderView, atIndex: 0)
+        
+        titleHolderView.revealTitle(withClosure: {
+            self.kickOffOtherAnimations()
+        })
+    }
+    
+    internal func kickOffOtherAnimations() {
         animateView(loginToUdacityLabel, delay: 0.0)
         animateView(emailField, delay: 0.1)
         animateView(passwordField, delay: 0.2)

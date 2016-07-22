@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="737-cp-hZQ">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -223,12 +222,6 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="On The Map" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6p9-uY-hAh">
-                                <rect key="frame" x="10" y="50" width="300" height="55"/>
-                                <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="50"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aK8-6d-hP4">
                                 <rect key="frame" x="36" y="269" width="248" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -245,16 +238,15 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="6p9-uY-hAh" firstAttribute="top" secondItem="L5q-3h-Qan" secondAttribute="bottom" constant="30" id="4WO-9G-onx"/>
                             <constraint firstItem="MJe-xM-Lwb" firstAttribute="top" secondItem="5PL-yy-Xl6" secondAttribute="bottom" constant="8" id="5io-FZ-Rvx"/>
                             <constraint firstAttribute="trailingMargin" secondItem="RPG-6F-Dnx" secondAttribute="trailing" constant="20" id="C4g-yI-ZYh"/>
                             <constraint firstItem="RPG-6F-Dnx" firstAttribute="leading" secondItem="PGR-7w-anm" secondAttribute="leadingMargin" constant="20" id="GBI-Vo-PKF"/>
                             <constraint firstItem="5PL-yy-Xl6" firstAttribute="top" secondItem="onF-3O-xez" secondAttribute="bottom" constant="8" id="GuD-kB-aio"/>
+                            <constraint firstItem="onF-3O-xez" firstAttribute="top" secondItem="L5q-3h-Qan" secondAttribute="bottom" constant="101" id="KXa-Iy-P4C"/>
                             <constraint firstItem="aK8-6d-hP4" firstAttribute="leading" secondItem="PGR-7w-anm" secondAttribute="leadingMargin" constant="20" id="LMC-1O-uXf"/>
                             <constraint firstItem="fjf-XR-oge" firstAttribute="leading" secondItem="PGR-7w-anm" secondAttribute="leadingMargin" constant="20" id="NEi-XP-5yP"/>
                             <constraint firstItem="onF-3O-xez" firstAttribute="leading" secondItem="PGR-7w-anm" secondAttribute="leadingMargin" id="SdG-Fc-5Lp"/>
                             <constraint firstItem="MJe-xM-Lwb" firstAttribute="leading" secondItem="PGR-7w-anm" secondAttribute="leadingMargin" constant="20" id="Tj1-BG-fwd"/>
-                            <constraint firstAttribute="trailing" secondItem="6p9-uY-hAh" secondAttribute="trailing" constant="10" id="Uxw-10-dcp"/>
                             <constraint firstItem="fjf-XR-oge" firstAttribute="top" secondItem="RPG-6F-Dnx" secondAttribute="bottom" constant="8" id="X3O-eR-qLg"/>
                             <constraint firstItem="aK8-6d-hP4" firstAttribute="top" secondItem="RPG-6F-Dnx" secondAttribute="bottom" constant="13" id="YAm-01-4XH"/>
                             <constraint firstItem="RPG-6F-Dnx" firstAttribute="top" secondItem="MJe-xM-Lwb" secondAttribute="bottom" constant="8" id="b5Z-un-80s"/>
@@ -262,20 +254,17 @@
                             <constraint firstAttribute="trailingMargin" secondItem="onF-3O-xez" secondAttribute="trailing" id="csB-t5-4Zm"/>
                             <constraint firstAttribute="trailingMargin" secondItem="MJe-xM-Lwb" secondAttribute="trailing" constant="20" id="czk-lM-dut"/>
                             <constraint firstAttribute="trailingMargin" secondItem="fjf-XR-oge" secondAttribute="trailing" constant="20" id="dTf-uc-UXv"/>
-                            <constraint firstItem="onF-3O-xez" firstAttribute="top" secondItem="6p9-uY-hAh" secondAttribute="bottom" constant="16" id="diJ-89-c7d"/>
-                            <constraint firstItem="6p9-uY-hAh" firstAttribute="leading" secondItem="PGR-7w-anm" secondAttribute="leading" constant="10" id="dx6-2A-MGt"/>
                             <constraint firstAttribute="trailingMargin" secondItem="5PL-yy-Xl6" secondAttribute="trailing" constant="20" id="iYG-o4-mWb"/>
                             <constraint firstAttribute="trailingMargin" secondItem="aK8-6d-hP4" secondAttribute="trailing" constant="20" id="tOS-Md-HvY"/>
                         </constraints>
                         <connections>
                             <outlet property="emailField" destination="5PL-yy-Xl6" id="jld-rx-dlk"/>
                             <outlet property="loginButton" destination="RPG-6F-Dnx" id="lZZ-9C-lNP"/>
+                            <outlet property="loginLabelTopConstraint" destination="KXa-Iy-P4C" id="LAF-Nm-wNE"/>
                             <outlet property="loginToUdacityLabel" destination="onF-3O-xez" id="g7Y-KN-Pmj"/>
                             <outlet property="noAccountLabel" destination="aK8-6d-hP4" id="Tot-ub-Mhg"/>
                             <outlet property="passwordField" destination="MJe-xM-Lwb" id="0Jw-V1-uRC"/>
                             <outlet property="signUpButton" destination="fjf-XR-oge" id="KKZ-5u-zcj"/>
-                            <outlet property="titleLabel" destination="6p9-uY-hAh" id="RlT-oO-h1N"/>
-                            <outlet property="titleLabelTopConstraint" destination="4WO-9G-onx" id="TQS-L0-h1n"/>
                         </connections>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
