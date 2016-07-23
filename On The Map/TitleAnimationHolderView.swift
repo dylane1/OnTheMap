@@ -10,21 +10,14 @@ import UIKit
 
 class TitleAnimationHolderView: UIView {
     
-    let titleLayer = TitleLayer()
-    let maskLayer = CAShapeLayer()
-    let circleLayer = CircleMaskLayer()
+    private let titleLayer = TitleLayer()
+    private let maskLayer = CAShapeLayer()
+    private let circleLayer = CircleMaskLayer()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        backgroundColor = UIColor.clearColor()
-        magic("frame: \(frame)")
-    }
-    
-    required init(coder: NSCoder) {
-        super.init(coder: coder)!
-    }
+    //MARK: - View Lifecycle
     
     override func didMoveToWindow() {
+        backgroundColor = UIColor.clearColor()
         layer.addSublayer(titleLayer)
         titleLayer.mask = circleLayer
     }

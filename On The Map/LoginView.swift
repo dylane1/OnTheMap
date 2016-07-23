@@ -30,7 +30,7 @@ class LoginView: UIView {
     private let gradientLayer = CAGradientLayer()
     
 //    private var spiralAnimationPathView = SpiralAnimationPathLayer
-    private var starAnimationHolderView = StarAnimationHolderView()
+    private var starAnimationHolderView = StarAnimationHolderView(frame: CGRect(x: 0, y: Constants.screenHeight / 2 - 200, width: 320, height: 400))
     private var titleAnimationHolderView = TitleAnimationHolderView()
     
     //MARK: - IBOutlets
@@ -257,20 +257,21 @@ class LoginView: UIView {
         let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(delayInSeconds * Double(NSEC_PER_SEC)))
         
         dispatch_after(popTime, dispatch_get_main_queue()) {
-            self.addTitleHolderView()
+            self.animateStarAlongPath()
         }
     }
     
     private func animateStarAlongPath() {
-        
+        insertSubview(starAnimationHolderView, atIndex: 0)
+        addTitleHolderView()
     }
     
     private func addTitleHolderView() {
-        titleHolderView.frame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height)
+        titleAnimationHolderView.frame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height)
         
-        insertSubview(titleHolderView, atIndex: 0)
+        insertSubview(titleAnimationHolderView, atIndex: 0)
         
-        titleHolderView.revealTitle(withClosure: {
+        titleAnimationHolderView.revealTitle(withClosure: {
             self.kickOffOtherAnimations()
         })
     }
