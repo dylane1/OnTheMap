@@ -51,6 +51,7 @@ struct Theme03 {
     /// Login
     static let loginScreenBGColor       = UIColor.spanishGreen()
     static let loginScreenBGGradient    = UIColor.timberGreenAlpha50()
+    static let starColor                = UIColor.romance()
     
     /// Tab Bar / Navigation Bar
     static let barTintColor             = UIColor.spanishGreen()
