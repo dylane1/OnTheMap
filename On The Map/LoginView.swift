@@ -7,7 +7,6 @@
 //
 
 import UIKit
-//import FBSDKCoreKit
 import FBSDKLoginKit
 
 
@@ -29,15 +28,13 @@ class LoginView: UIView {
     
     private let gradientLayer = CAGradientLayer()
     
-//    private var spiralAnimationPathView = SpiralAnimationPathLayer
-    private var starAnimationHolderView: StarAnimationHolderView!// = StarAnimationHolderView()
+    private var starAnimationHolderView: StarAnimationHolderView!
     private var titleAnimationHolderView = TitleAnimationHolderView()
     
     private let starAnimationDuration: CFTimeInterval = 1.5
     
     //MARK: - IBOutlets
     
-//    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var loginToUdacityLabel: UILabel!
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
@@ -46,8 +43,6 @@ class LoginView: UIView {
     @IBOutlet weak var noAccountLabel: UILabel!
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var loginLabelTopConstraint: NSLayoutConstraint!
-    
-//    private var loginLabelConstraintConstantDestination: CGFloat!// = 100.0
     
     let facebookLoginButton = FBSDKLoginButton()
     //MARK: - Actions
@@ -101,9 +96,7 @@ class LoginView: UIView {
         
         dispatch_after(popTime, dispatch_get_main_queue()) {
             self.beginIntroAnimation()
-//            self.addTitleHolderView()
         }
-//        prepareForAnimation()
     }
     
     private func configureBackground() {
@@ -212,6 +205,7 @@ class LoginView: UIView {
     }
     
     //MARK: - Facebook check
+    
     private func checkForLoggedIntoFacebook() {
         guard let token = FBSDKAccessToken.currentAccessToken() as FBSDKAccessToken! else {
             return

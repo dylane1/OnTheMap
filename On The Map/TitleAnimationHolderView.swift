@@ -22,7 +22,6 @@ class TitleAnimationHolderView: UIView {
         layer.addSublayer(titleLayer)
         titleLayer.mask = circleLayer
     }
-
     
     //MARK: - 
     

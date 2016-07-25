@@ -7,14 +7,15 @@
 //
 
 import UIKit
-//import QuartzCore
 
-class StarAnimationHolderView: UIView /*, CAAnimationDelegate*/ {
+class StarAnimationHolderView: UIView {
 
     private var starLayer = StarLayer()
     private var animationPath: SpiralAnimationPathLayer! //(withFrame: self.frame)
     
     private var duration: CFTimeInterval!
+    
+    //MARK: - View Lifecycle
     
     override func didMoveToWindow() {
         super.didMoveToWindow()
@@ -32,10 +33,6 @@ class StarAnimationHolderView: UIView /*, CAAnimationDelegate*/ {
         beginAnimating()
     }
     
-//    private override init() {
-//        
-//    }
-    
     convenience init(withDuration duration: CFTimeInterval) {
         self.init()
         self.duration = duration
@@ -45,12 +42,12 @@ class StarAnimationHolderView: UIView /*, CAAnimationDelegate*/ {
         super.init(frame: frame)
         
     }
-//
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
 
+    //MARK: -
     
     private func beginAnimating() {
         
@@ -65,10 +62,8 @@ class StarAnimationHolderView: UIView /*, CAAnimationDelegate*/ {
         
         let strokeAnimationGroup = CAAnimationGroup()
         strokeAnimationGroup.duration = duration
-//        strokeAnimationGroup.repeatDuration = 7.0
         strokeAnimationGroup.animations = [strokeStartAnimation, strokeEndAnimation]
         strokeAnimationGroup.fillMode = kCAFillModeForwards
-//        strokeAnimationGroup.removedOnCompletion = true
         
         animationPath.addAnimation(strokeAnimationGroup, forKey: nil)
         
@@ -97,15 +92,9 @@ class StarAnimationHolderView: UIView /*, CAAnimationDelegate*/ {
         
         let flightAnimationGroup = CAAnimationGroup()
         flightAnimationGroup.duration = duration
-//        flightAnimationGroup.repeatDuration = 7.0
         flightAnimationGroup.animations = [starAnimation, scaleAnimation0, scaleAnimation1, starOrientationAnimation]
         flightAnimationGroup.fillMode = kCAFillModeForwards
-//        flightAnimationGroup.removedOnCompletion = true
         
         starLayer.addAnimation(flightAnimationGroup, forKey: nil)
-    }
-    
-    override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
-        magic("")
     }
 }

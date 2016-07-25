@@ -9,11 +9,10 @@
 import UIKit
 
 class SpiralAnimationPathLayer: CAShapeLayer {
-//    private var layerFrame: CGRect!
     
     private var spiralPath: UIBezierPath {
-//        let frame: CGRect = CGRect(x: 0, y: 80, width: 320, height: 400)
         let bezierPath: UIBezierPath!
+        
         switch Constants.screenHeight {
         case Constants.DeviceScreenHeight.iPhone4s:
             bezierPath = path320x480
@@ -21,8 +20,6 @@ class SpiralAnimationPathLayer: CAShapeLayer {
             bezierPath = path320x568
         case Constants.DeviceScreenHeight.iPhone6:
             bezierPath = path375x667
-//        case Constants.DeviceScreenHeight.iPhone6Plus:
-//            bezierPath = path414x736
         default:
             /// iPhone6Plus
             bezierPath = path414x736
@@ -82,7 +79,7 @@ class SpiralAnimationPathLayer: CAShapeLayer {
     
     private override init() {
         super.init()
-        strokeColor = UIColor.clearColor().CGColor//UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0).CGColor
+        strokeColor = UIColor.clearColor().CGColor
         fillColor = UIColor.clearColor().CGColor
         lineWidth = 4.0
         lineDashPattern = [2, 3]

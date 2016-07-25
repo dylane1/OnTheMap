@@ -8,12 +8,6 @@
 
 import UIKit
 
-//enum PhoneType {
-//    case iPhone4s
-//    case iPhone5
-//    case iPhone6
-//    case iPhone6P
-//}
 class TitleLayer: CAShapeLayer {
     private var fromValue: CGPath!
     private var toValue: CGPath!

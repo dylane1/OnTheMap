@@ -10,7 +10,6 @@ import UIKit
 //import QuartzCore
 
 class CircleMaskLayer: CAShapeLayer {
-//    private let animationDuration: CFTimeInterval = 3.5
     
     private var circlePathStart: UIBezierPath {
         return UIBezierPath(ovalInRect: CGRect(x: Constants.screenWidth / 2, y: Constants.screenHeight / 2, width: 0.0, height: 0.0))
