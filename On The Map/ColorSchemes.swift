@@ -46,7 +46,9 @@ struct Theme03 {
     static let buttonBackground     = UIColor.ceSoir()
     static let buttonTint           = UIColor.romance()
     
-    static let activityIndicatorDimmingBGColor = UIColor.timberGreen()
+    static let activityIndicatorDimmingBGColor  = UIColor.timberGreen()
+    static let activityIndicatorCircle0         = UIColor.romance()
+    static let activityIndicatorCircle1         = UIColor.timberGreen()
     
     /// Login
     static let loginScreenBGColor       = UIColor.spanishGreen()

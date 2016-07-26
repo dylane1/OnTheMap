@@ -32,6 +32,7 @@
 		A34A2B651D2B1B32007E2A0E /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A34A2B621D2B1B31007E2A0E /* FBSDKShareKit.framework */; };
 		A34A2B671D2C1CF8007E2A0E /* UserSessionLogoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34A2B661D2C1CF8007E2A0E /* UserSessionLogoutController.swift */; };
 		A3662F651D46947800818019 /* StarLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3662F641D46947800818019 /* StarLayer.swift */; };
+		A3662F671D46B36E00818019 /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3662F661D46B36D00818019 /* ActivityIndicatorView.swift */; };
 		A3816D1F1D08DA6A001B55A0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3816D1E1D08DA6A001B55A0 /* MapKit.framework */; };
 		A3816D241D08E866001B55A0 /* MapAndTableNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3816D231D08E866001B55A0 /* MapAndTableNavigationController.swift */; };
 		A3816D261D09DA70001B55A0 /* InformationPostingPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3816D251D09DA70001B55A0 /* InformationPostingPresentable.swift */; };
@@ -114,6 +115,7 @@
 		A34A2B621D2B1B31007E2A0E /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		A34A2B661D2C1CF8007E2A0E /* UserSessionLogoutController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSessionLogoutController.swift; sourceTree = "<group>"; };
 		A3662F641D46947800818019 /* StarLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarLayer.swift; sourceTree = "<group>"; };
+		A3662F661D46B36D00818019 /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
 		A3816D1E1D08DA6A001B55A0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		A3816D231D08E866001B55A0 /* MapAndTableNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapAndTableNavigationController.swift; sourceTree = "<group>"; };
 		A3816D251D09DA70001B55A0 /* InformationPostingPresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InformationPostingPresentable.swift; path = ../InformationPostingPresentable.swift; sourceTree = "<group>"; };
@@ -310,6 +312,7 @@
 				A3E8C8CD1CED0EC00040770A /* TabBarController.swift */,
 				A3E8C8CF1CED0EE40040770A /* NavigationController.swift */,
 				A326978B1D2EFF8C00597140 /* ActivityIndicatorViewController.swift */,
+				A3662F661D46B36D00818019 /* ActivityIndicatorView.swift */,
 				A31EA4861D11D501005CC5B9 /* StudentInformationProvider.swift */,
 				A38AB6E31D1AEBFD00820AA9 /* Protocols */,
 				A38AB6E41D1AEC1000820AA9 /* Models */,
@@ -537,6 +540,7 @@
 				A33FEF2A1D41A24F005A5246 /* SpiralAnimationPathLayer.swift in Sources */,
 				A3FC793E1D3FBAA4005B486A /* TitleLayer.swift in Sources */,
 				A3E8C8DA1CF6342B0040770A /* Extensions.swift in Sources */,
+				A3662F671D46B36E00818019 /* ActivityIndicatorView.swift in Sources */,
 				A31EA4961D136F70005CC5B9 /* SafariViewControllerPresentable.swift in Sources */,
 				A3E8C8CC1CED0CDB0040770A /* LocalizedStrings.swift in Sources */,
 				A3E8C8DC1CF656160040770A /* LoginValidator.swift in Sources */,
