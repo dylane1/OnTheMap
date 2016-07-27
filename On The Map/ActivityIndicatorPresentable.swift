@@ -23,12 +23,11 @@ extension ActivityIndicatorPresentable where Self: UIViewController {
     
     internal func presentActivityIndicator(activityIndicator: ActivityIndicatorViewController, transitioningDelegate delegate: OverlayTransitioningDelegate, completion: (() -> Void)?) {
         
-        let overlayTransitioningDelegate = delegate //OverlayTransitioningDelegate()
+        let overlayTransitioningDelegate = delegate
         
         activityIndicator.transitioningDelegate = overlayTransitioningDelegate
         activityIndicator.modalPresentationStyle = .Custom
         
-        //TODO: Can I make this a class func like UIView.animateWithDuration() ?
         overlayTransitioningDelegate.configureTransitionWithContentSize(
             CGSizeMake(80, 80),
             options: [

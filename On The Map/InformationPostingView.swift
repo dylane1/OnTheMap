@@ -77,6 +77,8 @@ class InformationPostingView: UIView, StudentLocationRequestable {
     
     private var previouslyEnteredLocationObjectId: String?
     
+    deinit { magic("\(self.description) is being deinitialized   <----------------") }
+    
     //MARK: - Configuration
     
     internal func configure(
@@ -104,7 +106,11 @@ class InformationPostingView: UIView, StudentLocationRequestable {
         configureBottomButton()
         promptViewAnimation()
         
-        informationPostingService.configure(withActivityIndicatorPresentation: presentAI, activityIndicatorDismissal: dismissAI, successClosure: success, alertPresentationClosure: alertPresentation)
+        informationPostingService.configure(
+            withActivityIndicatorPresentation: presentAI,
+            activityIndicatorDismissal: dismissAI,
+            successClosure: success,
+            alertPresentationClosure: alertPresentation)
         
         /// Initial query for existing student information
         let queryCompletion = { [weak self] (studentInformationValues: (mapString: String, mediaURL: String, previouslyEnteredLocationObjectId: String?)?) in
@@ -116,13 +122,7 @@ class InformationPostingView: UIView, StudentLocationRequestable {
     private func configurePrompt() {
         promptLabel.adjustsFontSizeToFitWidth = true
         
-//        let promptLabelShadow = NSShadow()
-//        promptLabelShadow.shadowColor = Theme03.shadowLight
-//        promptLabelShadow.shadowOffset = CGSize(width: -1.0, height: -1.0)
-//        promptLabelShadow.shadowBlurRadius = 2
-        
         let labelAttributes = [
-            /*NSShadowAttributeName: promptLabelShadow,*/
             NSForegroundColorAttributeName: Theme03.textDark,
             NSFontAttributeName: UIFont(name: Constants.FontName.avenir, size: 50)!
         ]
@@ -229,7 +229,6 @@ class InformationPostingView: UIView, StudentLocationRequestable {
         UIView.animateWithDuration(1.7, delay: 0.5, usingSpringWithDamping: 0.3, initialSpringVelocity: 0.5, options: .CurveEaseOut, animations: {
             self.promptView.transform   = CGAffineTransformMakeScale(1.0, 1.0)
             self.promptView.alpha       = 1.0
-//            self.layoutIfNeeded() /// This is causing weird issues with the text fields & button text
             }, completion: nil)
     }
     
