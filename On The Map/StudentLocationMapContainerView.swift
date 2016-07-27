@@ -11,23 +11,70 @@ import UIKit
 
 class StudentLocationMapContainerView: UIView {
 
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var mapView: MKMapView!
     
+    /// Use a preloaded image until map is renedered so user doesn't see empty screen
+    @IBOutlet weak var preloadedMapImage: UIImageView!
+    private var mapRendered = false
+    
+    private var studentInformationArray = [StudentInformation]()
     private var annotations = [StudentLocationAnnotation]()
     
     private var openLinkClosure: OpenLinkClosure?
     
+    private var animatedPinsIn = false
+//    private var timer = NSTimer()
+//    private var delay = 0.05
+//    private var annotationViewArray: [MKAnnotationView]?
+//    private var annotationIndex = 0
+    
     //MARK: - Configuration
     
     internal func configure(withStudentInformationArray array: [StudentInformation], openLinkClosure closure: OpenLinkClosure) {
-        mapView.delegate    = self
-        openLinkClosure     = closure
         
+        mapView.delegate    = self
+        
+        studentInformationArray = array
+        openLinkClosure         = closure
+        
+        configureMapImage()
         /// clear for refresh
         clearAnnotations()
+        animatedPinsIn = false
         
-        placeAnnotations(withStudentInformationArray: array)
+        if mapRendered {
+            placeAnnotations(withStudentInformationArray: array)
+        }
     }
+    
+    /**
+     Show a map image on top of map view while it loads so the user doesn't
+     see a blank screen
+     */
+    internal func configureMapImage() {
+        preloadedMapImage.alpha = 0.0
+        
+        if !mapRendered {
+            /// Need to determine map size & load correct image accordingly
+            switch Constants.screenHeight {
+            case Constants.DeviceScreenHeight.iPhone4s:
+                preloadedMapImage.image = UIImage(assetIdentifier: .Map_iPhone4s)
+            case Constants.DeviceScreenHeight.iPhone5:
+                preloadedMapImage.image = UIImage(assetIdentifier: .Map_iPhone5)
+            case Constants.DeviceScreenHeight.iPhone6:
+                preloadedMapImage.image = UIImage(assetIdentifier: .Map_iPhone6)
+            default:
+                /// iPhone6Plus
+                preloadedMapImage.image = UIImage(assetIdentifier: .Map_iPhone6Plus)
+            }
+            preloadedMapImage.alpha = 1.0
+        }
+        
+        activityIndicator.color = UIColor.ceSoir()
+        activityIndicator.startAnimating()
+    }
+    
     
     //MARK: - Map View
     
@@ -38,6 +85,7 @@ class StudentLocationMapContainerView: UIView {
         }
 
         mapView.addAnnotations(annotations)
+        activityIndicator.stopAnimating()
     }
     
     private func clearAnnotations() {
@@ -46,24 +94,45 @@ class StudentLocationMapContainerView: UIView {
             annotations.removeAll()
         }
     }
+    
+    private func animateAnnotationsWithAnnotationArray(views: [MKAnnotationView]) {
+        magic("views count: \(views.count)")
+        for annotation in views {
+            let endFrame = annotation.frame
+            annotation.frame = CGRectOffset(endFrame, 0, -500)
+            let duration = 0.3
+            
+            UIView.animateWithDuration(duration, animations: {
+                annotation.frame = endFrame
+            })
+        }
+        animatedPinsIn = true
+    }
 }
 
 extension StudentLocationMapContainerView: MKMapViewDelegate {
     
+    func mapViewDidFinishRenderingMap(mapView: MKMapView, fullyRendered: Bool) {
+        mapRendered = true
+        preloadedMapImage.alpha = 0.0
+        placeAnnotations(withStudentInformationArray: studentInformationArray)
+    }
+    
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         if let annotation = annotation as? StudentLocationAnnotation {
-            var view: MKPinAnnotationView
-            if let dequeuedView = mapView.dequeueReusableAnnotationViewWithIdentifier(MKPinAnnotationView.reuseIdentifier)
-                as? MKPinAnnotationView {
+            var pinView: MKAnnotationView
+            if let dequeuedView = mapView.dequeueReusableAnnotationViewWithIdentifier(MKAnnotationView.reuseIdentifier) as MKAnnotationView! {
+                
                 dequeuedView.annotation = annotation
-                view = dequeuedView
+                pinView = dequeuedView
             } else {
-                view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: MKPinAnnotationView.reuseIdentifier)
-                view.canShowCallout = true
-                view.calloutOffset = CGPoint(x: -5, y: 5)
-                view.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure) as UIView
+                pinView = MKAnnotationView(annotation: annotation, reuseIdentifier: MKAnnotationView.reuseIdentifier)
+                pinView.canShowCallout = true
+                pinView.calloutOffset = CGPoint(x: -5, y: 5)
+                pinView.image = IconProvider.imageOfDrawnIcon(.Annotation, size: CGSize(width: 15, height: 15), fillColor: UIColor.timberGreen())
+                pinView.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure) as UIView
             }
-            return view
+        return pinView
         }
         return nil
     }
@@ -72,4 +141,34 @@ extension StudentLocationMapContainerView: MKMapViewDelegate {
         let annotation = view.annotation as! StudentLocationAnnotation
         openLinkClosure?(annotation.mediaURL)
     }
+    
+    func mapView(mapView: MKMapView, didAddAnnotationViews views: [MKAnnotationView]) {
+        if !animatedPinsIn {
+            animateAnnotationsWithAnnotationArray(views)
+        }
+        
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

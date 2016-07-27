@@ -9,18 +9,28 @@
 import UIKit
 
 class TabBarController: UITabBarController {
-//    internal var successfulLogoutCompletion: (() -> Void)?
     
-    deinit { magic("being deinitialized   <----------------") }
+//    deinit { magic("being deinitialized   <----------------") }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tabBar.barTintColor = Constants.ColorScheme.darkBlue
-        tabBar.tintColor = Constants.ColorScheme.white
-        
+        tabBar.barTintColor = Theme.barTintColor
+        tabBar.tintColor = Theme.buttonTint
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         /// Shift icon down
-        for item in tabBar.items! {
-            item.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
+        for item in viewControllers! {
+            item.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
         }
+//        let iconProvider = IconProvider()
+        let mapIcon = IconProvider.imageOfDrawnIcon(.Map, size: CGSize(width: 30, height: 30), fillColor: Theme.tabBarItemUnselected)
+        tabBar.items![0].image          = mapIcon.imageWithRenderingMode(.AlwaysOriginal)
+        tabBar.items![0].selectedImage  = mapIcon
+        
+        let listIcon = IconProvider.imageOfDrawnIcon(.List, size: CGSize(width: 30, height: 30), fillColor: Theme.tabBarItemUnselected)
+        tabBar.items![1].image          = listIcon.imageWithRenderingMode(.AlwaysOriginal)
+        tabBar.items![1].selectedImage  = listIcon
     }
 }

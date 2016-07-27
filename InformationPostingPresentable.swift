@@ -24,4 +24,3 @@ extension InformationPostingPresentable where Self: UIViewController {
         return infoPostingNavController
     }
 }
-

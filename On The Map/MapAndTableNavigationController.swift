@@ -19,7 +19,7 @@ final class MapAndTableNavigationController: NavigationController {
     private var logoutClosure: BarButtonClosure?
     private var logoutButton: UIBarButtonItem?
     
-    deinit { magic("being deinitialized   <----------------") }
+//    deinit { magic("being deinitialized   <----------------") }
     
     //MARK: - Configuration
     
@@ -40,10 +40,17 @@ final class MapAndTableNavigationController: NavigationController {
             action: #selector(refreshButtonTapped))
         rightItemArray.append(refreshButton)
         
-        addButton = UIBarButtonItem(
-            barButtonSystemItem: .Add,
-            target: self,
-            action: #selector(addButtonTapped))
+        let pinButton   = UIButton(type: .System)
+        pinButton.frame    = CGRectMake(0, 0, 44, 44)
+        pinButton.addTarget(self, action: #selector(addButtonTapped), forControlEvents: UIControlEvents.TouchUpInside)
+        
+//        let iconProvider = IconProvider()
+        let pinImage = IconProvider.imageOfDrawnIcon(.Pin, size: CGSize(width: 32, height: 32), fillColor: Theme.tabBarItemUnselected)
+        
+        pinButton.setImage(pinImage, forState: .Normal)
+        
+        let addButton = UIBarButtonItem(customView: pinButton)
+        
         rightItemArray.append(addButton)
         
         navigationBar.topItem?.rightBarButtonItems = rightItemArray

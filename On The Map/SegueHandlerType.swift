@@ -20,7 +20,6 @@ extension SegueHandlerType where Self: UIViewController, SegueIdentifier.RawValu
     }
     
     func segueIdentifierForSegue(segue: UIStoryboardSegue) -> SegueIdentifier {
-        
         // still have to use guard stuff here, but at least you're
         // extracting it this time
         guard let identifier = segue.identifier,

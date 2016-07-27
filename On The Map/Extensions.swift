@@ -33,6 +33,19 @@ extension String {
     }
 }
 
+//MARK: - UIImage
+extension UIImage {
+    
+    enum AssetIdentifier: String {
+        case Map_iPhone4s, Map_iPhone5, Map_iPhone6, Map_iPhone6Plus
+    }
+    
+    convenience init!(assetIdentifier: AssetIdentifier) {
+        self.init(named: assetIdentifier.rawValue)
+    }
+}
+
+
 //MARK: - Reusable Views
 /**
  Adapted from Natasha "The Robot"'s WWDC 2016 POP talk:

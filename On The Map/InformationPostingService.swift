@@ -21,6 +21,8 @@ final class InformationPostingService: StudentLocationRequestable {
     
     private lazy var studentInfoProvider = StudentInformationProvider.sharedInstance
 
+//    deinit { magic("InformationPostingService is being deinitialized   <----------------") }
+    
     //MARK: - Configuration
     
     internal func configure(
@@ -40,6 +42,7 @@ final class InformationPostingService: StudentLocationRequestable {
     internal func queryStudentLocation(withCompletion completion: (studentInformationValues: (mapString: String, mediaURL: String, previouslyEnteredLocationObjectId: String?)?) -> Void) {
         
         let aiPresented = { [weak self] in
+            
             let request = self!.createStudentLocationRequest(uniqueKey: self!.studentInfoProvider.currentStudent.uniqueKey)
             
             let requestCompletion = { [weak self] (jsonDictionary: NSDictionary) in
@@ -49,6 +52,7 @@ final class InformationPostingService: StudentLocationRequestable {
             self!.networkRequestService.configure(withRequestCompletion: requestCompletion, requestFailedClosure: self!.presentErrorAlert)
             self!.networkRequestService.requestJSONDictionary(withURLRequest: request)
         }
+        
         presentActivityIndicator(completion: aiPresented)
     }
     

@@ -9,9 +9,14 @@
 import UIKit
 
 class StudentLocationTableViewCell: UITableViewCell /*, NibLoadableView*/ {
-    @IBOutlet private weak var titleLabel: UILabel!
-    @IBOutlet private weak var subtitleLabel: UILabel!
+    
+    private var presentMapViewController: ((locationName: String, latitude: Double, longitude: Double) -> Void)!
+    
+    @IBOutlet private weak var nameLabel: UILabel!
+    @IBOutlet private weak var locationLabel: UILabel!
+    @IBOutlet private weak var linkLabel: UILabel!
     @IBOutlet private weak var iconImageView: UIImageView!
+    @IBOutlet weak var showLocationButton: UIButton!
     
     private var dataSource: StudentLocationCellDataSource!
     
@@ -21,57 +26,93 @@ class StudentLocationTableViewCell: UITableViewCell /*, NibLoadableView*/ {
         super.awakeFromNib()
     }
 
-    //MARK: - Configuration
+    //MARK: - Actions
     
-    internal func configure(withDataSource dataSource: StudentLocationCellDataSource) {
-        self.dataSource = dataSource
-        configureImageView()
-        configureLabels()
-        configureCell()
+    @IBAction func showLocationAction(sender: AnyObject) {
+        presentMapViewController?(locationName: dataSource.studentInformation.mapString, latitude: dataSource.studentInformation.latitude, longitude: dataSource.studentInformation.longitude)
     }
     
-    private func configureImageView() {
-//        iconImageView.backgroundColor = Constants.ColorScheme.darkGrey
-        iconImageView.image = dataSource.image
+    //MARK: - Configuration
+    
+    internal func configure(withDataSource dataSource: StudentLocationCellDataSource, presentMapViewController: (locationName: String, latitude: Double, longitude: Double) -> Void) {
+        
+        self.dataSource                 = dataSource
+        self.presentMapViewController   = presentMapViewController
+        backgroundColor                 = UIColor.clearColor()
+        
+        configureLabels()
+        configureLocationButton()
     }
     
     private func configureLabels() {
-        /// Title label
-        titleLabel.adjustsFontSizeToFitWidth  = true
+        /// Name label
+        nameLabel.adjustsFontSizeToFitWidth  = true
         
-        let titleAttributes = dataSource.titleTextAttributes
+        let nameTextAttributes = dataSource.nameTextAttributes
         
         let fn = dataSource.studentInformation.firstName
         let ln = dataSource.studentInformation.lastName
         
         let fullName = fn + " " + ln
         
-        let titleAttributedString = NSMutableAttributedString(string: fullName, attributes: titleAttributes)
+        let nameAttributedString = NSMutableAttributedString(string: fullName, attributes: nameTextAttributes)
         
-        titleLabel.attributedText = titleAttributedString
+        nameLabel.attributedText = nameAttributedString
         
-        /// Subtitle label
-        subtitleLabel.adjustsFontSizeToFitWidth  = true
+        /// Location label
+        locationLabel.adjustsFontSizeToFitWidth  = true
         
-        var subtitleAttributes = dataSource.subtitleTextAttributes
+        let locationTextAttributes = dataSource.locationTextAttributes
         
-        let subTitle = dataSource.studentInformation.mediaURL
+        let locationAttributedString = NSMutableAttributedString(string: dataSource.studentInformation.mapString, attributes: locationTextAttributes)
+
+        locationLabel.attributedText = locationAttributedString
         
-        /// Show URLs that won't open in Safari in a red color
-        if subTitle.safariOpenableURL == nil {
-            subtitleAttributes[NSForegroundColorAttributeName] = Constants.ColorScheme.red
+        /// Link label
+        /**
+         Show URLs that won't open in Safari in a red color & Set disclosure
+         indicator color to disabled state
+        */
+        let linkText = dataSource.studentInformation.mediaURL
+        var linkTextAttributes = dataSource.linkTextAttributes
+        
+//        let iconProvider = IconProvider()
+        let disclosureIndicatorImage: UIImage!
+    
+        if linkText.safariOpenableURL == nil {
             isInvalidURL = true
+            
+            linkTextAttributes[NSForegroundColorAttributeName] = Theme.textError
+            
+            disclosureIndicatorImage = IconProvider.imageOfDrawnIcon(.DisclosureIndicator, size: CGSize(width: 20, height: 20), fillColor: Theme.disclosureIndicatorDisabled)
         } else {
             isInvalidURL = false
+            
+            linkTextAttributes[NSUnderlineStyleAttributeName] = NSUnderlineStyle.StyleSingle.rawValue
+            
+            disclosureIndicatorImage = IconProvider.imageOfDrawnIcon(.DisclosureIndicator, size: CGSize(width: 20, height: 20), fillColor: Theme.disclosureIndicatorEnabled)
         }
         
-        let subtitleAttributedString = NSMutableAttributedString(string: subTitle, attributes: subtitleAttributes)
+        configureDisclosureIndicatorWithImage(disclosureIndicatorImage)
         
-        subtitleLabel.attributedText = subtitleAttributedString
+        let linkTextAttributedString = NSMutableAttributedString(string: linkText, attributes: linkTextAttributes)
+        
+        linkLabel.attributedText = linkTextAttributedString
     }
     
-    private func configureCell() {
-//        backgroundColor = (isInvalidURL) ? Constants.ColorScheme.lightGrey : UIColor.clearColor()
+    private func configureDisclosureIndicatorWithImage(image: UIImage) {
+        iconImageView.backgroundColor = UIColor.clearColor()
+        iconImageView.image = image
     }
-
+    
+    private func configureLocationButton() {
+//        let iconProvider = IconProvider()
+        
+        let mapButtonImage = IconProvider.imageOfDrawnIcon(.MapButton, size: CGSize(width: 30, height: 50), fillColor: Theme.locationMarker)
+        
+        showLocationButton.setImage(mapButtonImage, forState: .Normal)
+        
+        showLocationButton.setTitle(nil, forState: .Normal)
+        showLocationButton.tintColor = Theme.locationMarker
+    }
 }

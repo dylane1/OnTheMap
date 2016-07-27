@@ -10,6 +10,10 @@ import UIKit
 
 final class StudentLocationTableViewController: UITableViewController, MapAndTableNavigationProtocol, StudentInformationGettable, InformationPostingPresentable, SafariViewControllerPresentable, AlertPresentable, ActivityIndicatorPresentable {
     
+    private var presentMapViewController: ((locationName: String, latitude: Double, longitude: Double) -> Void)!
+    private var overlayTransitioningDelegate: OverlayTransitioningDelegate!
+    private var mapViewController: MapContainerViewController?
+    
     private let studentInformationProvider = StudentInformationProvider.sharedInstance
     
     private var tabBar: TabBarController!
@@ -18,33 +22,50 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
     internal var informationPostingNavController: InformationPostingNavigationController?
     
     /// ActivityIndicatorPresentable
-    internal var activityIndicatorViewController: PrimaryActivityIndicatorViewController?
+    internal var activityIndicatorViewController: ActivityIndicatorViewController?
+    private var activityIndicatorTransitioningDelegate: OverlayTransitioningDelegate?
     
     private var sessionLogoutController = UserSessionLogoutController()
     
+//    private let iconProvider = IconProvider()
+    private var locationMarker: UIImage!
+    
     //MARK: - View Lifecycle
-    deinit { magic("being deinitialized   <----------------") }
+//    deinit { magic("being deinitialized   <----------------") }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = LocalizedStrings.ViewControllerTitles.onTheMap
+        configureNavigationController()
+        
+        navigationItem.title    = LocalizedStrings.ViewControllerTitles.onTheMap
         
         let navController = navigationController! as! MapAndTableNavigationController
         navController.setNavigationBarAttributes(isAppTitle: true)
-        
-        tabBar = tabBarController as! TabBarController
-        
+
         tableView.delegate = self
+        tableView.backgroundColor = Theme.tableViewBGColor
         
         let refreshClosure = { [weak self] in
             self!.getStudentInfoArray()
         }
         
-        let presentActivityIndicator = getActivityIndicatorPresentation()
+        activityIndicatorTransitioningDelegate = OverlayTransitioningDelegate()
+        
+        let presentActivityIndicator = {[unowned self] (completion: (() -> Void)?) in
+            self.presentActivityIndicator(
+                self.getActivityIndicatorViewController(),
+                transitioningDelegate: self.activityIndicatorTransitioningDelegate!,
+                completion: completion)
+        }
+        
         let presentErrorAlert = getAlertPresentation()
         
-        let logoutSuccessClosure = getSuccessfulLogoutClosure()
+        let logoutSuccessClosure = { [unowned self] in
+            self.dismissActivityIndicator(completion: {
+                self.dismissViewControllerAnimated(true, completion: nil)
+            })
+        }
         
         sessionLogoutController.configure(
             withActivityIndicatorPresentation: presentActivityIndicator,
@@ -55,6 +76,14 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
         configureNavigationItems(
             withRefreshClosure: refreshClosure,
             sessionLogoutController: sessionLogoutController)
+        
+        locationMarker = IconProvider.imageOfDrawnIcon(.LocationMarker, size: CGSize(width: 40, height: 43), fillColor: Theme.locationMarker)
+        
+        presentMapViewController = { [weak self] (locationName: String, latitude: Double, longitude: Double) in
+            
+            self!.openMapViewController(withLocationName: locationName, latitude: latitude, longitude: longitude)
+            
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -71,6 +100,40 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
         /// StudentInformationGettable
         performFetchWithCompletion(completion)
     }
+    
+    private func openMapViewController(withLocationName name: String, latitude: Double, longitude: Double) {
+        
+        mapViewController = UIStoryboard(name: Constants.StoryBoardID.main, bundle: nil).instantiateViewControllerWithIdentifier(Constants.StoryBoardID.mapPresentationVC) as? MapContainerViewController
+        
+        mapViewController!.configure(withLocationName: name, latitude: latitude, longitude: longitude)
+        
+        let width = self.view.frame.width - 40
+        let height = width
+        let mapVCPreferredContentSize = CGSizeMake(width, height)
+        
+        let dismissalCompletion = { [weak self] in
+            self!.mapViewController = nil
+        }
+        
+        overlayTransitioningDelegate = OverlayTransitioningDelegate()
+        
+        mapViewController!.transitioningDelegate = overlayTransitioningDelegate
+        mapViewController!.modalPresentationStyle = .Custom
+        
+        overlayTransitioningDelegate.configureTransitionWithContentSize(mapVCPreferredContentSize, dismissalCompletion: dismissalCompletion, options: [
+            .DimmingBGColor : Theme.presentationDimBGColor,
+            .InFromPosition : Position.Center,
+            .OutToPosition : Position.Center,
+            .AlphaIn : true,
+            .AlphaOut : true,
+            .TapToDismiss:  true,
+            .ScaleIn : true,
+            .ScaleOut : true
+            ])
+        
+        presentViewController(mapViewController!, animated: true, completion: nil)
+    }
+    
 }
 
 //MARK: - Table View Data Source
@@ -87,10 +150,9 @@ extension StudentLocationTableViewController {
 
         let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as StudentLocationTableViewCell
 
-        let testImg = UIImage()
-        let model = StudentLocationCellModel(image: testImg, studentInformation: studentInformationProvider.studentInformationArray![indexPath.row])
+        let model = StudentLocationCellModel(studentInformation: studentInformationProvider.studentInformationArray![indexPath.row])
         
-        cell.configure(withDataSource: model)
+        cell.configure(withDataSource: model, presentMapViewController: presentMapViewController)
         
         return cell
     }
@@ -111,7 +173,7 @@ extension StudentLocationTableViewController {
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 59.0
+        return 78.0
     }
     override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         /// Allows the bottom cell to be fully visible when scrolled to end of list

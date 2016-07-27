@@ -9,51 +9,43 @@
 import UIKit
 
 protocol ActivityIndicatorPresentable {
-    var activityIndicatorViewController: PrimaryActivityIndicatorViewController? { get set }
+    var activityIndicatorViewController: ActivityIndicatorViewController? { get set }
 }
 
 extension ActivityIndicatorPresentable where Self: UIViewController {
-    internal func getActivityIndicatorPresentation() -> ((() -> Void)? -> Void) {
-        let presentActivityIndicator = { [weak self] (completion: (() -> Void)?) in
-            if self!.activityIndicatorViewController == nil {
-                self!.activityIndicatorViewController = self!.getActivityIndicatorViewController()
-                self!.presentActivityIndicator(self!.activityIndicatorViewController!, completion: completion)
-            }
-        }
-        return presentActivityIndicator
-    }
     
-    internal func getActivityIndicatorDismissal() -> (() -> Void) {
-        let dismissActivityIndicator = { [weak self] in
-            if self!.activityIndicatorViewController != nil {
-                self!.dismissActivityIndicator(self!.activityIndicatorViewController!, completion: {
-                    self!.activityIndicatorViewController = nil
-                })
-            }
-        }
-        return dismissActivityIndicator
-    }
-    
-    
-    internal func getActivityIndicatorViewController() -> PrimaryActivityIndicatorViewController {
+    internal func getActivityIndicatorViewController() -> ActivityIndicatorViewController {
         
-        let activityIndicatorViewController = UIStoryboard(name: Constants.StoryBoardID.main, bundle: nil).instantiateViewControllerWithIdentifier(Constants.StoryBoardID.primaryActivityIndicatorVC) as! PrimaryActivityIndicatorViewController
+        let activityIndicatorViewController = UIStoryboard(name: Constants.StoryBoardID.main, bundle: nil).instantiateViewControllerWithIdentifier(Constants.StoryBoardID.activityIndicatorVC) as! ActivityIndicatorViewController
         
         return activityIndicatorViewController
     }
     
-    internal func presentActivityIndicator(activityIndicator: PrimaryActivityIndicatorViewController, completion: (() -> Void)?) {
-        magic("")
-        self.presentViewController(activityIndicator, animated: false, completion: {
-            activityIndicator.presentSecondary(withCompletion: completion)
-        })
+    internal func presentActivityIndicator(activityIndicator: ActivityIndicatorViewController, transitioningDelegate delegate: OverlayTransitioningDelegate, completion: (() -> Void)?) {
+        
+        let overlayTransitioningDelegate = delegate
+        
+        activityIndicator.transitioningDelegate = overlayTransitioningDelegate
+        activityIndicator.modalPresentationStyle = .Custom
+        
+        overlayTransitioningDelegate.configureTransitionWithContentSize(
+            CGSizeMake(80, 80),
+            options: [
+                .InFromPosition : Position.Center,
+                .DurationIn: 0.3,
+                .AlphaIn: true,
+                .ScaleIn: true,
+                .OutToPosition: Position.Center,
+                .DurationOut: 0.3,
+                .AlphaOut: true,
+                .ScaleOut: true,
+                .DimmingBGColor: Theme.presentationDimBGColor
+            ])
+        presentViewController(activityIndicator, animated: true, completion: completion)
     }
     
-    internal func dismissActivityIndicator(activityIndicator: PrimaryActivityIndicatorViewController, completion: (() -> Void)? = nil) {
-        let dismissalCompletion = { [weak self] in
-            self!.dismissViewControllerAnimated(false, completion: completion)
-        }
-        activityIndicator.dismissSecondary(withCompletion: dismissalCompletion)
+    internal func dismissActivityIndicator(completion completion: (() -> Void)?) {
+        dismissViewControllerAnimated(true, completion: completion)
     }
 }
 

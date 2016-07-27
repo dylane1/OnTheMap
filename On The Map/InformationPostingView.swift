@@ -23,7 +23,6 @@ class InformationPostingView: UIView, StudentLocationRequestable {
     @IBOutlet weak var bottomButton: UIButton!
     @IBOutlet weak var mapView: MKMapView!
 
-    
     @IBOutlet weak var urlTextFieldTopConstraint: NSLayoutConstraint!
     
     private var informationPostingService = InformationPostingService()
@@ -78,6 +77,8 @@ class InformationPostingView: UIView, StudentLocationRequestable {
     
     private var previouslyEnteredLocationObjectId: String?
     
+//    deinit { magic("\(self.description) is being deinitialized   <----------------") }
+    
     //MARK: - Configuration
     
     internal func configure(
@@ -93,6 +94,8 @@ class InformationPostingView: UIView, StudentLocationRequestable {
         submitSuccessfulClosure     = success
         presentErrorAlert           = alertPresentation
         
+        backgroundColor = Theme.locationSubmitScreenBGColor
+        
         promptView.alpha        = 0
         promptView.transform    = CGAffineTransformMakeScale(0.5, 0.5)
         
@@ -103,7 +106,11 @@ class InformationPostingView: UIView, StudentLocationRequestable {
         configureBottomButton()
         promptViewAnimation()
         
-        informationPostingService.configure(withActivityIndicatorPresentation: presentAI, activityIndicatorDismissal: dismissAI, successClosure: success, alertPresentationClosure: alertPresentation)
+        informationPostingService.configure(
+            withActivityIndicatorPresentation: presentAI,
+            activityIndicatorDismissal: dismissAI,
+            successClosure: success,
+            alertPresentationClosure: alertPresentation)
         
         /// Initial query for existing student information
         let queryCompletion = { [weak self] (studentInformationValues: (mapString: String, mediaURL: String, previouslyEnteredLocationObjectId: String?)?) in
@@ -114,9 +121,10 @@ class InformationPostingView: UIView, StudentLocationRequestable {
     
     private func configurePrompt() {
         promptLabel.adjustsFontSizeToFitWidth = true
+        
         let labelAttributes = [
-            NSForegroundColorAttributeName : Constants.ColorScheme.black,
-            NSFontAttributeName: UIFont.systemFontOfSize(50, weight: UIFontWeightLight)
+            NSForegroundColorAttributeName: Theme.textDark,
+            NSFontAttributeName: UIFont(name: Constants.FontName.avenirHeavy, size: 50)!
         ]
         var promptString = LocalizedStrings.Labels.whereAreYou
         if studentInfoProvider.currentStudent.firstName != "" {
@@ -128,26 +136,36 @@ class InformationPostingView: UIView, StudentLocationRequestable {
     }
     
     private func configureTextFields() {
-        locationTextField.placeholder   = LocalizedStrings.TextFieldPlaceHolders.enterLocation
-        locationTextField.delegate      = self
-        locationTextField.returnKeyType = .Done
+        let textFieldAttributes = [
+            NSFontAttributeName: UIFont(name: Constants.FontName.avenirLight, size: 17)!,//UIFont.systemFontOfSize(17, weight: UIFontWeightLight),
+            NSForegroundColorAttributeName: Theme.textFieldText
+        ]
         
-        urlTextField.alpha = 0.0
-        urlTextFieldTopConstraint.constant -= (urlTextField.frame.height + 4)
+        locationTextField.defaultTextAttributes = textFieldAttributes
+        locationTextField.backgroundColor       = Theme.textFieldBackground
+        locationTextField.placeholder           = LocalizedStrings.TextFieldPlaceHolders.enterLocation
+        locationTextField.textAlignment         = .Center
+        locationTextField.delegate              = self
+        locationTextField.returnKeyType         = .Done
         
-        urlTextField.placeholder    = LocalizedStrings.TextFieldPlaceHolders.enterURL
-        urlTextField.delegate       = self
-        urlTextField.returnKeyType  = .Done
+        
+        urlTextField.alpha                      = 0.0
+        urlTextFieldTopConstraint.constant     -= (urlTextField.frame.height + 4)
+        urlTextField.defaultTextAttributes      = textFieldAttributes
+        urlTextField.backgroundColor            = Theme.textFieldBackground
+        urlTextField.placeholder                = LocalizedStrings.TextFieldPlaceHolders.enterURL
+        urlTextField.textAlignment              = .Center
+        urlTextField.delegate                   = self
+        urlTextField.returnKeyType              = .Done
     }
 
     private func configureBottomButton() {
         bottomButton.alpha                      = 0
         bottomButton.enabled                    = false
         bottomButton.transform                  = CGAffineTransformMakeScale(0.5, 0.5)
-        bottomButton.backgroundColor            = Constants.ColorScheme.whiteAlpha90
-        bottomButton.layer.borderColor          = Constants.ColorScheme.darkBlue.CGColor
+        bottomButton.backgroundColor            = Theme.buttonBackground
+        bottomButton.tintColor                  = Theme.buttonTint
         bottomButton.layer.cornerRadius         = CGFloat(6.0)
-        bottomButton.layer.borderWidth          = CGFloat(1.0)
         bottomButton.titleLabel?.textAlignment  = .Center
         bottomButton.contentEdgeInsets          = UIEdgeInsetsMake(5, 10, 5, 10)
         
@@ -193,13 +211,15 @@ class InformationPostingView: UIView, StudentLocationRequestable {
     
     private func showLocationOnMap() {
         /// If this was a real app, you'd want to deal with multiple locations...
-        let location = placemarks?[0].location
-        let regionRadius: CLLocationDistance = 54000
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location!.coordinate, regionRadius * 2.0, regionRadius * 2.0)
+        let location            = placemarks?[0].location
+        let regionRadius        = CLLocationDistance(54000)
+        let coordinateRegion    = MKCoordinateRegionMakeWithDistance(location!.coordinate, regionRadius * 2.0, regionRadius * 2.0)
+        
         mapView.setRegion(coordinateRegion, animated: true)
         
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = CLLocationCoordinate2D(latitude: location!.coordinate.latitude, longitude: location!.coordinate.longitude)
+        let annotation          = MKPointAnnotation()
+        annotation.coordinate   = CLLocationCoordinate2D(latitude: location!.coordinate.latitude, longitude: location!.coordinate.longitude)
+        
         mapView.addAnnotation(annotation)
     }
     
@@ -207,9 +227,8 @@ class InformationPostingView: UIView, StudentLocationRequestable {
     
     private func promptViewAnimation() {
         UIView.animateWithDuration(1.7, delay: 0.5, usingSpringWithDamping: 0.3, initialSpringVelocity: 0.5, options: .CurveEaseOut, animations: {
-            self.promptView.transform = CGAffineTransformMakeScale(1.0, 1.0)
-            self.promptView.alpha = 1.0
-            self.layoutIfNeeded()
+            self.promptView.transform   = CGAffineTransformMakeScale(1.0, 1.0)
+            self.promptView.alpha       = 1.0
             }, completion: nil)
     }
     
@@ -224,7 +243,7 @@ class InformationPostingView: UIView, StudentLocationRequestable {
     private func animateBottomButtonIntoView() {
         UIView.animateWithDuration(1.7, delay: 0.5, usingSpringWithDamping: 0.3, initialSpringVelocity: 0.5, options: .CurveEaseOut, animations: {
             self.bottomButton.transform = CGAffineTransformMakeScale(1.0, 1.0)
-            self.bottomButton.alpha = 1.0
+            self.bottomButton.alpha     = 1.0
             self.layoutIfNeeded()
             }, completion: nil)
     }

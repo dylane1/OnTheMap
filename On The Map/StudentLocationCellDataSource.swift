@@ -9,28 +9,33 @@
 import UIKit
 
 protocol StudentLocationCellDataSource {
-    var image: UIImage { get }
     var studentInformation: StudentInformation { get }
-    var titleTextAttributes: [String : AnyObject] { get }
-    var subtitleTextAttributes: [String : AnyObject] { get }
+    var nameTextAttributes: [String : AnyObject] { get }
+    var locationTextAttributes: [String : AnyObject] { get }
+    var linkTextAttributes: [String : AnyObject] { get }
 }
 
 extension StudentLocationCellDataSource {
-    internal var titleTextAttributes: [String : AnyObject] {
+    internal var nameTextAttributes: [String : AnyObject] {
         return [
-            NSForegroundColorAttributeName: Constants.ColorScheme.black,
-            NSFontAttributeName: UIFont.systemFontOfSize(17, weight: UIFontWeightLight)
+            NSForegroundColorAttributeName: Theme.textDark,
+            NSFontAttributeName: UIFont(name: Constants.FontName.avenirHeavy, size: 20)!
         ]
     }
-    internal var subtitleTextAttributes: [String : AnyObject] {
+    internal var locationTextAttributes: [String : AnyObject] {
         return [
-            NSForegroundColorAttributeName: Constants.ColorScheme.black,
-            NSFontAttributeName: UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
+            NSForegroundColorAttributeName: Theme.textDark,
+            NSFontAttributeName: UIFont(name: Constants.FontName.avenirMedium, size: 16)!
+        ]
+    }
+    internal var linkTextAttributes: [String : AnyObject] {
+        return [
+            NSForegroundColorAttributeName: Theme.textLink,
+            NSFontAttributeName: UIFont(name: Constants.FontName.avenirMedium, size: 14)!
         ]
     }
 }
 
 struct StudentLocationCellModel: StudentLocationCellDataSource {
-    var image: UIImage
     var studentInformation: StudentInformation
 }

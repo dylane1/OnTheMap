@@ -12,39 +12,48 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
     
     private let studentInformationProvider = StudentInformationProvider.sharedInstance
     
-    private var tabBar: TabBarController!
+//    private var tabBar: TabBarController!
     private var mapContainterView: StudentLocationMapContainerView!
     
     private var sessionLogoutController = UserSessionLogoutController()
     
+    internal var activityIndicatorViewController: ActivityIndicatorViewController?
+    private var activityIndicatorTransitioningDelegate: OverlayTransitioningDelegate?
+    
     /// InformationPostingPresentable
     internal var informationPostingNavController: InformationPostingNavigationController?
     
-    /// ActivityIndicatorPresentable
-    internal var activityIndicatorViewController: PrimaryActivityIndicatorViewController?
-    
     //MARK: - View Lifecycle
-    deinit { magic("being deinitialized   <----------------") }
+//    deinit { magic("being deinitialized   <----------------") }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = LocalizedStrings.ViewControllerTitles.onTheMap
+        mapContainterView = view as! StudentLocationMapContainerView
+        mapContainterView.configureMapImage()
         
-        let navController = navigationController! as! MapAndTableNavigationController
-        navController.setNavigationBarAttributes(isAppTitle: true)
-        
-        tabBar = tabBarController as! TabBarController
+        configureNavigationController()
 
         let refreshClosure = { [weak self] in
             self!.getStudentInfoArray()
         }
         
+        activityIndicatorTransitioningDelegate = OverlayTransitioningDelegate()
         
-        let presentActivityIndicator = getActivityIndicatorPresentation()
+        let presentActivityIndicator = { [unowned self] (completion: (() -> Void)?) in
+            self.presentActivityIndicator(
+                self.getActivityIndicatorViewController(),
+                transitioningDelegate: self.activityIndicatorTransitioningDelegate!,
+                completion: completion)
+        }
+        
         let presentErrorAlert = getAlertPresentation()
         
-        let logoutSuccessClosure = getSuccessfulLogoutClosure()
+        let logoutSuccessClosure = { [unowned self] in
+            self.dismissActivityIndicator(completion: {
+                self.dismissViewControllerAnimated(true, completion: nil)
+            })
+        }
         
         sessionLogoutController.configure(
             withActivityIndicatorPresentation: presentActivityIndicator,
@@ -64,7 +73,6 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
     //MARK: - Configuration
     
     private func configureView() {
-        mapContainterView = view as! StudentLocationMapContainerView
         
         let openLinkClosure = { [weak self] (urlString: String) in
             self!.openLink(withURLString: urlString)
