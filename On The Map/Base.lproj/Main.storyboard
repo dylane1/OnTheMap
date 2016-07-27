@@ -290,11 +290,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yFy-Tr-n6X" customClass="ActivityIndicatorView" customModule="On_The_Map" customModuleProvider="target">
-                                <rect key="frame" x="120" y="200" width="80" height="80"/>
+                                <rect key="frame" x="128" y="208" width="64" height="64"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="80" id="P1v-rI-c1a"/>
-                                    <constraint firstAttribute="width" constant="80" id="ZHu-Ta-X2H"/>
+                                    <constraint firstAttribute="height" constant="64" id="P1v-rI-c1a"/>
+                                    <constraint firstAttribute="width" constant="64" id="ZHu-Ta-X2H"/>
                                 </constraints>
                             </view>
                         </subviews>

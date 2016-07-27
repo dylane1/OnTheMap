@@ -10,7 +10,7 @@ import UIKit
 
 class ActivityIndicatorViewController: UIViewController /*, SegueHandlerType*/{
     
-    deinit { magic("being deinitialized   <----------------") }
+//    deinit { magic("being deinitialized   <----------------") }
     
     @IBOutlet weak var popupView: ActivityIndicatorView!
     
@@ -18,8 +18,8 @@ class ActivityIndicatorViewController: UIViewController /*, SegueHandlerType*/{
         
         super.viewDidLoad()
         popupView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.001)
-        popupView.layer.cornerRadius = 40
-        popupView.layer.shadowColor = UIColor.blackColor().CGColor //Theme03.shadowDark.CGColor
+        popupView.layer.cornerRadius = popupView.bounds.height / 2
+        popupView.layer.shadowColor = UIColor.blackColor().CGColor
         popupView.layer.shadowOpacity = 0.9
         popupView.layer.shadowRadius = 10
         popupView.layer.shadowOffset = CGSize(width: 5, height: 5)

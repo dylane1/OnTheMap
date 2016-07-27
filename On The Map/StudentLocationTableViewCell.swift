@@ -82,15 +82,15 @@ class StudentLocationTableViewCell: UITableViewCell /*, NibLoadableView*/ {
         if linkText.safariOpenableURL == nil {
             isInvalidURL = true
             
-            linkTextAttributes[NSForegroundColorAttributeName] = Theme03.textError
+            linkTextAttributes[NSForegroundColorAttributeName] = Theme.textError
             
-            disclosureIndicatorImage = IconProvider.imageOfDrawnIcon(.DisclosureIndicator, size: CGSize(width: 20, height: 20), fillColor: Theme03.disclosureIndicatorDisabled)
+            disclosureIndicatorImage = IconProvider.imageOfDrawnIcon(.DisclosureIndicator, size: CGSize(width: 20, height: 20), fillColor: Theme.disclosureIndicatorDisabled)
         } else {
             isInvalidURL = false
             
             linkTextAttributes[NSUnderlineStyleAttributeName] = NSUnderlineStyle.StyleSingle.rawValue
             
-            disclosureIndicatorImage = IconProvider.imageOfDrawnIcon(.DisclosureIndicator, size: CGSize(width: 20, height: 20), fillColor: Theme03.disclosureIndicatorEnabled)
+            disclosureIndicatorImage = IconProvider.imageOfDrawnIcon(.DisclosureIndicator, size: CGSize(width: 20, height: 20), fillColor: Theme.disclosureIndicatorEnabled)
         }
         
         configureDisclosureIndicatorWithImage(disclosureIndicatorImage)
@@ -108,11 +108,11 @@ class StudentLocationTableViewCell: UITableViewCell /*, NibLoadableView*/ {
     private func configureLocationButton() {
 //        let iconProvider = IconProvider()
         
-        let mapButtonImage = IconProvider.imageOfDrawnIcon(.MapButton, size: CGSize(width: 30, height: 50), fillColor: Theme03.locationMarker)
+        let mapButtonImage = IconProvider.imageOfDrawnIcon(.MapButton, size: CGSize(width: 30, height: 50), fillColor: Theme.locationMarker)
         
         showLocationButton.setImage(mapButtonImage, forState: .Normal)
         
         showLocationButton.setTitle(nil, forState: .Normal)
-        showLocationButton.tintColor = Theme03.locationMarker
+        showLocationButton.tintColor = Theme.locationMarker
     }
 }

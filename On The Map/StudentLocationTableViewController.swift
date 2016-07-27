@@ -31,7 +31,7 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
     private var locationMarker: UIImage!
     
     //MARK: - View Lifecycle
-    deinit { magic("being deinitialized   <----------------") }
+//    deinit { magic("being deinitialized   <----------------") }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +44,7 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
         navController.setNavigationBarAttributes(isAppTitle: true)
 
         tableView.delegate = self
-        tableView.backgroundColor = Theme03.tableViewBGColor
+        tableView.backgroundColor = Theme.tableViewBGColor
         
         let refreshClosure = { [weak self] in
             self!.getStudentInfoArray()
@@ -77,7 +77,7 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
             withRefreshClosure: refreshClosure,
             sessionLogoutController: sessionLogoutController)
         
-        locationMarker = IconProvider.imageOfDrawnIcon(.LocationMarker, size: CGSize(width: 40, height: 43), fillColor: Theme03.locationMarker)
+        locationMarker = IconProvider.imageOfDrawnIcon(.LocationMarker, size: CGSize(width: 40, height: 43), fillColor: Theme.locationMarker)
         
         presentMapViewController = { [weak self] (locationName: String, latitude: Double, longitude: Double) in
             
@@ -121,8 +121,8 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
         mapViewController!.modalPresentationStyle = .Custom
         
         overlayTransitioningDelegate.configureTransitionWithContentSize(mapVCPreferredContentSize, dismissalCompletion: dismissalCompletion, options: [
-            .DimmingBGColor : Theme03.mapPresentationDimView,
-                .InFromPosition : Position.Center,
+            .DimmingBGColor : Theme.presentationDimBGColor,
+            .InFromPosition : Position.Center,
             .OutToPosition : Position.Center,
             .AlphaIn : true,
             .AlphaOut : true,

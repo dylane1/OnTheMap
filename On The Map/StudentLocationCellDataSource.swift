@@ -18,20 +18,20 @@ protocol StudentLocationCellDataSource {
 extension StudentLocationCellDataSource {
     internal var nameTextAttributes: [String : AnyObject] {
         return [
-            NSForegroundColorAttributeName: Theme03.textDark,
-            NSFontAttributeName: UIFont.systemFontOfSize(20, weight: UIFontWeightMedium)
+            NSForegroundColorAttributeName: Theme.textDark,
+            NSFontAttributeName: UIFont(name: Constants.FontName.avenirHeavy, size: 20)!
         ]
     }
     internal var locationTextAttributes: [String : AnyObject] {
         return [
-            NSForegroundColorAttributeName: Theme03.textDark,
-            NSFontAttributeName: UIFont.systemFontOfSize(16, weight: UIFontWeightMedium)
+            NSForegroundColorAttributeName: Theme.textDark,
+            NSFontAttributeName: UIFont(name: Constants.FontName.avenirMedium, size: 16)!
         ]
     }
     internal var linkTextAttributes: [String : AnyObject] {
         return [
-            NSForegroundColorAttributeName: Theme03.textLink,
-            NSFontAttributeName: UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
+            NSForegroundColorAttributeName: Theme.textLink,
+            NSFontAttributeName: UIFont(name: Constants.FontName.avenirMedium, size: 14)!
         ]
     }
 }

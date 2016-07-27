@@ -14,9 +14,9 @@ class MapContainerViewController: UIViewController {
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var mapView: MKMapView!
     
-    private var locationName = "foo"
-    private var latitude = 0.0
-    private var longitude = 0.0
+    private var locationName    = "foo"
+    private var latitude        = 0.0
+    private var longitude       = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,13 +25,8 @@ class MapContainerViewController: UIViewController {
         configureLabelWithString(locationName)
         showLocationOnMap(withLatitude: latitude, longitude: longitude)
     }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-//        view.layoutMarginsDidChange()
-    }
 
-    deinit { magic("\(self.description) is being deinitialized   <----------------") }
+//    deinit { magic("\(self.description) is being deinitialized   <----------------") }
     
     //MARK: - Configuration
     internal func configure(withLocationName name: String, latitude lat: Double, longitude lon: Double) {
@@ -41,18 +36,15 @@ class MapContainerViewController: UIViewController {
     }
 
     private func prettyIt() {
-        
-        //TODO: Fix cornerRadius on bottom :(
-        view.layer.cornerRadius = 6
-        view.layer.shadowColor = UIColor.blackColor().CGColor //Theme03.shadowDark.CGColor
-        view.layer.shadowOpacity = 0.6
-        view.layer.shadowRadius = 10
-        view.layer.shadowOffset = CGSize(width: 5, height: 5)
-        view.layer.masksToBounds = false
+        view.layer.cornerRadius     = 6
+        view.layer.shadowColor      = UIColor.blackColor().CGColor
+        view.layer.shadowOpacity    = 0.6
+        view.layer.shadowRadius     = 10
+        view.layer.shadowOffset     = CGSize(width: 5, height: 5)
+        view.layer.masksToBounds    = false
     }
     
     private func configureLabelWithString(name: String) {
-        magic("name: \(name)")
         locationLabel.text = name
     }
     

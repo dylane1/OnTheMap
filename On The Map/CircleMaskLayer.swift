@@ -41,7 +41,7 @@ class CircleMaskLayer: CAShapeLayer {
     }
     
     internal func expandWithDuration(duration: CFTimeInterval) {
-        magic("")
+        
         let expandAnimation0 = CABasicAnimation(keyPath: "path")
         expandAnimation0.fromValue = circlePathStart.CGPath
         expandAnimation0.toValue = circlePathFinish.CGPath

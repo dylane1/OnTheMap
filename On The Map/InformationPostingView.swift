@@ -77,7 +77,7 @@ class InformationPostingView: UIView, StudentLocationRequestable {
     
     private var previouslyEnteredLocationObjectId: String?
     
-    deinit { magic("\(self.description) is being deinitialized   <----------------") }
+//    deinit { magic("\(self.description) is being deinitialized   <----------------") }
     
     //MARK: - Configuration
     
@@ -94,7 +94,7 @@ class InformationPostingView: UIView, StudentLocationRequestable {
         submitSuccessfulClosure     = success
         presentErrorAlert           = alertPresentation
         
-        backgroundColor = Theme03.locationSubmitScreenBGColor
+        backgroundColor = Theme.locationSubmitScreenBGColor
         
         promptView.alpha        = 0
         promptView.transform    = CGAffineTransformMakeScale(0.5, 0.5)
@@ -123,8 +123,8 @@ class InformationPostingView: UIView, StudentLocationRequestable {
         promptLabel.adjustsFontSizeToFitWidth = true
         
         let labelAttributes = [
-            NSForegroundColorAttributeName: Theme03.textDark,
-            NSFontAttributeName: UIFont(name: Constants.FontName.avenir, size: 50)!
+            NSForegroundColorAttributeName: Theme.textDark,
+            NSFontAttributeName: UIFont(name: Constants.FontName.avenirHeavy, size: 50)!
         ]
         var promptString = LocalizedStrings.Labels.whereAreYou
         if studentInfoProvider.currentStudent.firstName != "" {
@@ -137,12 +137,12 @@ class InformationPostingView: UIView, StudentLocationRequestable {
     
     private func configureTextFields() {
         let textFieldAttributes = [
-            NSFontAttributeName: UIFont.systemFontOfSize(17, weight: UIFontWeightLight),
-            NSForegroundColorAttributeName: Theme03.textFieldText
+            NSFontAttributeName: UIFont(name: Constants.FontName.avenirLight, size: 17)!,//UIFont.systemFontOfSize(17, weight: UIFontWeightLight),
+            NSForegroundColorAttributeName: Theme.textFieldText
         ]
         
         locationTextField.defaultTextAttributes = textFieldAttributes
-        locationTextField.backgroundColor       = Theme03.textFieldBackground
+        locationTextField.backgroundColor       = Theme.textFieldBackground
         locationTextField.placeholder           = LocalizedStrings.TextFieldPlaceHolders.enterLocation
         locationTextField.textAlignment         = .Center
         locationTextField.delegate              = self
@@ -152,7 +152,7 @@ class InformationPostingView: UIView, StudentLocationRequestable {
         urlTextField.alpha                      = 0.0
         urlTextFieldTopConstraint.constant     -= (urlTextField.frame.height + 4)
         urlTextField.defaultTextAttributes      = textFieldAttributes
-        urlTextField.backgroundColor            = Theme03.textFieldBackground
+        urlTextField.backgroundColor            = Theme.textFieldBackground
         urlTextField.placeholder                = LocalizedStrings.TextFieldPlaceHolders.enterURL
         urlTextField.textAlignment              = .Center
         urlTextField.delegate                   = self
@@ -163,8 +163,8 @@ class InformationPostingView: UIView, StudentLocationRequestable {
         bottomButton.alpha                      = 0
         bottomButton.enabled                    = false
         bottomButton.transform                  = CGAffineTransformMakeScale(0.5, 0.5)
-        bottomButton.backgroundColor            = Theme03.buttonBackground
-        bottomButton.tintColor                  = Theme03.buttonTint
+        bottomButton.backgroundColor            = Theme.buttonBackground
+        bottomButton.tintColor                  = Theme.buttonTint
         bottomButton.layer.cornerRadius         = CGFloat(6.0)
         bottomButton.titleLabel?.textAlignment  = .Center
         bottomButton.contentEdgeInsets          = UIEdgeInsetsMake(5, 10, 5, 10)

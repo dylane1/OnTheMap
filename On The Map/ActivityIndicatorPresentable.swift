@@ -39,7 +39,7 @@ extension ActivityIndicatorPresentable where Self: UIViewController {
                 .DurationOut: 0.3,
                 .AlphaOut: true,
                 .ScaleOut: true,
-                .DimmingBGColor: Theme03.activityIndicatorDimmingBGColor
+                .DimmingBGColor: Theme.presentationDimBGColor
             ])
         presentViewController(activityIndicator, animated: true, completion: completion)
     }

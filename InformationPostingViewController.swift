@@ -17,7 +17,7 @@ class InformationPostingViewController: UIViewController, InformationPostingNavi
     private var activityIndicatorTransitioningDelegate: OverlayTransitioningDelegate?
     
     //MARK: - View Lifecycle
-    deinit { magic("\(self.description) is being deinitialized   <----------------") }
+//    deinit { magic("\(self.description) is being deinitialized   <----------------") }
     
     override func viewDidLoad() {
         super.viewDidLoad()

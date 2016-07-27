@@ -18,9 +18,9 @@ class LoginView: UIView {
     private var emailString     = ""
     private var passwordString  = ""
     
-    private var emailTextFieldFontColor = Theme03.textError
+    private var emailTextFieldFontColor = Theme.textError
     private var textFieldAttributes = [
-        NSFontAttributeName: UIFont.systemFontOfSize(17, weight: UIFontWeightLight),
+        NSFontAttributeName: UIFont(name: Constants.FontName.avenirLight, size: 17)!,//UIFont.systemFontOfSize(17, weight: UIFontWeightLight),
         NSForegroundColorAttributeName: UIColor.redOrange()
     ]
     
@@ -100,12 +100,12 @@ class LoginView: UIView {
     }
     
     private func configureBackground() {
-        backgroundColor = Theme03.loginScreenBGColor
+        backgroundColor = Theme.loginScreenBGColor
 
         gradientLayer.frame = bounds
         
         let color1 = UIColor.clearColor().CGColor
-        let color2 = Theme03.loginScreenBGGradient.CGColor
+        let color2 = Theme.loginScreenBGGradient.CGColor
         
         gradientLayer.colors = [color1, color2]
         gradientLayer.locations = [0.6, 1.0]
@@ -118,8 +118,8 @@ class LoginView: UIView {
         /// Login
         
         let loginLabelAttributes: [String : AnyObject] = [
-            NSForegroundColorAttributeName: Theme03.textLight,
-            NSFontAttributeName: UIFont(name: Constants.FontName.avenir, size: 20)!]
+            NSForegroundColorAttributeName: Theme.textLight,
+            NSFontAttributeName: UIFont(name: Constants.FontName.avenirHeavy, size: 20)!]
         
         loginToUdacityLabel.attributedText = NSAttributedString(string: LocalizedStrings.Labels.loginToUdacity, attributes: loginLabelAttributes)
         
@@ -145,9 +145,9 @@ class LoginView: UIView {
         
         let attributedString = NSMutableAttributedString(string: labelString)
         
-        attributedString.addAttribute(NSFontAttributeName, value: UIFont(name: Constants.FontName.avenir, size: 14)!, range: NSRange(location: 0, length: labelString.characters.count))
+        attributedString.addAttribute(NSFontAttributeName, value: UIFont(name: Constants.FontName.avenirMedium, size: 15)!, range: NSRange(location: 0, length: labelString.characters.count))
         
-        attributedString.addAttribute(NSForegroundColorAttributeName, value: Theme03.textLight, range: NSRange(location: 0, length: labelString.characters.count))
+        attributedString.addAttribute(NSForegroundColorAttributeName, value: Theme.textLight, range: NSRange(location: 0, length: labelString.characters.count))
         
         attributedString.addAttribute(NSUnderlineStyleAttributeName, value: NSUnderlineStyle.StyleSingle.rawValue, range: NSRange(location: LocalizedStrings.Labels.dontHaveAccount.characters.count + 1, length: LocalizedStrings.Labels.signUp.characters.count))
         
@@ -158,14 +158,14 @@ class LoginView: UIView {
     
     private func configureTextFields() {
         
-        emailField.backgroundColor  = Theme03.textFieldBackground
+        emailField.backgroundColor  = Theme.textFieldBackground
         emailField.delegate         = self
         emailField.placeholder      = LocalizedStrings.TextFieldPlaceHolders.email
         emailField.addTarget(self, action: #selector(validateTextFields), forControlEvents: .EditingChanged)
         emailField.alpha = 0
         emailField.transform = CGAffineTransformMakeScale(0.1, 0.1)
         
-        passwordField.backgroundColor   = Theme03.textFieldBackground
+        passwordField.backgroundColor   = Theme.textFieldBackground
         passwordField.delegate          = self
         passwordField.secureTextEntry   = true
         passwordField.placeholder       = LocalizedStrings.TextFieldPlaceHolders.password
@@ -185,8 +185,8 @@ class LoginView: UIView {
     private func configureButtons() {
         loginButton.titleLabel?.text    = LocalizedStrings.ButtonTitles.login
         loginButton.enabled             = true//false
-        loginButton.backgroundColor     = Theme03.buttonBackground
-        loginButton.tintColor           = Theme03.buttonTint
+        loginButton.backgroundColor     = Theme.buttonBackground
+        loginButton.tintColor           = Theme.buttonTint
         loginButton.layer.cornerRadius  = 6
         loginButton.alpha               = 0
         loginButton.transform           = CGAffineTransformMakeScale(0.1, 0.1)
@@ -234,7 +234,7 @@ class LoginView: UIView {
         emailString     = emailField.text as String! ?? ""
         passwordString  = passwordField.text as String! ?? ""
         
-        emailTextFieldFontColor = emailString.isEmail ? Theme03.textFieldText : Theme03.textError
+        emailTextFieldFontColor = emailString.isEmail ? Theme.textFieldText : Theme.textError
         
         loginButton.enabled = emailString.isEmail && passwordString != "" ? true : false
         

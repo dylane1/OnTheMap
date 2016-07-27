@@ -8,57 +8,30 @@
 
 import UIKit
 
-
-struct Theme01 {
-    static let loginScreenBGColor = UIColor.mistGray()
-    static let locationSubmitScreenBGColor = UIColor.fantasy()
-    static let barTintColor = UIColor.mistGray()
-    static let titleText = UIColor.fantasy()
-    static let shadowDark = UIColor.rangoonGreen()
-    static let textFieldText = UIColor.rangoonGreen()
-    static let textFieldBackground = UIColor.fantasy()
-    static let buttonBackground = UIColor.peat()
-    static let buttonTint = UIColor.fantasy()
-}
-
-struct Theme02 {
-    static let loginScreenBGColor = UIColor.blueBayoux()
-    static let locationSubmitScreenBGColor = UIColor.pearlBush()
-    static let barTintColor = UIColor.blueBayoux()
-    static let titleText = UIColor.fantasy()
-    static let shadowDark = UIColor.rangoonGreen()
-    static let textFieldText = UIColor.rangoonGreen()
-    static let textFieldBackground = UIColor.fantasy()
-    static let buttonBackground = UIColor.bullShot()
-    static let buttonTint = UIColor.fantasy()
-}
-
-struct Theme03 {
+struct Theme {
     /// Universal
-    static let textLight            = UIColor.romance()
-    static let textDark             = UIColor.timberGreen()
-    static let textLink             = UIColor.ceSoir()
-    static let textError            = UIColor.redOrange()
-    static let shadowLight          = UIColor.romance()
-    static let shadowDark           = UIColor.timberGreen()
-    static let textFieldText        = UIColor.timberGreen()
-    static let textFieldBackground  = UIColor.romance()
-    static let buttonBackground     = UIColor.ceSoir()
-    static let buttonTint           = UIColor.romance()
+    static let textLight                = UIColor.romance()
+    static let textDark                 = UIColor.timberGreen()
+    static let textLink                 = UIColor.ceSoir()
+    static let textError                = UIColor.redOrange()
+    static let textFieldText            = UIColor.timberGreen()
+    static let textFieldBackground      = UIColor.romance()
+    static let buttonBackground         = UIColor.ceSoir()
+    static let buttonTint               = UIColor.romance()
+    static let presentationDimBGColor   = UIColor.timberGreenAlpha50()
     
-    static let activityIndicatorDimmingBGColor  = UIColor.timberGreen()
+    /// Activity Indicator
     static let activityIndicatorCircle0         = UIColor.romance()
     static let activityIndicatorCircle1         = UIColor.timberGreen()
+    
+    /// Tab Bar / Navigation Bar
+    static let barTintColor             = UIColor.spanishGreen()
+    static let tabBarItemUnselected     = UIColor.timberGreen()
     
     /// Login
     static let loginScreenBGColor       = UIColor.spanishGreen()
     static let loginScreenBGGradient    = UIColor.timberGreenAlpha50()
     static let starColor                = UIColor.romance()
-    
-    /// Tab Bar / Navigation Bar
-    static let barTintColor             = UIColor.spanishGreen()
-    static let tabBarItemUnselected     = UIColor.timberGreen()
-    static let mapPresentationDimView   = UIColor.timberGreenAlpha50()
     
     /// Map View
     static let annotationColor0 = UIColor.spanishGreen()
@@ -73,9 +46,6 @@ struct Theme03 {
     
     /// Location Submit View
     static let locationSubmitScreenBGColor  = UIColor.desertStorm()
-    
-    
-    
 }
 
 /**

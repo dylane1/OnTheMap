@@ -13,7 +13,7 @@ class StarLayer: CAShapeLayer {
     override init() {
         super.init()
         
-        fillColor   = Theme03.starColor.CGColor
+        fillColor   = Theme.starColor.CGColor
         path        = drawStar().CGPath
     }
     

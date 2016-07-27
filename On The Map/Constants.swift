@@ -69,17 +69,12 @@ struct Constants {
     }
     
     struct FontName {
-//        static let americanTypewriter   = "AmericanTypewriter-Bold"
-//        static let arial                = "Arial-BoldMT"
-        static let avenir               = "Avenir-Black"
-//        static let avenirNext           = "AvenirNext-Heavy"
-//        static let avenirNextCondensed  = "AvenirNextCondensed-Heavy"
-//        static let copperplate          = "Copperplate-Bold"
-//        static let futura               = "Futura-CondensedExtraBold"
-//        static let gillSans             = "GillSans-Bold"
-//        static let hoeflerText          = "HoeflerText-Black"
-//        static let impact               = "Impact"
-        static let markerFelt           = "MarkerFelt-Wide"
+        static let avenirLight  = "Avenir-Light"
+        static let avenirMedium = "Avenir-Medium"
+        static let avenirHeavy  = "Avenir-Heavy"
+        static let avenirBlack  = "Avenir-Black"
+        
+        static let markerFelt   = "MarkerFelt-Wide"
     }
 
 

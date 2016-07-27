@@ -23,12 +23,12 @@ class ActivityIndicatorView: UIView {
     //MARK: - Configuration
     
     private func configureIndicator() {
-        let radius      = frame.size.height/2 * 0.8
-        let startAngle  = CGFloat(M_PI_2 * 3) //0)
+        let radius      = frame.size.height / 2
+        let startAngle  = CGFloat(M_PI_2 * 3)
         let endAngle    = CGFloat(2.0 * M_PI + M_PI_2 * 3)
         let centerPoint = CGPointMake(radius, radius)
 
-        ovalShapeLayer0.strokeColor = Theme03.activityIndicatorCircle0.CGColor
+        ovalShapeLayer0.strokeColor = Theme.activityIndicatorCircle0.CGColor
         ovalShapeLayer0.fillColor = UIColor.clearColor().CGColor
         ovalShapeLayer0.lineWidth = 6.0
         ovalShapeLayer0.lineDashPattern = [0,24]
@@ -38,7 +38,7 @@ class ActivityIndicatorView: UIView {
         
         layer.addSublayer(ovalShapeLayer0)
         
-        ovalShapeLayer1.strokeColor = Theme03.activityIndicatorCircle1.CGColor
+        ovalShapeLayer1.strokeColor = Theme.activityIndicatorCircle1.CGColor
         ovalShapeLayer1.fillColor = UIColor.clearColor().CGColor
         ovalShapeLayer1.lineWidth = 12.0
         ovalShapeLayer1.lineDashPattern = [0,24]

@@ -20,7 +20,7 @@ class StarAnimationHolderView: UIView {
     override func didMoveToWindow() {
         super.didMoveToWindow()
         
-        backgroundColor = Theme03.loginScreenBGGradient
+        backgroundColor = Theme.loginScreenBGGradient
         
         starLayer.position = CGPoint(x: -100, y: -100)
         

@@ -14,7 +14,7 @@ class TitleLayer: CAShapeLayer {
 
     override init() {
         super.init()
-        fillColor = Theme03.textLight.CGColor
+        fillColor = Theme.textLight.CGColor
         
         switch Constants.screenHeight {
         case Constants.DeviceScreenHeight.iPhone4s:

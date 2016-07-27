@@ -53,7 +53,7 @@ final class TransitionInAnimator: NSObject, UIViewControllerAnimatedTransitionin
         springVelocity  = velocity
     }
 
-    deinit { magic("\(self.description) is being deinitialized   <----------------") }
+//    deinit { magic("\(self.description) is being deinitialized   <----------------") }
     
     //MARK: - 
     

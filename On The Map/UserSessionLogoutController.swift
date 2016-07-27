@@ -12,13 +12,12 @@ import FBSDKLoginKit
 final class UserSessionLogoutController {
     
     private var presentActivityIndicator: ((completion: (() -> Void)?) -> Void)!
-    //    private var dismissActivityIndicator: (() -> Void)!
     private var logoutSuccessClosure: (() -> Void)!
     private var presentErrorAlert: AlertPresentation!
     
     //MARK: - View Lifecycle
     
-    deinit { magic("being deinitialized   <----------------") }
+//    deinit { magic("being deinitialized   <----------------") }
     
     //MARK: - Configuration
     

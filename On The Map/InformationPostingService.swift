@@ -21,7 +21,7 @@ final class InformationPostingService: StudentLocationRequestable {
     
     private lazy var studentInfoProvider = StudentInformationProvider.sharedInstance
 
-    deinit { magic("InformationPostingService is being deinitialized   <----------------") }
+//    deinit { magic("InformationPostingService is being deinitialized   <----------------") }
     
     //MARK: - Configuration
     
