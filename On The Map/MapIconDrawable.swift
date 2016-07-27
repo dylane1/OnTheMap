@@ -11,9 +11,11 @@ import UIKit
 protocol MapIconDrawable { }
 
 extension MapIconDrawable where Self: IconProviderProtocol {
-    func draw30PointMapWithColor(fillColor: UIColor) {
+    static func draw30PointMapWithColor(fillColor color: UIColor = UIColor.blackColor()) {
         //// Symbolicons-Junior 2
         //// Map Drawing
+        let fillColor = color
+        
         let mapPath = UIBezierPath()
         mapPath.moveToPoint(CGPoint(x: 9.75, y: 29))
         mapPath.addLineToPoint(CGPoint(x: 20.25, y: 25.86))

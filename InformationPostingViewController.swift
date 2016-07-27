@@ -14,6 +14,7 @@ class InformationPostingViewController: UIViewController, InformationPostingNavi
     
     /// ActivityIndicatorPresentable
     internal var activityIndicatorViewController: ActivityIndicatorViewController?
+    private var activityIndicatorTransitioningDelegate: OverlayTransitioningDelegate?
     
     //MARK: - View Lifecycle
     deinit { magic("being deinitialized   <----------------") }
@@ -26,8 +27,13 @@ class InformationPostingViewController: UIViewController, InformationPostingNavi
         let navController = navigationController! as! NavigationController
         navController.setNavigationBarAttributes(isAppTitle: false)
         
+        activityIndicatorTransitioningDelegate = OverlayTransitioningDelegate()
+        
         let presentActivityIndicator = { [weak self] (completion: (() -> Void)?) in
-            self!.presentActivityIndicator(self!.getActivityIndicatorViewController(), completion: nil)
+            self!.presentActivityIndicator(
+                self!.getActivityIndicatorViewController(),
+                transitioningDelegate: self!.activityIndicatorTransitioningDelegate!,
+                completion: nil)
         }
 //        let presentActivityIndicator    = getActivityIndicatorPresentation()
         

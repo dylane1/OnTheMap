@@ -11,9 +11,11 @@ import UIKit
 protocol LocationMarkerIconDrawable { }
 
 extension LocationMarkerIconDrawable where Self: IconProviderProtocol {
-    internal func drawLocationMarkerWithColor(fillColor: UIColor) {
+    static func drawLocationMarkerWithColor(fillColor color: UIColor = UIColor.blackColor()) {
         //// Symbolicons-Junior 2
         //// location Drawing
+        let fillColor = color
+        
         let locationPath = UIBezierPath()
         locationPath.moveToPoint(CGPoint(x: 20, y: 21))
         locationPath.addCurveToPoint(CGPoint(x: 16, y: 17), controlPoint1: CGPoint(x: 17.79, y: 21), controlPoint2: CGPoint(x: 16, y: 19.21))
@@ -35,8 +37,11 @@ extension LocationMarkerIconDrawable where Self: IconProviderProtocol {
         locationPath.fill()
     }
     
-    internal func draw30PointLocationMarkerWithColor(fillColor: UIColor) {
+    static func draw30PointLocationMarkerWithColor(fillColor color: UIColor = UIColor.blackColor()) {
+        let fillColor = color
+        
         let locationPath = UIBezierPath()
+        
         locationPath.moveToPoint(CGPoint(x: 15, y: 15))
         locationPath.addCurveToPoint(CGPoint(x: 12, y: 12), controlPoint1: CGPoint(x: 13.34, y: 15), controlPoint2: CGPoint(x: 12, y: 13.66))
         locationPath.addCurveToPoint(CGPoint(x: 15, y: 9), controlPoint1: CGPoint(x: 12, y: 10.34), controlPoint2: CGPoint(x: 13.34, y: 9))

@@ -11,8 +11,10 @@ import UIKit
 protocol MapButtonDrawable { }
 
 extension MapButtonDrawable where Self: IconProviderProtocol {
-    internal func draw30PointMapButtonWithColor(fillColor: UIColor) {
+    static func draw30PointMapButtonWithColor(fillColor color: UIColor = UIColor.blackColor()) {
         //// MapButton Drawing
+        let fillColor = color
+        
         let mapButtonPath = UIBezierPath()
         mapButtonPath.moveToPoint(CGPoint(x: 22.5, y: 22.43))
         mapButtonPath.addCurveToPoint(CGPoint(x: 21.57, y: 22.65), controlPoint1: CGPoint(x: 22.17, y: 22.43), controlPoint2: CGPoint(x: 21.86, y: 22.51))

@@ -61,7 +61,9 @@ struct Theme03 {
     static let mapPresentationDimView   = UIColor.timberGreenAlpha50()
     
     /// Map View
-    
+    static let annotationColor0 = UIColor.spanishGreen()
+    static let annotationColor1 = UIColor.romance()
+    static let annotationColor2 = UIColor.redOrange()
     
     /// Table View
     static let tableViewBGColor             = UIColor.romance()

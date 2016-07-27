@@ -29,6 +29,8 @@ enum TransitionOption {
 
 final class OverlayTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
     
+    deinit { magic("\(self.description) is being deinitialized   <----------------") }
+    
     private var options: [TransitionOption : Any]?
     
     /** OverlayPresentationController **/
@@ -146,7 +148,12 @@ final class OverlayTransitioningDelegate: NSObject, UIViewControllerTransitionin
     }
   
     func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return TransitionOutAnimator(withDuration: durationOut, toPosition: outToPosition, useScale: useScaleOut, fadeOutAlpha: fadeOutAlpha)
+        magic("outToPosition: \(outToPosition)")
+        return TransitionOutAnimator(
+            withDuration: durationOut,
+            toPosition: outToPosition,
+            useScale: useScaleOut,
+            fadeOutAlpha: fadeOutAlpha)
     }
 }
 

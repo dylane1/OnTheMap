@@ -31,6 +31,7 @@
 		A34A2B641D2B1B32007E2A0E /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A34A2B611D2B1B31007E2A0E /* FBSDKLoginKit.framework */; };
 		A34A2B651D2B1B32007E2A0E /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A34A2B621D2B1B31007E2A0E /* FBSDKShareKit.framework */; };
 		A34A2B671D2C1CF8007E2A0E /* UserSessionLogoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34A2B661D2C1CF8007E2A0E /* UserSessionLogoutController.swift */; };
+		A34F41781D482D3F00299DA0 /* AnnotationDrawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34F41771D482D3F00299DA0 /* AnnotationDrawable.swift */; };
 		A3662F651D46947800818019 /* StarLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3662F641D46947800818019 /* StarLayer.swift */; };
 		A3662F671D46B36E00818019 /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3662F661D46B36D00818019 /* ActivityIndicatorView.swift */; };
 		A3816D1F1D08DA6A001B55A0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3816D1E1D08DA6A001B55A0 /* MapKit.framework */; };
@@ -68,7 +69,6 @@
 		A3C7DD2E1D36C05B00904461 /* Map_iPhone5.png in Resources */ = {isa = PBXBuildFile; fileRef = A3C7DD2A1D36C05B00904461 /* Map_iPhone5.png */; };
 		A3C7DD2F1D36C05B00904461 /* Map_iPhone6.png in Resources */ = {isa = PBXBuildFile; fileRef = A3C7DD2B1D36C05B00904461 /* Map_iPhone6.png */; };
 		A3C7DD301D36C05B00904461 /* Map_iPhone6Plus.png in Resources */ = {isa = PBXBuildFile; fileRef = A3C7DD2C1D36C05B00904461 /* Map_iPhone6Plus.png */; };
-		A3C7DD321D39BC4300904461 /* PointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C7DD311D39BC4300904461 /* PointAnnotation.swift */; };
 		A3D909EC1D245467006315E5 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D909EB1D245467006315E5 /* Reachability.swift */; };
 		A3E86FDA1D3D8530003514D7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3E86FD91D3D8530003514D7 /* Images.xcassets */; };
 		A3E8C8C61CED078A0040770A /* Magic.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8C8C51CED078A0040770A /* Magic.swift */; };
@@ -114,6 +114,7 @@
 		A34A2B611D2B1B31007E2A0E /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		A34A2B621D2B1B31007E2A0E /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		A34A2B661D2C1CF8007E2A0E /* UserSessionLogoutController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSessionLogoutController.swift; sourceTree = "<group>"; };
+		A34F41771D482D3F00299DA0 /* AnnotationDrawable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnotationDrawable.swift; sourceTree = "<group>"; };
 		A3662F641D46947800818019 /* StarLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarLayer.swift; sourceTree = "<group>"; };
 		A3662F661D46B36D00818019 /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
 		A3816D1E1D08DA6A001B55A0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -153,7 +154,6 @@
 		A3C7DD2A1D36C05B00904461 /* Map_iPhone5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Map_iPhone5.png; sourceTree = "<group>"; };
 		A3C7DD2B1D36C05B00904461 /* Map_iPhone6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Map_iPhone6.png; sourceTree = "<group>"; };
 		A3C7DD2C1D36C05B00904461 /* Map_iPhone6Plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Map_iPhone6Plus.png; sourceTree = "<group>"; };
-		A3C7DD311D39BC4300904461 /* PointAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointAnnotation.swift; sourceTree = "<group>"; };
 		A3D909EB1D245467006315E5 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		A3E86FD91D3D8530003514D7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A3E8C8C51CED078A0040770A /* Magic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Magic.swift; path = Magic/Magic.swift; sourceTree = "<group>"; };
@@ -222,7 +222,6 @@
 		A3816D211D08E81C001B55A0 /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				A3C7DD311D39BC4300904461 /* PointAnnotation.swift */,
 				A39CF59F1CCAB1390060C890 /* StudentLocationMapContainerViewController.swift */,
 				A31EA4911D13477E005CC5B9 /* StudentLocationMapContainerView.swift */,
 				A31EA4931D1365D7005CC5B9 /* StudentLocationAnnotation.swift */,
@@ -333,6 +332,7 @@
 				A32697931D32E0DE00597140 /* IconProvider.swift */,
 				A3BCA3081D34092E00B02C9A /* MapIconDrawable.swift */,
 				A3BCA30B1D340F4600B02C9A /* PinIconDrawable.swift */,
+				A34F41771D482D3F00299DA0 /* AnnotationDrawable.swift */,
 				A3BCA30D1D34102800B02C9A /* ListIconDrawable.swift */,
 				A3BCA31E1D35ED1E00B02C9A /* DisclosureIndicatorDrawable.swift */,
 				A3BCA30F1D3410C300B02C9A /* LocationMarkerIconDrawable.swift */,
@@ -544,8 +544,8 @@
 				A31EA4961D136F70005CC5B9 /* SafariViewControllerPresentable.swift in Sources */,
 				A3E8C8CC1CED0CDB0040770A /* LocalizedStrings.swift in Sources */,
 				A3E8C8DC1CF656160040770A /* LoginValidator.swift in Sources */,
+				A34F41781D482D3F00299DA0 /* AnnotationDrawable.swift in Sources */,
 				A3FC79431D3FCAA9005B486A /* TitleAnimationHolderView.swift in Sources */,
-				A3C7DD321D39BC4300904461 /* PointAnnotation.swift in Sources */,
 				A33FEF2C1D41AB47005A5246 /* StarAnimationHolderView.swift in Sources */,
 				A3816D241D08E866001B55A0 /* MapAndTableNavigationController.swift in Sources */,
 				A33FEF281D4042BF005A5246 /* CircleMaskLayer.swift in Sources */,

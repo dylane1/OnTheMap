@@ -23,10 +23,11 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
     
     /// ActivityIndicatorPresentable
     internal var activityIndicatorViewController: ActivityIndicatorViewController?
+    private var activityIndicatorTransitioningDelegate: OverlayTransitioningDelegate?
     
     private var sessionLogoutController = UserSessionLogoutController()
     
-    private let iconProvider = IconProvider()
+//    private let iconProvider = IconProvider()
     private var locationMarker: UIImage!
     
     //MARK: - View Lifecycle
@@ -49,8 +50,13 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
             self!.getStudentInfoArray()
         }
         
+        activityIndicatorTransitioningDelegate = OverlayTransitioningDelegate()
+        
         let presentActivityIndicator = {[unowned self] (completion: (() -> Void)?) in
-            self.presentActivityIndicator(self.getActivityIndicatorViewController(), completion: completion)
+            self.presentActivityIndicator(
+                self.getActivityIndicatorViewController(),
+                transitioningDelegate: self.activityIndicatorTransitioningDelegate!,
+                completion: completion)
         }
         
         let presentErrorAlert = getAlertPresentation()
@@ -71,7 +77,7 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
             withRefreshClosure: refreshClosure,
             sessionLogoutController: sessionLogoutController)
         
-        locationMarker = iconProvider.imageOfDrawnIcon(.LocationMarker, size: CGSize(width: 40, height: 43), fillColor: Theme03.locationMarker)
+        locationMarker = IconProvider.imageOfDrawnIcon(.LocationMarker, size: CGSize(width: 40, height: 43), fillColor: Theme03.locationMarker)
         
         presentMapViewController = { [weak self] (locationName: String, latitude: Double, longitude: Double) in
             

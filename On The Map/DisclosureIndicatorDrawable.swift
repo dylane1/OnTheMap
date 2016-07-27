@@ -11,9 +11,11 @@ import UIKit
 protocol DisclosureIndicatorDrawable { }
 
 extension DisclosureIndicatorDrawable where Self: IconProviderProtocol {
-    internal func draw20PointDisclosureIndicatorWithColor(fillColor: UIColor) {
+    static func draw20PointDisclosureIndicatorWithColor(fillColor color: UIColor = UIColor.blackColor()) {
         //// Symbolicons-Junior
         //// disclosureIndicator Drawing
+        let fillColor = color
+        
         let disclosureIndicatorPath = UIBezierPath()
         disclosureIndicatorPath.moveToPoint(CGPoint(x: 8.37, y: 3.38))
         disclosureIndicatorPath.addCurveToPoint(CGPoint(x: 7.39, y: 3), controlPoint1: CGPoint(x: 8.1, y: 3.13), controlPoint2: CGPoint(x: 7.75, y: 3))

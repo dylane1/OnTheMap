@@ -426,7 +426,7 @@
         <scene sceneID="tVp-aY-aQ9">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jM2-17-hZf" customClass="MapAndTableNavigationController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="first" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="cMY-Mr-EfZ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -445,7 +445,7 @@
         <scene sceneID="Tui-hK-4OH">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="w00-ic-B24" customClass="MapAndTableNavigationController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="second" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="" id="cPa-gy-q4n"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="oDL-8c-rZD">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -480,8 +480,4 @@
             <point key="canvasLocation" x="745" y="-889"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="first" width="30" height="30"/>
-        <image name="second" width="30" height="30"/>
-    </resources>
 </document>

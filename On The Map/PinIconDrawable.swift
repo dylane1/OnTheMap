@@ -11,9 +11,11 @@ import UIKit
 protocol PinIconDrawable { }
 
 extension PinIconDrawable where Self: IconProviderProtocol {
-    internal func draw32PointPinWithColor(fillColor: UIColor) {
+    static func draw32PointPinWithColor(fillColor color: UIColor = UIColor.blackColor()) {
         //// Symbolicons-Junior 2
         //// Pin Drawing
+        let fillColor = color
+        
         let pinPath = UIBezierPath()
         pinPath.moveToPoint(CGPoint(x: 16, y: 10))
         pinPath.addCurveToPoint(CGPoint(x: 13.67, y: 7.75), controlPoint1: CGPoint(x: 14.71, y: 10), controlPoint2: CGPoint(x: 13.67, y: 8.99))

@@ -21,6 +21,7 @@ class LoginViewController: UIViewController, AlertPresentable, ActivityIndicator
     private var loginView: LoginView!
 
     internal var activityIndicatorViewController: ActivityIndicatorViewController?
+    private var activityIndicatorTransitioningDelegate: OverlayTransitioningDelegate?
     
     private var mainTabBarController: TabBarController?
     
@@ -34,9 +35,14 @@ class LoginViewController: UIViewController, AlertPresentable, ActivityIndicator
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        activityIndicatorTransitioningDelegate = OverlayTransitioningDelegate()
+        
         let presentActivityIndicator = { [unowned self] (completion: (() -> Void)?) in
-            self.presentActivityIndicator(self.getActivityIndicatorViewController(), completion: completion)
+            self.presentActivityIndicator(
+                self.getActivityIndicatorViewController(),
+                transitioningDelegate: self.activityIndicatorTransitioningDelegate!,
+                completion: completion)
         }
         
         let presentErrorAlert = getAlertPresentation()

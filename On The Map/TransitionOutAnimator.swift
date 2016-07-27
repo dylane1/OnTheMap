@@ -16,6 +16,8 @@ final class TransitionOutAnimator : NSObject, UIViewControllerAnimatedTransition
     private var useScale: Bool          = false
     private var fadeOutAlpha: Bool      = false
     
+    //MARK: - Initialization
+    
     private override init() {
         super.init()
     }
@@ -35,6 +37,10 @@ final class TransitionOutAnimator : NSObject, UIViewControllerAnimatedTransition
         useScale        = scale
         fadeOutAlpha    = alpha
     }
+    
+    deinit { magic("\(self.description) is being deinitialized   <----------------") }
+    
+    //MARK: - 
     
     func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
         return NSTimeInterval(duration)

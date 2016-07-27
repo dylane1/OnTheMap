@@ -11,9 +11,11 @@ import UIKit
 protocol ListIconDrawable { }
 
 extension ListIconDrawable where Self: IconProviderProtocol {
-    internal func draw30PointListWithColor(fillColor: UIColor) {
+    static func draw30PointListWithColor(fillColor color: UIColor = UIColor.blackColor()) {
         //// Symbolicons-Junior 2
         //// List Drawing
+        let fillColor = color
+        
         let listPath = UIBezierPath()
         listPath.moveToPoint(CGPoint(x: 3.63, y: 3))
         listPath.addCurveToPoint(CGPoint(x: 1, y: 5.65), controlPoint1: CGPoint(x: 2.18, y: 3), controlPoint2: CGPoint(x: 1, y: 4.19))

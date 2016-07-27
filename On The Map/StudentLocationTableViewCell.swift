@@ -76,7 +76,7 @@ class StudentLocationTableViewCell: UITableViewCell /*, NibLoadableView*/ {
         let linkText = dataSource.studentInformation.mediaURL
         var linkTextAttributes = dataSource.linkTextAttributes
         
-        let iconProvider = IconProvider()
+//        let iconProvider = IconProvider()
         let disclosureIndicatorImage: UIImage!
     
         if linkText.safariOpenableURL == nil {
@@ -84,13 +84,13 @@ class StudentLocationTableViewCell: UITableViewCell /*, NibLoadableView*/ {
             
             linkTextAttributes[NSForegroundColorAttributeName] = Theme03.textError
             
-            disclosureIndicatorImage = iconProvider.imageOfDrawnIcon(.DisclosureIndicator, size: CGSize(width: 20, height: 20), fillColor: Theme03.disclosureIndicatorDisabled)
+            disclosureIndicatorImage = IconProvider.imageOfDrawnIcon(.DisclosureIndicator, size: CGSize(width: 20, height: 20), fillColor: Theme03.disclosureIndicatorDisabled)
         } else {
             isInvalidURL = false
             
             linkTextAttributes[NSUnderlineStyleAttributeName] = NSUnderlineStyle.StyleSingle.rawValue
             
-            disclosureIndicatorImage = iconProvider.imageOfDrawnIcon(.DisclosureIndicator, size: CGSize(width: 20, height: 20), fillColor: Theme03.disclosureIndicatorEnabled)
+            disclosureIndicatorImage = IconProvider.imageOfDrawnIcon(.DisclosureIndicator, size: CGSize(width: 20, height: 20), fillColor: Theme03.disclosureIndicatorEnabled)
         }
         
         configureDisclosureIndicatorWithImage(disclosureIndicatorImage)
@@ -106,9 +106,9 @@ class StudentLocationTableViewCell: UITableViewCell /*, NibLoadableView*/ {
     }
     
     private func configureLocationButton() {
-        let iconProvider = IconProvider()
+//        let iconProvider = IconProvider()
         
-        let mapButtonImage = iconProvider.imageOfDrawnIcon(.MapButton, size: CGSize(width: 30, height: 50), fillColor: Theme03.locationMarker)
+        let mapButtonImage = IconProvider.imageOfDrawnIcon(.MapButton, size: CGSize(width: 30, height: 50), fillColor: Theme03.locationMarker)
         
         showLocationButton.setImage(mapButtonImage, forState: .Normal)
         

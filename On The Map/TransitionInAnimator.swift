@@ -25,6 +25,7 @@ final class TransitionInAnimator: NSObject, UIViewControllerAnimatedTransitionin
     private var springDampening: CGFloat!
     private var springVelocity: CGFloat!
     
+    //MARK: - Initialization
     
     private override init() {
         super.init()
@@ -52,6 +53,10 @@ final class TransitionInAnimator: NSObject, UIViewControllerAnimatedTransitionin
         springVelocity  = velocity
     }
 
+    deinit { magic("\(self.description) is being deinitialized   <----------------") }
+    
+    //MARK: - 
+    
     func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
         return NSTimeInterval(duration)
     }
