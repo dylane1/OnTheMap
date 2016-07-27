@@ -24,8 +24,8 @@ class ActivityIndicatorView: UIView {
     
     private func configureIndicator() {
         let radius      = frame.size.height/2 * 0.8
-        let startAngle  = CGFloat(0)
-        let endAngle    = CGFloat(2.0 * M_PI)
+        let startAngle  = CGFloat(M_PI_2 * 3) //0)
+        let endAngle    = CGFloat(2.0 * M_PI + M_PI_2 * 3)
         let centerPoint = CGPointMake(radius, radius)
 
         ovalShapeLayer0.strokeColor = Theme03.activityIndicatorCircle0.CGColor
