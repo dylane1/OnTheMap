@@ -27,7 +27,6 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
     
     private var sessionLogoutController = UserSessionLogoutController()
     
-//    private let iconProvider = IconProvider()
     private var locationMarker: UIImage!
     
     //MARK: - View Lifecycle

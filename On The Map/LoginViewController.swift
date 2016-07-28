@@ -29,10 +29,6 @@ class LoginViewController: UIViewController, AlertPresentable, ActivityIndicator
     
     //MARK: - View Lifecycle
     
-//    override func prefersStatusBarHidden() -> Bool {
-//        return true
-//    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -56,16 +52,6 @@ class LoginViewController: UIViewController, AlertPresentable, ActivityIndicator
         let openUdacitySignUp = { [unowned self] in
             self.openLinkInSafari(withURLString: Constants.Network.udacitySignUpURL)
         }
-        
-//        successfulLogoutCompletion = { [unowned self] in
-//            /**
-//             Ok, I probably don't need this, but I want to make sure everything
-//             is getting dealloc'd. Unfortunately this is not the case currently.
-//             Guessing I've got some retain cycles somewhere that I need to track
-//             down.
-//             */
-//            self.mainTabBarController = nil
-//        }
         
         loginView = view as! LoginView
         

@@ -25,7 +25,6 @@ class StarAnimationHolderView: UIView {
         starLayer.position = CGPoint(x: -100, y: -100)
         
         animationPath = SpiralAnimationPathLayer(withFrame: frame)
-    
         
         layer.addSublayer(animationPath)
         layer.addSublayer(starLayer)

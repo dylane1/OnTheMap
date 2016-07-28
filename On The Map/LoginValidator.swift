@@ -17,7 +17,6 @@ final class LoginValidator {
     }
     
     private var presentActivityIndicator: ((completion: (() -> Void)?) -> Void)!
-//    private var dismissActivityIndicator: (() -> Void)!
     private var loginSuccessClosure: (() -> Void)!
     private var presentErrorAlert: AlertPresentation!
     
@@ -53,9 +52,8 @@ final class LoginValidator {
                 magic("facebook token: \(token!.tokenString)")
                 request.HTTPBody = "{\"facebook_mobile\": {\"access_token\": \"\(token!.tokenString);\"}}".dataUsingEncoding(NSUTF8StringEncoding)
             } else {
-                magic("Come on now, you gotta give me something to work with here...")
+                magic("Oh come on now, you gotta give me something to work with here...")
             }
-            
             
             let requestCompletion = { [weak self] (jsonDictionary: NSDictionary) in
                 self!.parseLoginJSON(jsonDictionary)
@@ -83,7 +81,6 @@ final class LoginValidator {
     //MARK: - Parse results
     
     private func parseLoginJSON(jsonDictionary: NSDictionary) {
-//        magic("loginDict: \(jsonDictionary)")
         
         guard let _ = jsonDictionary[Constants.Keys.session] as? NSDictionary,
               let accountDictionary = jsonDictionary[Constants.Keys.account] as? NSDictionary else {
@@ -125,7 +122,7 @@ final class LoginValidator {
     }
     
     private func parsePublicUserDataJSON(jsonDictionary: NSDictionary, userKey key: String) {
-//        magic("userDictionary: \(jsonDictionary)")
+        
         guard let userDictionary = jsonDictionary[Constants.Keys.user] as? NSDictionary else {
             presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.userInfoError, message: LocalizedStrings.AlertMessages.userInfoError))
             return
@@ -148,42 +145,3 @@ final class LoginValidator {
         loginSuccessClosure()
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

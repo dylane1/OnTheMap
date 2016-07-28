@@ -93,7 +93,3 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
         openLinkInSafari(withURLString: link)
     }
 }
-
-
-
-

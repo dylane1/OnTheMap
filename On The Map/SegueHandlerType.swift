@@ -28,5 +28,4 @@ extension SegueHandlerType where Self: UIViewController, SegueIdentifier.RawValu
         
         return segueIdentifier
     }
-    
 }

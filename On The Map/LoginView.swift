@@ -20,7 +20,7 @@ class LoginView: UIView {
     
     private var emailTextFieldFontColor = Theme.textError
     private var textFieldAttributes = [
-        NSFontAttributeName: UIFont(name: Constants.FontName.avenirLight, size: 17)!,//UIFont.systemFontOfSize(17, weight: UIFontWeightLight),
+        NSFontAttributeName: UIFont(name: Constants.FontName.avenirLight, size: 17)!,
         NSForegroundColorAttributeName: UIColor.redOrange()
     ]
     
@@ -324,41 +324,3 @@ extension LoginView: FBSDKLoginButtonDelegate {
         magic("User Logged Out")
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

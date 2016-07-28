@@ -117,5 +117,4 @@ struct Constants {
         static let missingUsername = "udacity.username"
         static let missingPassword = "udacity.password"
     }
-
 }

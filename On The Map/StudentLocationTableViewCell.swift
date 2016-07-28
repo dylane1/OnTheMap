@@ -106,7 +106,6 @@ class StudentLocationTableViewCell: UITableViewCell /*, NibLoadableView*/ {
     }
     
     private func configureLocationButton() {
-//        let iconProvider = IconProvider()
         
         let mapButtonImage = IconProvider.imageOfDrawnIcon(.MapButton, size: CGSize(width: 30, height: 50), fillColor: Theme.locationMarker)
         

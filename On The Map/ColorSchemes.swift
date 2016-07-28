@@ -5,6 +5,16 @@
 //  Created by Dylan Edwards on 7/9/16.
 //  Copyright © 2016 Slinging Pixels Media. All rights reserved.
 //
+//
+// Adobe Color CC: https://color.adobe.com/create/color-wheel/
+// Sip: http://sipapp.io
+//
+/**
+ I generated the theme by searching Adobe Color CC for complimentary colors to
+ colors in MKMapView.
+ 
+ I then generated the UIColors using Sip
+ */
 
 import UIKit
 
@@ -82,8 +92,6 @@ extension UIColor {
  **/
 
 extension UIColor {
-
-    
     /**
      name: Rangoon Green
      hex: #1F1F1A

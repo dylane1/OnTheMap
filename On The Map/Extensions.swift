@@ -19,7 +19,6 @@ extension String {
     
     var safariOpenableURL: NSURL? {
         guard var url = NSURL(string: self) else {
-            magic("INVALID URL")
             return nil
         }
         

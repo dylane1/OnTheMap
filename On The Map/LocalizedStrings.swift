@@ -104,6 +104,5 @@ struct LocalizedStrings {
     
     struct AlertButtonTitles {
         static let ok = NSLocalizedString("AlertButtonTitles.ok", value: "OK", comment: "")
-//        static let cancel = NSLocalizedString("AlertButtonTitles.cancel", value: "Cancel",    comment: "")
     }
 }

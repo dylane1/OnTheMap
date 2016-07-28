@@ -32,6 +32,7 @@ class MapContainerViewController: UIViewController, MKMapViewDelegate {
 //    deinit { magic("\(self.description) is being deinitialized   <----------------") }
     
     //MARK: - Configuration
+    
     internal func configure(withLocationName name: String, latitude lat: Double, longitude lon: Double) {
         locationName    = name
         latitude        = lat

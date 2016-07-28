@@ -48,4 +48,3 @@ extension ActivityIndicatorPresentable where Self: UIViewController {
         dismissViewControllerAnimated(true, completion: completion)
     }
 }
-

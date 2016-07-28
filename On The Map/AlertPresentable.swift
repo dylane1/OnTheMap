@@ -21,15 +21,13 @@ extension AlertPresentable where Self: UIViewController, Self: ActivityIndicator
      let presentErrorAlert = { [weak self] (aiToDismiss: PrimaryActivityIndicatorController, parameters: AlertParameters) in .... }
      */
     internal func getAlertPresentation() -> ((AlertParameters) -> Void){
+        
         let presentErrorAlert = { [weak self] (parameters: AlertParameters) in
+            
             let dismissalCompletion = { [weak self] in
-//                self!.activityIndicatorViewController = nil
                 self!.presentAlertWithParameters(parameters)
             }
             self!.dismissActivityIndicator(completion: dismissalCompletion)
-//            if self!.activityIndicatorViewController != nil {
-//                self!.dismissActivityIndicator(self!.activityIndicatorViewController!, completion: dismissalCompletion)
-//            }
         }
         return presentErrorAlert
     }

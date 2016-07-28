@@ -14,7 +14,7 @@ class StudentLocationMapContainerView: UIView {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var mapView: MKMapView!
     
-    /// Use a preloaded image until map is renedered so user doesn't see empty screen
+    /// Use a preloaded image until map is renedered so user doesn't see empty map area
     @IBOutlet weak var preloadedMapImage: UIImageView!
     private var mapRendered = false
     
@@ -49,7 +49,7 @@ class StudentLocationMapContainerView: UIView {
     
     /**
      Show a map image on top of map view while it loads so the user doesn't
-     see a blank screen
+     see a blank map area
      */
     private func configureMapImage() {
         preloadedMapImage.alpha = 0.0
@@ -151,26 +151,3 @@ extension StudentLocationMapContainerView: MKMapViewDelegate {
         
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
