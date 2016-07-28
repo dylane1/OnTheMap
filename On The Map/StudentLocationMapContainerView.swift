@@ -79,11 +79,12 @@ class StudentLocationMapContainerView: UIView {
     //MARK: - Map View
     
     private func placeAnnotations(withStudentInformationArray array: [StudentInformation]) {
+        
         for item in array {
             let annotation = StudentLocationAnnotation(title: (item.firstName + " " + item.lastName), mediaURL: item.mediaURL,locationName: item.mapString, coordinate: CLLocationCoordinate2D(latitude: item.latitude, longitude: item.longitude))
             annotations.append(annotation)
         }
-
+        
         mapView.addAnnotations(annotations)
         activityIndicator.stopAnimating()
     }
@@ -96,7 +97,6 @@ class StudentLocationMapContainerView: UIView {
     }
     
     private func animateAnnotationsWithAnnotationArray(views: [MKAnnotationView]) {
-        magic("views count: \(views.count)")
         for annotation in views {
             let endFrame = annotation.frame
             annotation.frame = CGRectOffset(endFrame, 0, -500)
@@ -113,12 +113,15 @@ class StudentLocationMapContainerView: UIView {
 extension StudentLocationMapContainerView: MKMapViewDelegate {
     
     func mapViewDidFinishRenderingMap(mapView: MKMapView, fullyRendered: Bool) {
+        if mapRendered { return }
+        
         mapRendered = true
         preloadedMapImage.alpha = 0.0
         placeAnnotations(withStudentInformationArray: studentInformationArray)
     }
     
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        
         if let annotation = annotation as? StudentLocationAnnotation {
             var pinView: MKAnnotationView
             if let dequeuedView = mapView.dequeueReusableAnnotationViewWithIdentifier(MKAnnotationView.reuseIdentifier) as MKAnnotationView! {

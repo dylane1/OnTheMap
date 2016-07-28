@@ -18,7 +18,7 @@ extension StudentLocationRequestable {
 
         /// Requesting an array of students
         if key == nil && id == nil {
-            urlString += "?limit=100&limit=200&order=-updatedAt"
+            urlString += "?limit=100&order=-updatedAt"
         }
         
         /// Requesting user location
