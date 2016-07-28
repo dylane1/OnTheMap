@@ -77,6 +77,9 @@ class InformationPostingView: UIView, StudentLocationRequestable {
     
     private var previouslyEnteredLocationObjectId: String?
     
+    override func didMoveToWindow() {
+        mapView.delegate = self
+    }
 //    deinit { magic("\(self.description) is being deinitialized   <----------------") }
     
     //MARK: - Configuration
@@ -98,8 +101,6 @@ class InformationPostingView: UIView, StudentLocationRequestable {
         
         promptView.alpha        = 0
         promptView.transform    = CGAffineTransformMakeScale(0.5, 0.5)
-        
-        mapView.delegate = self
         
         configurePrompt()
         configureTextFields()
@@ -265,6 +266,7 @@ extension InformationPostingView: MKMapViewDelegate {
     
     /// Wait for map to render before animating the url field into view
     func mapViewDidFinishRenderingMap(mapView: MKMapView, fullyRendered: Bool) {
+//        magic("fullyRendered: \(fullyRendered)")
         if urlTextField.alpha == 0 && placemarks != nil {
             animateURLTextFieldIntoView()
         }

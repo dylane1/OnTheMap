@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class MapContainerViewController: UIViewController {
+class MapContainerViewController: UIViewController, MKMapViewDelegate {
 
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var mapView: MKMapView!
@@ -20,7 +20,10 @@ class MapContainerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        mapView.delegate    = self
+        mapView.mapType     = .Standard
+        
         prettyIt()
         configureLabelWithString(locationName)
         showLocationOnMap(withLatitude: latitude, longitude: longitude)
@@ -61,4 +64,16 @@ class MapContainerViewController: UIViewController {
         mapView.addAnnotation(annotation)
     }
 
+}
+
+extension MapContainerViewController {
+    func mapViewDidFinishRenderingMap(mapView: MKMapView, fullyRendered: Bool) {
+        /**
+         Some areas fully render only on simulator! Many locations are failing
+         to render on the device but work fine on simulator... WTF????
+         
+         Could it be a memory and/or cache issue???
+        */
+        magic("fullyRendered: \(fullyRendered)")
+    }
 }

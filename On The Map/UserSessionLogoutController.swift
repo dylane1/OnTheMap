@@ -38,7 +38,6 @@ final class UserSessionLogoutController {
         }
         let loginManager = FBSDKLoginManager()
         loginManager.logOut()
-        magic("about to call logout of fb")
         logoutSuccessClosure()
         
     }

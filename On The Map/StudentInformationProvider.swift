@@ -46,6 +46,7 @@ final class StudentInformationProvider: StudentLocationRequestable {
     //MARK: - Perform network requests
     
     private func requestStudentInformation() {
+        
         /// StudentLocationRequestable
         let request = createStudentLocationRequest()
         

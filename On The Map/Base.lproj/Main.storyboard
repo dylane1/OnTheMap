@@ -70,20 +70,20 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SCi-bj-2YK">
-                                            <rect key="frame" x="16" y="8" width="221" height="24"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="20"/>
+                                            <rect key="frame" x="16" y="8" width="221" height="28"/>
+                                            <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="20"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yES-Vw-hTQ">
-                                            <rect key="frame" x="16" y="32" width="221" height="20"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Los Angeles" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yES-Vw-hTQ">
+                                            <rect key="frame" x="16" y="34" width="221" height="22"/>
+                                            <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RNH-uh-mOY">
-                                            <rect key="frame" x="16" y="52" width="221" height="17"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RNH-uh-mOY">
+                                            <rect key="frame" x="16" y="56" width="221" height="13"/>
+                                            <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="14"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -109,7 +109,7 @@
                                     <constraints>
                                         <constraint firstItem="yES-Vw-hTQ" firstAttribute="leading" secondItem="CYD-Yc-0GK" secondAttribute="leadingMargin" constant="8" id="0h6-WV-zDw"/>
                                         <constraint firstItem="zYL-5L-bBQ" firstAttribute="leading" secondItem="yES-Vw-hTQ" secondAttribute="trailing" constant="3" id="3Y6-Xi-za5"/>
-                                        <constraint firstItem="yES-Vw-hTQ" firstAttribute="top" secondItem="SCi-bj-2YK" secondAttribute="bottom" id="7TH-16-eUm"/>
+                                        <constraint firstItem="yES-Vw-hTQ" firstAttribute="top" secondItem="SCi-bj-2YK" secondAttribute="bottom" constant="-2" id="7TH-16-eUm"/>
                                         <constraint firstItem="SCi-bj-2YK" firstAttribute="leading" secondItem="CYD-Yc-0GK" secondAttribute="leadingMargin" constant="8" id="978-Xd-YXN"/>
                                         <constraint firstItem="dbe-UF-uFD" firstAttribute="centerY" secondItem="CYD-Yc-0GK" secondAttribute="centerY" id="9vA-ai-Wb6"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="dbe-UF-uFD" secondAttribute="trailing" id="CWa-Kv-8TS"/>

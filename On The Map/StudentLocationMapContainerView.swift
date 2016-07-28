@@ -24,23 +24,22 @@ class StudentLocationMapContainerView: UIView {
     private var openLinkClosure: OpenLinkClosure?
     
     private var animatedPinsIn = false
-//    private var timer = NSTimer()
-//    private var delay = 0.05
-//    private var annotationViewArray: [MKAnnotationView]?
-//    private var annotationIndex = 0
     
+    override func didMoveToWindow() {
+        mapView.delegate = self
+        configureMapImage()
+    }
+
     //MARK: - Configuration
     
     internal func configure(withStudentInformationArray array: [StudentInformation], openLinkClosure closure: OpenLinkClosure) {
         
-        mapView.delegate    = self
-        
         studentInformationArray = array
         openLinkClosure         = closure
         
-        configureMapImage()
         /// clear for refresh
         clearAnnotations()
+        
         animatedPinsIn = false
         
         if mapRendered {
@@ -52,7 +51,7 @@ class StudentLocationMapContainerView: UIView {
      Show a map image on top of map view while it loads so the user doesn't
      see a blank screen
      */
-    internal func configureMapImage() {
+    private func configureMapImage() {
         preloadedMapImage.alpha = 0.0
         
         if !mapRendered {
@@ -114,11 +113,11 @@ extension StudentLocationMapContainerView: MKMapViewDelegate {
     
     func mapViewDidFinishRenderingMap(mapView: MKMapView, fullyRendered: Bool) {
         if mapRendered { return }
-        
         mapRendered = true
         preloadedMapImage.alpha = 0.0
         placeAnnotations(withStudentInformationArray: studentInformationArray)
     }
+
     
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         
@@ -132,7 +131,7 @@ extension StudentLocationMapContainerView: MKMapViewDelegate {
                 pinView = MKAnnotationView(annotation: annotation, reuseIdentifier: MKAnnotationView.reuseIdentifier)
                 pinView.canShowCallout = true
                 pinView.calloutOffset = CGPoint(x: -5, y: 5)
-                pinView.image = IconProvider.imageOfDrawnIcon(.Annotation, size: CGSize(width: 15, height: 15), fillColor: UIColor.timberGreen())
+                pinView.image = IconProvider.imageOfDrawnIcon(.Annotation, size: CGSize(width: 15, height: 15))
                 pinView.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure) as UIView
             }
         return pinView

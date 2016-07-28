@@ -19,6 +19,7 @@ final class NetworkRequestService {
     }
     
     internal func requestJSONDictionary(withURLRequest request: NSMutableURLRequest, isUdacityLoginLogout uLoginLogout: Bool = false) {
+        
         /// Check to see if connected to the internet first...
         if !Reachability.isConnectedToNetwork() {
             presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.noInternetConnection, message: LocalizedStrings.AlertMessages.connectToInternet))
@@ -37,7 +38,7 @@ final class NetworkRequestService {
             }
             
             let httpResponse = response as! NSHTTPURLResponse
-            
+
             if httpResponse.statusCode < 200 || httpResponse.statusCode > 299 {
                 magic("Error! status: \(NSHTTPURLResponse.localizedStringForStatusCode(httpResponse.statusCode))")
             }

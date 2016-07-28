@@ -12,7 +12,6 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
     
     private let studentInformationProvider = StudentInformationProvider.sharedInstance
     
-//    private var tabBar: TabBarController!
     private var mapContainterView: StudentLocationMapContainerView!
     
     private var sessionLogoutController = UserSessionLogoutController()
@@ -30,7 +29,6 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
         super.viewDidLoad()
         
         mapContainterView = view as! StudentLocationMapContainerView
-        mapContainterView.configureMapImage()
         
         configureNavigationController()
 
@@ -86,7 +84,6 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
         let completion = { [weak self] in
             self!.configureView()
         }
-        
         /// StudentInformationGettable
         performFetchWithCompletion(completion)
     }
