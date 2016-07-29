@@ -24,7 +24,6 @@
 		A33FEF2A1D41A24F005A5246 /* SpiralAnimationPathLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33FEF291D41A24F005A5246 /* SpiralAnimationPathLayer.swift */; };
 		A33FEF2C1D41AB47005A5246 /* StarAnimationHolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33FEF2B1D41AB47005A5246 /* StarAnimationHolderView.swift */; };
 		A3499F0F1D1E0CBD00C961D3 /* AlertPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3499F0E1D1E0CBD00C961D3 /* AlertPresentable.swift */; };
-		A349C24F1D2C7C23008E678D /* Dimmable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A349C24E1D2C7C23008E678D /* Dimmable.swift */; };
 		A349C2531D2D622D008E678D /* ActivityIndicatorPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A349C2521D2D622D008E678D /* ActivityIndicatorPresentable.swift */; };
 		A349C2551D2D63D2008E678D /* SegueHandlerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A349C2541D2D63D2008E678D /* SegueHandlerType.swift */; };
 		A34A2B631D2B1B31007E2A0E /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A34A2B601D2B1B31007E2A0E /* FBSDKCoreKit.framework */; };
@@ -42,11 +41,9 @@
 		A3816D2D1D09E46B001B55A0 /* MapAndTableNavigationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3816D2C1D09E46B001B55A0 /* MapAndTableNavigationProtocol.swift */; };
 		A3816D2F1D0A0F36001B55A0 /* InformationPostingNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3816D2E1D0A0F36001B55A0 /* InformationPostingNavigationController.swift */; };
 		A3816D311D0A2474001B55A0 /* InformationPostingNavigationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3816D301D0A2474001B55A0 /* InformationPostingNavigationProtocol.swift */; };
-		A3816D331D0B2FA4001B55A0 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3816D321D0B2FA4001B55A0 /* AppModel.swift */; };
 		A3816D371D0B6048001B55A0 /* StudentInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3816D361D0B6048001B55A0 /* StudentInformation.swift */; };
 		A38653561D3D9D1900C3AAF0 /* Default-736h@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A38653551D3D9D1900C3AAF0 /* Default-736h@3x.png */; };
 		A38AB6DE1D187A4E00820AA9 /* ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38AB6DD1D187A4E00820AA9 /* ReusableView.swift */; };
-		A38AB6E01D18C49300820AA9 /* NibLoadableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38AB6DF1D18C49300820AA9 /* NibLoadableView.swift */; };
 		A38AB6E21D19F56500820AA9 /* StudentLocationRequestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38AB6E11D19F56500820AA9 /* StudentLocationRequestable.swift */; };
 		A39CF59E1CCAB1390060C890 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39CF59D1CCAB1390060C890 /* AppDelegate.swift */; };
 		A39CF5A01CCAB1390060C890 /* StudentLocationMapContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39CF59F1CCAB1390060C890 /* StudentLocationMapContainerViewController.swift */; };
@@ -107,7 +104,6 @@
 		A33FEF291D41A24F005A5246 /* SpiralAnimationPathLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpiralAnimationPathLayer.swift; sourceTree = "<group>"; };
 		A33FEF2B1D41AB47005A5246 /* StarAnimationHolderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarAnimationHolderView.swift; sourceTree = "<group>"; };
 		A3499F0E1D1E0CBD00C961D3 /* AlertPresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertPresentable.swift; sourceTree = "<group>"; };
-		A349C24E1D2C7C23008E678D /* Dimmable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dimmable.swift; sourceTree = "<group>"; };
 		A349C2521D2D622D008E678D /* ActivityIndicatorPresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorPresentable.swift; sourceTree = "<group>"; };
 		A349C2541D2D63D2008E678D /* SegueHandlerType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegueHandlerType.swift; sourceTree = "<group>"; };
 		A34A2B601D2B1B31007E2A0E /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
@@ -125,11 +121,9 @@
 		A3816D2C1D09E46B001B55A0 /* MapAndTableNavigationProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapAndTableNavigationProtocol.swift; sourceTree = "<group>"; };
 		A3816D2E1D0A0F36001B55A0 /* InformationPostingNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationPostingNavigationController.swift; sourceTree = "<group>"; };
 		A3816D301D0A2474001B55A0 /* InformationPostingNavigationProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationPostingNavigationProtocol.swift; sourceTree = "<group>"; };
-		A3816D321D0B2FA4001B55A0 /* AppModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
 		A3816D361D0B6048001B55A0 /* StudentInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentInformation.swift; sourceTree = "<group>"; };
 		A38653551D3D9D1900C3AAF0 /* Default-736h@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-736h@3x.png"; sourceTree = "<group>"; };
 		A38AB6DD1D187A4E00820AA9 /* ReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReusableView.swift; sourceTree = "<group>"; };
-		A38AB6DF1D18C49300820AA9 /* NibLoadableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NibLoadableView.swift; sourceTree = "<group>"; };
 		A38AB6E11D19F56500820AA9 /* StudentLocationRequestable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLocationRequestable.swift; sourceTree = "<group>"; };
 		A39CF59A1CCAB1390060C890 /* On The Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "On The Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A39CF59D1CCAB1390060C890 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -189,16 +183,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A31EA48A1D11DF59005CC5B9 /* Not used */ = {
-			isa = PBXGroup;
-			children = (
-				A3816D321D0B2FA4001B55A0 /* AppModel.swift */,
-				A349C24E1D2C7C23008E678D /* Dimmable.swift */,
-				A38AB6DF1D18C49300820AA9 /* NibLoadableView.swift */,
-			);
-			name = "Not used";
-			sourceTree = "<group>";
-		};
 		A32697921D32E0B300597140 /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -300,7 +284,6 @@
 			isa = PBXGroup;
 			children = (
 				A3E8C8D31CED10040040770A /* Utilities */,
-				A31EA48A1D11DF59005CC5B9 /* Not used */,
 				A3E8C8C71CED0CB30040770A /* Constants.swift */,
 				A32697921D32E0B300597140 /* UI */,
 				A3E8C8C91CED0CC70040770A /* Typealiases.swift */,
@@ -557,10 +540,7 @@
 				A3BCA31D1D34677400B02C9A /* TransitionInAnimator.swift in Sources */,
 				A31EA4891D11D752005CC5B9 /* NetworkRequestService.swift in Sources */,
 				A39CF5A01CCAB1390060C890 /* StudentLocationMapContainerViewController.swift in Sources */,
-				A38AB6E01D18C49300820AA9 /* NibLoadableView.swift in Sources */,
-				A349C24F1D2C7C23008E678D /* Dimmable.swift in Sources */,
 				A38AB6DE1D187A4E00820AA9 /* ReusableView.swift in Sources */,
-				A3816D331D0B2FA4001B55A0 /* AppModel.swift in Sources */,
 				A3FC79411D3FBC87005B486A /* Title480And568h.swift in Sources */,
 				A3E8C8C61CED078A0040770A /* Magic.swift in Sources */,
 				A31EA4921D13477E005CC5B9 /* StudentLocationMapContainerView.swift in Sources */,

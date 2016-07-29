@@ -90,8 +90,6 @@ class InformationPostingView: UIView, StudentLocationRequestable {
         successClosure success:() -> Void,
         alertPresentationClosure alertPresentation: AlertPresentation) {
         
-//        magic("current student: \(studentInfoProvider.currentStudent)")
-        
         presentActivityIndicator    = presentAI
         dismissActivityIndicator    = dismissAI
         submitSuccessfulClosure     = success
@@ -266,7 +264,6 @@ extension InformationPostingView: MKMapViewDelegate {
     
     /// Wait for map to render before animating the url field into view
     func mapViewDidFinishRenderingMap(mapView: MKMapView, fullyRendered: Bool) {
-//        magic("fullyRendered: \(fullyRendered)")
         if urlTextField.alpha == 0 && placemarks != nil {
             animateURLTextFieldIntoView()
         }
