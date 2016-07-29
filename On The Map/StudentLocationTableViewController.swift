@@ -11,7 +11,8 @@ import UIKit
 final class StudentLocationTableViewController: UITableViewController, MapAndTableNavigationProtocol, StudentInformationGettable, InformationPostingPresentable, SafariViewControllerPresentable, AlertPresentable, ActivityIndicatorPresentable {
     
     private var presentMapViewController: ((locationName: String, latitude: Double, longitude: Double) -> Void)!
-    private var overlayTransitioningDelegate: OverlayTransitioningDelegate!
+    private var mapOverlayTransitioningDelegate: OverlayTransitioningDelegate?
+    
     private var mapViewController: MapContainerViewController?
     
     private let studentInformationProvider = StudentInformationProvider.sharedInstance
@@ -23,9 +24,9 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
     
     /// ActivityIndicatorPresentable
     internal var activityIndicatorViewController: ActivityIndicatorViewController?
-    private var activityIndicatorTransitioningDelegate: OverlayTransitioningDelegate?
+    private var overlayTransitioningDelegate: OverlayTransitioningDelegate?
     
-    private var sessionLogoutController = UserSessionLogoutController()
+    private lazy var sessionLogoutController = UserSessionLogoutController()
     
     private var locationMarker: UIImage!
     
@@ -45,24 +46,25 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
         tableView.delegate = self
         tableView.backgroundColor = Theme.tableViewBGColor
         
-        let refreshClosure = { [weak self] in
-            self!.getStudentInfoArray()
+        let refreshClosure = { /*[weak self]*/
+            self.getStudentInfoArray()
         }
         
-        activityIndicatorTransitioningDelegate = OverlayTransitioningDelegate()
-        
-        let presentActivityIndicator = {[unowned self] (completion: (() -> Void)?) in
+        let presentActivityIndicator = { (completion: (() -> Void)?) in
+            self.overlayTransitioningDelegate = OverlayTransitioningDelegate()
             self.presentActivityIndicator(
                 self.getActivityIndicatorViewController(),
-                transitioningDelegate: self.activityIndicatorTransitioningDelegate!,
+                transitioningDelegate: self.overlayTransitioningDelegate!,
                 completion: completion)
         }
         
         let presentErrorAlert = getAlertPresentation()
         
-        let logoutSuccessClosure = { [unowned self] in
+        let logoutSuccessClosure = { /*[unowned self]*/
             self.dismissActivityIndicator(completion: {
-                self.dismissViewControllerAnimated(true, completion: nil)
+                self.dismissViewControllerAnimated(true, completion: {
+                    self.overlayTransitioningDelegate = nil
+                })
             })
         }
         
@@ -78,9 +80,9 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
         
         locationMarker = IconProvider.imageOfDrawnIcon(.LocationMarker, size: CGSize(width: 40, height: 43), fillColor: Theme.locationMarker)
         
-        presentMapViewController = { [weak self] (locationName: String, latitude: Double, longitude: Double) in
+        presentMapViewController = { /*[weak self]*/ (locationName: String, latitude: Double, longitude: Double) in
             
-            self!.openMapViewController(withLocationName: locationName, latitude: latitude, longitude: longitude)
+            self.openMapViewController(withLocationName: locationName, latitude: latitude, longitude: longitude)
             
         }
     }
@@ -92,8 +94,8 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
     //MARK: -
     
     private func getStudentInfoArray() {
-        let completion = { [weak self] in
-            self!.tableView.reloadData()
+        let completion = { /*[weak self]*/
+            self.tableView.reloadData()
         }
         
         /// StudentInformationGettable
@@ -110,16 +112,14 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
         let height = width
         let mapVCPreferredContentSize = CGSizeMake(width, height)
         
-        let dismissalCompletion = { [weak self] in
-            self!.mapViewController = nil
+        let dismissalCompletion = { /*[weak self]*/
+            self.mapOverlayTransitioningDelegate    = nil
+            self.mapViewController                  = nil
         }
         
-        overlayTransitioningDelegate = OverlayTransitioningDelegate()
+        mapOverlayTransitioningDelegate = OverlayTransitioningDelegate()
         
-        mapViewController!.transitioningDelegate = overlayTransitioningDelegate
-        mapViewController!.modalPresentationStyle = .Custom
-        
-        overlayTransitioningDelegate.configureTransitionWithContentSize(mapVCPreferredContentSize, dismissalCompletion: dismissalCompletion, options: [
+        mapOverlayTransitioningDelegate!.configureTransitionWithContentSize(mapVCPreferredContentSize, dismissalCompletion: dismissalCompletion, options: [
             .DimmingBGColor : Theme.presentationDimBGColor,
             .InFromPosition : Position.Center,
             .OutToPosition : Position.Center,
@@ -129,6 +129,9 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
             .ScaleIn : true,
             .ScaleOut : true
             ])
+        
+        mapViewController!.transitioningDelegate = mapOverlayTransitioningDelegate!
+        mapViewController!.modalPresentationStyle = .Custom
         
         presentViewController(mapViewController!, animated: true, completion: nil)
     }

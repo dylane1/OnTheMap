@@ -21,7 +21,7 @@ class LoginViewController: UIViewController, AlertPresentable, ActivityIndicator
     private var loginView: LoginView!
 
     internal var activityIndicatorViewController: ActivityIndicatorViewController?
-    private var activityIndicatorTransitioningDelegate: OverlayTransitioningDelegate?
+    private var overlayTransitioningDelegate: OverlayTransitioningDelegate?
     
     private var mainTabBarController: TabBarController?
     
@@ -39,24 +39,24 @@ class LoginViewController: UIViewController, AlertPresentable, ActivityIndicator
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        activityIndicatorTransitioningDelegate = OverlayTransitioningDelegate()
-        
-        let presentActivityIndicator = { [unowned self] (completion: (() -> Void)?) in
+        let presentActivityIndicator = { /*[weak self]*/ (completion: (() -> Void)?) in
+            self.overlayTransitioningDelegate = OverlayTransitioningDelegate()
             self.presentActivityIndicator(
                 self.getActivityIndicatorViewController(),
-                transitioningDelegate: self.activityIndicatorTransitioningDelegate!,
+                transitioningDelegate: self.overlayTransitioningDelegate!,
                 completion: completion)
         }
         
         let presentErrorAlert = getAlertPresentation()
 
-        let loginSuccessClosure = { [unowned self] in
+        let loginSuccessClosure = { /*[unowned self]*/
             self.dismissActivityIndicator(completion: {
+                self.overlayTransitioningDelegate = nil
                 self.performSegueWithIdentifier(.LoginComplete, sender: self)
             })
         }
         
-        let openUdacitySignUp = { [unowned self] in
+        let openUdacitySignUp = { /*[unowned self]*/
             self.openLinkInSafari(withURLString: Constants.Network.udacitySignUpURL)
         }
         

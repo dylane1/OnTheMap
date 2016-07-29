@@ -23,12 +23,10 @@ extension ActivityIndicatorPresentable where Self: UIViewController {
     
     internal func presentActivityIndicator(activityIndicator: ActivityIndicatorViewController, transitioningDelegate delegate: OverlayTransitioningDelegate, completion: (() -> Void)?) {
         
-        let overlayTransitioningDelegate = delegate
-        
-        activityIndicator.transitioningDelegate = overlayTransitioningDelegate
+        activityIndicator.transitioningDelegate = delegate
         activityIndicator.modalPresentationStyle = .Custom
         
-        overlayTransitioningDelegate.configureTransitionWithContentSize(
+        delegate.configureTransitionWithContentSize(
             CGSizeMake(80, 80),
             options: [
                 .InFromPosition : Position.Center,

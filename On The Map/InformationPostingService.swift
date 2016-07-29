@@ -41,16 +41,16 @@ final class InformationPostingService: StudentLocationRequestable {
     
     internal func queryStudentLocation(withCompletion completion: (studentInformationValues: (mapString: String, mediaURL: String, previouslyEnteredLocationObjectId: String?)?) -> Void) {
         
-        let aiPresented = { [weak self] in
+        let aiPresented = { /*[weak self]*/
             
-            let request = self!.createStudentLocationRequest(uniqueKey: self!.studentInfoProvider.currentStudent.uniqueKey)
+            let request = self.createStudentLocationRequest(uniqueKey: self.studentInfoProvider.currentStudent.uniqueKey)
             
-            let requestCompletion = { [weak self] (jsonDictionary: NSDictionary) in
-                return self!.parseStudentLocationQuery(jsonDictionary, completion: completion)
+            let requestCompletion = { /*[weak self]*/ (jsonDictionary: NSDictionary) in
+                return self.parseStudentLocationQuery(jsonDictionary, completion: completion)
             }
             
-            self!.networkRequestService.configure(withRequestCompletion: requestCompletion, requestFailedClosure: self!.presentErrorAlert)
-            self!.networkRequestService.requestJSONDictionary(withURLRequest: request)
+            self.networkRequestService.configure(withRequestCompletion: requestCompletion, requestFailedClosure: self.presentErrorAlert)
+            self.networkRequestService.requestJSONDictionary(withURLRequest: request)
         }
         
         presentActivityIndicator(completion: aiPresented)
@@ -82,8 +82,8 @@ final class InformationPostingService: StudentLocationRequestable {
     internal func postStudentLocation(withParameters params: (mapString: String, mediaURL: String, placemark: CLPlacemark)) {
         let request = createStudentLocationRequest(withHTTPMethod: Constants.HTTPMethods.post)
         
-        let requestCompletion = { [weak self] (jsonDictionary: NSDictionary) in
-            self!.parsePostResponse(jsonDictionary)
+        let requestCompletion = { /*[weak self]*/ (jsonDictionary: NSDictionary) in
+            self.parsePostResponse(jsonDictionary)
         }
         
         performRequest(request, params: params, completion: requestCompletion)
@@ -93,8 +93,8 @@ final class InformationPostingService: StudentLocationRequestable {
         
         let request = createStudentLocationRequest(withHTTPMethod: Constants.HTTPMethods.put, objectId: previouslyEnteredLocationObjectId)
         
-        let requestCompletion = { [weak self] (jsonDictionary: NSDictionary) in
-            self!.parseUpdateResponse(jsonDictionary)
+        let requestCompletion = { /*[weak self]*/ (jsonDictionary: NSDictionary) in
+            self.parseUpdateResponse(jsonDictionary)
         }
         
         performRequest(request, params: params, completion: requestCompletion)
@@ -102,11 +102,11 @@ final class InformationPostingService: StudentLocationRequestable {
     
     private func performRequest(request: NSMutableURLRequest, params: (mapString: String, mediaURL: String, placemark: CLPlacemark), completion: GetDictionaryCompletion) {
         
-        let aiPresented = { [weak self] in
+        let aiPresented = { /*[weak self]*/
             var httpBody = "{"
-            httpBody += "\"\(Constants.Keys.uniqueKey)\": \"\(self!.studentInfoProvider.currentStudent.uniqueKey)\", "
-            httpBody += "\"\(Constants.Keys.firstName)\": \"\(self!.studentInfoProvider.currentStudent.firstName)\", "
-            httpBody += "\"\(Constants.Keys.lastName)\": \"\(self!.studentInfoProvider.currentStudent.lastName)\", "
+            httpBody += "\"\(Constants.Keys.uniqueKey)\": \"\(self.studentInfoProvider.currentStudent.uniqueKey)\", "
+            httpBody += "\"\(Constants.Keys.firstName)\": \"\(self.studentInfoProvider.currentStudent.firstName)\", "
+            httpBody += "\"\(Constants.Keys.lastName)\": \"\(self.studentInfoProvider.currentStudent.lastName)\", "
             httpBody += "\"\(Constants.Keys.mapString)\": \"\(params.mapString)\", "
             httpBody += "\"\(Constants.Keys.mediaURL)\": \"\(params.mediaURL)\", "
             httpBody += "\"\(Constants.Keys.latitude)\": \((params.placemark.location?.coordinate.latitude)!), "
@@ -116,8 +116,8 @@ final class InformationPostingService: StudentLocationRequestable {
             magic(httpBody)
             request.HTTPBody = httpBody.dataUsingEncoding(NSUTF8StringEncoding)
             
-            self!.networkRequestService.configure(withRequestCompletion: completion, requestFailedClosure: self!.presentErrorAlert)
-            self!.networkRequestService.requestJSONDictionary(withURLRequest: request)
+            self.networkRequestService.configure(withRequestCompletion: completion, requestFailedClosure: self.presentErrorAlert)
+            self.networkRequestService.requestJSONDictionary(withURLRequest: request)
         }
         presentActivityIndicator(completion: aiPresented)
     }

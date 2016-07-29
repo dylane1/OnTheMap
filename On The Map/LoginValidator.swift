@@ -39,7 +39,7 @@ final class LoginValidator {
     
     internal func login(withEmailAndPassword loginTuple:(email: String, password: String)? = nil, withFacebookToken token: FBSDKAccessToken? = nil) {
         
-        let aiPresented = { [weak self] in
+        let aiPresented = { /*[weak self]*/
             let request = NSMutableURLRequest(URL: NSURL(string: Constants.Network.udacitySessionURL)!)
             
             request.HTTPMethod = Constants.HTTPMethods.post
@@ -49,18 +49,17 @@ final class LoginValidator {
             if loginTuple != nil {
                 request.HTTPBody = "{\"udacity\": {\"username\": \"\(loginTuple!.email)\", \"password\": \"\(loginTuple!.password)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
             } else if token != nil {
-                magic("facebook token: \(token!.tokenString)")
                 request.HTTPBody = "{\"facebook_mobile\": {\"access_token\": \"\(token!.tokenString);\"}}".dataUsingEncoding(NSUTF8StringEncoding)
             } else {
                 magic("Oh come on now, you gotta give me something to work with here...")
             }
             
-            let requestCompletion = { [weak self] (jsonDictionary: NSDictionary) in
-                self!.parseLoginJSON(jsonDictionary)
+            let requestCompletion = { /*[weak self]*/ (jsonDictionary: NSDictionary) in
+                self.parseLoginJSON(jsonDictionary)
             }
             
-            self!.networkRequestService.configure(withRequestCompletion: requestCompletion, requestFailedClosure: self!.presentErrorAlert)
-            self!.networkRequestService.requestJSONDictionary(withURLRequest: request, isUdacityLoginLogout: true)
+            self.networkRequestService.configure(withRequestCompletion: requestCompletion, requestFailedClosure: self.presentErrorAlert)
+            self.networkRequestService.requestJSONDictionary(withURLRequest: request, isUdacityLoginLogout: true)
         }
         presentActivityIndicator(completion: aiPresented)
         
@@ -70,7 +69,7 @@ final class LoginValidator {
         
         let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/users/\(acctDict[Constants.Keys.key] as! String)")!)
         
-        let requestCompletion = { [unowned self] (jsonDictionary: NSDictionary) in
+        let requestCompletion = { /*[unowned self]*/ (jsonDictionary: NSDictionary) in
             self.parsePublicUserDataJSON(jsonDictionary, userKey: acctDict[Constants.Keys.key] as! String)
         }
         

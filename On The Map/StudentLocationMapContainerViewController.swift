@@ -14,10 +14,10 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
     
     private var mapContainterView: StudentLocationMapContainerView!
     
-    private var sessionLogoutController = UserSessionLogoutController()
+    private lazy var sessionLogoutController = UserSessionLogoutController()
     
     internal var activityIndicatorViewController: ActivityIndicatorViewController?
-    private var activityIndicatorTransitioningDelegate: OverlayTransitioningDelegate?
+    private var overlayTransitioningDelegate: OverlayTransitioningDelegate?
     
     /// InformationPostingPresentable
     internal var informationPostingNavController: InformationPostingNavigationController?
@@ -34,24 +34,25 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
         
         configureNavigationController()
 
-        let refreshClosure = { [weak self] in
-            self!.getStudentInfoArray()
+        let refreshClosure = { /*[weak self]*/
+            self.getStudentInfoArray()
         }
         
-        activityIndicatorTransitioningDelegate = OverlayTransitioningDelegate()
-        
-        let presentActivityIndicator = { [unowned self] (completion: (() -> Void)?) in
+        let presentActivityIndicator = { (completion: (() -> Void)?) in
+            self.overlayTransitioningDelegate = OverlayTransitioningDelegate()
             self.presentActivityIndicator(
                 self.getActivityIndicatorViewController(),
-                transitioningDelegate: self.activityIndicatorTransitioningDelegate!,
+                transitioningDelegate: self.overlayTransitioningDelegate!,
                 completion: completion)
         }
         
         let presentErrorAlert = getAlertPresentation()
         
-        let logoutSuccessClosure = { [unowned self] in
+        let logoutSuccessClosure = { /*[unowned self]*/
             self.dismissActivityIndicator(completion: {
-                self.dismissViewControllerAnimated(true, completion: nil)
+                self.dismissViewControllerAnimated(true, completion: {
+                    self.overlayTransitioningDelegate = nil
+                })
             })
         }
         
@@ -74,8 +75,8 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
     
     private func configureView() {
         
-        let openLinkClosure = { [weak self] (urlString: String) in
-            self!.openLink(withURLString: urlString)
+        let openLinkClosure = { /*[weak self]*/ (urlString: String) in
+            self.openLink(withURLString: urlString)
         }
         mapContainterView.configure(withStudentInformationArray: studentInformationProvider.studentInformationArray!, openLinkClosure: openLinkClosure)
     }
@@ -83,8 +84,8 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
     //MARK: - 
     
     private func getStudentInfoArray() {
-        let completion = { [weak self] in
-            self!.configureView()
+        let completion = { /*[weak self]*/
+            self.configureView()
         }
         /// StudentInformationGettable
         performFetchWithCompletion(completion)

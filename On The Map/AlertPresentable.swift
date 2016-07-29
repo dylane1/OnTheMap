@@ -18,16 +18,16 @@ extension AlertPresentable where Self: UIViewController, Self: ActivityIndicator
      before the alert can be presented. Maybe if I pass the ai reference into 
      the function:
      
-     let presentErrorAlert = { [weak self] (aiToDismiss: PrimaryActivityIndicatorController, parameters: AlertParameters) in .... }
+     let presentErrorAlert = { /*[weak self]*/ (aiToDismiss: PrimaryActivityIndicatorController, parameters: AlertParameters) in .... }
      */
     internal func getAlertPresentation() -> ((AlertParameters) -> Void){
         
-        let presentErrorAlert = { [weak self] (parameters: AlertParameters) in
+        let presentErrorAlert = { /*[weak self]*/ (parameters: AlertParameters) in
             
-            let dismissalCompletion = { [weak self] in
-                self!.presentAlertWithParameters(parameters)
+            let dismissalCompletion = { /*[weak self]*/
+                self.presentAlertWithParameters(parameters)
             }
-            self!.dismissActivityIndicator(completion: dismissalCompletion)
+            self.dismissActivityIndicator(completion: dismissalCompletion)
         }
         return presentErrorAlert
     }

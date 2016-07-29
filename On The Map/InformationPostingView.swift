@@ -112,8 +112,8 @@ class InformationPostingView: UIView, StudentLocationRequestable {
             alertPresentationClosure: alertPresentation)
         
         /// Initial query for existing student information
-        let queryCompletion = { [weak self] (studentInformationValues: (mapString: String, mediaURL: String, previouslyEnteredLocationObjectId: String?)?) in
-            self!.studentInformationValues = studentInformationValues
+        let queryCompletion = { /*[weak self]*/ (studentInformationValues: (mapString: String, mediaURL: String, previouslyEnteredLocationObjectId: String?)?) in
+            self.studentInformationValues = studentInformationValues
         }
         informationPostingService.queryStudentLocation(withCompletion: queryCompletion)
     }

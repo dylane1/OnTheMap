@@ -50,8 +50,8 @@ final class StudentInformationProvider: StudentLocationRequestable {
         /// StudentLocationRequestable
         let request = createStudentLocationRequest()
         
-        let requestCompletion = { [weak self] (jsonDictionary: NSDictionary) in
-            self!.parseStudentInformation(jsonDictionary)
+        let requestCompletion = { /*[weak self]*/ (jsonDictionary: NSDictionary) in
+            self.parseStudentInformation(jsonDictionary)
         }
         
         networkRequestService.configure(withRequestCompletion: requestCompletion, requestFailedClosure: presentErrorAlert)
