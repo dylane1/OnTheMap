@@ -52,6 +52,9 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
             self.dismissActivityIndicator(completion: {
                 self.dismissViewControllerAnimated(true, completion: {
                     self.overlayTransitioningDelegate = nil
+
+                    /// Prevent memory leak
+                    self.mapContainterView.clearAnnotations()
                 })
             })
         }

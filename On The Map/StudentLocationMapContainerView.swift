@@ -29,7 +29,7 @@ class StudentLocationMapContainerView: UIView {
         mapView.delegate = self
         configureMapImage()
     }
-
+    
     //MARK: - Configuration
     
     internal func configure(withStudentInformationArray array: [StudentInformation], openLinkClosure closure: OpenLinkClosure) {
@@ -88,7 +88,7 @@ class StudentLocationMapContainerView: UIView {
         activityIndicator.stopAnimating()
     }
     
-    private func clearAnnotations() {
+    internal func clearAnnotations() {
         if annotations.count > 0 {
             mapView.removeAnnotations(annotations)
             annotations.removeAll()
