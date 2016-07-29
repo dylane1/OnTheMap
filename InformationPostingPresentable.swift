@@ -16,11 +16,6 @@ extension InformationPostingPresentable where Self: UIViewController {
     internal func getInfoPostingNavigationController() -> InformationPostingNavigationController {
         let infoPostingNavController = UIStoryboard(name: Constants.StoryBoardID.main, bundle: nil).instantiateViewControllerWithIdentifier(Constants.StoryBoardID.infoPostingNavController) as! InformationPostingNavigationController
         
-        infoPostingNavController.vcShouldBeDismissed = { [weak self] in
-            self!.dismissViewControllerAnimated(true) {
-                self!.informationPostingNavController = nil
-            }
-        }
         return infoPostingNavController
     }
 }

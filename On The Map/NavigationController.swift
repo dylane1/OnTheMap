@@ -10,9 +10,6 @@ import UIKit
 
 class NavigationController: UINavigationController {
     
-    /// Set by presenting view controller
-    internal var vcShouldBeDismissed: (() -> Void)?
-    
     internal func setNavigationBarAttributes(isAppTitle isTitle: Bool) {
         
         navigationBar.barTintColor = Theme.barTintColor

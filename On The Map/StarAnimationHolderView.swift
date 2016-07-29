@@ -20,16 +20,18 @@ class StarAnimationHolderView: UIView {
     override func didMoveToWindow() {
         super.didMoveToWindow()
         
-        backgroundColor = Theme.loginScreenBGGradient
-        
-        starLayer.position = CGPoint(x: -100, y: -100)
-        
-        animationPath = SpiralAnimationPathLayer(withFrame: frame)
-        
-        layer.addSublayer(animationPath)
-        layer.addSublayer(starLayer)
-
-        beginAnimating()
+        if animationPath == nil {
+            backgroundColor = Theme.loginScreenBGGradient
+            
+            starLayer.position = CGPoint(x: -100, y: -100)
+            
+            animationPath = SpiralAnimationPathLayer(withFrame: frame)
+            
+            layer.addSublayer(animationPath)
+            layer.addSublayer(starLayer)
+            
+            beginAnimating()
+        }
     }
     
     convenience init(withDuration duration: CFTimeInterval) {

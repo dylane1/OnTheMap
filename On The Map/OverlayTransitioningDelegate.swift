@@ -156,23 +156,3 @@ final class OverlayTransitioningDelegate: NSObject, UIViewControllerTransitionin
             fadeOutAlpha: fadeOutAlpha)
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

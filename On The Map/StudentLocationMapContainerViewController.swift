@@ -22,8 +22,10 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
     /// InformationPostingPresentable
     internal var informationPostingNavController: InformationPostingNavigationController?
     
+    
+//    deinit { magic("\(self.description) is being deinitialized   <----------------") }
+    
     //MARK: - View Lifecycle
-//    deinit { magic("being deinitialized   <----------------") }
     
     override func viewDidLoad() {
         super.viewDidLoad()
