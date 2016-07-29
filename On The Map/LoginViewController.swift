@@ -39,24 +39,24 @@ class LoginViewController: UIViewController, AlertPresentable, ActivityIndicator
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let presentActivityIndicator = { [weak self] (completion: (() -> Void)?) in
-            self!.overlayTransitioningDelegate = OverlayTransitioningDelegate()
-            self!.presentActivityIndicator(
-                self!.getActivityIndicatorViewController(),
-                transitioningDelegate: self!.overlayTransitioningDelegate!,
+        let presentActivityIndicator = { (completion: (() -> Void)?) in
+            self.overlayTransitioningDelegate = OverlayTransitioningDelegate()
+            self.presentActivityIndicator(
+                self.getActivityIndicatorViewController(),
+                transitioningDelegate: self.overlayTransitioningDelegate!,
                 completion: completion)
         }
         
         let presentErrorAlert = getAlertPresentation()
 
-        let loginSuccessClosure = { [weak self] in
-            self!.dismissActivityIndicator(completion: {
-                self!.overlayTransitioningDelegate = nil
-                self!.performSegueWithIdentifier(.LoginComplete, sender: self)
+        let loginSuccessClosure = {
+            self.dismissActivityIndicator(completion: {
+                self.overlayTransitioningDelegate = nil
+                self.performSegueWithIdentifier(.LoginComplete, sender: self)
             })
         }
         
-        let openUdacitySignUp = { /*[unowned self]*/
+        let openUdacitySignUp = {
             self.openLinkInSafari(withURLString: Constants.Network.udacitySignUpURL)
         }
         

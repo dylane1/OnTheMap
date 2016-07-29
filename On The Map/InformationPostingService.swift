@@ -113,7 +113,6 @@ final class InformationPostingService: StudentLocationRequestable {
             httpBody += "\"\(Constants.Keys.longitude)\": \((params.placemark.location?.coordinate.longitude)!)"
             httpBody += "}"
             
-            magic(httpBody)
             request.HTTPBody = httpBody.dataUsingEncoding(NSUTF8StringEncoding)
             
             self.networkRequestService.configure(withRequestCompletion: completion, requestFailedClosure: self.presentErrorAlert)

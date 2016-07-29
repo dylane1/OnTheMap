@@ -26,9 +26,7 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
     
     private var sessionLogoutController: UserSessionLogoutController?
     
-//    private var locationMarker: UIImage!
-    
-    deinit { magic("\(self.description) is being deinitialized   <----------------") }
+//    deinit { magic("\(self.description) is being deinitialized   <----------------") }
     
     //MARK: - View Lifecycle
     
@@ -80,8 +78,6 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
         configureNavigationItems(
             withRefreshClosure: refreshClosure,
             sessionLogoutController: sessionLogoutController!)
-        
-//        locationMarker = IconProvider.imageOfDrawnIcon(.LocationMarker, size: CGSize(width: 40, height: 43), fillColor: Theme.locationMarker)
         
         presentMapViewController = { [weak self] (locationName: String, latitude: Double, longitude: Double) in
             

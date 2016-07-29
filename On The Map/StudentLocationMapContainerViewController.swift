@@ -21,7 +21,7 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
     
     private var sessionLogoutController: UserSessionLogoutController?
     
-    deinit { magic("\(self.description) is being deinitialized   <----------------") }
+//    deinit { magic("\(self.description) is being deinitialized   <----------------") }
     
     //MARK: - View Lifecycle
     
