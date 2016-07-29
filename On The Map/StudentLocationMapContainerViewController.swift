@@ -10,27 +10,25 @@ import UIKit
 
 final class StudentLocationMapContainerViewController: UIViewController, MapAndTableNavigationProtocol, StudentInformationGettable, InformationPostingPresentable, SafariViewControllerPresentable, AlertPresentable, ActivityIndicatorPresentable {
     
-    private let studentInformationProvider = StudentInformationProvider.sharedInstance
-    
-    private var mapContainterView: StudentLocationMapContainerView!
-    
-    private lazy var sessionLogoutController = UserSessionLogoutController()
-    
-    internal var activityIndicatorViewController: ActivityIndicatorViewController?
-    private var overlayTransitioningDelegate: OverlayTransitioningDelegate?
+    private var mapContainterView: StudentLocationMapContainerView?
     
     /// InformationPostingPresentable
     internal var informationPostingNavController: InformationPostingNavigationController?
     
+    /// ActivityIndicatorPresentable
+    internal var activityIndicatorViewController: ActivityIndicatorViewController?
+    private var overlayTransitioningDelegate: OverlayTransitioningDelegate?
     
-//    deinit { magic("\(self.description) is being deinitialized   <----------------") }
+    private var sessionLogoutController: UserSessionLogoutController?
+    
+    deinit { magic("\(self.description) is being deinitialized   <----------------") }
     
     //MARK: - View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mapContainterView = view as! StudentLocationMapContainerView
+        mapContainterView = view as? StudentLocationMapContainerView
         
         configureNavigationController()
 
@@ -48,18 +46,22 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
         
         let presentErrorAlert = getAlertPresentation()
         
-        let logoutSuccessClosure = { /*[unowned self]*/
+        let logoutSuccessClosure = {
             self.dismissActivityIndicator(completion: {
                 self.dismissViewControllerAnimated(true, completion: {
+                    magic("")
                     self.overlayTransitioningDelegate = nil
 
                     /// Prevent memory leak
-                    self.mapContainterView.clearAnnotations()
+                    self.mapContainterView          = nil
+                    self.sessionLogoutController    = nil
                 })
             })
         }
         
-        sessionLogoutController.configure(
+        sessionLogoutController = UserSessionLogoutController()
+        
+        sessionLogoutController!.configure(
             withActivityIndicatorPresentation: presentActivityIndicator,
             logoutSuccessClosure: logoutSuccessClosure,
             alertPresentationClosure: presentErrorAlert)
@@ -67,29 +69,39 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
         /// MapAndTableNavigationProtocol
         configureNavigationItems(
             withRefreshClosure: refreshClosure,
-            sessionLogoutController: sessionLogoutController)
+            sessionLogoutController: sessionLogoutController!)
     }
 
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
         getStudentInfoArray()
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        mapContainterView!.clearAnnotations()
     }
     
     //MARK: - Configuration
     
-    private func configureView() {
+    private func configureViewWithStudentArray(array: [StudentInformation]) {
         
-        let openLinkClosure = { /*[weak self]*/ (urlString: String) in
-            self.openLink(withURLString: urlString)
+        let openLinkClosure = { [weak self] (urlString: String) in
+            self!.openLink(withURLString: urlString)
         }
-        mapContainterView.configure(withStudentInformationArray: studentInformationProvider.studentInformationArray!, openLinkClosure: openLinkClosure)
+        
+        mapContainterView!.configure(withStudentInformationArray: array, openLinkClosure: openLinkClosure)
     }
     
     //MARK: - 
     
     private func getStudentInfoArray() {
-        let completion = { /*[weak self]*/
-            self.configureView()
+        let completion = { [weak self] (studentInfoArray: [StudentInformation]) in
+            self!.configureViewWithStudentArray(studentInfoArray)
         }
+        
         /// StudentInformationGettable
         performFetchWithCompletion(completion)
     }

@@ -39,20 +39,20 @@ class LoginViewController: UIViewController, AlertPresentable, ActivityIndicator
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let presentActivityIndicator = { /*[weak self]*/ (completion: (() -> Void)?) in
-            self.overlayTransitioningDelegate = OverlayTransitioningDelegate()
-            self.presentActivityIndicator(
-                self.getActivityIndicatorViewController(),
-                transitioningDelegate: self.overlayTransitioningDelegate!,
+        let presentActivityIndicator = { [weak self] (completion: (() -> Void)?) in
+            self!.overlayTransitioningDelegate = OverlayTransitioningDelegate()
+            self!.presentActivityIndicator(
+                self!.getActivityIndicatorViewController(),
+                transitioningDelegate: self!.overlayTransitioningDelegate!,
                 completion: completion)
         }
         
         let presentErrorAlert = getAlertPresentation()
 
-        let loginSuccessClosure = { /*[unowned self]*/
-            self.dismissActivityIndicator(completion: {
-                self.overlayTransitioningDelegate = nil
-                self.performSegueWithIdentifier(.LoginComplete, sender: self)
+        let loginSuccessClosure = { [weak self] in
+            self!.dismissActivityIndicator(completion: {
+                self!.overlayTransitioningDelegate = nil
+                self!.performSegueWithIdentifier(.LoginComplete, sender: self)
             })
         }
         

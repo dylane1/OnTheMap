@@ -25,6 +25,9 @@ class StudentLocationMapContainerView: UIView {
     
     private var animatedPinsIn = false
     
+    
+    deinit { magic("\(self.description) is being deinitialized   <----------------") }
+    
     override func didMoveToWindow() {
         mapView.delegate = self
         configureMapImage()

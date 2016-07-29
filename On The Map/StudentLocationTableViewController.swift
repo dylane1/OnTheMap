@@ -10,14 +10,12 @@ import UIKit
 
 final class StudentLocationTableViewController: UITableViewController, MapAndTableNavigationProtocol, StudentInformationGettable, InformationPostingPresentable, SafariViewControllerPresentable, AlertPresentable, ActivityIndicatorPresentable {
     
+    private var studentInformationArray: [StudentInformation]?
+    
     private var presentMapViewController: ((locationName: String, latitude: Double, longitude: Double) -> Void)!
     private var mapOverlayTransitioningDelegate: OverlayTransitioningDelegate?
     
     private var mapViewController: MapContainerViewController?
-    
-    private let studentInformationProvider = StudentInformationProvider.sharedInstance
-    
-    private var tabBar: TabBarController!
     
     /// InformationPostingPresentable
     internal var informationPostingNavController: InformationPostingNavigationController?
@@ -26,12 +24,13 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
     internal var activityIndicatorViewController: ActivityIndicatorViewController?
     private var overlayTransitioningDelegate: OverlayTransitioningDelegate?
     
-    private lazy var sessionLogoutController = UserSessionLogoutController()
+    private var sessionLogoutController: UserSessionLogoutController?
     
-    private var locationMarker: UIImage!
+//    private var locationMarker: UIImage!
+    
+    deinit { magic("\(self.description) is being deinitialized   <----------------") }
     
     //MARK: - View Lifecycle
-//    deinit { magic("being deinitialized   <----------------") }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +45,7 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
         tableView.delegate = self
         tableView.backgroundColor = Theme.tableViewBGColor
         
-        let refreshClosure = { /*[weak self]*/
+        let refreshClosure = {
             self.getStudentInfoArray()
         }
         
@@ -60,15 +59,19 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
         
         let presentErrorAlert = getAlertPresentation()
         
-        let logoutSuccessClosure = { /*[unowned self]*/
+        let logoutSuccessClosure = {
             self.dismissActivityIndicator(completion: {
                 self.dismissViewControllerAnimated(true, completion: {
-                    self.overlayTransitioningDelegate = nil
+                    self.sessionLogoutController        = nil
+                    self.overlayTransitioningDelegate   = nil
+                    self.studentInformationArray        = nil
                 })
             })
         }
         
-        sessionLogoutController.configure(
+        sessionLogoutController = UserSessionLogoutController()
+        
+        sessionLogoutController!.configure(
             withActivityIndicatorPresentation: presentActivityIndicator,
             logoutSuccessClosure: logoutSuccessClosure,
             alertPresentationClosure: presentErrorAlert)
@@ -76,14 +79,13 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
         /// MapAndTableNavigationProtocol
         configureNavigationItems(
             withRefreshClosure: refreshClosure,
-            sessionLogoutController: sessionLogoutController)
+            sessionLogoutController: sessionLogoutController!)
         
-        locationMarker = IconProvider.imageOfDrawnIcon(.LocationMarker, size: CGSize(width: 40, height: 43), fillColor: Theme.locationMarker)
+//        locationMarker = IconProvider.imageOfDrawnIcon(.LocationMarker, size: CGSize(width: 40, height: 43), fillColor: Theme.locationMarker)
         
-        presentMapViewController = { /*[weak self]*/ (locationName: String, latitude: Double, longitude: Double) in
+        presentMapViewController = { [weak self] (locationName: String, latitude: Double, longitude: Double) in
             
-            self.openMapViewController(withLocationName: locationName, latitude: latitude, longitude: longitude)
-            
+            self!.openMapViewController(withLocationName: locationName, latitude: latitude, longitude: longitude)
         }
     }
     
@@ -94,8 +96,9 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
     //MARK: -
     
     private func getStudentInfoArray() {
-        let completion = { /*[weak self]*/
-            self.tableView.reloadData()
+        let completion = { [weak self] (studentInfoArray: [StudentInformation]) in
+            self!.studentInformationArray = studentInfoArray
+            self!.tableView.reloadData()
         }
         
         /// StudentInformationGettable
@@ -112,7 +115,7 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
         let height = width
         let mapVCPreferredContentSize = CGSizeMake(width, height)
         
-        let dismissalCompletion = { /*[weak self]*/
+        let dismissalCompletion = {
             self.mapOverlayTransitioningDelegate    = nil
             self.mapViewController                  = nil
         }
@@ -145,14 +148,14 @@ extension StudentLocationTableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (studentInformationProvider.studentInformationArray == nil) ? 0 : studentInformationProvider.studentInformationArray!.count
+        return (studentInformationArray == nil) ? 0 : studentInformationArray!.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> StudentLocationTableViewCell {
 
         let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as StudentLocationTableViewCell
 
-        let model = StudentLocationCellModel(studentInformation: studentInformationProvider.studentInformationArray![indexPath.row])
+        let model = StudentLocationCellModel(studentInformation: studentInformationArray![indexPath.row])
         
         cell.configure(withDataSource: model, presentMapViewController: presentMapViewController)
         
@@ -171,7 +174,7 @@ extension StudentLocationTableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         /// SafariViewControllerPresentable
-        openLinkInSafari(withURLString: studentInformationProvider.studentInformationArray![indexPath.row].mediaURL)
+        openLinkInSafari(withURLString: studentInformationArray![indexPath.row].mediaURL)
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

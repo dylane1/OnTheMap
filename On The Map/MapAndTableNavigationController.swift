@@ -19,7 +19,7 @@ final class MapAndTableNavigationController: NavigationController {
     private var logoutClosure: BarButtonClosure?
     private var logoutButton: UIBarButtonItem?
     
-//    deinit { magic("being deinitialized   <----------------") }
+//    deinit { magic("\(self.description) is being deinitialized   <----------------") }
     
     //MARK: - Configuration
     

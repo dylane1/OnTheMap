@@ -13,7 +13,7 @@ final class StudentInformationProvider: StudentLocationRequestable {
     static let sharedInstance = StudentInformationProvider()
     private init() {}
     
-    private var informationReceivedCompletion: (() -> Void)!
+    private var informationReceivedCompletion: ((studentInfoArray: [StudentInformation]) -> Void)!
     private var presentErrorAlert: AlertPresentation!
     
     internal var currentStudent: StudentInformation!
@@ -21,7 +21,7 @@ final class StudentInformationProvider: StudentLocationRequestable {
     internal var studentInformationArray: [StudentInformation]? {
         didSet {
             if studentInformationArray == nil { return }
-            informationReceivedCompletion?()
+            informationReceivedCompletion?(studentInfoArray: studentInformationArray!)
         }
     }
     
@@ -35,7 +35,7 @@ final class StudentInformationProvider: StudentLocationRequestable {
     }
     
     /// Set when getting student data from server
-    internal func configure(withInformationReceivedCompletion receivedCompletion: () -> Void, alertPresentationClosure alertPresentation: AlertPresentation) {
+    internal func configure(withInformationReceivedCompletion receivedCompletion: (studentInfoArray: [StudentInformation]) -> Void, alertPresentationClosure alertPresentation: AlertPresentation) {
 
         informationReceivedCompletion   = receivedCompletion
         presentErrorAlert               = alertPresentation
