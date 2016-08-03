@@ -111,8 +111,7 @@ class InformationPostingView: UIView, StudentLocationRequestable {
             successClosure: success,
             alertPresentationClosure: alertPresentation)
         
-        /// Initial query for existing student information
-        let queryCompletion = { /*[weak self]*/ (studentInformationValues: (mapString: String, mediaURL: String, previouslyEnteredLocationObjectId: String?)?) in
+        let queryCompletion = { (studentInformationValues: (mapString: String, mediaURL: String, previouslyEnteredLocationObjectId: String?)?) in
             self.studentInformationValues = studentInformationValues
         }
         informationPostingService.queryStudentLocation(withCompletion: queryCompletion)
@@ -136,7 +135,7 @@ class InformationPostingView: UIView, StudentLocationRequestable {
     
     private func configureTextFields() {
         let textFieldAttributes = [
-            NSFontAttributeName: UIFont(name: Constants.FontName.avenirLight, size: 17)!,//UIFont.systemFontOfSize(17, weight: UIFontWeightLight),
+            NSFontAttributeName: UIFont(name: Constants.FontName.avenirLight, size: 17)!,
             NSForegroundColorAttributeName: Theme.textFieldText
         ]
         
@@ -181,10 +180,16 @@ class InformationPostingView: UIView, StudentLocationRequestable {
             return
         }
         
+        let informationPostedCompletion = {
+            magic("Clean up in InformationPostingView")
+//            self.informationPostingService = nil
+            self.submitSuccessfulClosure()
+        }
+        
         if previouslyEnteredLocationObjectId != nil {
-            informationPostingService.updateStudentLocation(withParameters: (mapString: mapString, mediaURL: mediaURL, placemark: placemarks![0]), previouslyEnteredLocationObjectId: previouslyEnteredLocationObjectId!)
+            informationPostingService.updateStudentLocation(withParameters: (mapString: mapString, mediaURL: mediaURL, placemark: placemarks![0]), previouslyEnteredLocationObjectId: previouslyEnteredLocationObjectId!, completion: informationPostedCompletion)
         } else {
-            informationPostingService.postStudentLocation(withParameters: (mapString: mapString, mediaURL: mediaURL, placemark: placemarks![0]))
+            informationPostingService.postStudentLocation(withParameters: (mapString: mapString, mediaURL: mediaURL, placemark: placemarks![0]), completion: informationPostedCompletion)
         }
     }
 

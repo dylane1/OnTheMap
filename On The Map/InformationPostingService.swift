@@ -16,8 +16,7 @@ final class InformationPostingService: StudentLocationRequestable {
     private var submitSuccessfulClosure: (() -> Void)!
     private var presentErrorAlert: AlertPresentation!
     
-    
-    private var networkRequestService = NetworkRequestService()
+    private var networkRequestService: NetworkRequestService?
     
     private lazy var studentInfoProvider = StudentInformationProvider.sharedInstance
 
@@ -41,22 +40,25 @@ final class InformationPostingService: StudentLocationRequestable {
     
     internal func queryStudentLocation(withCompletion completion: (studentInformationValues: (mapString: String, mediaURL: String, previouslyEnteredLocationObjectId: String?)?) -> Void) {
         
-        let aiPresented = { /*[weak self]*/
+        let aiPresented = { [weak self] in
+            let request = self!.createStudentLocationRequest(uniqueKey: self!.studentInfoProvider.currentStudent.uniqueKey)
             
-            let request = self.createStudentLocationRequest(uniqueKey: self.studentInfoProvider.currentStudent.uniqueKey)
-            
-            let requestCompletion = { /*[weak self]*/ (jsonDictionary: NSDictionary) in
-                return self.parseStudentLocationQuery(jsonDictionary, completion: completion)
+            let requestCompletion = { [weak self] (jsonDictionary: NSDictionary) in
+                return self!.parseStudentLocationQuery(jsonDictionary, completion: completion)
             }
             
-            self.networkRequestService.configure(withRequestCompletion: requestCompletion, requestFailedClosure: self.presentErrorAlert)
-            self.networkRequestService.requestJSONDictionary(withURLRequest: request)
+            self!.networkRequestService!.configure(withRequestCompletion: requestCompletion, requestFailedClosure: self!.presentErrorAlert)
+            
+            self!.networkRequestService!.requestJSONDictionary(withURLRequest: request)
         }
         
+        networkRequestService = NetworkRequestService()
         presentActivityIndicator(completion: aiPresented)
     }
     
     private func parseStudentLocationQuery(jsonDictionary: NSDictionary, completion: (studentInformationValues: (mapString: String, mediaURL: String, previouslyEnteredLocationObjectId: String?)?) -> Void) {
+        
+        networkRequestService = nil
         
         guard let resultArray = jsonDictionary[Constants.Keys.results] as? NSArray,
             let infoDict = resultArray[0] as? NSDictionary else {
@@ -79,22 +81,25 @@ final class InformationPostingService: StudentLocationRequestable {
     
     //MARK: - Add a new student location / updated existing
     
-    internal func postStudentLocation(withParameters params: (mapString: String, mediaURL: String, placemark: CLPlacemark)) {
+    internal func postStudentLocation(withParameters params: (mapString: String, mediaURL: String, placemark: CLPlacemark), completion: (() -> Void)?) {
         let request = createStudentLocationRequest(withHTTPMethod: Constants.HTTPMethods.post)
         
-        let requestCompletion = { /*[weak self]*/ (jsonDictionary: NSDictionary) in
-            self.parsePostResponse(jsonDictionary)
+        let requestCompletion = { [weak self] (jsonDictionary: NSDictionary) in
+            self!.parsePostResponse(jsonDictionary)
+            completion?()
         }
         
         performRequest(request, params: params, completion: requestCompletion)
     }
     
-    internal func updateStudentLocation(withParameters params: (mapString: String, mediaURL: String, placemark: CLPlacemark), previouslyEnteredLocationObjectId: String) {
+    internal func updateStudentLocation(withParameters params: (mapString: String, mediaURL: String, placemark: CLPlacemark), previouslyEnteredLocationObjectId: String, completion: (() -> Void)?) {
         
         let request = createStudentLocationRequest(withHTTPMethod: Constants.HTTPMethods.put, objectId: previouslyEnteredLocationObjectId)
         
-        let requestCompletion = { /*[weak self]*/ (jsonDictionary: NSDictionary) in
-            self.parseUpdateResponse(jsonDictionary)
+        let requestCompletion = { [weak self] (jsonDictionary: NSDictionary) in
+            self!.parseUpdateResponse(jsonDictionary)
+            self!.networkRequestService = nil
+            completion?()
         }
         
         performRequest(request, params: params, completion: requestCompletion)
@@ -102,11 +107,11 @@ final class InformationPostingService: StudentLocationRequestable {
     
     private func performRequest(request: NSMutableURLRequest, params: (mapString: String, mediaURL: String, placemark: CLPlacemark), completion: GetDictionaryCompletion) {
         
-        let aiPresented = { /*[weak self]*/
+        let aiPresented = { [weak self] in
             var httpBody = "{"
-            httpBody += "\"\(Constants.Keys.uniqueKey)\": \"\(self.studentInfoProvider.currentStudent.uniqueKey)\", "
-            httpBody += "\"\(Constants.Keys.firstName)\": \"\(self.studentInfoProvider.currentStudent.firstName)\", "
-            httpBody += "\"\(Constants.Keys.lastName)\": \"\(self.studentInfoProvider.currentStudent.lastName)\", "
+            httpBody += "\"\(Constants.Keys.uniqueKey)\": \"\(self!.studentInfoProvider.currentStudent.uniqueKey)\", "
+            httpBody += "\"\(Constants.Keys.firstName)\": \"\(self!.studentInfoProvider.currentStudent.firstName)\", "
+            httpBody += "\"\(Constants.Keys.lastName)\": \"\(self!.studentInfoProvider.currentStudent.lastName)\", "
             httpBody += "\"\(Constants.Keys.mapString)\": \"\(params.mapString)\", "
             httpBody += "\"\(Constants.Keys.mediaURL)\": \"\(params.mediaURL)\", "
             httpBody += "\"\(Constants.Keys.latitude)\": \((params.placemark.location?.coordinate.latitude)!), "
@@ -115,9 +120,10 @@ final class InformationPostingService: StudentLocationRequestable {
             
             request.HTTPBody = httpBody.dataUsingEncoding(NSUTF8StringEncoding)
             
-            self.networkRequestService.configure(withRequestCompletion: completion, requestFailedClosure: self.presentErrorAlert)
-            self.networkRequestService.requestJSONDictionary(withURLRequest: request)
+            self!.networkRequestService!.configure(withRequestCompletion: completion, requestFailedClosure: self!.presentErrorAlert)
+            self!.networkRequestService!.requestJSONDictionary(withURLRequest: request)
         }
+        networkRequestService = NetworkRequestService()
         presentActivityIndicator(completion: aiPresented)
     }
     

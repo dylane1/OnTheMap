@@ -17,6 +17,10 @@ final class InformationPostingNavigationController: NavigationController {
     
     //MARK: - Configuration
     
+    override func setNavigationBarAttributes(isAppTitle isTitle: Bool) {
+        super.setNavigationBarAttributes(isAppTitle: isTitle)
+    }
+    
     internal func configure(withCancelClosure cancel: BarButtonClosure) {
         cancelClosure = cancel
         

@@ -14,10 +14,9 @@ class InformationPostingViewController: UIViewController, InformationPostingNavi
     
     /// ActivityIndicatorPresentable
     internal var activityIndicatorViewController: ActivityIndicatorViewController?
-    
     private var overlayTransitioningDelegate: OverlayTransitioningDelegate?
     
-    //    deinit { magic("\(self.description) is being deinitialized   <----------------") }
+//    deinit { magic("\(self.description) is being deinitialized   <----------------") }
     
     //MARK: - View Lifecycle
     
@@ -26,7 +25,7 @@ class InformationPostingViewController: UIViewController, InformationPostingNavi
         
         title = LocalizedStrings.ViewControllerTitles.enterYourLocation
         
-        let navController = navigationController! as! NavigationController
+        let navController = navigationController! as! InformationPostingNavigationController
         navController.setNavigationBarAttributes(isAppTitle: false)
         
         let presentActivityIndicator = { (completion: (() -> Void)?) in
@@ -37,7 +36,7 @@ class InformationPostingViewController: UIViewController, InformationPostingNavi
                 completion: completion)
         }
         
-        let dismissActivityIndicator = { /*[weak self]*/
+        let dismissActivityIndicator = {
             self.dismissActivityIndicator(completion: {
                 self.overlayTransitioningDelegate = nil
             })
@@ -45,9 +44,8 @@ class InformationPostingViewController: UIViewController, InformationPostingNavi
         
         let presentErrorAlert = getAlertPresentation()
         
-        let submitSuccessfulClosure = { /*[weak self]*/
-            let dismissalCompletion = { /*[weak self]*/
-                self.overlayTransitioningDelegate = nil
+        let submitSuccessfulClosure = {
+            let dismissalCompletion = {
                 
                 /// Dismiss Me
                 self.dismissViewControllerAnimated(true, completion: nil)
@@ -64,5 +62,10 @@ class InformationPostingViewController: UIViewController, InformationPostingNavi
             alertPresentationClosure: presentErrorAlert)
         
         configureNavigationItems()
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        postingView = nil
     }
 }
