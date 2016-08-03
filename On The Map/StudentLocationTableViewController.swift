@@ -88,6 +88,7 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
     }
     
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         getStudentInfoArray()
     }
     

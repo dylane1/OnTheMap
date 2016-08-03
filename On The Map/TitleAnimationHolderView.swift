@@ -17,7 +17,6 @@ class TitleAnimationHolderView: UIView {
     //MARK: - View Lifecycle
     
     override func didMoveToWindow() {
-        super.didMoveToWindow()
         backgroundColor = UIColor.clearColor()
         layer.addSublayer(titleLayer)
         titleLayer.mask = circleLayer
