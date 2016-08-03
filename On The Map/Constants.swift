@@ -63,10 +63,6 @@ struct Constants {
         static let put      = "PUT"
         static let delete   = "DELETE"
     }
-    struct Testing {
-        static let myValidUsername = "dylan.e3@gmail.com"
-        static let myValidPassword = "*8Kjp4uGouIZ:d{*yM07l"
-    }
     
     struct FontName {
         static let avenirLight  = "Avenir-Light"
