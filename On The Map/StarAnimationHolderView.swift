@@ -18,7 +18,6 @@ class StarAnimationHolderView: UIView {
     //MARK: - View Lifecycle
     
     override func didMoveToWindow() {
-        super.didMoveToWindow()
         
         if animationPath == nil {
             backgroundColor = Theme.loginScreenBGGradient

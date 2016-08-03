@@ -46,9 +46,8 @@ extension ActivityIndicatorPresentable where Self: UIViewController {
     }
     
     internal func dismissActivityIndicator(completion completion: (() -> Void)?) {
-        
+        self.activityIndicatorIsPresented = false
         dismissViewControllerAnimated(true, completion: {
-            self.activityIndicatorIsPresented = false
             self.activityIndicatorViewController = nil
             self.overlayTransitioningDelegate = nil
             completion?()

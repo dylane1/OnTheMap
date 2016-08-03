@@ -32,6 +32,7 @@ class LoginViewController: UIViewController, AlertPresentable, ActivityIndicator
     //MARK: - View Lifecycle
     
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         /// free up memory if just logged out
         if mainTabBarController != nil {
             mainTabBarController = nil

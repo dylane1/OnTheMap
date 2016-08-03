@@ -18,13 +18,16 @@ extension String {
     }
     
     var safariOpenableURL: NSURL? {
-        guard var url = NSURL(string: self) else {
+        /// Remove whitespace
+        let trimmedString = self.stringByTrimmingCharactersInSet( NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        
+        guard var url = NSURL(string: trimmedString) else {
             return nil
         }
         
         /// Test for valid scheme
         if !(["http", "https"].contains(url.scheme.lowercaseString)) {
-            let appendedLink = "http://".stringByAppendingString(self)
+            let appendedLink = "http://".stringByAppendingString(trimmedString)
             url = NSURL(string: appendedLink)!
         }
         

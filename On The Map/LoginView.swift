@@ -49,15 +49,8 @@ class LoginView: UIView {
     //MARK: - Actions
     
     @IBAction func loginAction(sender: AnyObject) {
-        /// Login (real data)
-//        let emailLogin = (email: emailString, password: passwordString)
-//        loginValidator.login(withEmailAndPassword: emailLogin)
-        
-        ///TESTING:
-        let emailLogin = (email: Constants.Testing.myValidUsername, password: Constants.Testing.myValidPassword)
-//        let emailLogin = (email: "", password: "1234")
-//        let emailLogin = (email: Constants.Testing.myValidUsername, password: "1234")
-//        let emailLogin = (email: Constants.Testing.myValidUsername, password: "")
+        let emailLogin = (email: emailString, password: passwordString)
+        loginValidator.login(withEmailAndPassword: emailLogin)
         
         initiateLogin(withEmailAndPassword: emailLogin)
     }
