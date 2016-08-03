@@ -36,7 +36,7 @@ final class StudentInformationProvider: StudentLocationRequestable {
     
     /// Set when getting student data from server
     internal func configure(withInformationReceivedCompletion receivedCompletion: (studentInfoArray: [StudentInformation]) -> Void, alertPresentationClosure alertPresentation: AlertPresentation) {
-
+        
         informationReceivedCompletion   = receivedCompletion
         presentErrorAlert               = alertPresentation
         
@@ -50,8 +50,8 @@ final class StudentInformationProvider: StudentLocationRequestable {
         /// StudentLocationRequestable
         let request = createStudentLocationRequest()
         
-        let requestCompletion = { /*[weak self]*/ (jsonDictionary: NSDictionary) in
-            self.parseStudentInformation(jsonDictionary)
+        let requestCompletion = { [weak self] (jsonDictionary: NSDictionary) in
+            self!.parseStudentInformation(jsonDictionary)
         }
         
         networkRequestService.configure(withRequestCompletion: requestCompletion, requestFailedClosure: presentErrorAlert)
@@ -61,7 +61,7 @@ final class StudentInformationProvider: StudentLocationRequestable {
     //MARK: - Parse results
     
     private func parseStudentInformation(jsonDictionary: NSDictionary) {
-        magic(jsonDictionary)
+//        magic(jsonDictionary)
         guard let studentInformationJSON = jsonDictionary[Constants.Keys.results] as? [NSDictionary] else {
             presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.studentLocationsError, message: jsonDictionary[Constants.Keys.error] as! String))
             

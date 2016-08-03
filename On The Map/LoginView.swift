@@ -45,6 +45,7 @@ class LoginView: UIView {
     @IBOutlet weak var loginLabelTopConstraint: NSLayoutConstraint!
     
     let facebookLoginButton = FBSDKLoginButton()
+    
     //MARK: - Actions
     
     @IBAction func loginAction(sender: AnyObject) {

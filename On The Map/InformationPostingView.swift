@@ -180,10 +180,10 @@ class InformationPostingView: UIView, StudentLocationRequestable {
             return
         }
         
-        let informationPostedCompletion = {
+        let informationPostedCompletion = { [weak self] in
             magic("Clean up in InformationPostingView")
 //            self.informationPostingService = nil
-            self.submitSuccessfulClosure()
+            self!.submitSuccessfulClosure()
         }
         
         if previouslyEnteredLocationObjectId != nil {

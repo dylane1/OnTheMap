@@ -43,7 +43,7 @@ final class UserSessionLogoutController {
     }
     
     private func udacityLogout() {
-        let aiPresented = { /*[weak self]*/
+        let aiPresented = { [weak self] in
             let request = NSMutableURLRequest(URL: NSURL(string: Constants.Network.udacitySessionURL)!)
             
             request.HTTPMethod = Constants.HTTPMethods.delete
@@ -60,12 +60,12 @@ final class UserSessionLogoutController {
                 request.setValue(xsrfCookie.value, forHTTPHeaderField: "X-XSRF-TOKEN")
             }
             
-            let requestCompletion = { /*[weak self]*/ (jsonDictionary: NSDictionary) in
-                self.parseLogoutJSON(jsonDictionary)
+            let requestCompletion = { [weak self] (jsonDictionary: NSDictionary) in
+                self!.parseLogoutJSON(jsonDictionary)
             }
             
             let networkRequestService = NetworkRequestService()
-            networkRequestService.configure(withRequestCompletion: requestCompletion, requestFailedClosure: self.presentErrorAlert)
+            networkRequestService.configure(withRequestCompletion: requestCompletion, requestFailedClosure: self!.presentErrorAlert)
             networkRequestService.requestJSONDictionary(withURLRequest: request, isUdacityLoginLogout: true)
         }
         presentActivityIndicator(completion: aiPresented)

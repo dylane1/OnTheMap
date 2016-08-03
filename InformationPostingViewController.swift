@@ -14,7 +14,8 @@ class InformationPostingViewController: UIViewController, InformationPostingNavi
     
     /// ActivityIndicatorPresentable
     internal var activityIndicatorViewController: ActivityIndicatorViewController?
-    private var overlayTransitioningDelegate: OverlayTransitioningDelegate?
+    internal var overlayTransitioningDelegate: OverlayTransitioningDelegate?
+    internal var activityIndicatorIsPresented = false
     
 //    deinit { magic("\(self.description) is being deinitialized   <----------------") }
     
@@ -28,29 +29,28 @@ class InformationPostingViewController: UIViewController, InformationPostingNavi
         let navController = navigationController! as! InformationPostingNavigationController
         navController.setNavigationBarAttributes(isAppTitle: false)
         
-        let presentActivityIndicator = { (completion: (() -> Void)?) in
-            self.overlayTransitioningDelegate = OverlayTransitioningDelegate()
-            self.presentActivityIndicator(
-                self.getActivityIndicatorViewController(),
-                transitioningDelegate: self.overlayTransitioningDelegate!,
+        let presentActivityIndicator = { [weak self] (completion: (() -> Void)?) in
+            self!.activityIndicatorViewController = self!.getActivityIndicatorViewController()
+            self!.overlayTransitioningDelegate    = OverlayTransitioningDelegate()
+            self!.presentActivityIndicator(
+                self!.activityIndicatorViewController!,
+                transitioningDelegate: self!.overlayTransitioningDelegate!,
                 completion: completion)
         }
         
-        let dismissActivityIndicator = {
-            self.dismissActivityIndicator(completion: {
-                self.overlayTransitioningDelegate = nil
-            })
+        let dismissActivityIndicator = { [weak self] in
+            self!.dismissActivityIndicator(completion: nil)
         }
         
         let presentErrorAlert = getAlertPresentation()
         
-        let submitSuccessfulClosure = {
-            let dismissalCompletion = {
+        let submitSuccessfulClosure = { [weak self] in
+            let dismissalCompletion = { [weak self] in
                 
                 /// Dismiss Me
-                self.dismissViewControllerAnimated(true, completion: nil)
+                self!.dismissViewControllerAnimated(true, completion: nil)
             }
-            self.dismissActivityIndicator(completion: dismissalCompletion)
+            self!.dismissActivityIndicator(completion: dismissalCompletion)
         }
         
         postingView = view as! InformationPostingView

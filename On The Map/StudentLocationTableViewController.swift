@@ -22,9 +22,10 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
     
     /// ActivityIndicatorPresentable
     internal var activityIndicatorViewController: ActivityIndicatorViewController?
-    private var overlayTransitioningDelegate: OverlayTransitioningDelegate?
+    internal var overlayTransitioningDelegate: OverlayTransitioningDelegate?
+    internal var activityIndicatorIsPresented = false
     
-    private var sessionLogoutController: UserSessionLogoutController?
+    private var sessionLogoutController: UserSessionLogoutController!
     
 //    deinit { magic("\(self.description) is being deinitialized   <----------------") }
     
@@ -43,26 +44,27 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
         tableView.delegate = self
         tableView.backgroundColor = Theme.tableViewBGColor
         
-        let refreshClosure = {
-            self.getStudentInfoArray()
+        let refreshClosure = { [weak self] in
+            self!.getStudentInfoArray()
         }
         
-        let presentActivityIndicator = { (completion: (() -> Void)?) in
-            self.overlayTransitioningDelegate = OverlayTransitioningDelegate()
-            self.presentActivityIndicator(
-                self.getActivityIndicatorViewController(),
-                transitioningDelegate: self.overlayTransitioningDelegate!,
+        let presentActivityIndicator = { [weak self] (completion: (() -> Void)?) in
+            self!.activityIndicatorViewController = self!.getActivityIndicatorViewController()
+            self!.overlayTransitioningDelegate    = OverlayTransitioningDelegate()
+            self!.presentActivityIndicator(
+                self!.activityIndicatorViewController!,
+                transitioningDelegate: self!.overlayTransitioningDelegate!,
                 completion: completion)
         }
         
         let presentErrorAlert = getAlertPresentation()
         
-        let logoutSuccessClosure = {
-            self.dismissActivityIndicator(completion: {
-                self.dismissViewControllerAnimated(true, completion: {
-                    self.sessionLogoutController        = nil
-                    self.overlayTransitioningDelegate   = nil
-                    self.studentInformationArray        = nil
+        let logoutSuccessClosure = { [weak self] in
+            self!.dismissActivityIndicator(completion: {
+                self!.dismissViewControllerAnimated(true, completion: {
+                    self!.sessionLogoutController        = nil
+                    self!.overlayTransitioningDelegate   = nil
+                    self!.studentInformationArray        = nil
                 })
             })
         }
@@ -77,7 +79,7 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
         /// MapAndTableNavigationProtocol
         configureNavigationItems(
             withRefreshClosure: refreshClosure,
-            sessionLogoutController: sessionLogoutController!)
+            sessionLogoutController: sessionLogoutController)
         
         presentMapViewController = { [weak self] (locationName: String, latitude: Double, longitude: Double) in
             
@@ -111,9 +113,9 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
         let height = width
         let mapVCPreferredContentSize = CGSizeMake(width, height)
         
-        let dismissalCompletion = {
-            self.mapOverlayTransitioningDelegate    = nil
-            self.mapViewController                  = nil
+        let dismissalCompletion = { [weak self] in
+            self!.mapOverlayTransitioningDelegate    = nil
+            self!.mapViewController                  = nil
         }
         
         mapOverlayTransitioningDelegate = OverlayTransitioningDelegate()

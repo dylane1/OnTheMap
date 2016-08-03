@@ -17,9 +17,10 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
     
     /// ActivityIndicatorPresentable
     internal var activityIndicatorViewController: ActivityIndicatorViewController?
-    private var overlayTransitioningDelegate: OverlayTransitioningDelegate?
+    internal var overlayTransitioningDelegate: OverlayTransitioningDelegate?
+    internal var activityIndicatorIsPresented = false
     
-    private var sessionLogoutController: UserSessionLogoutController?
+    private var sessionLogoutController: UserSessionLogoutController!
     
 //    deinit { magic("\(self.description) is being deinitialized   <----------------") }
     
@@ -31,30 +32,29 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
         mapContainterView = view as? StudentLocationMapContainerView
         
         configureNavigationController()
-
-        let refreshClosure = { /*[weak self]*/
-            self.getStudentInfoArray()
+        
+        let refreshClosure = { [weak self] in
+            self!.getStudentInfoArray()
         }
         
-        let presentActivityIndicator = { (completion: (() -> Void)?) in
-            self.overlayTransitioningDelegate = OverlayTransitioningDelegate()
-            self.presentActivityIndicator(
-                self.getActivityIndicatorViewController(),
-                transitioningDelegate: self.overlayTransitioningDelegate!,
+        let presentActivityIndicator = { [weak self] (completion: (() -> Void)?) in
+            self!.activityIndicatorViewController = self!.getActivityIndicatorViewController()
+            self!.overlayTransitioningDelegate    = OverlayTransitioningDelegate()
+            self!.presentActivityIndicator(
+                self!.activityIndicatorViewController!,
+                transitioningDelegate: self!.overlayTransitioningDelegate!,
                 completion: completion)
         }
         
         let presentErrorAlert = getAlertPresentation()
         
-        let logoutSuccessClosure = {
-            self.dismissActivityIndicator(completion: {
-                self.dismissViewControllerAnimated(true, completion: {
-                    magic("")
-                    self.overlayTransitioningDelegate = nil
+        let logoutSuccessClosure = { [weak self] in
+            self!.dismissActivityIndicator(completion: {
+                self!.dismissViewControllerAnimated(true, completion: {
 
-                    /// Prevent memory leak
-                    self.mapContainterView          = nil
-                    self.sessionLogoutController    = nil
+//                    /// Prevent memory leak
+                    self!.mapContainterView          = nil
+//                    self.sessionLogoutController    = nil
                 })
             })
         }
@@ -69,7 +69,7 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
         /// MapAndTableNavigationProtocol
         configureNavigationItems(
             withRefreshClosure: refreshClosure,
-            sessionLogoutController: sessionLogoutController!)
+            sessionLogoutController: sessionLogoutController)
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -82,6 +82,7 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
         super.viewDidDisappear(animated)
         
         mapContainterView!.clearAnnotations()
+//        mapContainterView = nil
     }
     
     //MARK: - Configuration

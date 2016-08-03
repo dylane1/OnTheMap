@@ -68,18 +68,18 @@ final class OverlayPresentationController: UIPresentationController {
         presentedViewController.preferredContentSize = contentSize
         containerView!.insertSubview(dimmingView, atIndex: 0)
         
-        presentedViewController.transitionCoordinator()?.animateAlongsideTransition( { /*[weak self]*/ context in
-            self.dimmingView.alpha = 0.5
+        presentedViewController.transitionCoordinator()?.animateAlongsideTransition( { [weak self] context in
+            self!.dimmingView.alpha = 0.5
         }, completion: nil)
         
     }
     
     override func dismissalTransitionWillBegin() {
-        presentedViewController.transitionCoordinator()?.animateAlongsideTransition({ /*[weak self]*/ context in
-            self.dimmingView.alpha = 0.0
-        }, completion: { /*[weak self]*/ context in
-            self.dimmingView.removeFromSuperview()
-            self.dismissalCompletion?()
+        presentedViewController.transitionCoordinator()?.animateAlongsideTransition({ [weak self] context in
+            self!.dimmingView.alpha = 0.0
+        }, completion: { [weak self] context in
+            self!.dimmingView.removeFromSuperview()
+            self!.dismissalCompletion?()
         })
     }
     

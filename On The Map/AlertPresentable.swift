@@ -8,26 +8,28 @@
 
 import UIKit
 
-protocol AlertPresentable { }
+
+protocol AlertPresentable/*: class*/ {}
 
 extension AlertPresentable where Self: UIViewController, Self: ActivityIndicatorPresentable {
     /**
      Not sure how I feel about Self being forced to conform to ActivityIndicatorPresentable...
      
      However, if there is an activity indicator present, it must be dismissed
-     before the alert can be presented. Maybe if I pass the ai reference into 
-     the function:
-     
-     let presentErrorAlert = { /*[weak self]*/ (aiToDismiss: PrimaryActivityIndicatorController, parameters: AlertParameters) in .... }
+     before the alert can be presented.
      */
+    
     internal func getAlertPresentation() -> ((AlertParameters) -> Void){
         
-        let presentErrorAlert = { /*[weak self]*/ (parameters: AlertParameters) in
-            
-            let dismissalCompletion = { /*[weak self]*/
-                self.presentAlertWithParameters(parameters)
+        let presentErrorAlert = { [weak self] (parameters: AlertParameters) in
+            if self!.activityIndicatorIsPresented {
+                let dismissalCompletion = { [weak self] in
+                    self!.presentAlertWithParameters(parameters)
+                }
+                self!.dismissActivityIndicator(completion: dismissalCompletion)
+            } else {
+                self!.presentAlertWithParameters(parameters)
             }
-            self.dismissActivityIndicator(completion: dismissalCompletion)
         }
         return presentErrorAlert
     }
@@ -40,6 +42,6 @@ extension AlertPresentable where Self: UIViewController, Self: ActivityIndicator
         
         alert.addAction(UIAlertAction(title: LocalizedStrings.AlertButtonTitles.ok, style: .Default, handler: nil))
         
-        self.presentViewController(alert, animated: true, completion: nil)
+        presentViewController(alert, animated: true, completion: nil)
     }
 }

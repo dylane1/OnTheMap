@@ -8,17 +8,18 @@
 
 import UIKit
 
-protocol ActivityIndicatorPresentable {
+protocol ActivityIndicatorPresentable: class {
     var activityIndicatorViewController: ActivityIndicatorViewController? { get set }
+    var overlayTransitioningDelegate: OverlayTransitioningDelegate? { get set }
+    var activityIndicatorIsPresented: Bool { get set }
 }
 
 extension ActivityIndicatorPresentable where Self: UIViewController {
     
     internal func getActivityIndicatorViewController() -> ActivityIndicatorViewController {
         
-        let activityIndicatorViewController = UIStoryboard(name: Constants.StoryBoardID.main, bundle: nil).instantiateViewControllerWithIdentifier(Constants.StoryBoardID.activityIndicatorVC) as! ActivityIndicatorViewController
-        
-        return activityIndicatorViewController
+        let activityIndicatorVC = UIStoryboard(name: Constants.StoryBoardID.main, bundle: nil).instantiateViewControllerWithIdentifier(Constants.StoryBoardID.activityIndicatorVC) as! ActivityIndicatorViewController
+        return activityIndicatorVC
     }
     
     internal func presentActivityIndicator(activityIndicator: ActivityIndicatorViewController, transitioningDelegate delegate: OverlayTransitioningDelegate, completion: (() -> Void)?) {
@@ -39,10 +40,18 @@ extension ActivityIndicatorPresentable where Self: UIViewController {
                 .ScaleOut: true,
                 .DimmingBGColor: Theme.presentationDimBGColor
             ])
+        
+        activityIndicatorIsPresented = true
         presentViewController(activityIndicator, animated: true, completion: completion)
     }
     
     internal func dismissActivityIndicator(completion completion: (() -> Void)?) {
-        dismissViewControllerAnimated(true, completion: completion)
+        //TODO: Test timing -- am I setting activityIndicatorIsPresented too early?
+        activityIndicatorIsPresented = false
+        dismissViewControllerAnimated(true, completion: {
+            self.activityIndicatorViewController = nil
+            self.overlayTransitioningDelegate = nil
+            completion?()
+        })
     }
 }

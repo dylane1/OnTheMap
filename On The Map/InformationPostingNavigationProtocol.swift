@@ -16,8 +16,8 @@ extension InformationPostingNavigationProtocol where Self: UIViewController {
     }
     
     internal func configureNavigationItems() {
-        let cancelButtonClosure = { /*[weak self]*/
-            self.dismissViewControllerAnimated(true, completion: nil)
+        let cancelButtonClosure = { [weak self] in
+            self!.dismissViewControllerAnimated(true, completion: nil)
         }
         informationPostingNavigationController.configure(withCancelClosure: cancelButtonClosure)
     }
