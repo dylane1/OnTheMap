@@ -1,0 +1,3 @@
+[submodule "On The Map/Magic"]
+	path = On The Map/Magic
+	url = git@github.com:dylane1/Magic.git
