@@ -69,8 +69,8 @@ final class LoginValidator {
         
         let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/users/\(acctDict[Constants.Keys.key] as! String)")!)
         
-        let requestCompletion = { [unowned self] (jsonDictionary: NSDictionary) in
-            self.parsePublicUserDataJSON(jsonDictionary, userKey: acctDict[Constants.Keys.key] as! String)
+        let requestCompletion = { [weak self] (jsonDictionary: NSDictionary) in
+            self!.parsePublicUserDataJSON(jsonDictionary, userKey: acctDict[Constants.Keys.key] as! String)
         }
         
         networkRequestService.configure(withRequestCompletion: requestCompletion, requestFailedClosure: presentErrorAlert)

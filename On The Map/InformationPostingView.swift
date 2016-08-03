@@ -181,8 +181,6 @@ class InformationPostingView: UIView, StudentLocationRequestable {
         }
         
         let informationPostedCompletion = { [weak self] in
-            magic("Clean up in InformationPostingView")
-//            self.informationPostingService = nil
             self!.submitSuccessfulClosure()
         }
         
@@ -192,7 +190,6 @@ class InformationPostingView: UIView, StudentLocationRequestable {
             informationPostingService.postStudentLocation(withParameters: (mapString: mapString, mediaURL: mediaURL, placemark: placemarks![0]), completion: informationPostedCompletion)
         }
     }
-
     
     //MARK: - Map
     

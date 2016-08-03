@@ -10,7 +10,7 @@ import UIKit
 
 class ActivityIndicatorViewController: UIViewController /*, SegueHandlerType*/{
     
-    deinit { magic("being deinitialized   <----------------") }
+//    deinit { magic("\(self.description) is being deinitialized   <----------------") }
     
     @IBOutlet weak var popupView: ActivityIndicatorView!
     
