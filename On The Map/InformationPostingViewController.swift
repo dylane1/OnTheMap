@@ -29,9 +29,10 @@ class InformationPostingViewController: UIViewController, InformationPostingNavi
         let navController = navigationController! as! InformationPostingNavigationController
         navController.setNavigationBarAttributes(isAppTitle: false)
         
+        overlayTransitioningDelegate = OverlayTransitioningDelegate()
+        
         let presentActivityIndicator = { [weak self] (completion: (() -> Void)?) in
             self!.activityIndicatorViewController = self!.getActivityIndicatorViewController()
-            self!.overlayTransitioningDelegate    = OverlayTransitioningDelegate()
             self!.presentActivityIndicator(
                 self!.activityIndicatorViewController!,
                 transitioningDelegate: self!.overlayTransitioningDelegate!,
@@ -46,6 +47,9 @@ class InformationPostingViewController: UIViewController, InformationPostingNavi
         
         let submitSuccessfulClosure = { [weak self] in
             let dismissalCompletion = { [weak self] in
+                
+                /// Fix memory leak...
+                self!.overlayTransitioningDelegate = nil
                 
                 /// Dismiss Me
                 self!.dismissViewControllerAnimated(true, completion: nil)
