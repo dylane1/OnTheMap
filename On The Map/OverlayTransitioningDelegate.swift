@@ -29,7 +29,7 @@ enum TransitionOption {
 
 final class OverlayTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
     
-//    deinit { magic("\(self.description) is being deinitialized   <----------------") }
+    deinit { magic("\(self.description) is being deinitialized   <----------------") }
     
     private var options: [TransitionOption : Any]?
     
