@@ -20,6 +20,8 @@
 		A326978E1D303FC600597140 /* InformationPostingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A326978D1D303FC600597140 /* InformationPostingService.swift */; };
 		A32697911D319E6C00597140 /* ColorSchemes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32697901D319E6C00597140 /* ColorSchemes.swift */; };
 		A32697941D32E0DE00597140 /* IconProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32697931D32E0DE00597140 /* IconProvider.swift */; };
+		A331B8C41D53D454009D5BE3 /* InformationPostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A331B8C31D53D454009D5BE3 /* InformationPostingViewController.swift */; };
+		A331B8C61D53D46F009D5BE3 /* InformationPostingPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A331B8C51D53D46F009D5BE3 /* InformationPostingPresentable.swift */; };
 		A33FEF281D4042BF005A5246 /* CircleMaskLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33FEF271D4042BF005A5246 /* CircleMaskLayer.swift */; };
 		A33FEF2A1D41A24F005A5246 /* SpiralAnimationPathLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33FEF291D41A24F005A5246 /* SpiralAnimationPathLayer.swift */; };
 		A33FEF2C1D41AB47005A5246 /* StarAnimationHolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33FEF2B1D41AB47005A5246 /* StarAnimationHolderView.swift */; };
@@ -35,8 +37,6 @@
 		A3662F671D46B36E00818019 /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3662F661D46B36D00818019 /* ActivityIndicatorView.swift */; };
 		A3816D1F1D08DA6A001B55A0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3816D1E1D08DA6A001B55A0 /* MapKit.framework */; };
 		A3816D241D08E866001B55A0 /* MapAndTableNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3816D231D08E866001B55A0 /* MapAndTableNavigationController.swift */; };
-		A3816D261D09DA70001B55A0 /* InformationPostingPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3816D251D09DA70001B55A0 /* InformationPostingPresentable.swift */; };
-		A3816D281D09DB9B001B55A0 /* InformationPostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3816D271D09DB9B001B55A0 /* InformationPostingViewController.swift */; };
 		A3816D2B1D09DE14001B55A0 /* InformationPostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3816D2A1D09DE14001B55A0 /* InformationPostingView.swift */; };
 		A3816D2D1D09E46B001B55A0 /* MapAndTableNavigationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3816D2C1D09E46B001B55A0 /* MapAndTableNavigationProtocol.swift */; };
 		A3816D2F1D0A0F36001B55A0 /* InformationPostingNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3816D2E1D0A0F36001B55A0 /* InformationPostingNavigationController.swift */; };
@@ -100,6 +100,8 @@
 		A326978D1D303FC600597140 /* InformationPostingService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationPostingService.swift; sourceTree = "<group>"; };
 		A32697901D319E6C00597140 /* ColorSchemes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorSchemes.swift; sourceTree = "<group>"; };
 		A32697931D32E0DE00597140 /* IconProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconProvider.swift; sourceTree = "<group>"; };
+		A331B8C31D53D454009D5BE3 /* InformationPostingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationPostingViewController.swift; sourceTree = "<group>"; };
+		A331B8C51D53D46F009D5BE3 /* InformationPostingPresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationPostingPresentable.swift; sourceTree = "<group>"; };
 		A33FEF271D4042BF005A5246 /* CircleMaskLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleMaskLayer.swift; sourceTree = "<group>"; };
 		A33FEF291D41A24F005A5246 /* SpiralAnimationPathLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpiralAnimationPathLayer.swift; sourceTree = "<group>"; };
 		A33FEF2B1D41AB47005A5246 /* StarAnimationHolderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarAnimationHolderView.swift; sourceTree = "<group>"; };
@@ -115,8 +117,6 @@
 		A3662F661D46B36D00818019 /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
 		A3816D1E1D08DA6A001B55A0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		A3816D231D08E866001B55A0 /* MapAndTableNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapAndTableNavigationController.swift; sourceTree = "<group>"; };
-		A3816D251D09DA70001B55A0 /* InformationPostingPresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InformationPostingPresentable.swift; path = ../InformationPostingPresentable.swift; sourceTree = "<group>"; };
-		A3816D271D09DB9B001B55A0 /* InformationPostingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InformationPostingViewController.swift; path = ../InformationPostingViewController.swift; sourceTree = "<group>"; };
 		A3816D2A1D09DE14001B55A0 /* InformationPostingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = InformationPostingView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		A3816D2C1D09E46B001B55A0 /* MapAndTableNavigationProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapAndTableNavigationProtocol.swift; sourceTree = "<group>"; };
 		A3816D2E1D0A0F36001B55A0 /* InformationPostingNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationPostingNavigationController.swift; sourceTree = "<group>"; };
@@ -228,7 +228,7 @@
 			isa = PBXGroup;
 			children = (
 				A3816D2E1D0A0F36001B55A0 /* InformationPostingNavigationController.swift */,
-				A3816D271D09DB9B001B55A0 /* InformationPostingViewController.swift */,
+				A331B8C31D53D454009D5BE3 /* InformationPostingViewController.swift */,
 				A3816D2A1D09DE14001B55A0 /* InformationPostingView.swift */,
 				A326978D1D303FC600597140 /* InformationPostingService.swift */,
 			);
@@ -244,8 +244,8 @@
 				A31EA4951D136F70005CC5B9 /* SafariViewControllerPresentable.swift */,
 				A31EA4841D11CEBF005CC5B9 /* StudentInformationGettable.swift */,
 				A3816D2C1D09E46B001B55A0 /* MapAndTableNavigationProtocol.swift */,
+				A331B8C51D53D46F009D5BE3 /* InformationPostingPresentable.swift */,
 				A3816D301D0A2474001B55A0 /* InformationPostingNavigationProtocol.swift */,
-				A3816D251D09DA70001B55A0 /* InformationPostingPresentable.swift */,
 				A38AB6DD1D187A4E00820AA9 /* ReusableView.swift */,
 				A349C2541D2D63D2008E678D /* SegueHandlerType.swift */,
 			);
@@ -496,6 +496,7 @@
 				A3BCA31B1D34663E00B02C9A /* TransitionOutAnimator.swift in Sources */,
 				A3816D2B1D09DE14001B55A0 /* InformationPostingView.swift in Sources */,
 				A3499F0F1D1E0CBD00C961D3 /* AlertPresentable.swift in Sources */,
+				A331B8C41D53D454009D5BE3 /* InformationPostingViewController.swift in Sources */,
 				A31EA4851D11CEBF005CC5B9 /* StudentInformationGettable.swift in Sources */,
 				A3E8C8CE1CED0EC00040770A /* TabBarController.swift in Sources */,
 				A3E8C8CA1CED0CC70040770A /* Typealiases.swift in Sources */,
@@ -507,7 +508,6 @@
 				A32697911D319E6C00597140 /* ColorSchemes.swift in Sources */,
 				A34A2B671D2C1CF8007E2A0E /* UserSessionLogoutController.swift in Sources */,
 				A3D909EC1D245467006315E5 /* Reachability.swift in Sources */,
-				A3816D261D09DA70001B55A0 /* InformationPostingPresentable.swift in Sources */,
 				A3662F651D46947800818019 /* StarLayer.swift in Sources */,
 				A3FC79471D3FECA3005B486A /* Title736h.swift in Sources */,
 				A3E8C8D01CED0EE40040770A /* NavigationController.swift in Sources */,
@@ -515,9 +515,9 @@
 				A3BCA31F1D35ED1E00B02C9A /* DisclosureIndicatorDrawable.swift in Sources */,
 				A3E8C8D81CEF830D0040770A /* LoginView.swift in Sources */,
 				A3BCA3091D34092E00B02C9A /* MapIconDrawable.swift in Sources */,
+				A331B8C61D53D46F009D5BE3 /* InformationPostingPresentable.swift in Sources */,
 				A3BCA30E1D34102800B02C9A /* ListIconDrawable.swift in Sources */,
 				A39CF59E1CCAB1390060C890 /* AppDelegate.swift in Sources */,
-				A3816D281D09DB9B001B55A0 /* InformationPostingViewController.swift in Sources */,
 				A3816D311D0A2474001B55A0 /* InformationPostingNavigationProtocol.swift in Sources */,
 				A3BCA30C1D340F4600B02C9A /* PinIconDrawable.swift in Sources */,
 				A33FEF2A1D41A24F005A5246 /* SpiralAnimationPathLayer.swift in Sources */,
