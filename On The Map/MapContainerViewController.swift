@@ -75,6 +75,5 @@ extension MapContainerViewController {
          
          Could it be a memory and/or cache issue???
         */
-        magic("fullyRendered: \(fullyRendered)")
     }
 }

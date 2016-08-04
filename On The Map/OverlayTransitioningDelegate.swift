@@ -29,12 +29,6 @@ enum TransitionOption {
 
 final class OverlayTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
     
-    deinit { magic("\(self.description) is being deinitialized   <----------------") }
-    override init() {
-        super.init()
-        magic("---------------->  \(self.description) is being initialized")
-    }
-    
     private var options: [TransitionOption : Any]?
     
     /** OverlayPresentationController **/
