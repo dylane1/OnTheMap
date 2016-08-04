@@ -38,8 +38,6 @@ final class TransitionOutAnimator : NSObject, UIViewControllerAnimatedTransition
         fadeOutAlpha    = alpha
     }
     
-//    deinit { magic("\(self.description) is being deinitialized   <----------------") }
-    
     //MARK: - 
     
     func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {

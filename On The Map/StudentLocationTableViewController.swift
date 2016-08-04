@@ -27,8 +27,6 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
     
     private var sessionLogoutController: UserSessionLogoutController!
     
-//    deinit { magic("\(self.description) is being deinitialized   <----------------") }
-    
     //MARK: - View Lifecycle
     
     override func viewDidLoad() {

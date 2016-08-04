@@ -13,8 +13,6 @@ class ActivityIndicatorView: UIView {
     let ovalShapeLayer0 = CAShapeLayer()
     let ovalShapeLayer1 = CAShapeLayer()
     
-//    deinit { magic("\(self.description) is being deinitialized   <----------------") }
-    
     //MARK: - View Lifecycle
     
     override func didMoveToWindow() {

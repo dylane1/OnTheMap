@@ -22,10 +22,7 @@ final class OverlayPresentationController: UIPresentationController {
     
     private override init( presentedViewController: UIViewController, presentingViewController: UIViewController) {
         super.init(presentedViewController: presentedViewController, presentingViewController: presentingViewController)
-        
-//        println(" ----------------------------> \(self.description) is initialized init(coder)")
     }
-//    deinit { magic("\(self.description) is being deinitialized   <----------------") }
     
     required convenience init(
         presentedViewController: UIViewController,

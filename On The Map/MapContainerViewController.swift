@@ -28,8 +28,6 @@ class MapContainerViewController: UIViewController, MKMapViewDelegate {
         configureLabelWithString(locationName)
         showLocationOnMap(withLatitude: latitude, longitude: longitude)
     }
-
-//    deinit { magic("\(self.description) is being deinitialized   <----------------") }
     
     //MARK: - Configuration
     
