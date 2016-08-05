@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class StudentLocationMapContainerViewController: UIViewController, MapAndTableNavigationProtocol, StudentInformationGettable, InformationPostingPresentable, SafariViewControllerPresentable, AlertPresentable, ActivityIndicatorPresentable {
+final class StudentLocationMapContainerViewController: UIViewController, MapAndTableViewControllerProtocol, MapAndTableNavigationProtocol, StudentInformationGettable, InformationPostingPresentable, SafariViewControllerPresentable, AlertPresentable, ActivityIndicatorPresentable {
     
     private var mapContainterView: StudentLocationMapContainerView?
     
@@ -20,7 +20,10 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
     internal var overlayTransitioningDelegate: OverlayTransitioningDelegate?
     internal var activityIndicatorIsPresented = false
     
-    private var sessionLogoutController: UserSessionLogoutController!
+    /// MapAndTableViewControllerProtocol
+    internal var presentActivityIndicator: (((() -> Void)?) -> Void)!
+    internal var logoutSuccessClosure: (() -> Void)!
+    internal var sessionLogoutController: UserSessionLogoutController!
     
     //MARK: - View Lifecycle
     
@@ -35,33 +38,15 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
             self!.getStudentInfo()
         }
         
-        let presentActivityIndicator = { [weak self] (completion: (() -> Void)?) in
-            self!.activityIndicatorViewController = self!.getActivityIndicatorViewController()
-            self!.overlayTransitioningDelegate    = OverlayTransitioningDelegate()
-            self!.presentActivityIndicator(
-                self!.activityIndicatorViewController!,
-                transitioningDelegate: self!.overlayTransitioningDelegate!,
-                completion: completion)
+        presentActivityIndicator = getActivityIndicatorPresentationClosure()
+        
+        let logoutSuccess = { [weak self] in
+            self!.mapContainterView = nil
         }
         
-        let presentErrorAlert = getAlertPresentation()
+        logoutSuccessClosure = getLogoutSuccessClosure(withCompletion: logoutSuccess)
         
-        let logoutSuccessClosure = { [weak self] in
-            self!.dismissActivityIndicator(completion: {
-                self!.dismissViewControllerAnimated(true, completion: {
-
-                    /// Prevent memory leak
-                    self!.mapContainterView          = nil
-                })
-            })
-        }
-        
-        sessionLogoutController = UserSessionLogoutController()
-        
-        sessionLogoutController!.configure(
-            withActivityIndicatorPresentation: presentActivityIndicator,
-            logoutSuccessClosure: logoutSuccessClosure,
-            alertPresentationClosure: presentErrorAlert)
+        configureSessionLogout()
         
         /// MapAndTableNavigationProtocol
         configureNavigationItems(

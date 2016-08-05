@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class StudentLocationTableViewController: UITableViewController, MapAndTableNavigationProtocol, StudentInformationGettable, InformationPostingPresentable, SafariViewControllerPresentable, AlertPresentable, ActivityIndicatorPresentable {
+final class StudentLocationTableViewController: UITableViewController, MapAndTableViewControllerProtocol, MapAndTableNavigationProtocol, StudentInformationGettable, InformationPostingPresentable, SafariViewControllerPresentable, AlertPresentable, ActivityIndicatorPresentable {
     
     private lazy var studentInfoProvider = StudentInformationProvider.sharedInstance
     
@@ -25,7 +25,10 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
     internal var overlayTransitioningDelegate: OverlayTransitioningDelegate?
     internal var activityIndicatorIsPresented = false
     
-    private var sessionLogoutController: UserSessionLogoutController!
+    /// MapAndTableViewControllerProtocol
+    internal var presentActivityIndicator: (((() -> Void)?) -> Void)!
+    internal var logoutSuccessClosure: (() -> Void)!
+    internal var sessionLogoutController: UserSessionLogoutController!
     
     //MARK: - View Lifecycle
     
@@ -41,35 +44,11 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
             self!.getStudentInfo()
         }
         
-        //TODO: fix this...
-        /// Would be nice to move this into a protocol extension...
-        let presentActivityIndicator = { [weak self] (completion: (() -> Void)?) in
-            self!.activityIndicatorViewController = self!.getActivityIndicatorViewController()
-            self!.overlayTransitioningDelegate    = OverlayTransitioningDelegate()
-            self!.presentActivityIndicator(
-                self!.activityIndicatorViewController!,
-                transitioningDelegate: self!.overlayTransitioningDelegate!,
-                completion: completion)
-        }
+        presentActivityIndicator = getActivityIndicatorPresentationClosure()
         
-        let presentErrorAlert = getAlertPresentation()
+        logoutSuccessClosure = getLogoutSuccessClosure(withCompletion: nil)
         
-        let logoutSuccessClosure = { [weak self] in
-            self!.dismissActivityIndicator(completion: {
-                self!.dismissViewControllerAnimated(true, completion: {
-//                    self!.sessionLogoutController        = nil
-//                    self!.overlayTransitioningDelegate   = nil
-//                    self!.studentInformationArray        = nil
-                })
-            })
-        }
-        
-        sessionLogoutController = UserSessionLogoutController()
-        
-        sessionLogoutController!.configure(
-            withActivityIndicatorPresentation: presentActivityIndicator,
-            logoutSuccessClosure: logoutSuccessClosure,
-            alertPresentationClosure: presentErrorAlert)
+        configureSessionLogout()
         
         /// MapAndTableNavigationProtocol
         configureNavigationItems(
@@ -88,7 +67,7 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
     }
     
     //MARK: -
-    /// Why can't this be in a protocol extension?
+    
     private func getStudentInfo() {
         let completion = { [weak self] in
             self!.tableView.reloadData()
