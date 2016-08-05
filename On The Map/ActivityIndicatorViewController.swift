@@ -23,6 +23,4 @@ class ActivityIndicatorViewController: UIViewController /*, SegueHandlerType*/{
         popupView.layer.shadowOffset = CGSize(width: 5, height: 5)
         popupView.layer.masksToBounds = false
     }
-    
-    override func didReceiveMemoryWarning() { super.didReceiveMemoryWarning() }
 }
