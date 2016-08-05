@@ -10,7 +10,8 @@ import UIKit
 
 final class StudentLocationTableViewController: UITableViewController, MapAndTableNavigationProtocol, StudentInformationGettable, InformationPostingPresentable, SafariViewControllerPresentable, AlertPresentable, ActivityIndicatorPresentable {
     
-    private var studentInformationArray: [StudentInformation]?
+//    private var studentInformationArray: [StudentInformation]?
+    private lazy var studentInfoProvider = StudentInformationProvider.sharedInstance
     
     private var presentMapViewController: ((locationName: String, latitude: Double, longitude: Double) -> Void)!
     private var mapOverlayTransitioningDelegate: OverlayTransitioningDelegate?
@@ -43,9 +44,11 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
         tableView.backgroundColor = Theme.tableViewBGColor
         
         let refreshClosure = { [weak self] in
-            self!.getStudentInfoArray()
+            self!.getStudentInfo()
         }
         
+        //TODO: fix this... (same as map)
+        /// Would be nice to move this into a protocol extension...
         let presentActivityIndicator = { [weak self] (completion: (() -> Void)?) in
             self!.activityIndicatorViewController = self!.getActivityIndicatorViewController()
             self!.overlayTransitioningDelegate    = OverlayTransitioningDelegate()
@@ -62,7 +65,7 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
                 self!.dismissViewControllerAnimated(true, completion: {
                     self!.sessionLogoutController        = nil
                     self!.overlayTransitioningDelegate   = nil
-                    self!.studentInformationArray        = nil
+//                    self!.studentInformationArray        = nil
                 })
             })
         }
@@ -87,14 +90,14 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        getStudentInfoArray()
+        getStudentInfo()
     }
     
     //MARK: -
-    
-    private func getStudentInfoArray() {
-        let completion = { [weak self] (studentInfoArray: [StudentInformation]) in
-            self!.studentInformationArray = studentInfoArray
+    /// Why can't this be in a protocol extension?
+    private func getStudentInfo() {
+        let completion = { [weak self] in
+//            self!.studentInformationArray = studentInfoArray
             self!.tableView.reloadData()
         }
         
@@ -145,14 +148,14 @@ extension StudentLocationTableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (studentInformationArray == nil) ? 0 : studentInformationArray!.count
+        return (studentInfoProvider.studentInformationArray == nil) ? 0 : studentInfoProvider.studentInformationArray!.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> StudentLocationTableViewCell {
 
         let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as StudentLocationTableViewCell
 
-        let model = StudentLocationCellModel(studentInformation: studentInformationArray![indexPath.row])
+        let model = StudentLocationCellModel(studentInformation: studentInfoProvider.studentInformationArray![indexPath.row])
         
         cell.configure(withDataSource: model, presentMapViewController: presentMapViewController)
         
@@ -171,7 +174,7 @@ extension StudentLocationTableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         /// SafariViewControllerPresentable
-        openLinkInSafari(withURLString: studentInformationArray![indexPath.row].mediaURL)
+        openLinkInSafari(withURLString: studentInfoProvider.studentInformationArray![indexPath.row].mediaURL)
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

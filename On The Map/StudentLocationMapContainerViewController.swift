@@ -32,7 +32,8 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
         configureNavigationController()
         
         let refreshClosure = { [weak self] in
-            self!.getStudentInfoArray()
+            self!.getStudentInfo()
+//            self!.getStudentInfoArray()
         }
         
         let presentActivityIndicator = { [weak self] (completion: (() -> Void)?) in
@@ -73,7 +74,8 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        getStudentInfoArray()
+        getStudentInfo()
+//        getStudentInfoArray()
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -85,25 +87,43 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
     
     //MARK: - Configuration
     
-    private func configureViewWithStudentArray(array: [StudentInformation]) {
+    private func configureView() {
         
         let openLinkClosure = { [weak self] (urlString: String) in
             self!.openLink(withURLString: urlString)
         }
         
-        mapContainterView!.configure(withStudentInformationArray: array, openLinkClosure: openLinkClosure)
+        mapContainterView!.configure(withOpenLinkClosure: openLinkClosure)
     }
+    
+//    private func configureViewWithStudentArray(array: [StudentInformation]) {
+//        
+//        let openLinkClosure = { [weak self] (urlString: String) in
+//            self!.openLink(withURLString: urlString)
+//        }
+//        
+//        mapContainterView!.configure(withStudentInformationArray: array, openLinkClosure: openLinkClosure)
+//    }
     
     //MARK: - 
     
-    private func getStudentInfoArray() {
-        let completion = { [weak self] (studentInfoArray: [StudentInformation]) in
-            self!.configureViewWithStudentArray(studentInfoArray)
+    private func getStudentInfo() {
+        let completion = { [weak self] in
+            self!.configureView()
         }
         
         /// StudentInformationGettable
         performFetchWithCompletion(completion)
     }
+    
+//    private func getStudentInfoArray() {
+//        let completion = { [weak self] (studentInfoArray: [StudentInformation]) in
+//            self!.configureViewWithStudentArray(studentInfoArray)
+//        }
+//        
+//        /// StudentInformationGettable
+//        performFetchWithCompletion(completion)
+//    }
     
     private func openLink(withURLString link: String) {
         /// SafariViewControllerPresentable
