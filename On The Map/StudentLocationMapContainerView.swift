@@ -19,7 +19,7 @@ class StudentLocationMapContainerView: UIView {
     private var mapRendered = false
     
     private lazy var studentInfoProvider = StudentInformationProvider.sharedInstance
-//    private var studentInformationArray = [StudentInformation]()
+    
     private var annotations = [StudentLocationAnnotation]()
     
     private var openLinkClosure: OpenLinkClosure?
@@ -36,8 +36,6 @@ class StudentLocationMapContainerView: UIView {
     //MARK: - Configuration
     
     internal func configure(withOpenLinkClosure closure: OpenLinkClosure) {
-        
-//        studentInformationArray = array
         openLinkClosure         = closure
         
         /// clear for refresh
@@ -49,21 +47,6 @@ class StudentLocationMapContainerView: UIView {
             placeAnnotations()
         }
     }
-    
-//    internal func configure(withStudentInformationArray array: [StudentInformation], openLinkClosure closure: OpenLinkClosure) {
-//        
-//        studentInformationArray = array
-//        openLinkClosure         = closure
-//        
-//        /// clear for refresh
-//        clearAnnotations()
-//        
-//        animatedPinsIn = false
-//        
-//        if mapRendered {
-//            placeAnnotations(withStudentInformationArray: array)
-//        }
-//    }
     
     /**
      Show a map image on top of map view while it loads so the user doesn't

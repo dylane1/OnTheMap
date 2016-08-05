@@ -25,15 +25,4 @@ extension StudentInformationGettable where Self: UIViewController, Self: AlertPr
         }
         getStudentInformation(withCompletion: completion, alertPresentationClosure: fetchFailed)
     }
-    
-//    private func getStudentInformation(withCompletion completion: (studentInfoArray: [StudentInformation]) -> Void, alertPresentationClosure alertPresentation: AlertPresentation) {
-//        studentInformationProvider.configure(withInformationReceivedCompletion: completion, alertPresentationClosure: alertPresentation)
-//    }
-//    
-//    internal func performFetchWithCompletion(completion: (studentInfoArray: [StudentInformation]) -> Void) {
-//        let fetchFailed = { [weak self] (parameters: AlertParameters) in
-//            self!.presentAlertWithParameters(parameters)
-//        }
-//        getStudentInformation(withCompletion: completion, alertPresentationClosure: fetchFailed)
-//    }
 }

@@ -14,7 +14,7 @@ final class StudentInformationProvider: StudentLocationRequestable {
     private init() {}
     
     private var informationReceivedCompletion: (() -> Void)!
-//    private var informationReceivedCompletion: ((studentInfoArray: [StudentInformation]) -> Void)!
+    
     private var presentErrorAlert: AlertPresentation!
     
     internal var currentStudent: StudentInformation!
@@ -23,7 +23,6 @@ final class StudentInformationProvider: StudentLocationRequestable {
         didSet {
             if studentInformationArray == nil { return }
             informationReceivedCompletion()
-//            informationReceivedCompletion?(studentInfoArray: studentInformationArray!)
         }
     }
     
@@ -46,14 +45,6 @@ final class StudentInformationProvider: StudentLocationRequestable {
         requestStudentInformation()
     }
     
-//    internal func configure(withInformationReceivedCompletion receivedCompletion: (studentInfoArray: [StudentInformation]) -> Void, alertPresentationClosure alertPresentation: AlertPresentation) {
-//        
-//        informationReceivedCompletion   = receivedCompletion
-//        presentErrorAlert               = alertPresentation
-//        
-//        requestStudentInformation()
-//    }
-    
     //MARK: - Perform network requests
     
     private func requestStudentInformation() {
@@ -72,7 +63,7 @@ final class StudentInformationProvider: StudentLocationRequestable {
     //MARK: - Parse results
     
     private func parseStudentInformation(jsonDictionary: NSDictionary) {
-//        magic(jsonDictionary)
+        
         guard let studentInformationJSON = jsonDictionary[Constants.Keys.results] as? [NSDictionary] else {
             presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.studentLocationsError, message: jsonDictionary[Constants.Keys.error] as! String))
             

@@ -10,7 +10,6 @@ import UIKit
 
 final class StudentLocationTableViewController: UITableViewController, MapAndTableNavigationProtocol, StudentInformationGettable, InformationPostingPresentable, SafariViewControllerPresentable, AlertPresentable, ActivityIndicatorPresentable {
     
-//    private var studentInformationArray: [StudentInformation]?
     private lazy var studentInfoProvider = StudentInformationProvider.sharedInstance
     
     private var presentMapViewController: ((locationName: String, latitude: Double, longitude: Double) -> Void)!
@@ -34,11 +33,6 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
         super.viewDidLoad()
         
         configureNavigationController()
-        
-        navigationItem.title    = LocalizedStrings.ViewControllerTitles.onTheMap
-        
-        let navController = navigationController! as! MapAndTableNavigationController
-        navController.setNavigationBarAttributes(isAppTitle: true)
 
         tableView.delegate = self
         tableView.backgroundColor = Theme.tableViewBGColor
@@ -47,7 +41,7 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
             self!.getStudentInfo()
         }
         
-        //TODO: fix this... (same as map)
+        //TODO: fix this...
         /// Would be nice to move this into a protocol extension...
         let presentActivityIndicator = { [weak self] (completion: (() -> Void)?) in
             self!.activityIndicatorViewController = self!.getActivityIndicatorViewController()
@@ -63,8 +57,8 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
         let logoutSuccessClosure = { [weak self] in
             self!.dismissActivityIndicator(completion: {
                 self!.dismissViewControllerAnimated(true, completion: {
-                    self!.sessionLogoutController        = nil
-                    self!.overlayTransitioningDelegate   = nil
+//                    self!.sessionLogoutController        = nil
+//                    self!.overlayTransitioningDelegate   = nil
 //                    self!.studentInformationArray        = nil
                 })
             })
@@ -97,7 +91,6 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
     /// Why can't this be in a protocol extension?
     private func getStudentInfo() {
         let completion = { [weak self] in
-//            self!.studentInformationArray = studentInfoArray
             self!.tableView.reloadData()
         }
         
