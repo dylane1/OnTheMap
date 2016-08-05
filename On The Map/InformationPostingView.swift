@@ -80,7 +80,6 @@ class InformationPostingView: UIView, StudentLocationRequestable {
     override func didMoveToWindow() {
         mapView.delegate = self
     }
-//    deinit { magic("\(self.description) is being deinitialized   <----------------") }
     
     //MARK: - Configuration
     

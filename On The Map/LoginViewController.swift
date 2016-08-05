@@ -42,9 +42,11 @@ class LoginViewController: UIViewController, AlertPresentable, ActivityIndicator
     override func viewDidLoad() {
         super.viewDidLoad()
        
+        overlayTransitioningDelegate = OverlayTransitioningDelegate()
+        
         let presentActivityIndicator = { [unowned self] (completion: (() -> Void)?) in
             self.activityIndicatorViewController = self.getActivityIndicatorViewController()
-            self.overlayTransitioningDelegate    = OverlayTransitioningDelegate()
+            
             self.presentActivityIndicator(
                 self.activityIndicatorViewController!,
                 transitioningDelegate: self.overlayTransitioningDelegate!,

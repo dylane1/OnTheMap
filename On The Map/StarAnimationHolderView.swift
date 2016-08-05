@@ -11,7 +11,7 @@ import UIKit
 class StarAnimationHolderView: UIView {
 
     private var starLayer = StarLayer()
-    private var animationPath: SpiralAnimationPathLayer! //(withFrame: self.frame)
+    private var animationPath: SpiralAnimationPathLayer!
     
     private var duration: CFTimeInterval!
     

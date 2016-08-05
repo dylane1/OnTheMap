@@ -15,10 +15,6 @@ final class UserSessionLogoutController {
     private var logoutSuccessClosure: (() -> Void)!
     private var presentErrorAlert: AlertPresentation!
     
-    //MARK: - View Lifecycle
-    
-//    deinit { magic("being deinitialized   <----------------") }
-    
     //MARK: - Configuration
     
     internal func configure(

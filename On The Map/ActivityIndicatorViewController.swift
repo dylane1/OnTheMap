@@ -10,8 +10,6 @@ import UIKit
 
 class ActivityIndicatorViewController: UIViewController /*, SegueHandlerType*/{
     
-//    deinit { magic("\(self.description) is being deinitialized   <----------------") }
-    
     @IBOutlet weak var popupView: ActivityIndicatorView!
     
     override func viewDidLoad() {

@@ -10,8 +10,6 @@ import UIKit
 
 class TabBarController: UITabBarController {
     
-//    deinit { magic("being deinitialized   <----------------") }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         tabBar.barTintColor = Theme.barTintColor

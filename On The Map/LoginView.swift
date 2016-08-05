@@ -77,7 +77,9 @@ class LoginView: UIView {
         
         configureBackground()
         configureLabels()
-        configureTextFields()
+        configureTextField(emailField, placeholderText: LocalizedStrings.TextFieldPlaceHolders.email, secureTextEntry: false)
+        configureTextField(passwordField, placeholderText: LocalizedStrings.TextFieldPlaceHolders.password, secureTextEntry: true)
+        configureEmailFieldAttributes()
         configureButtons()
         
         checkForLoggedIntoFacebook()
@@ -150,27 +152,19 @@ class LoginView: UIView {
         noAccountLabel.alpha            = 0
     }
     
-    private func configureTextFields() {
+    private func configureTextField(textField: UITextField, placeholderText placeholder: String, secureTextEntry secure: Bool) {
         
-        emailField.backgroundColor  = Theme.textFieldBackground
-        emailField.delegate         = self
-        emailField.placeholder      = LocalizedStrings.TextFieldPlaceHolders.email
-        emailField.addTarget(self, action: #selector(validateTextFields), forControlEvents: .EditingChanged)
-        emailField.alpha = 0
-        emailField.transform = CGAffineTransformMakeScale(0.1, 0.1)
+        textField.backgroundColor   = Theme.textFieldBackground
+        textField.delegate          = self
+        textField.placeholder       = placeholder
+        textField.secureTextEntry   = secure
+        textField.alpha             = 0
+        textField.transform         = CGAffineTransformMakeScale(0.1, 0.1)
         
-        passwordField.backgroundColor   = Theme.textFieldBackground
-        passwordField.delegate          = self
-        passwordField.secureTextEntry   = true
-        passwordField.placeholder       = LocalizedStrings.TextFieldPlaceHolders.password
-        passwordField.addTarget(self, action: #selector(validateTextFields), forControlEvents: .EditingChanged)
-        passwordField.alpha = 0
-        passwordField.transform = CGAffineTransformMakeScale(0.1, 0.1)
-        
-        configureTextFieldAttributes()
+        textField.addTarget(self, action: #selector(validateTextFields), forControlEvents: .EditingChanged)
     }
     
-    private func configureTextFieldAttributes() {
+    private func configureEmailFieldAttributes() {
         textFieldAttributes[NSForegroundColorAttributeName] = emailTextFieldFontColor
         
         emailField.defaultTextAttributes = textFieldAttributes
@@ -232,7 +226,7 @@ class LoginView: UIView {
         
         loginButton.enabled = emailString.isEmail && passwordString != "" ? true : false
         
-        configureTextFieldAttributes()
+        configureEmailFieldAttributes()
     }
     
     //MARK: - Animations
