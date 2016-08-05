@@ -17,8 +17,6 @@ class InformationPostingViewController: UIViewController, InformationPostingNavi
     internal var overlayTransitioningDelegate: OverlayTransitioningDelegate?
     internal var activityIndicatorIsPresented = false
     
-//    deinit { magic("\(self.description) is being deinitialized   <----------------") }
-    
     //MARK: - View Lifecycle
     
     override func viewDidLoad() {
@@ -29,9 +27,10 @@ class InformationPostingViewController: UIViewController, InformationPostingNavi
         let navController = navigationController! as! InformationPostingNavigationController
         navController.setNavigationBarAttributes(isAppTitle: false)
         
+        overlayTransitioningDelegate = OverlayTransitioningDelegate()
+        
         let presentActivityIndicator = { [weak self] (completion: (() -> Void)?) in
             self!.activityIndicatorViewController = self!.getActivityIndicatorViewController()
-            self!.overlayTransitioningDelegate    = OverlayTransitioningDelegate()
             self!.presentActivityIndicator(
                 self!.activityIndicatorViewController!,
                 transitioningDelegate: self!.overlayTransitioningDelegate!,
@@ -46,6 +45,9 @@ class InformationPostingViewController: UIViewController, InformationPostingNavi
         
         let submitSuccessfulClosure = { [weak self] in
             let dismissalCompletion = { [weak self] in
+                
+                /// Fix memory leak...
+                self!.overlayTransitioningDelegate = nil
                 
                 /// Dismiss Me
                 self!.dismissViewControllerAnimated(true, completion: nil)

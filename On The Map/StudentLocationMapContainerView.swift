@@ -18,15 +18,15 @@ class StudentLocationMapContainerView: UIView {
     @IBOutlet weak var preloadedMapImage: UIImageView!
     private var mapRendered = false
     
-    private var studentInformationArray = [StudentInformation]()
+    private lazy var studentInfoProvider = StudentInformationProvider.sharedInstance
+    
     private var annotations = [StudentLocationAnnotation]()
     
     private var openLinkClosure: OpenLinkClosure?
     
     private var animatedPinsIn = false
     
-    
-//    deinit { magic("\(self.description) is being deinitialized   <----------------") }
+    //MARK: - View Lifecycle
     
     override func didMoveToWindow() {
         mapView.delegate = self
@@ -35,9 +35,7 @@ class StudentLocationMapContainerView: UIView {
     
     //MARK: - Configuration
     
-    internal func configure(withStudentInformationArray array: [StudentInformation], openLinkClosure closure: OpenLinkClosure) {
-        
-        studentInformationArray = array
+    internal func configure(withOpenLinkClosure closure: OpenLinkClosure) {
         openLinkClosure         = closure
         
         /// clear for refresh
@@ -46,7 +44,7 @@ class StudentLocationMapContainerView: UIView {
         animatedPinsIn = false
         
         if mapRendered {
-            placeAnnotations(withStudentInformationArray: array)
+            placeAnnotations()
         }
     }
     
@@ -80,9 +78,9 @@ class StudentLocationMapContainerView: UIView {
     
     //MARK: - Map View
     
-    private func placeAnnotations(withStudentInformationArray array: [StudentInformation]) {
+    private func placeAnnotations() {
         
-        for item in array {
+        for item in studentInfoProvider.studentInformationArray! {
             let annotation = StudentLocationAnnotation(title: (item.firstName + " " + item.lastName), mediaURL: item.mediaURL,locationName: item.mapString, coordinate: CLLocationCoordinate2D(latitude: item.latitude, longitude: item.longitude))
             annotations.append(annotation)
         }
@@ -118,7 +116,7 @@ extension StudentLocationMapContainerView: MKMapViewDelegate {
         if mapRendered { return }
         mapRendered = true
         preloadedMapImage.alpha = 0.0
-        placeAnnotations(withStudentInformationArray: studentInformationArray)
+        placeAnnotations()
     }
 
     

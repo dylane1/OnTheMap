@@ -13,8 +13,6 @@ final class InformationPostingNavigationController: NavigationController {
     private var cancelClosure: BarButtonClosure?
     private var cancelButton: UIBarButtonItem?
     
-//    deinit { magic("\(self.description) is being deinitialized   <----------------") }
-    
     //MARK: - Configuration
     
     override func setNavigationBarAttributes(isAppTitle isTitle: Bool) {
