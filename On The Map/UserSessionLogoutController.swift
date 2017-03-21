@@ -11,16 +11,16 @@ import FBSDKLoginKit
 
 final class UserSessionLogoutController {
     
-    private var presentActivityIndicator: ((completion: (() -> Void)?) -> Void)!
-    private var logoutSuccessClosure: (() -> Void)!
-    private var presentErrorAlert: AlertPresentation!
+    fileprivate var presentActivityIndicator: ((_ completion: (() -> Void)?) -> Void)!
+    fileprivate var logoutSuccessClosure: (() -> Void)!
+    fileprivate var presentErrorAlert: AlertPresentation!
     
     //MARK: - Configuration
     
     internal func configure(
-        withActivityIndicatorPresentation presentAI: (completion: (() -> Void)?) -> Void,
-        logoutSuccessClosure success: () -> Void,
-        alertPresentationClosure alertPresentation: AlertPresentation) {
+        withActivityIndicatorPresentation presentAI: @escaping (_ completion: (() -> Void)?) -> Void,
+        logoutSuccessClosure success: @escaping () -> Void,
+        alertPresentationClosure alertPresentation: @escaping AlertPresentation) {
         
         presentActivityIndicator    = presentAI
         logoutSuccessClosure        = success
@@ -28,7 +28,7 @@ final class UserSessionLogoutController {
     
     //MARK: -
     internal func logout() {
-        guard let _ = FBSDKAccessToken.currentAccessToken() as FBSDKAccessToken! else {
+        guard let _ = FBSDKAccessToken.current() as FBSDKAccessToken! else {
             udacityLogout()
             return
         }
@@ -38,15 +38,15 @@ final class UserSessionLogoutController {
         
     }
     
-    private func udacityLogout() {
+    fileprivate func udacityLogout() {
         let aiPresented = { [weak self] in
-            let request = NSMutableURLRequest(URL: NSURL(string: Constants.Network.udacitySessionURL)!)
+            let request = NSMutableURLRequest(url: URL(string: Constants.Network.udacitySessionURL)!)
             
-            request.HTTPMethod = Constants.HTTPMethods.delete
+            request.httpMethod = Constants.HTTPMethods.delete
             
-            var xsrfCookie: NSHTTPCookie? = nil
+            var xsrfCookie: HTTPCookie? = nil
             
-            let sharedCookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
+            let sharedCookieStorage = HTTPCookieStorage.shared
             
             for cookie in sharedCookieStorage.cookies! {
                 if cookie.name == "XSRF-TOKEN" { xsrfCookie = cookie }
@@ -69,7 +69,7 @@ final class UserSessionLogoutController {
     
     //MARK: - Parse results
     
-    private func parseLogoutJSON(jsonDictionary: NSDictionary) {
+    fileprivate func parseLogoutJSON(_ jsonDictionary: NSDictionary) {
         
         guard let sessionDictionary = jsonDictionary[Constants.Keys.session] as? NSDictionary,
             let _ = sessionDictionary[Constants.Keys.id] as? String else {
@@ -79,7 +79,7 @@ final class UserSessionLogoutController {
                         presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.logoutError, message: LocalizedStrings.AlertMessages.unknownLogoutError))
                         return
                 }
-                let messageString = LocalizedStrings.AlertMessages.serverResponded + "\n\(statusCode): \(NSHTTPURLResponse.localizedStringForStatusCode(statusCode))"
+                let messageString = LocalizedStrings.AlertMessages.serverResponded + "\n\(statusCode): \(HTTPURLResponse.localizedString(forStatusCode: statusCode))"
                 
                 presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.logoutError, message: messageString))
                 return

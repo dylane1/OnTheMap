@@ -7,32 +7,32 @@ import UIKit
 
 final class OverlayPresentationController: UIPresentationController {
     
-    private var dimmingView: UIView!
-    private var dimmingBGColor: UIColor!
-    private var contentSize: CGSize!
-    private var tapToDismiss = false
+    fileprivate var dimmingView: UIView!
+    fileprivate var dimmingBGColor: UIColor!
+    fileprivate var contentSize: CGSize!
+    fileprivate var tapToDismiss = false
     
     /**
      Need dismissalCompletion if the tap background to dismiss option is
      used.
     */
-    private var dismissalCompletion: (() -> Void)?
+    fileprivate var dismissalCompletion: (() -> Void)?
     
     //MARK: - View Lifecycle
     
-    private override init( presentedViewController: UIViewController, presentingViewController: UIViewController) {
-        super.init(presentedViewController: presentedViewController, presentingViewController: presentingViewController)
+    fileprivate override init( presentedViewController: UIViewController, presenting presentingViewController: UIViewController?) {
+        super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
     }
     
     required convenience init(
         presentedViewController: UIViewController,
         presentingViewController: UIViewController,
         preferredContentSize: CGSize,
-        dimmingBGColor bgColor: UIColor = UIColor.blackColor(),
+        dimmingBGColor bgColor: UIColor = UIColor.black,
         tapToDismiss tap: Bool = false,
         dismissalCompletion completion: (() -> Void)? = nil) {
         
-        self.init(presentedViewController: presentedViewController, presentingViewController: presentingViewController)
+        self.init(presentedViewController: presentedViewController, presenting: presentingViewController)
 
         contentSize         = preferredContentSize
         dimmingBGColor      = bgColor
@@ -55,24 +55,24 @@ final class OverlayPresentationController: UIPresentationController {
         }
     }
     
-    func dimmingViewTapped(tapRecognizer: UITapGestureRecognizer) {
-        presentingViewController.dismissViewControllerAnimated(true, completion: nil)
+    func dimmingViewTapped(_ tapRecognizer: UITapGestureRecognizer) {
+        presentingViewController.dismiss(animated: true, completion: nil)
     }
     
     override func presentationTransitionWillBegin() {
         setupDimmingView()
         
         presentedViewController.preferredContentSize = contentSize
-        containerView!.insertSubview(dimmingView, atIndex: 0)
+        containerView!.insertSubview(dimmingView, at: 0)
         
-        presentedViewController.transitionCoordinator()?.animateAlongsideTransition( { [weak self] context in
+        presentedViewController.transitionCoordinator?.animate( alongsideTransition: { [weak self] context in
             self!.dimmingView.alpha = 0.5
         }, completion: nil)
         
     }
     
     override func dismissalTransitionWillBegin() {
-        presentedViewController.transitionCoordinator()?.animateAlongsideTransition({ [weak self] context in
+        presentedViewController.transitionCoordinator?.animate(alongsideTransition: { [weak self] context in
             self!.dimmingView.alpha = 0.0
         }, completion: { [weak self] context in
             self!.dimmingView.removeFromSuperview()
@@ -80,7 +80,7 @@ final class OverlayPresentationController: UIPresentationController {
         })
     }
     
-    override func frameOfPresentedViewInContainerView() -> CGRect {
+    override var frameOfPresentedViewInContainerView : CGRect {
         if presentedViewController.preferredContentSize.width > 0 {
             let x = containerView!.center.x - presentedViewController.preferredContentSize.width / 2
             let y = containerView!.center.y - presentedViewController.preferredContentSize.height / 2
@@ -92,6 +92,6 @@ final class OverlayPresentationController: UIPresentationController {
     
     override func containerViewWillLayoutSubviews() {
         dimmingView.frame = containerView!.bounds
-        presentedView()!.frame = frameOfPresentedViewInContainerView()
+        presentedView!.frame = frameOfPresentedViewInContainerView
     }
 }

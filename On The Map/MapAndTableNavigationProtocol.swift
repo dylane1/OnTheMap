@@ -25,11 +25,11 @@ extension MapAndTableNavigationProtocol where Self: UIViewController, Self: Info
         navController.setNavigationBarAttributes(isAppTitle: true)
     }
     
-    internal func configureNavigationItems(withRefreshClosure refresh: BarButtonClosure, sessionLogoutController logoutController: UserSessionLogoutController) {
+    internal func configureNavigationItems(withRefreshClosure refresh: @escaping BarButtonClosure, sessionLogoutController logoutController: UserSessionLogoutController) {
         
         let addButtonClosure = { [weak self] in
             self!.informationPostingNavController = self!.getInfoPostingNavigationController()
-            self!.presentViewController(self!.informationPostingNavController!, animated: true, completion: nil)
+            self!.present(self!.informationPostingNavController!, animated: true, completion: nil)
         }
         
         let refreshButtonClosure = {

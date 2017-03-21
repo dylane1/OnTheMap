@@ -11,7 +11,7 @@ import Foundation
 final class StudentInformationProvider: StudentLocationRequestable {
     /// Make this a singleton
     static let sharedInstance = StudentInformationProvider()
-    private init() {}
+    fileprivate init() {}
     
     private var informationReceivedCompletion: (() -> Void)!
     
@@ -26,7 +26,7 @@ final class StudentInformationProvider: StudentLocationRequestable {
         }
     }
     
-    private var networkRequestService = NetworkRequestService()
+    fileprivate var networkRequestService = NetworkRequestService()
     
     //MARK: - Configuration
     
@@ -37,7 +37,7 @@ final class StudentInformationProvider: StudentLocationRequestable {
     
     /// Set when getting student data from server
     
-    internal func configure(withInformationReceivedCompletion receivedCompletion: () -> Void, alertPresentationClosure alertPresentation: AlertPresentation) {
+    internal func configure(withInformationReceivedCompletion receivedCompletion: @escaping () -> Void, alertPresentationClosure alertPresentation: @escaping AlertPresentation) {
         
         informationReceivedCompletion   = receivedCompletion
         presentErrorAlert               = alertPresentation
@@ -47,7 +47,7 @@ final class StudentInformationProvider: StudentLocationRequestable {
     
     //MARK: - Perform network requests
     
-    private func requestStudentInformation() {
+    fileprivate func requestStudentInformation() {
         
         /// StudentLocationRequestable
         let request = createStudentLocationRequest()
@@ -62,7 +62,7 @@ final class StudentInformationProvider: StudentLocationRequestable {
     
     //MARK: - Parse results
     
-    private func parseStudentInformation(jsonDictionary: NSDictionary) {
+    fileprivate func parseStudentInformation(_ jsonDictionary: NSDictionary) {
         
         guard let studentInformationJSON = jsonDictionary[Constants.Keys.results] as? [NSDictionary] else {
             presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.studentLocationsError, message: jsonDictionary[Constants.Keys.error] as! String))

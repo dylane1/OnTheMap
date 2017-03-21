@@ -15,7 +15,7 @@ protocol InformationPostingPresentable {
 extension InformationPostingPresentable where Self: UIViewController {
     internal func getInfoPostingNavigationController() -> InformationPostingNavigationController {
         
-        let infoPostingNavController = UIStoryboard(name: Constants.StoryBoardID.main, bundle: nil).instantiateViewControllerWithIdentifier(Constants.StoryBoardID.infoPostingNavController) as! InformationPostingNavigationController
+        let infoPostingNavController = UIStoryboard(name: Constants.StoryBoardID.main, bundle: nil).instantiateViewController(withIdentifier: Constants.StoryBoardID.infoPostingNavController) as! InformationPostingNavigationController
         
         return infoPostingNavController
     }

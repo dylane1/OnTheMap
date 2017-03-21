@@ -14,7 +14,7 @@ class NavigationController: UINavigationController {
         
         navigationBar.barTintColor = Theme.barTintColor
         navigationBar.tintColor    = Theme.buttonTint
-        navigationBar.translucent  = true
+        navigationBar.isTranslucent  = true
         
         var titleLabelAttributes: [String : AnyObject] = [NSForegroundColorAttributeName : Theme.textLight]
         

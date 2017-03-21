@@ -18,20 +18,20 @@ class LoginViewController: UIViewController, AlertPresentable, ActivityIndicator
         case LoginComplete
     }
     
-    private var loginView: LoginView!
+    fileprivate var loginView: LoginView!
 
     /// ActivityIndicatorPresentable
     internal var activityIndicatorViewController: ActivityIndicatorViewController?
     internal var overlayTransitioningDelegate: OverlayTransitioningDelegate?
     internal var activityIndicatorIsPresented = false
     
-    private var mainTabBarController: TabBarController?
+    fileprivate var mainTabBarController: TabBarController?
     
-    private var successfulLogoutCompletion: (() -> Void)!
+    fileprivate var successfulLogoutCompletion: (() -> Void)!
     
     //MARK: - View Lifecycle
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         /// free up memory if just logged out
         if mainTabBarController != nil {
@@ -77,11 +77,11 @@ class LoginViewController: UIViewController, AlertPresentable, ActivityIndicator
     
     //MARK: - Segues
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         /// Overkill for this situation, but would be useful for multiple seques
         switch segueIdentifierForSegue(segue) {
         case .LoginComplete:
-            mainTabBarController = segue.destinationViewController as? TabBarController
+            mainTabBarController = segue.destination as? TabBarController
         }
     }
 }

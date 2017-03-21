@@ -14,21 +14,21 @@ extension String {
     var isEmail: Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,20}"
         let emailTest  = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        return emailTest.evaluateWithObject(self)
+        return emailTest.evaluate(with: self)
     }
     
-    var safariOpenableURL: NSURL? {
+    var safariOpenableURL: URL? {
         /// Remove whitespace
-        let trimmedString = self.stringByTrimmingCharactersInSet( NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        let trimmedString = self.trimmingCharacters( in: CharacterSet.whitespacesAndNewlines)
         
-        guard var url = NSURL(string: trimmedString) else {
+        guard var url = URL(string: trimmedString) else {
             return nil
         }
         
         /// Test for valid scheme
-        if !(["http", "https"].contains(url.scheme.lowercaseString)) {
-            let appendedLink = "http://".stringByAppendingString(trimmedString)
-            url = NSURL(string: appendedLink)!
+        if !(["http", "https"].contains(url.scheme?.lowercased())!!!!!!) {
+            let appendedLink = "http://" + trimmedString
+            url = URL(string: appendedLink)!
         }
         
         return url
@@ -60,8 +60,8 @@ extension MKAnnotationView: ReusableView { }
 //MARK: -  UITableView
 
 extension UITableView {
-    func dequeueReusableCell<T: UITableViewCell where T: ReusableView>(forIndexPath indexPath: NSIndexPath) -> T {
-        guard let cell = dequeueReusableCellWithIdentifier(T.reuseIdentifier, forIndexPath: indexPath) as? T else {
+    func dequeueReusableCell<T: UITableViewCell>(forIndexPath indexPath: IndexPath) -> T where T: ReusableView {
+        guard let cell = self.dequeueReusableCell(withIdentifier: T.reuseIdentifier, for: indexPath) as? T else {
             fatalError("No way, Jose... could not dequeue cell w/ identifier: \(T.reuseIdentifier)")
         }
         return cell

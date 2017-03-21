@@ -10,39 +10,39 @@ import UIKit
 
 class TitleAnimationHolderView: UIView {
     
-    private let titleLayer = TitleLayer()
-    private let maskLayer = CAShapeLayer()
-    private let circleLayer = CircleMaskLayer()
+    fileprivate let titleLayer = TitleLayer()
+    fileprivate let maskLayer = CAShapeLayer()
+    fileprivate let circleLayer = CircleMaskLayer()
     
     //MARK: - View Lifecycle
     
     override func didMoveToWindow() {
-        backgroundColor = UIColor.clearColor()
+        backgroundColor = UIColor.clear
         layer.addSublayer(titleLayer)
         titleLayer.mask = circleLayer
     }
     
     //MARK: - 
     
-    internal func revealTitle(withClosure closure: () -> Void) {
+    internal func revealTitle(withClosure closure: @escaping () -> Void) {
         
         circleLayer.expandWithDuration(0.3)
         
-        let popTime0 = dispatch_time(DISPATCH_TIME_NOW, Int64(0.3 * Double(NSEC_PER_SEC)))
+        let popTime0 = DispatchTime.now() + Double(Int64(0.3 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
         
-        dispatch_after(popTime0, dispatch_get_main_queue()) {
+        DispatchQueue.main.asyncAfter(deadline: popTime0) {
             self.animateTitle()
         }
         
-        let popTime1 = dispatch_time(DISPATCH_TIME_NOW, Int64(0.6 * Double(NSEC_PER_SEC)))
+        let popTime1 = DispatchTime.now() + Double(Int64(0.6 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
         
-        dispatch_after(popTime1, dispatch_get_main_queue()) {
+        DispatchQueue.main.asyncAfter(deadline: popTime1) {
             /// Kick off the other animations
             closure()
         }
     }
     
-    private func animateTitle() {
+    fileprivate func animateTitle() {
         /** 
          Note, this doesn't actually get done in that time, there must be a
          big performance hit when animating complex bezier paths. I could probably

@@ -30,12 +30,12 @@ extension StudentLocationRequestable {
         if id != nil {
             urlString += "/\(id!)"
         }
-        let request = NSMutableURLRequest(URL: NSURL(string: urlString)!)
+        let request = NSMutableURLRequest(url: URL(string: urlString)!)
         
         request.addValue(Constants.Network.parseAppID, forHTTPHeaderField: Constants.HTTPHeaderFields.xParseAppId)
         request.addValue(Constants.Network.restAPIKey, forHTTPHeaderField: Constants.HTTPHeaderFields.xParseRestAPIKey)
         
-        request.HTTPMethod = method
+        request.httpMethod = method
         
         if method != Constants.HTTPMethods.get {
             request.addValue(Constants.HTTPHeaderFieldValues.applicationJSON, forHTTPHeaderField: Constants.HTTPHeaderFields.contentType)

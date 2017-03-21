@@ -18,7 +18,7 @@ extension SafariViewControllerPresentable where Self: UIViewController {
             return
         }
         
-        let safariViewController = SFSafariViewController(URL: url)
-        presentViewController(safariViewController, animated: true, completion: nil)
+        let safariViewController = SFSafariViewController(url: url as URL)
+        present(safariViewController, animated: true, completion: nil)
     }
 }
