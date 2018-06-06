@@ -63,15 +63,15 @@ final class MapAndTableNavigationController: NavigationController {
     
     //MARK: - Actions
     
-    internal func addButtonTapped() {
+    @objc internal func addButtonTapped() {
         addClosure?()
     }
     
-    internal func refreshButtonTapped() {
+    @objc internal func refreshButtonTapped() {
         refreshClosure?()
     }
     
-    internal func logoutButtonTapped() {
+    @objc internal func logoutButtonTapped() {
         logoutClosure?()
     }
 }

@@ -35,7 +35,7 @@ final class InformationPostingNavigationController: NavigationController {
     
     //MARK: - Actions
     
-    internal func cancelButtonTapped() {
+    @objc internal func cancelButtonTapped() {
         cancelClosure?()
     }
 }

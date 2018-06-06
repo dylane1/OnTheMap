@@ -82,13 +82,13 @@ class StudentLocationTableViewCell: UITableViewCell /*, NibLoadableView*/ {
         if linkText?.safariOpenableURL == nil {
             isInvalidURL = true
             
-            linkTextAttributes[NSForegroundColorAttributeName] = Theme.textError
+            linkTextAttributes[NSAttributedStringKey.foregroundColor] = Theme.textError
             
             disclosureIndicatorImage = IconProvider.imageOfDrawnIcon(.DisclosureIndicator, size: CGSize(width: 20, height: 20), fillColor: Theme.disclosureIndicatorDisabled)
         } else {
             isInvalidURL = false
             
-            linkTextAttributes[NSUnderlineStyleAttributeName] = NSUnderlineStyle.styleSingle.rawValue as AnyObject?
+            linkTextAttributes[NSAttributedStringKey.underlineStyle] = NSUnderlineStyle.styleSingle.rawValue as AnyObject?
             
             disclosureIndicatorImage = IconProvider.imageOfDrawnIcon(.DisclosureIndicator, size: CGSize(width: 20, height: 20), fillColor: Theme.disclosureIndicatorEnabled)
         }
