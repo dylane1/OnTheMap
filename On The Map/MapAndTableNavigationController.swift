@@ -10,18 +10,18 @@ import UIKit
 
 final class MapAndTableNavigationController: NavigationController {
     
-    private var addClosure: BarButtonClosure?
-    private var addButton: UIBarButtonItem!
+    fileprivate var addClosure: BarButtonClosure?
+    fileprivate var addButton: UIBarButtonItem!
     
-    private var refreshClosure: BarButtonClosure?
-    private var refreshButton: UIBarButtonItem!
+    fileprivate var refreshClosure: BarButtonClosure?
+    fileprivate var refreshButton: UIBarButtonItem!
     
-    private var logoutClosure: BarButtonClosure?
-    private var logoutButton: UIBarButtonItem?
+    fileprivate var logoutClosure: BarButtonClosure?
+    fileprivate var logoutButton: UIBarButtonItem?
     
     //MARK: - Configuration
     
-    internal func configure(withAddClosure add: BarButtonClosure, refreshClosure refresh: BarButtonClosure, logoutClosure logout: BarButtonClosure) {
+    internal func configure(withAddClosure add: @escaping BarButtonClosure, refreshClosure refresh: @escaping BarButtonClosure, logoutClosure logout: @escaping BarButtonClosure) {
         addClosure      = add
         refreshClosure  = refresh
         logoutClosure   = logout
@@ -29,22 +29,22 @@ final class MapAndTableNavigationController: NavigationController {
         configureNavigationItems()
     }
     
-    private func configureNavigationItems() {
+    fileprivate func configureNavigationItems() {
         var rightItemArray  = [UIBarButtonItem]()
         
         refreshButton = UIBarButtonItem(
-            barButtonSystemItem: .Refresh,
+            barButtonSystemItem: .refresh,
             target: self,
             action: #selector(refreshButtonTapped))
         rightItemArray.append(refreshButton)
         
-        let pinButton   = UIButton(type: .System)
-        pinButton.frame    = CGRectMake(0, 0, 44, 44)
-        pinButton.addTarget(self, action: #selector(addButtonTapped), forControlEvents: UIControlEvents.TouchUpInside)
+        let pinButton   = UIButton(type: .system)
+        pinButton.frame    = CGRect(x: 0, y: 0, width: 44, height: 44)
+        pinButton.addTarget(self, action: #selector(addButtonTapped), for: UIControlEvents.touchUpInside)
         
         let pinImage = IconProvider.imageOfDrawnIcon(.Pin, size: CGSize(width: 32, height: 32), fillColor: Theme.tabBarItemUnselected)
         
-        pinButton.setImage(pinImage, forState: .Normal)
+        pinButton.setImage(pinImage, for: UIControlState())
         
         let addButton = UIBarButtonItem(customView: pinButton)
         
@@ -54,7 +54,7 @@ final class MapAndTableNavigationController: NavigationController {
         
         logoutButton = UIBarButtonItem(
             title: LocalizedStrings.BarButtonTitles.logout,
-            style: .Plain,
+            style: .plain,
             target: self,
             action: #selector(logoutButtonTapped))
         
@@ -63,15 +63,15 @@ final class MapAndTableNavigationController: NavigationController {
     
     //MARK: - Actions
     
-    internal func addButtonTapped() {
+    @objc internal func addButtonTapped() {
         addClosure?()
     }
     
-    internal func refreshButtonTapped() {
+    @objc internal func refreshButtonTapped() {
         refreshClosure?()
     }
     
-    internal func logoutButtonTapped() {
+    @objc internal func logoutButtonTapped() {
         logoutClosure?()
     }
 }

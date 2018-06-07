@@ -21,7 +21,7 @@ enum Icon: String {
 }
 
 protocol IconProviderProtocol {
-    static func imageOfDrawnIcon(icon: Icon, size: CGSize, fillColor: UIColor, shadowColor: UIColor) -> UIImage
+    static func imageOfDrawnIcon(_ icon: Icon, size: CGSize, fillColor: UIColor, shadowColor: UIColor) -> UIImage
 }
 
 struct IconProvider { }
@@ -35,10 +35,10 @@ extension IconProvider: IconProviderProtocol,
                         MapButtonDrawable,
                         AnnotationDrawable{
     
-    static func imageOfDrawnIcon(icon: Icon, size: CGSize, fillColor: UIColor = UIColor.blackColor(), shadowColor: UIColor = UIColor.blackColor()) -> UIImage {
+    static func imageOfDrawnIcon(_ icon: Icon, size: CGSize, fillColor: UIColor = UIColor.black, shadowColor: UIColor = UIColor.black) -> UIImage {
         var image: UIImage {
             
-            UIGraphicsBeginImageContextWithOptions(CGSizeMake(size.width, size.height), false, 0)
+            UIGraphicsBeginImageContextWithOptions(CGSize(width: size.width, height: size.height), false, 0)
             
             switch icon {
             case .Pin:

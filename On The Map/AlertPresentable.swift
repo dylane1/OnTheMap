@@ -34,14 +34,14 @@ extension AlertPresentable where Self: UIViewController, Self: ActivityIndicator
         return presentErrorAlert
     }
     
-    internal func presentAlertWithParameters(parameters: AlertParameters, completion: (() -> Void)? = nil) {
+    internal func presentAlertWithParameters(_ parameters: AlertParameters, completion: (() -> Void)? = nil) {
         let alert = UIAlertController(
             title: parameters.title,
             message: parameters.message,
-            preferredStyle: .Alert)
+            preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: LocalizedStrings.AlertButtonTitles.ok, style: .Default, handler: nil))
+        alert.addAction(UIAlertAction(title: LocalizedStrings.AlertButtonTitles.ok, style: .default, handler: nil))
         
-        presentViewController(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
 }

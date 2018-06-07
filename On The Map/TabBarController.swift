@@ -16,7 +16,7 @@ class TabBarController: UITabBarController {
         tabBar.tintColor = Theme.buttonTint
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         /// Shift icon down
         for item in viewControllers! {
@@ -24,11 +24,11 @@ class TabBarController: UITabBarController {
         }
         
         let mapIcon = IconProvider.imageOfDrawnIcon(.Map, size: CGSize(width: 30, height: 30), fillColor: Theme.tabBarItemUnselected)
-        tabBar.items![0].image          = mapIcon.imageWithRenderingMode(.AlwaysOriginal)
+        tabBar.items![0].image          = mapIcon.withRenderingMode(.alwaysOriginal)
         tabBar.items![0].selectedImage  = mapIcon
         
         let listIcon = IconProvider.imageOfDrawnIcon(.List, size: CGSize(width: 30, height: 30), fillColor: Theme.tabBarItemUnselected)
-        tabBar.items![1].image          = listIcon.imageWithRenderingMode(.AlwaysOriginal)
+        tabBar.items![1].image          = listIcon.withRenderingMode(.alwaysOriginal)
         tabBar.items![1].selectedImage  = listIcon
     }
 }

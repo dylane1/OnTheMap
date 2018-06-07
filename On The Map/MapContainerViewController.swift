@@ -14,15 +14,15 @@ class MapContainerViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var mapView: MKMapView!
     
-    private var locationName    = "foo"
-    private var latitude        = 0.0
-    private var longitude       = 0.0
+    fileprivate var locationName    = "foo"
+    fileprivate var latitude        = 0.0
+    fileprivate var longitude       = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         mapView.delegate    = self
-        mapView.mapType     = .Standard
+        mapView.mapType     = .standard
         
         prettyIt()
         configureLabelWithString(locationName)
@@ -37,20 +37,20 @@ class MapContainerViewController: UIViewController, MKMapViewDelegate {
         longitude       = lon
     }
 
-    private func prettyIt() {
+    fileprivate func prettyIt() {
         view.layer.cornerRadius     = 6
-        view.layer.shadowColor      = UIColor.blackColor().CGColor
+        view.layer.shadowColor      = UIColor.black.cgColor
         view.layer.shadowOpacity    = 0.6
         view.layer.shadowRadius     = 10
         view.layer.shadowOffset     = CGSize(width: 5, height: 5)
         view.layer.masksToBounds    = false
     }
     
-    private func configureLabelWithString(name: String) {
+    fileprivate func configureLabelWithString(_ name: String) {
         locationLabel.text = name
     }
     
-    private func showLocationOnMap(withLatitude latitude: Double, longitude: Double) {
+    fileprivate func showLocationOnMap(withLatitude latitude: Double, longitude: Double) {
         let coordinate          = CLLocationCoordinate2DMake(latitude, longitude)
         let regionRadius        = CLLocationDistance(54000)
         let coordinateRegion    = MKCoordinateRegionMakeWithDistance(coordinate, regionRadius * 2.0, regionRadius * 2.0)
@@ -66,7 +66,7 @@ class MapContainerViewController: UIViewController, MKMapViewDelegate {
 }
 
 extension MapContainerViewController {
-    func mapViewDidFinishRenderingMap(mapView: MKMapView, fullyRendered: Bool) {
+    func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
         /**
          Some areas fully render only on simulator! Many locations are failing
          to render on the device but work fine on simulator... WTF????

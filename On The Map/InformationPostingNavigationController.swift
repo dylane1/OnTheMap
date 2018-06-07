@@ -10,8 +10,8 @@ import UIKit
 
 final class InformationPostingNavigationController: NavigationController {
     
-    private var cancelClosure: BarButtonClosure?
-    private var cancelButton: UIBarButtonItem?
+    fileprivate var cancelClosure: BarButtonClosure?
+    fileprivate var cancelButton: UIBarButtonItem?
     
     //MARK: - Configuration
     
@@ -19,15 +19,15 @@ final class InformationPostingNavigationController: NavigationController {
         super.setNavigationBarAttributes(isAppTitle: isTitle)
     }
     
-    internal func configure(withCancelClosure cancel: BarButtonClosure) {
+    internal func configure(withCancelClosure cancel: @escaping BarButtonClosure) {
         cancelClosure = cancel
         
         configureNavigationItems()
     }
     
-    private func configureNavigationItems() {
+    fileprivate func configureNavigationItems() {
         cancelButton = UIBarButtonItem(
-            barButtonSystemItem: .Cancel,
+            barButtonSystemItem: .cancel,
             target: self,
             action: #selector(cancelButtonTapped))
         navigationBar.topItem?.rightBarButtonItem = cancelButton
@@ -35,7 +35,7 @@ final class InformationPostingNavigationController: NavigationController {
     
     //MARK: - Actions
     
-    internal func cancelButtonTapped() {
+    @objc internal func cancelButtonTapped() {
         cancelClosure?()
     }
 }

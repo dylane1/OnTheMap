@@ -14,14 +14,14 @@ class NavigationController: UINavigationController {
         
         navigationBar.barTintColor = Theme.barTintColor
         navigationBar.tintColor    = Theme.buttonTint
-        navigationBar.translucent  = true
+        navigationBar.isTranslucent  = true
         
-        var titleLabelAttributes: [String : AnyObject] = [NSForegroundColorAttributeName : Theme.textLight]
+        var titleLabelAttributes: [String : AnyObject] = [NSAttributedStringKey.foregroundColor.rawValue : Theme.textLight]
         
         if isTitle {
-            titleLabelAttributes[NSFontAttributeName] = UIFont(name: Constants.FontName.markerFelt, size: 24)!
+            titleLabelAttributes[NSAttributedStringKey.font] = UIFont(name: Constants.FontName.markerFelt, size: 24)!
         } else {
-            titleLabelAttributes[NSFontAttributeName] = UIFont(name: Constants.FontName.avenirBlack, size: 14)
+            titleLabelAttributes[NSAttributedStringKey.font] = UIFont(name: Constants.FontName.avenirBlack, size: 14)
         }
         
         navigationBar.titleTextAttributes = titleLabelAttributes

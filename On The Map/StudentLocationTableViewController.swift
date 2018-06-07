@@ -10,12 +10,12 @@ import UIKit
 
 final class StudentLocationTableViewController: UITableViewController, MapAndTableViewControllerProtocol, MapAndTableNavigationProtocol, StudentInformationGettable, InformationPostingPresentable, SafariViewControllerPresentable, AlertPresentable, ActivityIndicatorPresentable {
     
-    private lazy var studentInfoProvider = StudentInformationProvider.sharedInstance
+    fileprivate lazy var studentInfoProvider = StudentInformationProvider.sharedInstance
     
-    private var presentMapViewController: ((locationName: String, latitude: Double, longitude: Double) -> Void)!
-    private var mapOverlayTransitioningDelegate: OverlayTransitioningDelegate?
+    fileprivate var presentMapViewController: ((_ locationName: String, _ latitude: Double, _ longitude: Double) -> Void)!
+    fileprivate var mapOverlayTransitioningDelegate: OverlayTransitioningDelegate?
     
-    private var mapViewController: MapContainerViewController?
+    fileprivate var mapViewController: MapContainerViewController?
     
     /// InformationPostingPresentable
     internal var informationPostingNavController: InformationPostingNavigationController?
@@ -61,14 +61,14 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getStudentInfo()
     }
     
     //MARK: -
     
-    private func getStudentInfo() {
+    fileprivate func getStudentInfo() {
         let completion = { [weak self] in
             self!.tableView.reloadData()
         }
@@ -77,15 +77,15 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
         performFetchWithCompletion(completion)
     }
     
-    private func openMapViewController(withLocationName name: String, latitude: Double, longitude: Double) {
+    fileprivate func openMapViewController(withLocationName name: String, latitude: Double, longitude: Double) {
         
-        mapViewController = UIStoryboard(name: Constants.StoryBoardID.main, bundle: nil).instantiateViewControllerWithIdentifier(Constants.StoryBoardID.mapPresentationVC) as? MapContainerViewController
+        mapViewController = UIStoryboard(name: Constants.StoryBoardID.main, bundle: nil).instantiateViewController(withIdentifier: Constants.StoryBoardID.mapPresentationVC) as? MapContainerViewController
         
         mapViewController!.configure(withLocationName: name, latitude: latitude, longitude: longitude)
         
         let width = self.view.frame.width - 40
         let height = width
-        let mapVCPreferredContentSize = CGSizeMake(width, height)
+        let mapVCPreferredContentSize = CGSize(width: width, height: height)
         
         let dismissalCompletion = { [weak self] in
             self!.mapOverlayTransitioningDelegate    = nil
@@ -94,36 +94,36 @@ final class StudentLocationTableViewController: UITableViewController, MapAndTab
         
         mapOverlayTransitioningDelegate = OverlayTransitioningDelegate()
         
-        mapOverlayTransitioningDelegate!.configureTransitionWithContentSize(mapVCPreferredContentSize, dismissalCompletion: dismissalCompletion, options: [
-            .DimmingBGColor : Theme.presentationDimBGColor,
-            .InFromPosition : Position.Center,
-            .OutToPosition : Position.Center,
-            .AlphaIn : true,
-            .AlphaOut : true,
-            .TapToDismiss:  true,
-            .ScaleIn : true,
-            .ScaleOut : true
-            ])
+        mapOverlayTransitioningDelegate!.configureTransitionWithContentSize(mapVCPreferredContentSize, options: [
+            .dimmingBGColor : Theme.presentationDimBGColor,
+            .inFromPosition : Position.center,
+            .outToPosition : Position.center,
+            .alphaIn : true,
+            .alphaOut : true,
+            .tapToDismiss:  true,
+            .scaleIn : true,
+            .scaleOut : true
+            ], dismissalCompletion: dismissalCompletion)
         
         mapViewController!.transitioningDelegate = mapOverlayTransitioningDelegate!
-        mapViewController!.modalPresentationStyle = .Custom
+        mapViewController!.modalPresentationStyle = .custom
         
-        presentViewController(mapViewController!, animated: true, completion: nil)
+        present(mapViewController!, animated: true, completion: nil)
     }
     
 }
 
 //MARK: - Table View Data Source
 extension StudentLocationTableViewController {
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (studentInfoProvider.studentInformationArray == nil) ? 0 : studentInfoProvider.studentInformationArray!.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> StudentLocationTableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> StudentLocationTableViewCell {
 
         let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as StudentLocationTableViewCell
 
@@ -134,7 +134,7 @@ extension StudentLocationTableViewController {
         return cell
     }
     
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return false
     }
 }
@@ -143,24 +143,24 @@ extension StudentLocationTableViewController {
 //MARK: - Table View Delegate
 extension StudentLocationTableViewController {
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         /// SafariViewControllerPresentable
         openLinkInSafari(withURLString: studentInfoProvider.studentInformationArray![indexPath.row].mediaURL)
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 78.0
     }
-    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         /// Allows the bottom cell to be fully visible when scrolled to end of list
         return 2.0
     }
     
-    override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let footerView              = UIView()
-        footerView.frame            = CGRectMake(0, 0, view.bounds.size.width, 2.0)
-        footerView.backgroundColor  = UIColor.clearColor()
+        footerView.frame            = CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 2.0)
+        footerView.backgroundColor  = UIColor.clear
         return footerView
     }
 }

@@ -22,36 +22,36 @@ class ActivityIndicatorView: UIView {
     
     //MARK: - Configuration
     
-    private func configureIndicator() {
+    fileprivate func configureIndicator() {
         let radius      = frame.size.height / 2
         let startAngle  = CGFloat(M_PI_2 * 3)
         let endAngle    = CGFloat(2.0 * M_PI + M_PI_2 * 3)
-        let centerPoint = CGPointMake(radius, radius)
+        let centerPoint = CGPoint(x: radius, y: radius)
 
-        ovalShapeLayer0.strokeColor = Theme.activityIndicatorCircle0.CGColor
-        ovalShapeLayer0.fillColor = UIColor.clearColor().CGColor
+        ovalShapeLayer0.strokeColor = Theme.activityIndicatorCircle0.cgColor
+        ovalShapeLayer0.fillColor = UIColor.clear.cgColor
         ovalShapeLayer0.lineWidth = 6.0
         ovalShapeLayer0.lineDashPattern = [0,24]
         ovalShapeLayer0.lineCap = kCALineCapRound
         
-        ovalShapeLayer0.path = UIBezierPath(arcCenter: centerPoint, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true).CGPath
+        ovalShapeLayer0.path = UIBezierPath(arcCenter: centerPoint, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true).cgPath
         
         layer.addSublayer(ovalShapeLayer0)
         
-        ovalShapeLayer1.strokeColor = Theme.activityIndicatorCircle1.CGColor
-        ovalShapeLayer1.fillColor = UIColor.clearColor().CGColor
+        ovalShapeLayer1.strokeColor = Theme.activityIndicatorCircle1.cgColor
+        ovalShapeLayer1.fillColor = UIColor.clear.cgColor
         ovalShapeLayer1.lineWidth = 12.0
         ovalShapeLayer1.lineDashPattern = [0,24]
         ovalShapeLayer1.lineCap = kCALineCapRound
         
-        ovalShapeLayer1.path = UIBezierPath(arcCenter: centerPoint, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true).CGPath
+        ovalShapeLayer1.path = UIBezierPath(arcCenter: centerPoint, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true).cgPath
         
-        layer.insertSublayer(ovalShapeLayer1, atIndex: 0)
+        layer.insertSublayer(ovalShapeLayer1, at: 0)
     }
     
     //MARK: - 
     
-    private func beginAnimating() {
+    fileprivate func beginAnimating() {
         let strokeStartAnimation = CABasicAnimation(
             keyPath: "strokeStart")
         strokeStartAnimation.fromValue = -3.0
@@ -67,7 +67,7 @@ class ActivityIndicatorView: UIView {
         strokeAnimationGroup.repeatDuration = 500.0
         strokeAnimationGroup.animations = [strokeStartAnimation,
                                            strokeEndAnimation]
-        ovalShapeLayer0.addAnimation(strokeAnimationGroup, forKey: nil)
-        ovalShapeLayer1.addAnimation(strokeAnimationGroup, forKey: nil)
+        ovalShapeLayer0.add(strokeAnimationGroup, forKey: nil)
+        ovalShapeLayer1.add(strokeAnimationGroup, forKey: nil)
     }
 }

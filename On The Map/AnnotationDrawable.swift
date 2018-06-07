@@ -13,18 +13,18 @@ protocol AnnotationDrawable { }
 extension AnnotationDrawable where Self: IconProviderProtocol {
     static func drawAnnotationMarker() {
         
-        let ovalPath0 = UIBezierPath(ovalInRect: CGRect(x: 1, y: 1, width: 13, height: 13))
+        let ovalPath0 = UIBezierPath(ovalIn: CGRect(x: 1, y: 1, width: 13, height: 13))
         Theme.annotationColor0.setStroke()
         ovalPath0.lineWidth = 1
         ovalPath0.stroke()
         
-        let ovalPath1 = UIBezierPath(ovalInRect: CGRect(x: 3, y: 3, width: 9, height: 9))
+        let ovalPath1 = UIBezierPath(ovalIn: CGRect(x: 3, y: 3, width: 9, height: 9))
         Theme.annotationColor1.setStroke()
         ovalPath1.lineWidth = 3
         ovalPath1.stroke()
         
-        let ovalPath2 = UIBezierPath(ovalInRect: CGRect(x: 4, y: 4, width: 7, height: 7))
-        Theme.annotationColor2.colorWithAlphaComponent(0.7).setFill()
+        let ovalPath2 = UIBezierPath(ovalIn: CGRect(x: 4, y: 4, width: 7, height: 7))
+        Theme.annotationColor2.withAlphaComponent(0.7).setFill()
         ovalPath2.fill()
     }
 }

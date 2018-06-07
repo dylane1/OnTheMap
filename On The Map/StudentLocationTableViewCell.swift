@@ -10,17 +10,17 @@ import UIKit
 
 class StudentLocationTableViewCell: UITableViewCell /*, NibLoadableView*/ {
     
-    private var presentMapViewController: ((locationName: String, latitude: Double, longitude: Double) -> Void)!
+    fileprivate var presentMapViewController: ((_ locationName: String, _ latitude: Double, _ longitude: Double) -> Void)!
     
-    @IBOutlet private weak var nameLabel: UILabel!
-    @IBOutlet private weak var locationLabel: UILabel!
-    @IBOutlet private weak var linkLabel: UILabel!
-    @IBOutlet private weak var iconImageView: UIImageView!
+    @IBOutlet fileprivate weak var nameLabel: UILabel!
+    @IBOutlet fileprivate weak var locationLabel: UILabel!
+    @IBOutlet fileprivate weak var linkLabel: UILabel!
+    @IBOutlet fileprivate weak var iconImageView: UIImageView!
     @IBOutlet weak var showLocationButton: UIButton!
     
-    private var dataSource: StudentLocationCellDataSource!
+    fileprivate var dataSource: StudentLocationCellDataSource!
     
-    private var isInvalidURL = false
+    fileprivate var isInvalidURL = false
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,23 +28,23 @@ class StudentLocationTableViewCell: UITableViewCell /*, NibLoadableView*/ {
 
     //MARK: - Actions
     
-    @IBAction func showLocationAction(sender: AnyObject) {
-        presentMapViewController?(locationName: dataSource.studentInformation.mapString, latitude: dataSource.studentInformation.latitude, longitude: dataSource.studentInformation.longitude)
+    @IBAction func showLocationAction(_ sender: AnyObject) {
+        presentMapViewController?(dataSource.studentInformation.mapString, dataSource.studentInformation.latitude, dataSource.studentInformation.longitude)
     }
     
     //MARK: - Configuration
     
-    internal func configure(withDataSource dataSource: StudentLocationCellDataSource, presentMapViewController: (locationName: String, latitude: Double, longitude: Double) -> Void) {
+    internal func configure(withDataSource dataSource: StudentLocationCellDataSource, presentMapViewController: @escaping (_ locationName: String, _ latitude: Double, _ longitude: Double) -> Void) {
         
         self.dataSource                 = dataSource
         self.presentMapViewController   = presentMapViewController
-        backgroundColor                 = UIColor.clearColor()
+        backgroundColor                 = UIColor.clear
         
         configureLabels()
         configureLocationButton()
     }
     
-    private func configureLabels() {
+    fileprivate func configureLabels() {
         /// Name label
         nameLabel.adjustsFontSizeToFitWidth  = true
         
@@ -53,7 +53,7 @@ class StudentLocationTableViewCell: UITableViewCell /*, NibLoadableView*/ {
         let fn = dataSource.studentInformation.firstName
         let ln = dataSource.studentInformation.lastName
         
-        let fullName = fn + " " + ln
+        let fullName = fn! + " " + ln!
         
         let nameAttributedString = NSMutableAttributedString(string: fullName, attributes: nameTextAttributes)
         
@@ -79,39 +79,39 @@ class StudentLocationTableViewCell: UITableViewCell /*, NibLoadableView*/ {
 //        let iconProvider = IconProvider()
         let disclosureIndicatorImage: UIImage!
     
-        if linkText.safariOpenableURL == nil {
+        if linkText?.safariOpenableURL == nil {
             isInvalidURL = true
             
-            linkTextAttributes[NSForegroundColorAttributeName] = Theme.textError
+            linkTextAttributes[NSAttributedStringKey.foregroundColor] = Theme.textError
             
             disclosureIndicatorImage = IconProvider.imageOfDrawnIcon(.DisclosureIndicator, size: CGSize(width: 20, height: 20), fillColor: Theme.disclosureIndicatorDisabled)
         } else {
             isInvalidURL = false
             
-            linkTextAttributes[NSUnderlineStyleAttributeName] = NSUnderlineStyle.StyleSingle.rawValue
+            linkTextAttributes[NSAttributedStringKey.underlineStyle] = NSUnderlineStyle.styleSingle.rawValue as AnyObject?
             
             disclosureIndicatorImage = IconProvider.imageOfDrawnIcon(.DisclosureIndicator, size: CGSize(width: 20, height: 20), fillColor: Theme.disclosureIndicatorEnabled)
         }
         
         configureDisclosureIndicatorWithImage(disclosureIndicatorImage)
         
-        let linkTextAttributedString = NSMutableAttributedString(string: linkText, attributes: linkTextAttributes)
+        let linkTextAttributedString = NSMutableAttributedString(string: linkText!, attributes: linkTextAttributes)
         
         linkLabel.attributedText = linkTextAttributedString
     }
     
-    private func configureDisclosureIndicatorWithImage(image: UIImage) {
-        iconImageView.backgroundColor = UIColor.clearColor()
+    fileprivate func configureDisclosureIndicatorWithImage(_ image: UIImage) {
+        iconImageView.backgroundColor = UIColor.clear
         iconImageView.image = image
     }
     
-    private func configureLocationButton() {
+    fileprivate func configureLocationButton() {
         
         let mapButtonImage = IconProvider.imageOfDrawnIcon(.MapButton, size: CGSize(width: 30, height: 50), fillColor: Theme.locationMarker)
         
-        showLocationButton.setImage(mapButtonImage, forState: .Normal)
+        showLocationButton.setImage(mapButtonImage, for: UIControlState())
         
-        showLocationButton.setTitle(nil, forState: .Normal)
+        showLocationButton.setTitle(nil, for: UIControlState())
         showLocationButton.tintColor = Theme.locationMarker
     }
 }

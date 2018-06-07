@@ -10,10 +10,10 @@ import UIKit
 
 class StarAnimationHolderView: UIView {
 
-    private var starLayer = StarLayer()
-    private var animationPath: SpiralAnimationPathLayer!
+    fileprivate var starLayer = StarLayer()
+    fileprivate var animationPath: SpiralAnimationPathLayer!
     
-    private var duration: CFTimeInterval!
+    fileprivate var duration: CFTimeInterval!
     
     //MARK: - View Lifecycle
     
@@ -38,7 +38,7 @@ class StarAnimationHolderView: UIView {
         self.duration = duration
     }
     
-    private override init(frame: CGRect) {
+    fileprivate override init(frame: CGRect) {
         super.init(frame: frame)
         
     }
@@ -49,7 +49,7 @@ class StarAnimationHolderView: UIView {
 
     //MARK: -
     
-    private func beginAnimating() {
+    fileprivate func beginAnimating() {
         
         /// Path for Star
         let strokeStartAnimation = CABasicAnimation(keyPath: "strokeStart")
@@ -65,7 +65,7 @@ class StarAnimationHolderView: UIView {
         strokeAnimationGroup.animations = [strokeStartAnimation, strokeEndAnimation]
         strokeAnimationGroup.fillMode = kCAFillModeForwards
         
-        animationPath.addAnimation(strokeAnimationGroup, forKey: nil)
+        animationPath.add(strokeAnimationGroup, forKey: nil)
         
         /// Star
         let starAnimation = CAKeyframeAnimation(keyPath: "position")
@@ -95,6 +95,6 @@ class StarAnimationHolderView: UIView {
         flightAnimationGroup.animations = [starAnimation, scaleAnimation0, scaleAnimation1, starOrientationAnimation]
         flightAnimationGroup.fillMode = kCAFillModeForwards
         
-        starLayer.addAnimation(flightAnimationGroup, forKey: nil)
+        starLayer.add(flightAnimationGroup, forKey: nil)
     }
 }

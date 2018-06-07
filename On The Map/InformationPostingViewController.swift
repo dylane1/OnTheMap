@@ -10,7 +10,7 @@ import UIKit
 
 class InformationPostingViewController: UIViewController, InformationPostingNavigationProtocol, AlertPresentable, ActivityIndicatorPresentable {
     
-    private var postingView: InformationPostingView!
+    fileprivate var postingView: InformationPostingView!
     
     /// ActivityIndicatorPresentable
     internal var activityIndicatorViewController: ActivityIndicatorViewController?
@@ -50,7 +50,7 @@ class InformationPostingViewController: UIViewController, InformationPostingNavi
                 self!.overlayTransitioningDelegate = nil
                 
                 /// Dismiss Me
-                self!.dismissViewControllerAnimated(true, completion: nil)
+                self!.dismiss(animated: true, completion: nil)
             }
             self!.dismissActivityIndicator(completion: dismissalCompletion)
         }
@@ -66,7 +66,7 @@ class InformationPostingViewController: UIViewController, InformationPostingNavi
         configureNavigationItems()
     }
     
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         postingView = nil
     }

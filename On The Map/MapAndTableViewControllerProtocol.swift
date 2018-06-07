@@ -30,7 +30,7 @@ extension MapAndTableViewControllerProtocol where Self: UIViewController, Self: 
     internal func getLogoutSuccessClosure(withCompletion completion: (() -> Void)?) -> () -> Void {
         let logoutSuccess = { [weak self] in
             self!.dismissActivityIndicator(completion: {
-                self!.dismissViewControllerAnimated(true, completion: {
+                self!.dismiss(animated: true, completion: {
                     completion?()
                 })
             })

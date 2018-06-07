@@ -12,23 +12,23 @@ import FBSDKLoginKit
 final class LoginValidator {
 
     enum Error: Int {
-        case InvaldCredentials  = 403 /// status = 403
-        case MissingParameter   = 400 /// staus  = 400; parameter = "udacity.username" || "udacity.password"
+        case invaldCredentials  = 403 /// status = 403
+        case missingParameter   = 400 /// staus  = 400; parameter = "udacity.username" || "udacity.password"
     }
     
-    private var presentActivityIndicator: ((completion: (() -> Void)?) -> Void)!
-    private var loginSuccessClosure: (() -> Void)!
-    private var presentErrorAlert: AlertPresentation!
+    fileprivate var presentActivityIndicator: ((_ completion: (() -> Void)?) -> Void)!
+    fileprivate var loginSuccessClosure: (() -> Void)!
+    fileprivate var presentErrorAlert: AlertPresentation!
     
-    private var networkRequestService = NetworkRequestService()
+    fileprivate var networkRequestService = NetworkRequestService()
     
-    private lazy var studentInfoProvider = StudentInformationProvider.sharedInstance
+    fileprivate lazy var studentInfoProvider = StudentInformationProvider.sharedInstance
     
     //MARK: - Configuration
     internal func configure(
-        withActivityIndicatorPresentation presentAI: (completion: (() -> Void)?) -> Void,
-        loginSuccessClosure success: () -> Void,
-        alertPresentationClosure alertPresentation: AlertPresentation) {
+        withActivityIndicatorPresentation presentAI: @escaping (_ completion: (() -> Void)?) -> Void,
+        loginSuccessClosure success: @escaping () -> Void,
+        alertPresentationClosure alertPresentation: @escaping AlertPresentation) {
         
         presentActivityIndicator    = presentAI
         loginSuccessClosure         = success
@@ -40,16 +40,16 @@ final class LoginValidator {
     internal func login(withEmailAndPassword loginTuple:(email: String, password: String)? = nil, withFacebookToken token: FBSDKAccessToken? = nil) {
         
         let aiPresented = { [unowned self] in
-            let request = NSMutableURLRequest(URL: NSURL(string: Constants.Network.udacitySessionURL)!)
+            let request = NSMutableURLRequest(url: URL(string: Constants.Network.udacitySessionURL)!)
             
-            request.HTTPMethod = Constants.HTTPMethods.post
+            request.httpMethod = Constants.HTTPMethods.post
             request.addValue(Constants.HTTPHeaderFieldValues.applicationJSON, forHTTPHeaderField: Constants.HTTPHeaderFields.accept)
             request.addValue(Constants.HTTPHeaderFieldValues.applicationJSON, forHTTPHeaderField: Constants.HTTPHeaderFields.contentType)
             
             if loginTuple != nil {
-                request.HTTPBody = "{\"udacity\": {\"username\": \"\(loginTuple!.email)\", \"password\": \"\(loginTuple!.password)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
+                request.httpBody = "{\"udacity\": {\"username\": \"\(loginTuple!.email)\", \"password\": \"\(loginTuple!.password)\"}}".data(using: String.Encoding.utf8)
             } else if token != nil {
-                request.HTTPBody = "{\"facebook_mobile\": {\"access_token\": \"\(token!.tokenString);\"}}".dataUsingEncoding(NSUTF8StringEncoding)
+                request.httpBody = "{\"facebook_mobile\": {\"access_token\": \"\(token!.tokenString);\"}}".data(using: String.Encoding.utf8)
             } else {
                 magic("Oh come on now, you gotta give me something to work with here...")
             }
@@ -65,9 +65,9 @@ final class LoginValidator {
         
     }
     
-    private func getPublicUserData(withAccountDict acctDict: NSDictionary) {
+    fileprivate func getPublicUserData(withAccountDict acctDict: NSDictionary) {
         
-        let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/users/\(acctDict[Constants.Keys.key] as! String)")!)
+        let request = NSMutableURLRequest(url: URL(string: "https://www.udacity.com/api/users/\(acctDict[Constants.Keys.key] as! String)")!)
         
         let requestCompletion = { [unowned self] (jsonDictionary: NSDictionary) in
             self.parsePublicUserDataJSON(jsonDictionary, userKey: acctDict[Constants.Keys.key] as! String)
@@ -79,7 +79,7 @@ final class LoginValidator {
     
     //MARK: - Parse results
     
-    private func parseLoginJSON(jsonDictionary: NSDictionary) {
+    fileprivate func parseLoginJSON(_ jsonDictionary: NSDictionary) {
         
         guard let _ = jsonDictionary[Constants.Keys.session] as? NSDictionary,
               let accountDictionary = jsonDictionary[Constants.Keys.account] as? NSDictionary else {
@@ -96,9 +96,9 @@ final class LoginValidator {
                 let messageString: String!
                 
                 switch statusCode {
-                case Error.InvaldCredentials.rawValue:
+                case Error.invaldCredentials.rawValue:
                     messageString = LocalizedStrings.AlertMessages.invalidCredentials
-                case Error.MissingParameter.rawValue:
+                case Error.missingParameter.rawValue:
                     if let missingParameter = jsonDictionary[Constants.Keys.parameter] as? String {
                         switch missingParameter {
                         case Constants.LoginErrorResponses.missingUsername:
@@ -120,7 +120,7 @@ final class LoginValidator {
         getPublicUserData(withAccountDict: accountDictionary)
     }
     
-    private func parsePublicUserDataJSON(jsonDictionary: NSDictionary, userKey key: String) {
+    fileprivate func parsePublicUserDataJSON(_ jsonDictionary: NSDictionary, userKey key: String) {
         
         guard let userDictionary = jsonDictionary[Constants.Keys.user] as? NSDictionary else {
             presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.userInfoError, message: LocalizedStrings.AlertMessages.userInfoError))
@@ -130,12 +130,12 @@ final class LoginValidator {
         let infoDictionary = NSMutableDictionary()
         
         guard let firstName = userDictionary[Constants.Keys.first_name] as? String,
-            lastName = userDictionary[Constants.Keys.last_name] as? String else {
+            let lastName = userDictionary[Constants.Keys.last_name] as? String else {
                 fatalError("No first or last name? All hope is lost... :[")
         }
-        infoDictionary.setObject(firstName, forKey: Constants.Keys.firstName)
-        infoDictionary.setObject(lastName, forKey: Constants.Keys.lastName)
-        infoDictionary.setObject(key as String, forKey: Constants.Keys.uniqueKey)
+        infoDictionary.setObject(firstName, forKey: Constants.Keys.firstName as NSCopying)
+        infoDictionary.setObject(lastName, forKey: Constants.Keys.lastName as NSCopying)
+        infoDictionary.setObject(key as String, forKey: Constants.Keys.uniqueKey as NSCopying)
         
         let currentUser = StudentInformation(withInfoDictionary: infoDictionary)
         

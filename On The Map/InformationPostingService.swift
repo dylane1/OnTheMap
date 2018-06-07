@@ -11,22 +11,22 @@ import UIKit
 
 final class InformationPostingService: StudentLocationRequestable {
     
-    private var presentActivityIndicator: ((completion: (() -> Void)?) -> Void)!
-    private var dismissActivityIndicator: (() -> Void)!
-    private var submitSuccessfulClosure: (() -> Void)!
-    private var presentErrorAlert: AlertPresentation!
+    fileprivate var presentActivityIndicator: ((_ completion: (() -> Void)?) -> Void)!
+    fileprivate var dismissActivityIndicator: (() -> Void)!
+    fileprivate var submitSuccessfulClosure: (() -> Void)!
+    fileprivate var presentErrorAlert: AlertPresentation!
     
-    private var networkRequestService: NetworkRequestService?
+    fileprivate var networkRequestService: NetworkRequestService?
     
-    private lazy var studentInfoProvider = StudentInformationProvider.sharedInstance
+    fileprivate lazy var studentInfoProvider = StudentInformationProvider.sharedInstance
     
     //MARK: - Configuration
     
     internal func configure(
-        withActivityIndicatorPresentation presentAI: (completion: (() -> Void)?) -> Void,
-        activityIndicatorDismissal dismissAI: () -> Void,
-        successClosure success:() -> Void,
-        alertPresentationClosure alertPresentation: AlertPresentation) {
+        withActivityIndicatorPresentation presentAI: @escaping (_ completion: (() -> Void)?) -> Void,
+        activityIndicatorDismissal dismissAI: @escaping () -> Void,
+        successClosure success:@escaping () -> Void,
+        alertPresentationClosure alertPresentation: @escaping AlertPresentation) {
         
         presentActivityIndicator    = presentAI
         dismissActivityIndicator    = dismissAI
@@ -36,7 +36,7 @@ final class InformationPostingService: StudentLocationRequestable {
     
     //MARK: - Query existing location information
     
-    internal func queryStudentLocation(withCompletion completion: (studentInformationValues: (mapString: String, mediaURL: String, previouslyEnteredLocationObjectId: String?)?) -> Void) {
+    internal func queryStudentLocation(withCompletion completion: @escaping (_ studentInformationValues: (mapString: String, mediaURL: String, previouslyEnteredLocationObjectId: String?)?) -> Void) {
         
         let aiPresented = { [weak self] in
             let request = self!.createStudentLocationRequest(uniqueKey: self!.studentInfoProvider.currentStudent.uniqueKey)
@@ -54,7 +54,7 @@ final class InformationPostingService: StudentLocationRequestable {
         presentActivityIndicator(completion: aiPresented)
     }
     
-    private func parseStudentLocationQuery(jsonDictionary: NSDictionary, completion: (studentInformationValues: (mapString: String, mediaURL: String, previouslyEnteredLocationObjectId: String?)?) -> Void) {
+    fileprivate func parseStudentLocationQuery(_ jsonDictionary: NSDictionary, completion: (_ studentInformationValues: (mapString: String, mediaURL: String, previouslyEnteredLocationObjectId: String?)?) -> Void) {
         
         networkRequestService = nil
         
@@ -74,7 +74,7 @@ final class InformationPostingService: StudentLocationRequestable {
         
         let previouslyEnteredLocationObjectId = infoDict[Constants.Keys.objectId] as? String
         
-        completion(studentInformationValues: (mapString, mediaURL, previouslyEnteredLocationObjectId))
+        completion((mapString!, mediaURL!, previouslyEnteredLocationObjectId))
     }
     
     //MARK: - Add a new student location / updated existing
@@ -103,7 +103,7 @@ final class InformationPostingService: StudentLocationRequestable {
         performRequest(request, params: params, completion: requestCompletion)
     }
     
-    private func performRequest(request: NSMutableURLRequest, params: (mapString: String, mediaURL: String, placemark: CLPlacemark), completion: GetDictionaryCompletion) {
+    fileprivate func performRequest(_ request: NSMutableURLRequest, params: (mapString: String, mediaURL: String, placemark: CLPlacemark), completion: @escaping GetDictionaryCompletion) {
         
         let aiPresented = { [weak self] in
             var httpBody = "{"
@@ -116,7 +116,7 @@ final class InformationPostingService: StudentLocationRequestable {
             httpBody += "\"\(Constants.Keys.longitude)\": \((params.placemark.location?.coordinate.longitude)!)"
             httpBody += "}"
             
-            request.HTTPBody = httpBody.dataUsingEncoding(NSUTF8StringEncoding)
+            request.httpBody = httpBody.data(using: String.Encoding.utf8)
             
             self!.networkRequestService!.configure(withRequestCompletion: completion, requestFailedClosure: self!.presentErrorAlert)
             self!.networkRequestService!.requestJSONDictionary(withURLRequest: request)
@@ -125,7 +125,7 @@ final class InformationPostingService: StudentLocationRequestable {
         presentActivityIndicator(completion: aiPresented)
     }
     
-    private func parsePostResponse(jsonDictionary: NSDictionary) {
+    fileprivate func parsePostResponse(_ jsonDictionary: NSDictionary) {
         
         guard let _ = jsonDictionary[Constants.Keys.createdAt] as? String else {
             presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.locationCreationError, message: LocalizedStrings.AlertMessages.pleaseTryAddingLocationAgain))
@@ -134,7 +134,7 @@ final class InformationPostingService: StudentLocationRequestable {
         submitSuccessfulClosure()
     }
     
-    private func parseUpdateResponse(jsonDictionary: NSDictionary) {
+    fileprivate func parseUpdateResponse(_ jsonDictionary: NSDictionary) {
         
         guard let _ = jsonDictionary[Constants.Keys.updatedAt] as? String else {
             presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.locationUpdateError, message: LocalizedStrings.AlertMessages.pleaseTryUpdateAgain))

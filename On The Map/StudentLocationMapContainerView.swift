@@ -16,15 +16,15 @@ class StudentLocationMapContainerView: UIView {
     
     /// Use a preloaded image until map is renedered so user doesn't see empty map area
     @IBOutlet weak var preloadedMapImage: UIImageView!
-    private var mapRendered = false
+    fileprivate var mapRendered = false
     
-    private lazy var studentInfoProvider = StudentInformationProvider.sharedInstance
+    fileprivate lazy var studentInfoProvider = StudentInformationProvider.sharedInstance
     
-    private var annotations = [StudentLocationAnnotation]()
+    fileprivate var annotations = [StudentLocationAnnotation]()
     
-    private var openLinkClosure: OpenLinkClosure?
+    fileprivate var openLinkClosure: OpenLinkClosure?
     
-    private var animatedPinsIn = false
+    fileprivate var animatedPinsIn = false
     
     //MARK: - View Lifecycle
     
@@ -35,7 +35,7 @@ class StudentLocationMapContainerView: UIView {
     
     //MARK: - Configuration
     
-    internal func configure(withOpenLinkClosure closure: OpenLinkClosure) {
+    internal func configure(withOpenLinkClosure closure: @escaping OpenLinkClosure) {
         openLinkClosure         = closure
         
         /// clear for refresh
@@ -52,7 +52,7 @@ class StudentLocationMapContainerView: UIView {
      Show a map image on top of map view while it loads so the user doesn't
      see a blank map area
      */
-    private func configureMapImage() {
+    fileprivate func configureMapImage() {
         preloadedMapImage.alpha = 0.0
         
         if !mapRendered {
@@ -78,7 +78,7 @@ class StudentLocationMapContainerView: UIView {
     
     //MARK: - Map View
     
-    private func placeAnnotations() {
+    fileprivate func placeAnnotations() {
         
         for item in studentInfoProvider.studentInformationArray! {
             let annotation = StudentLocationAnnotation(title: (item.firstName + " " + item.lastName), mediaURL: item.mediaURL,locationName: item.mapString, coordinate: CLLocationCoordinate2D(latitude: item.latitude, longitude: item.longitude))
@@ -96,13 +96,13 @@ class StudentLocationMapContainerView: UIView {
         }
     }
     
-    private func animateAnnotationsWithAnnotationArray(views: [MKAnnotationView]) {
+    fileprivate func animateAnnotationsWithAnnotationArray(_ views: [MKAnnotationView]) {
         for annotation in views {
             let endFrame = annotation.frame
-            annotation.frame = CGRectOffset(endFrame, 0, -500)
+            annotation.frame = endFrame.offsetBy(dx: 0, dy: -500)
             let duration = 0.3
             
-            UIView.animateWithDuration(duration, animations: {
+            UIView.animate(withDuration: duration, animations: {
                 annotation.frame = endFrame
             })
         }
@@ -112,7 +112,7 @@ class StudentLocationMapContainerView: UIView {
 
 extension StudentLocationMapContainerView: MKMapViewDelegate {
     
-    func mapViewDidFinishRenderingMap(mapView: MKMapView, fullyRendered: Bool) {
+    func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
         if mapRendered { return }
         mapRendered = true
         preloadedMapImage.alpha = 0.0
@@ -120,11 +120,11 @@ extension StudentLocationMapContainerView: MKMapViewDelegate {
     }
 
     
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
         if let annotation = annotation as? StudentLocationAnnotation {
             var pinView: MKAnnotationView
-            if let dequeuedView = mapView.dequeueReusableAnnotationViewWithIdentifier(MKAnnotationView.reuseIdentifier) as MKAnnotationView! {
+            if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: MKAnnotationView.reuseIdentifier) as MKAnnotationView! {
                 
                 dequeuedView.annotation = annotation
                 pinView = dequeuedView
@@ -133,19 +133,19 @@ extension StudentLocationMapContainerView: MKMapViewDelegate {
                 pinView.canShowCallout = true
                 pinView.calloutOffset = CGPoint(x: -5, y: 5)
                 pinView.image = IconProvider.imageOfDrawnIcon(.Annotation, size: CGSize(width: 15, height: 15))
-                pinView.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure) as UIView
+                pinView.rightCalloutAccessoryView = UIButton(type: .detailDisclosure) as UIView
             }
         return pinView
         }
         return nil
     }
     
-    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         let annotation = view.annotation as! StudentLocationAnnotation
         openLinkClosure?(annotation.mediaURL)
     }
     
-    func mapView(mapView: MKMapView, didAddAnnotationViews views: [MKAnnotationView]) {
+    func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
         if !animatedPinsIn {
             animateAnnotationsWithAnnotationArray(views)
         }

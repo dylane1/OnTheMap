@@ -10,7 +10,7 @@ import UIKit
 
 final class StudentLocationMapContainerViewController: UIViewController, MapAndTableViewControllerProtocol, MapAndTableNavigationProtocol, StudentInformationGettable, InformationPostingPresentable, SafariViewControllerPresentable, AlertPresentable, ActivityIndicatorPresentable {
     
-    private var mapContainterView: StudentLocationMapContainerView?
+    fileprivate var mapContainterView: StudentLocationMapContainerView?
     
     /// InformationPostingPresentable
     internal var informationPostingNavController: InformationPostingNavigationController?
@@ -54,13 +54,13 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
             sessionLogoutController: sessionLogoutController)
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         getStudentInfo()
     }
     
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
         mapContainterView!.clearAnnotations()
@@ -68,7 +68,7 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
     
     //MARK: - Configuration
     
-    private func configureView() {
+    fileprivate func configureView() {
         
         let openLinkClosure = { [weak self] (urlString: String) in
             self!.openLink(withURLString: urlString)
@@ -79,7 +79,7 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
     
     //MARK: - 
     
-    private func getStudentInfo() {
+    fileprivate func getStudentInfo() {
         let completion = { [weak self] in
             self!.configureView()
         }
@@ -88,7 +88,7 @@ final class StudentLocationMapContainerViewController: UIViewController, MapAndT
         performFetchWithCompletion(completion)
     }
     
-    private func openLink(withURLString link: String) {
+    fileprivate func openLink(withURLString link: String) {
         /// SafariViewControllerPresentable
         openLinkInSafari(withURLString: link)
     }

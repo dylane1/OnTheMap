@@ -18,36 +18,36 @@ extension ActivityIndicatorPresentable where Self: UIViewController {
     
     internal func getActivityIndicatorViewController() -> ActivityIndicatorViewController {
         
-        let activityIndicatorVC = UIStoryboard(name: Constants.StoryBoardID.main, bundle: nil).instantiateViewControllerWithIdentifier(Constants.StoryBoardID.activityIndicatorVC) as! ActivityIndicatorViewController
+        let activityIndicatorVC = UIStoryboard(name: Constants.StoryBoardID.main, bundle: nil).instantiateViewController(withIdentifier: Constants.StoryBoardID.activityIndicatorVC) as! ActivityIndicatorViewController
         return activityIndicatorVC
     }
     
-    internal func presentActivityIndicator(activityIndicator: ActivityIndicatorViewController, transitioningDelegate delegate: OverlayTransitioningDelegate, completion: (() -> Void)?) {
+    internal func presentActivityIndicator(_ activityIndicator: ActivityIndicatorViewController, transitioningDelegate delegate: OverlayTransitioningDelegate, completion: (() -> Void)?) {
         
         activityIndicator.transitioningDelegate = delegate
-        activityIndicator.modalPresentationStyle = .Custom
+        activityIndicator.modalPresentationStyle = .custom
         
         delegate.configureTransitionWithContentSize(
-            CGSizeMake(80, 80),
+            CGSize(width: 80, height: 80),
             options: [
-                .InFromPosition : Position.Center,
-                .DurationIn: 0.3,
-                .AlphaIn: true,
-                .ScaleIn: true,
-                .OutToPosition: Position.Center,
-                .DurationOut: 0.3,
-                .AlphaOut: true,
-                .ScaleOut: true,
-                .DimmingBGColor: Theme.presentationDimBGColor
+                .inFromPosition : Position.center,
+                .durationIn: 0.3,
+                .alphaIn: true,
+                .scaleIn: true,
+                .outToPosition: Position.center,
+                .durationOut: 0.3,
+                .alphaOut: true,
+                .scaleOut: true,
+                .dimmingBGColor: Theme.presentationDimBGColor
             ])
         
         activityIndicatorIsPresented = true
-        presentViewController(activityIndicator, animated: true, completion: completion)
+        present(activityIndicator, animated: true, completion: completion)
     }
     
-    internal func dismissActivityIndicator(completion completion: (() -> Void)?) {
+    internal func dismissActivityIndicator(completion: (() -> Void)?) {
         self.activityIndicatorIsPresented = false
-        dismissViewControllerAnimated(true, completion: {
+        dismiss(animated: true, completion: {
             self.activityIndicatorViewController = nil
             completion?()
         })
