@@ -18,11 +18,11 @@ final class NetworkRequestService {
         presentErrorAlert   = requestFailed
     }
     
-    internal func requestJSONDictionary(withURLRequest request: NSMutableURLRequest, isUdacityLoginLogout uLoginLogout: Bool = false) {
+    internal func requestJSONDictionary(withURLRequest request: URLRequest, isUdacityLoginLogout uLoginLogout: Bool = false) {
         
         /// Check to see if connected to the internet first...
         if !Reachability.isConnectedToNetwork() {
-            presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.noInternetConnection, message: LocalizedStrings.AlertMessages.connectToInternet))
+            presentErrorAlert((title: LocalizedStrings.AlertTitles.noInternetConnection, message: LocalizedStrings.AlertMessages.connectToInternet))
         }
         
         
@@ -32,7 +32,7 @@ final class NetworkRequestService {
             
             guard var data = data, let response = response, error == nil else {
                 DispatchQueue.main.async {
-                    self.presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.error, message: error!.localizedDescription))
+                    self.presentErrorAlert((title: LocalizedStrings.AlertTitles.error, message: error!.localizedDescription))
                 }
                 return
             }
@@ -44,7 +44,8 @@ final class NetworkRequestService {
             }
             
             if uLoginLogout {
-                data = data.subdata(with: NSMakeRange(5, data.count - 5))
+//                data = data.subdata(in: NSMakeRange(5, data.count - 5))
+                data = data.subdata(in: 5..<(data.count - 5))
             }
             
             do {

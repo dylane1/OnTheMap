@@ -120,8 +120,8 @@ class InformationPostingView: UIView, StudentLocationRequestable {
         promptLabel.adjustsFontSizeToFitWidth = true
         
         let labelAttributes = [
-            NSForegroundColorAttributeName: Theme.textDark,
-            NSFontAttributeName: UIFont(name: Constants.FontName.avenirHeavy, size: 50)!
+            kCTForegroundColorAttributeName: Theme.textDark,
+            kCTFontAttributeName: UIFont(name: Constants.FontName.avenirHeavy, size: 50)!
         ]
         var promptString = LocalizedStrings.Labels.whereAreYou
         if studentInfoProvider.currentStudent.firstName != "" {
@@ -129,16 +129,16 @@ class InformationPostingView: UIView, StudentLocationRequestable {
         }
         promptString += "?"
         
-        promptLabel.attributedText = NSAttributedString(string: promptString, attributes: labelAttributes)
+        promptLabel.attributedText = NSAttributedString(string: promptString, attributes: labelAttributes as [NSAttributedStringKey : Any])
     }
     
     fileprivate func configureTextFields() {
         let textFieldAttributes = [
-            NSFontAttributeName: UIFont(name: Constants.FontName.avenirLight, size: 17)!,
-            NSForegroundColorAttributeName: Theme.textFieldText
+            kCTFontAttributeName: UIFont(name: Constants.FontName.avenirLight, size: 17)!,
+            kCTForegroundColorAttributeName: Theme.textFieldText
         ]
         
-        locationTextField.defaultTextAttributes = textFieldAttributes
+        locationTextField.defaultTextAttributes = textFieldAttributes as [String : Any]
         locationTextField.backgroundColor       = Theme.textFieldBackground
         locationTextField.placeholder           = LocalizedStrings.TextFieldPlaceHolders.enterLocation
         locationTextField.textAlignment         = .center
@@ -148,7 +148,7 @@ class InformationPostingView: UIView, StudentLocationRequestable {
         
         urlTextField.alpha                      = 0.0
         urlTextFieldTopConstraint.constant     -= (urlTextField.frame.height + 4)
-        urlTextField.defaultTextAttributes      = textFieldAttributes
+        urlTextField.defaultTextAttributes      = textFieldAttributes as [String : Any]
         urlTextField.backgroundColor            = Theme.textFieldBackground
         urlTextField.placeholder                = LocalizedStrings.TextFieldPlaceHolders.enterURL
         urlTextField.textAlignment              = .center
@@ -174,7 +174,7 @@ class InformationPostingView: UIView, StudentLocationRequestable {
     @IBAction func bottomButtonAction(_ sender: AnyObject) {
 
         if !isValidLocation {
-            presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.locationSearchError, message: LocalizedStrings.AlertMessages.pleaseTrySearchAgain))
+            presentErrorAlert((title: LocalizedStrings.AlertTitles.locationSearchError, message: LocalizedStrings.AlertMessages.pleaseTrySearchAgain))
             
             return
         }
@@ -193,13 +193,13 @@ class InformationPostingView: UIView, StudentLocationRequestable {
     //MARK: - Map
     
     fileprivate func findLocation() {
-        presentActivityIndicator(completion: nil)
+        presentActivityIndicator(nil)
         
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(mapString, completionHandler: { (placemarks: [CLPlacemark]?, error: NSError?) -> Void in
             if error != nil {
                 self.isValidLocation = false
-                self.presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.locationSearchError, message: LocalizedStrings.AlertMessages.pleaseTrySearchAgain))
+                self.presentErrorAlert((title: LocalizedStrings.AlertTitles.locationSearchError, message: LocalizedStrings.AlertMessages.pleaseTrySearchAgain))
                 return
             } else {
                 self.isValidLocation    = true
@@ -251,8 +251,8 @@ class InformationPostingView: UIView, StudentLocationRequestable {
 
 extension InformationPostingView: UITextFieldDelegate {
     internal func textFieldDidEndEditing(_ textField: UITextField) {
-        mapString   = locationTextField.text as String! ?? ""
-        mediaURL    = urlTextField.text as String! ?? ""
+        mapString   = locationTextField.text as String? ?? ""
+        mediaURL    = urlTextField.text as String? ?? ""
     }
     
     internal func textFieldShouldReturn(_ textField: UITextField) -> Bool {

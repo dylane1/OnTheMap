@@ -20,8 +20,8 @@ class LoginView: UIView {
     
     fileprivate var emailTextFieldFontColor = Theme.textError
     fileprivate var textFieldAttributes = [
-        NSFontAttributeName: UIFont(name: Constants.FontName.avenirLight, size: 17)!,
-        NSForegroundColorAttributeName: UIColor.redOrange()
+        kCTFontAttributeName: UIFont(name: Constants.FontName.avenirLight, size: 17)!,
+        kCTForegroundColorAttributeName: UIColor.redOrange()
     ]
     
     fileprivate lazy var loginValidator = LoginValidator()
@@ -62,8 +62,8 @@ class LoginView: UIView {
     //MARK: - Configuration
     
     internal func configure(
-        withActivityIndicatorPresentation presentAI: (_ completion: (() -> Void)?) -> Void,
-        successClosure success:() -> Void,
+        withActivityIndicatorPresentation presentAI: @escaping (_ completion: (() -> Void)?) -> Void,
+        successClosure success:@escaping () -> Void,
         alertPresentationClosure alertPresentation: @escaping AlertPresentation,
         openUdacitySignUp signUpClosure: @escaping () -> Void) {
         
@@ -113,9 +113,9 @@ class LoginView: UIView {
         
         /// Login
         
-        let loginLabelAttributes: [String : AnyObject] = [
-            NSForegroundColorAttributeName: Theme.textLight,
-            NSFontAttributeName: UIFont(name: Constants.FontName.avenirHeavy, size: 20)!]
+        let loginLabelAttributes: [NSAttributedStringKey : Any] = [
+            NSAttributedStringKey.foregroundColor : Theme.textLight,
+            NSAttributedStringKey.font : UIFont(name: Constants.FontName.avenirHeavy, size: 20)!]
         
         loginToUdacityLabel.attributedText = NSAttributedString(string: LocalizedStrings.Labels.loginToUdacity, attributes: loginLabelAttributes)
         
@@ -141,11 +141,11 @@ class LoginView: UIView {
         
         let attributedString = NSMutableAttributedString(string: labelString)
         
-        attributedString.addAttribute(NSFontAttributeName, value: UIFont(name: Constants.FontName.avenirMedium, size: 15)!, range: NSRange(location: 0, length: labelString.characters.count))
+        attributedString.addAttribute(NSAttributedStringKey.font, value: UIFont(name: Constants.FontName.avenirMedium, size: 15)!, range: NSRange(location: 0, length: labelString.characters.count))
         
-        attributedString.addAttribute(NSForegroundColorAttributeName, value: Theme.textLight, range: NSRange(location: 0, length: labelString.characters.count))
+        attributedString.addAttribute(NSAttributedStringKey.foregroundColor, value: Theme.textLight, range: NSRange(location: 0, length: labelString.characters.count))
         
-        attributedString.addAttribute(NSUnderlineStyleAttributeName, value: NSUnderlineStyle.styleSingle.rawValue, range: NSRange(location: LocalizedStrings.Labels.dontHaveAccount.characters.count + 1, length: LocalizedStrings.Labels.signUp.characters.count))
+        attributedString.addAttribute(NSAttributedStringKey.underlineStyle, value: NSUnderlineStyle.styleSingle.rawValue, range: NSRange(location: LocalizedStrings.Labels.dontHaveAccount.characters.count + 1, length: LocalizedStrings.Labels.signUp.characters.count))
         
         noAccountLabel.attributedText   = attributedString
         noAccountLabel.transform        = CGAffineTransform(scaleX: 0.1, y: 0.1)
@@ -165,9 +165,9 @@ class LoginView: UIView {
     }
     
     fileprivate func configureEmailFieldAttributes() {
-        textFieldAttributes[NSForegroundColorAttributeName] = emailTextFieldFontColor
+        textFieldAttributes[kCTForegroundColorAttributeName] = emailTextFieldFontColor
         
-        emailField.defaultTextAttributes = textFieldAttributes
+        emailField.defaultTextAttributes = textFieldAttributes as [String : Any]
     }
     
     fileprivate func configureButtons() {
@@ -195,7 +195,7 @@ class LoginView: UIView {
     //MARK: - Facebook check
     
     fileprivate func checkForLoggedIntoFacebook() {
-        guard let token = FBSDKAccessToken.current() as FBSDKAccessToken! else {
+        guard let token = FBSDKAccessToken.current() as FBSDKAccessToken? else {
             return
         }
         initiateLogin(withFacebookToken: token)
@@ -218,9 +218,9 @@ class LoginView: UIView {
      * 1. Check for valid email & set color of text accordingly
      * 2. Check for both valid email & a non-empty password string & set login button enabled/disabled
      */
-    internal func validateTextFields() {
-        emailString     = emailField.text as String! ?? ""
-        passwordString  = passwordField.text as String! ?? ""
+    @objc internal func validateTextFields() {
+        emailString     = emailField.text as String? ?? ""
+        passwordString  = passwordField.text as String? ?? ""
         
         emailTextFieldFontColor = emailString.isEmail ? Theme.textFieldText : Theme.textError
         
@@ -299,10 +299,10 @@ extension LoginView: UITextFieldDelegate {
 //MARK: - FBSDKLoginButtonDelegate
 extension LoginView: FBSDKLoginButtonDelegate {
     
-    internal func loginButton(_ loginButton: FBSDKLoginButton, didCompleteWith result: FBSDKLoginManagerLoginResult, error: NSError?) {
+    internal func loginButton(_ loginButton: FBSDKLoginButton, didCompleteWith result: FBSDKLoginManagerLoginResult, error: Error?) {
         
         if error != nil {
-            presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.loginError, message: error!.localizedDescription))
+            presentErrorAlert((title: LocalizedStrings.AlertTitles.loginError, message: error!.localizedDescription))
             return
         }
         initiateLogin(withFacebookToken: result.token)

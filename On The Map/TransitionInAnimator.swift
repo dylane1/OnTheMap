@@ -72,13 +72,13 @@ final class TransitionInAnimator: NSObject, UIViewControllerAnimatedTransitionin
         if fromPosition != .center {
             switch fromPosition {
             case .top:
-                presentedView?.center = CGPoint(x: (center?.x)!, y: -presentedView?.bounds.size.height)
+                presentedView?.center = CGPoint(x: (center?.x)!, y: -(CGFloat((presentedView?.bounds.size.height)!)))
             case .bottom:
-                presentedView?.center = CGPoint(x: (center?.x)!, y: +presentedView?.bounds.size.height)
+                presentedView?.center = CGPoint(x: (center?.x)!, y: +(CGFloat((presentedView?.bounds.size.height)!)))
             case .left:
-                presentedView?.center = CGPoint(x: (center?.y)!, y: -presentedView?.bounds.size.width)
+                presentedView?.center = CGPoint(x: (center?.y)!, y: -(CGFloat((presentedView?.bounds.size.width)!)))
             case .right:
-                presentedView?.center = CGPoint(x: (center?.y)!, y: +presentedView?.bounds.size.width)
+                presentedView?.center = CGPoint(x: (center?.y)!, y: +(CGFloat((presentedView?.bounds.size.width)!)))
             default: /** Center */
                 break
             }

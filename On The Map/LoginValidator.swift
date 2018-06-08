@@ -40,7 +40,7 @@ final class LoginValidator {
     internal func login(withEmailAndPassword loginTuple:(email: String, password: String)? = nil, withFacebookToken token: FBSDKAccessToken? = nil) {
         
         let aiPresented = { [unowned self] in
-            let request = NSMutableURLRequest(url: URL(string: Constants.Network.udacitySessionURL)!)
+            var request = URLRequest(url: URL(string: Constants.Network.udacitySessionURL)!)
             
             request.httpMethod = Constants.HTTPMethods.post
             request.addValue(Constants.HTTPHeaderFieldValues.applicationJSON, forHTTPHeaderField: Constants.HTTPHeaderFields.accept)
@@ -59,9 +59,9 @@ final class LoginValidator {
             }
             
             self.networkRequestService.configure(withRequestCompletion: requestCompletion, requestFailedClosure: self.presentErrorAlert)
-            self.networkRequestService.requestJSONDictionary(withURLRequest: request, isUdacityLoginLogout: true)
+            self.networkRequestService.requestJSONDictionary(withURLRequest: request as URLRequest, isUdacityLoginLogout: true)
         }
-        presentActivityIndicator(completion: aiPresented)
+        presentActivityIndicator(aiPresented)
         
     }
     
@@ -74,7 +74,7 @@ final class LoginValidator {
         }
         
         networkRequestService.configure(withRequestCompletion: requestCompletion, requestFailedClosure: presentErrorAlert)
-        networkRequestService.requestJSONDictionary(withURLRequest: request, isUdacityLoginLogout: true)
+        networkRequestService.requestJSONDictionary(withURLRequest: request as URLRequest, isUdacityLoginLogout: true)
     }
     
     //MARK: - Parse results
@@ -88,7 +88,7 @@ final class LoginValidator {
                 guard let statusCode = jsonDictionary[Constants.Keys.status] as? Int,
                     let error = jsonDictionary[Constants.Keys.error] as? String else {
                         
-                        presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.loginError, message: LocalizedStrings.AlertMessages.unknownLoginError))
+                        presentErrorAlert((title: LocalizedStrings.AlertTitles.loginError, message: LocalizedStrings.AlertMessages.unknownLoginError))
                         
                         return
                 }
@@ -113,7 +113,7 @@ final class LoginValidator {
                     /// Something else
                     messageString = LocalizedStrings.AlertMessages.serverResponded + "\n\(error)"
                 }
-                presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.loginError, message: messageString))
+                presentErrorAlert((title: LocalizedStrings.AlertTitles.loginError, message: messageString))
                 return
         }
         /// Made it through with a valid account
@@ -123,7 +123,7 @@ final class LoginValidator {
     fileprivate func parsePublicUserDataJSON(_ jsonDictionary: NSDictionary, userKey key: String) {
         
         guard let userDictionary = jsonDictionary[Constants.Keys.user] as? NSDictionary else {
-            presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.userInfoError, message: LocalizedStrings.AlertMessages.userInfoError))
+            presentErrorAlert((title: LocalizedStrings.AlertTitles.userInfoError, message: LocalizedStrings.AlertMessages.userInfoError))
             return
         }
         

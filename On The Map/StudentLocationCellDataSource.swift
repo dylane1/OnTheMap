@@ -10,32 +10,36 @@ import UIKit
 
 protocol StudentLocationCellDataSource {
     var studentInformation: StudentInformation { get }
-    var nameTextAttributes: [String : AnyObject] { get }
-    var locationTextAttributes: [String : AnyObject] { get }
-    var linkTextAttributes: [String : AnyObject] { get }
+    var nameTextAttributes: [NSAttributedStringKey : Any] { get }
+    var locationTextAttributes: [NSAttributedStringKey : Any] { get }
+    var linkTextAttributes: [NSAttributedStringKey : Any] { get }
 }
 
 extension StudentLocationCellDataSource {
-    internal var nameTextAttributes: [String : AnyObject] {
+    internal var nameTextAttributes: [NSAttributedStringKey : Any] {
         return [
-            NSAttributedStringKey.foregroundColor.rawValue: Theme.textDark,
-            NSAttributedStringKey.font.rawValue: UIFont(name: Constants.FontName.avenirHeavy, size: 20)!
+            NSAttributedStringKey.foregroundColor : Theme.textDark,
+            NSAttributedStringKey.font : UIFont(name: Constants.FontName.avenirHeavy, size: 20)!
         ]
     }
-    internal var locationTextAttributes: [String : AnyObject] {
+    internal var locationTextAttributes: [NSAttributedStringKey : Any] {
         return [
-            NSAttributedStringKey.foregroundColor.rawValue: Theme.textDark,
-            NSAttributedStringKey.font.rawValue: UIFont(name: Constants.FontName.avenirMedium, size: 16)!
+            NSAttributedStringKey.foregroundColor : Theme.textDark,
+            NSAttributedStringKey.font : UIFont(name: Constants.FontName.avenirMedium, size: 16)!
         ]
     }
-    internal var linkTextAttributes: [String : AnyObject] {
+    internal var linkTextAttributes: [NSAttributedStringKey : Any] {
         return [
-            NSAttributedStringKey.foregroundColor.rawValue: Theme.textLink,
-            NSAttributedStringKey.font.rawValue: UIFont(name: Constants.FontName.avenirMedium, size: 14)!
+            NSAttributedStringKey.foregroundColor : Theme.textLink,
+            NSAttributedStringKey.font : UIFont(name: Constants.FontName.avenirMedium, size: 14)!
         ]
     }
 }
 
 struct StudentLocationCellModel: StudentLocationCellDataSource {
+//    var linkTextAttributes: [NSAttributedStringKey : Any]
+//    var locationTextAttributes: [NSAttributedStringKey : Any]
+//    var nameTextAttributes: [NSAttributedStringKey : Any]
+    
     var studentInformation: StudentInformation
 }

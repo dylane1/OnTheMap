@@ -8,6 +8,8 @@
 
 import UIKit
 
+typealias AlertParameters = (title: String, message: String)
+typealias AlertPresentation = (_ alertParameters: AlertParameters) -> Void
 
 protocol AlertPresentable/*: class*/ {}
 

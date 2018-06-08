@@ -12,7 +12,3 @@ typealias BarButtonClosure = () -> Void
 typealias BarButtonClosureWithButtonItemSource = (UIBarButtonItem) -> Void
 typealias GetDictionaryCompletion = (NSDictionary) -> Void
 typealias OpenLinkClosure = (String) -> Void
-
-/// AlertPresentable protocol
-typealias AlertParameters = (title: String, message: String)
-typealias AlertPresentation = (_ alertParameters: AlertParameters) -> Void

@@ -11,7 +11,7 @@ import FBSDKLoginKit
 
 final class UserSessionLogoutController {
     
-    fileprivate var presentActivityIndicator: ((_ completion: (() -> Void)?) -> Void)!
+    fileprivate var presentActivityIndicator: (((() -> Void)?) -> Void)!
     fileprivate var logoutSuccessClosure: (() -> Void)!
     fileprivate var presentErrorAlert: AlertPresentation!
     
@@ -28,7 +28,7 @@ final class UserSessionLogoutController {
     
     //MARK: -
     internal func logout() {
-        guard let _ = FBSDKAccessToken.current() as FBSDKAccessToken! else {
+        guard let _ = FBSDKAccessToken.current() as FBSDKAccessToken? else {
             udacityLogout()
             return
         }
@@ -62,9 +62,9 @@ final class UserSessionLogoutController {
             
             let networkRequestService = NetworkRequestService()
             networkRequestService.configure(withRequestCompletion: requestCompletion, requestFailedClosure: self!.presentErrorAlert)
-            networkRequestService.requestJSONDictionary(withURLRequest: request, isUdacityLoginLogout: true)
+            networkRequestService.requestJSONDictionary(withURLRequest: request as URLRequest, isUdacityLoginLogout: true)
         }
-        presentActivityIndicator(completion: aiPresented)
+        presentActivityIndicator(aiPresented)
     }
     
     //MARK: - Parse results
@@ -76,12 +76,12 @@ final class UserSessionLogoutController {
                 
                 guard let statusCode = jsonDictionary[Constants.Keys.status] as? Int,
                     let _ = jsonDictionary[Constants.Keys.error] as? String else {
-                        presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.logoutError, message: LocalizedStrings.AlertMessages.unknownLogoutError))
+                        presentErrorAlert((title: LocalizedStrings.AlertTitles.logoutError, message: LocalizedStrings.AlertMessages.unknownLogoutError))
                         return
                 }
                 let messageString = LocalizedStrings.AlertMessages.serverResponded + "\n\(statusCode): \(HTTPURLResponse.localizedString(forStatusCode: statusCode))"
                 
-                presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.logoutError, message: messageString))
+                presentErrorAlert((title: LocalizedStrings.AlertTitles.logoutError, message: messageString))
                 return
         }
         logoutSuccessClosure()

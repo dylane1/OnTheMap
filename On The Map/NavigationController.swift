@@ -16,7 +16,7 @@ class NavigationController: UINavigationController {
         navigationBar.tintColor    = Theme.buttonTint
         navigationBar.isTranslucent  = true
         
-        var titleLabelAttributes: [String : AnyObject] = [NSAttributedStringKey.foregroundColor.rawValue : Theme.textLight]
+        var titleLabelAttributes: [NSAttributedStringKey : Any] = [NSAttributedStringKey(rawValue: NSAttributedStringKey.foregroundColor.rawValue) : Theme.textLight]
         
         if isTitle {
             titleLabelAttributes[NSAttributedStringKey.font] = UIFont(name: Constants.FontName.markerFelt, size: 24)!

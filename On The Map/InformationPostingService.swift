@@ -11,7 +11,7 @@ import UIKit
 
 final class InformationPostingService: StudentLocationRequestable {
     
-    fileprivate var presentActivityIndicator: ((_ completion: (() -> Void)?) -> Void)!
+    fileprivate var presentActivityIndicator: (((() -> Void)?) -> Void)!
     fileprivate var dismissActivityIndicator: (() -> Void)!
     fileprivate var submitSuccessfulClosure: (() -> Void)!
     fileprivate var presentErrorAlert: AlertPresentation!
@@ -47,11 +47,11 @@ final class InformationPostingService: StudentLocationRequestable {
             
             self!.networkRequestService!.configure(withRequestCompletion: requestCompletion, requestFailedClosure: self!.presentErrorAlert)
             
-            self!.networkRequestService!.requestJSONDictionary(withURLRequest: request)
+            self!.networkRequestService!.requestJSONDictionary(withURLRequest: request as URLRequest)
         }
         
         networkRequestService = NetworkRequestService()
-        presentActivityIndicator(completion: aiPresented)
+        presentActivityIndicator(aiPresented)
     }
     
     fileprivate func parseStudentLocationQuery(_ jsonDictionary: NSDictionary, completion: (_ studentInformationValues: (mapString: String, mediaURL: String, previouslyEnteredLocationObjectId: String?)?) -> Void) {
@@ -60,7 +60,7 @@ final class InformationPostingService: StudentLocationRequestable {
         
         guard let resultArray = jsonDictionary[Constants.Keys.results] as? NSArray,
             let infoDict = resultArray[0] as? NSDictionary else {
-                presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.locationSearchError, message: LocalizedStrings.AlertMessages.pleaseTrySearchAgain))
+                presentErrorAlert((title: LocalizedStrings.AlertTitles.locationSearchError, message: LocalizedStrings.AlertMessages.pleaseTrySearchAgain))
                 return
         }
         
@@ -119,16 +119,16 @@ final class InformationPostingService: StudentLocationRequestable {
             request.httpBody = httpBody.data(using: String.Encoding.utf8)
             
             self!.networkRequestService!.configure(withRequestCompletion: completion, requestFailedClosure: self!.presentErrorAlert)
-            self!.networkRequestService!.requestJSONDictionary(withURLRequest: request)
+            self!.networkRequestService!.requestJSONDictionary(withURLRequest: request as URLRequest)
         }
         networkRequestService = NetworkRequestService()
-        presentActivityIndicator(completion: aiPresented)
+        presentActivityIndicator(aiPresented)
     }
     
     fileprivate func parsePostResponse(_ jsonDictionary: NSDictionary) {
         
         guard let _ = jsonDictionary[Constants.Keys.createdAt] as? String else {
-            presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.locationCreationError, message: LocalizedStrings.AlertMessages.pleaseTryAddingLocationAgain))
+            presentErrorAlert((title: LocalizedStrings.AlertTitles.locationCreationError, message: LocalizedStrings.AlertMessages.pleaseTryAddingLocationAgain))
             return
         }
         submitSuccessfulClosure()
@@ -137,7 +137,7 @@ final class InformationPostingService: StudentLocationRequestable {
     fileprivate func parseUpdateResponse(_ jsonDictionary: NSDictionary) {
         
         guard let _ = jsonDictionary[Constants.Keys.updatedAt] as? String else {
-            presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.locationUpdateError, message: LocalizedStrings.AlertMessages.pleaseTryUpdateAgain))
+            presentErrorAlert((title: LocalizedStrings.AlertTitles.locationUpdateError, message: LocalizedStrings.AlertMessages.pleaseTryUpdateAgain))
             return
         }
         submitSuccessfulClosure()
