@@ -64,7 +64,7 @@ final class UserSessionLogoutController {
             networkRequestService.configure(withRequestCompletion: requestCompletion, requestFailedClosure: self!.presentErrorAlert)
             networkRequestService.requestJSONDictionary(withURLRequest: request, isUdacityLoginLogout: true)
         }
-        presentActivityIndicator(completion: aiPresented)
+        presentActivityIndicator(aiPresented)
     }
     
     //MARK: - Parse results

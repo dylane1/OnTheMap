@@ -51,7 +51,7 @@ final class InformationPostingService: StudentLocationRequestable {
         }
         
         networkRequestService = NetworkRequestService()
-        presentActivityIndicator(completion: aiPresented)
+        presentActivityIndicator(aiPresented)
     }
     
     fileprivate func parseStudentLocationQuery(_ jsonDictionary: NSDictionary, completion: (_ studentInformationValues: (mapString: String, mediaURL: String, previouslyEnteredLocationObjectId: String?)?) -> Void) {
@@ -122,7 +122,7 @@ final class InformationPostingService: StudentLocationRequestable {
             self!.networkRequestService!.requestJSONDictionary(withURLRequest: request)
         }
         networkRequestService = NetworkRequestService()
-        presentActivityIndicator(completion: aiPresented)
+        presentActivityIndicator(aiPresented)
     }
     
     fileprivate func parsePostResponse(_ jsonDictionary: NSDictionary) {

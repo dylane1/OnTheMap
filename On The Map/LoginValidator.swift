@@ -61,7 +61,7 @@ final class LoginValidator {
             self.networkRequestService.configure(withRequestCompletion: requestCompletion, requestFailedClosure: self.presentErrorAlert)
             self.networkRequestService.requestJSONDictionary(withURLRequest: request, isUdacityLoginLogout: true)
         }
-        presentActivityIndicator(completion: aiPresented)
+        presentActivityIndicator(aiPresented)
         
     }
     

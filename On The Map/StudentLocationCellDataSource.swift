@@ -10,9 +10,9 @@ import UIKit
 
 protocol StudentLocationCellDataSource {
     var studentInformation: StudentInformation { get }
-    var nameTextAttributes: [String : AnyObject] { get }
-    var locationTextAttributes: [String : AnyObject] { get }
-    var linkTextAttributes: [String : AnyObject] { get }
+    var nameTextAttributes: [NSAttributedString : Any] { get }
+    var locationTextAttributes: [NSAttributedString : Any] { get }
+    var linkTextAttributes: [NSAttributedString : Any] { get }
 }
 
 extension StudentLocationCellDataSource {
@@ -37,5 +37,9 @@ extension StudentLocationCellDataSource {
 }
 
 struct StudentLocationCellModel: StudentLocationCellDataSource {
+    var linkTextAttributes: [NSAttributedString : Any]
+    var locationTextAttributes: [NSAttributedString : Any]
+    var nameTextAttributes: [NSAttributedString : Any]
+    
     var studentInformation: StudentInformation
 }

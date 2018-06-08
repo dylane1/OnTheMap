@@ -193,7 +193,7 @@ class InformationPostingView: UIView, StudentLocationRequestable {
     //MARK: - Map
     
     fileprivate func findLocation() {
-        presentActivityIndicator(completion: nil)
+        presentActivityIndicator(nil)
         
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(mapString, completionHandler: { (placemarks: [CLPlacemark]?, error: NSError?) -> Void in
