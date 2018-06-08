@@ -34,6 +34,7 @@
 		A34A2B651D2B1B32007E2A0E /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A34A2B621D2B1B31007E2A0E /* FBSDKShareKit.framework */; };
 		A34A2B671D2C1CF8007E2A0E /* UserSessionLogoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34A2B661D2C1CF8007E2A0E /* UserSessionLogoutController.swift */; };
 		A34F41781D482D3F00299DA0 /* AnnotationDrawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34F41771D482D3F00299DA0 /* AnnotationDrawable.swift */; };
+		A35853A320CB156B00F19D2B /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A35853A220CB156B00F19D2B /* README.md */; };
 		A3662F651D46947800818019 /* StarLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3662F641D46947800818019 /* StarLayer.swift */; };
 		A3662F671D46B36E00818019 /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3662F661D46B36D00818019 /* ActivityIndicatorView.swift */; };
 		A3816D1F1D08DA6A001B55A0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3816D1E1D08DA6A001B55A0 /* MapKit.framework */; };
@@ -115,6 +116,7 @@
 		A34A2B621D2B1B31007E2A0E /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		A34A2B661D2C1CF8007E2A0E /* UserSessionLogoutController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSessionLogoutController.swift; sourceTree = "<group>"; };
 		A34F41771D482D3F00299DA0 /* AnnotationDrawable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnotationDrawable.swift; sourceTree = "<group>"; };
+		A35853A220CB156B00F19D2B /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		A3662F641D46947800818019 /* StarLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarLayer.swift; sourceTree = "<group>"; };
 		A3662F661D46B36D00818019 /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
 		A3816D1E1D08DA6A001B55A0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -287,6 +289,7 @@
 		A39CF59C1CCAB1390060C890 /* On The Map */ = {
 			isa = PBXGroup;
 			children = (
+				A35853A220CB156B00F19D2B /* README.md */,
 				A3E8C8D31CED10040040770A /* Utilities */,
 				A3E8C8C71CED0CB30040770A /* Constants.swift */,
 				A32697921D32E0B300597140 /* UI */,
@@ -461,6 +464,7 @@
 				A3E86FDA1D3D8530003514D7 /* Images.xcassets in Resources */,
 				A3A97DF71D3D973400213FE9 /* Default-667h@2x.png in Resources */,
 				A39CF5A51CCAB1390060C890 /* Main.storyboard in Resources */,
+				A35853A320CB156B00F19D2B /* README.md in Resources */,
 				A3A97DF91D3D973400213FE9 /* Default@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
