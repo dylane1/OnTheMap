@@ -44,7 +44,8 @@ final class NetworkRequestService {
             }
             
             if uLoginLogout {
-                data = data.subdata(with: NSMakeRange(5, data.count - 5))
+//                data = data.subdata(in: NSMakeRange(5, data.count - 5))
+                data = data.subdata(in: 5..<(data.count - 5))
             }
             
             do {

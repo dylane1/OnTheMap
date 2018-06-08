@@ -47,7 +47,7 @@ final class InformationPostingService: StudentLocationRequestable {
             
             self!.networkRequestService!.configure(withRequestCompletion: requestCompletion, requestFailedClosure: self!.presentErrorAlert)
             
-            self!.networkRequestService!.requestJSONDictionary(withURLRequest: request)
+            self!.networkRequestService!.requestJSONDictionary(withURLRequest: request as URLRequest)
         }
         
         networkRequestService = NetworkRequestService()
@@ -119,7 +119,7 @@ final class InformationPostingService: StudentLocationRequestable {
             request.httpBody = httpBody.data(using: String.Encoding.utf8)
             
             self!.networkRequestService!.configure(withRequestCompletion: completion, requestFailedClosure: self!.presentErrorAlert)
-            self!.networkRequestService!.requestJSONDictionary(withURLRequest: request)
+            self!.networkRequestService!.requestJSONDictionary(withURLRequest: request as URLRequest)
         }
         networkRequestService = NetworkRequestService()
         presentActivityIndicator(aiPresented)

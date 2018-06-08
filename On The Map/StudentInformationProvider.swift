@@ -57,7 +57,7 @@ final class StudentInformationProvider: StudentLocationRequestable {
         }
         
         networkRequestService.configure(withRequestCompletion: requestCompletion, requestFailedClosure: presentErrorAlert)
-        networkRequestService.requestJSONDictionary(withURLRequest: request)
+        networkRequestService.requestJSONDictionary(withURLRequest: request as URLRequest)
     }
     
     //MARK: - Parse results

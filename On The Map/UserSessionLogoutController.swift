@@ -28,7 +28,7 @@ final class UserSessionLogoutController {
     
     //MARK: -
     internal func logout() {
-        guard let _ = FBSDKAccessToken.current() as FBSDKAccessToken! else {
+        guard let _ = FBSDKAccessToken.current() as FBSDKAccessToken? else {
             udacityLogout()
             return
         }
@@ -62,7 +62,7 @@ final class UserSessionLogoutController {
             
             let networkRequestService = NetworkRequestService()
             networkRequestService.configure(withRequestCompletion: requestCompletion, requestFailedClosure: self!.presentErrorAlert)
-            networkRequestService.requestJSONDictionary(withURLRequest: request, isUdacityLoginLogout: true)
+            networkRequestService.requestJSONDictionary(withURLRequest: request as URLRequest, isUdacityLoginLogout: true)
         }
         presentActivityIndicator(aiPresented)
     }
