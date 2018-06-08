@@ -18,7 +18,7 @@ final class NetworkRequestService {
         presentErrorAlert   = requestFailed
     }
     
-    internal func requestJSONDictionary(withURLRequest request: NSMutableURLRequest, isUdacityLoginLogout uLoginLogout: Bool = false) {
+    internal func requestJSONDictionary(withURLRequest request: URLRequest, isUdacityLoginLogout uLoginLogout: Bool = false) {
         
         /// Check to see if connected to the internet first...
         if !Reachability.isConnectedToNetwork() {
