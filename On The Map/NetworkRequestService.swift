@@ -22,7 +22,7 @@ final class NetworkRequestService {
         
         /// Check to see if connected to the internet first...
         if !Reachability.isConnectedToNetwork() {
-            presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.noInternetConnection, message: LocalizedStrings.AlertMessages.connectToInternet))
+            presentErrorAlert((title: LocalizedStrings.AlertTitles.noInternetConnection, message: LocalizedStrings.AlertMessages.connectToInternet))
         }
         
         
@@ -32,7 +32,7 @@ final class NetworkRequestService {
             
             guard var data = data, let response = response, error == nil else {
                 DispatchQueue.main.async {
-                    self.presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.error, message: error!.localizedDescription))
+                    self.presentErrorAlert((title: LocalizedStrings.AlertTitles.error, message: error!.localizedDescription))
                 }
                 return
             }

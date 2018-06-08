@@ -11,7 +11,7 @@ import UIKit
 
 final class InformationPostingService: StudentLocationRequestable {
     
-    fileprivate var presentActivityIndicator: ((_ completion: (() -> Void)?) -> Void)!
+    fileprivate var presentActivityIndicator: (((() -> Void)?) -> Void)!
     fileprivate var dismissActivityIndicator: (() -> Void)!
     fileprivate var submitSuccessfulClosure: (() -> Void)!
     fileprivate var presentErrorAlert: AlertPresentation!
@@ -128,7 +128,7 @@ final class InformationPostingService: StudentLocationRequestable {
     fileprivate func parsePostResponse(_ jsonDictionary: NSDictionary) {
         
         guard let _ = jsonDictionary[Constants.Keys.createdAt] as? String else {
-            presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.locationCreationError, message: LocalizedStrings.AlertMessages.pleaseTryAddingLocationAgain))
+            presentErrorAlert((title: LocalizedStrings.AlertTitles.locationCreationError, message: LocalizedStrings.AlertMessages.pleaseTryAddingLocationAgain))
             return
         }
         submitSuccessfulClosure()

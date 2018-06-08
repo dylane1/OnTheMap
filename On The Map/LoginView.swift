@@ -299,10 +299,10 @@ extension LoginView: UITextFieldDelegate {
 //MARK: - FBSDKLoginButtonDelegate
 extension LoginView: FBSDKLoginButtonDelegate {
     
-    internal func loginButton(_ loginButton: FBSDKLoginButton, didCompleteWith result: FBSDKLoginManagerLoginResult, error: NSError?) {
+    internal func loginButton(_ loginButton: FBSDKLoginButton, didCompleteWith result: FBSDKLoginManagerLoginResult, error: Error?) {
         
         if error != nil {
-            presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.loginError, message: error!.localizedDescription))
+            presentErrorAlert((title: LocalizedStrings.AlertTitles.loginError, message: error!.localizedDescription))
             return
         }
         initiateLogin(withFacebookToken: result.token)

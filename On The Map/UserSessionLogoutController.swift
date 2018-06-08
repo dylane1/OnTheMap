@@ -11,7 +11,7 @@ import FBSDKLoginKit
 
 final class UserSessionLogoutController {
     
-    fileprivate var presentActivityIndicator: ((_ completion: (() -> Void)?) -> Void)!
+    fileprivate var presentActivityIndicator: (((() -> Void)?) -> Void)!
     fileprivate var logoutSuccessClosure: (() -> Void)!
     fileprivate var presentErrorAlert: AlertPresentation!
     
