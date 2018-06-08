@@ -88,7 +88,7 @@ final class LoginValidator {
                 guard let statusCode = jsonDictionary[Constants.Keys.status] as? Int,
                     let error = jsonDictionary[Constants.Keys.error] as? String else {
                         
-                        presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.loginError, message: LocalizedStrings.AlertMessages.unknownLoginError))
+                        presentErrorAlert((title: LocalizedStrings.AlertTitles.loginError, message: LocalizedStrings.AlertMessages.unknownLoginError))
                         
                         return
                 }
@@ -113,7 +113,7 @@ final class LoginValidator {
                     /// Something else
                     messageString = LocalizedStrings.AlertMessages.serverResponded + "\n\(error)"
                 }
-                presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.loginError, message: messageString))
+                presentErrorAlert((title: LocalizedStrings.AlertTitles.loginError, message: messageString))
                 return
         }
         /// Made it through with a valid account
@@ -123,7 +123,7 @@ final class LoginValidator {
     fileprivate func parsePublicUserDataJSON(_ jsonDictionary: NSDictionary, userKey key: String) {
         
         guard let userDictionary = jsonDictionary[Constants.Keys.user] as? NSDictionary else {
-            presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.userInfoError, message: LocalizedStrings.AlertMessages.userInfoError))
+            presentErrorAlert((title: LocalizedStrings.AlertTitles.userInfoError, message: LocalizedStrings.AlertMessages.userInfoError))
             return
         }
         

@@ -60,7 +60,7 @@ final class InformationPostingService: StudentLocationRequestable {
         
         guard let resultArray = jsonDictionary[Constants.Keys.results] as? NSArray,
             let infoDict = resultArray[0] as? NSDictionary else {
-                presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.locationSearchError, message: LocalizedStrings.AlertMessages.pleaseTrySearchAgain))
+                presentErrorAlert((title: LocalizedStrings.AlertTitles.locationSearchError, message: LocalizedStrings.AlertMessages.pleaseTrySearchAgain))
                 return
         }
         
@@ -137,7 +137,7 @@ final class InformationPostingService: StudentLocationRequestable {
     fileprivate func parseUpdateResponse(_ jsonDictionary: NSDictionary) {
         
         guard let _ = jsonDictionary[Constants.Keys.updatedAt] as? String else {
-            presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.locationUpdateError, message: LocalizedStrings.AlertMessages.pleaseTryUpdateAgain))
+            presentErrorAlert((title: LocalizedStrings.AlertTitles.locationUpdateError, message: LocalizedStrings.AlertMessages.pleaseTryUpdateAgain))
             return
         }
         submitSuccessfulClosure()

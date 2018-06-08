@@ -76,12 +76,12 @@ final class UserSessionLogoutController {
                 
                 guard let statusCode = jsonDictionary[Constants.Keys.status] as? Int,
                     let _ = jsonDictionary[Constants.Keys.error] as? String else {
-                        presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.logoutError, message: LocalizedStrings.AlertMessages.unknownLogoutError))
+                        presentErrorAlert((title: LocalizedStrings.AlertTitles.logoutError, message: LocalizedStrings.AlertMessages.unknownLogoutError))
                         return
                 }
                 let messageString = LocalizedStrings.AlertMessages.serverResponded + "\n\(statusCode): \(HTTPURLResponse.localizedString(forStatusCode: statusCode))"
                 
-                presentErrorAlert(alertParameters: (title: LocalizedStrings.AlertTitles.logoutError, message: messageString))
+                presentErrorAlert((title: LocalizedStrings.AlertTitles.logoutError, message: messageString))
                 return
         }
         logoutSuccessClosure()

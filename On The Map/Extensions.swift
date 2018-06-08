@@ -26,7 +26,7 @@ extension String {
         }
         
         /// Test for valid scheme
-        if !(["http", "https"].contains(url.scheme?.lowercased())!!!!!!) {
+        if !(["http", "https"].contains(url.scheme?.lowercased())) {
             let appendedLink = "http://" + trimmedString
             url = URL(string: appendedLink)!
         }
