@@ -45,7 +45,7 @@ final class NetworkRequestService {
             
             if uLoginLogout {
 //                data = data.subdata(in: NSMakeRange(5, data.count - 5))
-                data = data.subdata(in: 5..<(data.count - 5))
+                data = data.subdata(in: 5..<data.count)
             }
             
             do {
@@ -56,7 +56,8 @@ final class NetworkRequestService {
                     self.requestCompletion?(jsonDictionary)
                 }
             }catch {
-                fatalError("Not a JSON Dictionary :[")
+                magic("Not a JSON Dictionary :[")
+//                fatalError("Not a JSON Dictionary :[")
             }
         }) 
         task.resume()
