@@ -124,7 +124,7 @@ final class OverlayTransitioningDelegate: NSObject, UIViewControllerTransitionin
         
         return OverlayPresentationController(
             presentedViewController: presented,
-            presentingViewController: presenting!,
+            presentingViewController: presenting,
             preferredContentSize: preferredContentSize,
             dimmingBGColor: dimmingBGColor,
             tapToDismiss: tapToDismiss,
