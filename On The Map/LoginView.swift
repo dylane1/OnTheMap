@@ -51,7 +51,6 @@ class LoginView: UIView {
     @IBAction func loginAction(_ sender: AnyObject) {
         let emailLogin = (email: emailString, password: passwordString)
         loginValidator.login(withEmailAndPassword: emailLogin)
-        
         initiateLogin(withEmailAndPassword: emailLogin)
     }
     

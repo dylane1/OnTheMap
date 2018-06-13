@@ -38,16 +38,15 @@ final class LoginValidator {
     //MARK: - Perform network requests
     
     internal func login(withEmailAndPassword loginTuple:(email: String, password: String)? = nil, withFacebookToken token: FBSDKAccessToken? = nil) {
-        
         let aiPresented = { [unowned self] in
             var request = URLRequest(url: URL(string: Constants.Network.udacitySessionURL)!)
-            
+
             request.httpMethod = Constants.HTTPMethods.post
             request.addValue(Constants.HTTPHeaderFieldValues.applicationJSON, forHTTPHeaderField: Constants.HTTPHeaderFields.accept)
             request.addValue(Constants.HTTPHeaderFieldValues.applicationJSON, forHTTPHeaderField: Constants.HTTPHeaderFields.contentType)
             
             if loginTuple != nil {
-                request.httpBody = "{\"udacity\": {\"username\": \"\(loginTuple!.email)\", \"password\": \"\(loginTuple!.password)\"}}".data(using: String.Encoding.utf8)
+                request.httpBody = "{\"udacity\": {\"username\": \"\(loginTuple!.email)\", \"password\": \"\(loginTuple!.password)\"}}".data(using: .utf8)
             } else if token != nil {
                 request.httpBody = "{\"facebook_mobile\": {\"access_token\": \"\(token!.tokenString);\"}}".data(using: String.Encoding.utf8)
             } else {
@@ -117,6 +116,7 @@ final class LoginValidator {
                 return
         }
         /// Made it through with a valid account
+        magic("got it")
         getPublicUserData(withAccountDict: accountDictionary)
     }
     
