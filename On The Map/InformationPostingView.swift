@@ -196,7 +196,8 @@ class InformationPostingView: UIView, StudentLocationRequestable {
         presentActivityIndicator(nil)
         
         let geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(mapString, completionHandler: { (placemarks: [CLPlacemark]?, error: NSError?) -> Void in
+        geocoder.geocodeAddressString(mapString, completionHandler: { (placemarks: [CLPlacemark]?, error: Error?) -> Void in
+            magic("error: \(error?.localizedDescription)")
             if error != nil {
                 self.isValidLocation = false
                 self.presentErrorAlert((title: LocalizedStrings.AlertTitles.locationSearchError, message: LocalizedStrings.AlertMessages.pleaseTrySearchAgain))
@@ -206,7 +207,7 @@ class InformationPostingView: UIView, StudentLocationRequestable {
                 self.placemarks         = placemarks
                 self.dismissActivityIndicator()
             }
-        } as! CLGeocodeCompletionHandler)
+        })
     }
     
     fileprivate func showLocationOnMap() {
