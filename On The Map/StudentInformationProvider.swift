@@ -63,7 +63,6 @@ final class StudentInformationProvider: StudentLocationRequestable {
     //MARK: - Parse results
     
     fileprivate func parseStudentInformation(_ jsonDictionary: NSDictionary) {
-        
         guard let studentInformationJSON = jsonDictionary[Constants.Keys.results] as? [NSDictionary] else {
             presentErrorAlert((title: LocalizedStrings.AlertTitles.studentLocationsError, message: jsonDictionary[Constants.Keys.error] as! String))
             
