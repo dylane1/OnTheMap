@@ -116,7 +116,7 @@ extension StudentLocationMapContainerView: MKMapViewDelegate {
         if mapRendered { return }
         mapRendered = true
         preloadedMapImage.alpha = 0.0
-        placeAnnotations()
+        //placeAnnotations()
     }
 
     
